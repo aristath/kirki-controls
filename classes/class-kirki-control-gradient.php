@@ -142,7 +142,7 @@ class Kirki_Control_Gradient extends WP_Customize_Control {
 	 */
 	public function enqueue_scripts() {
 
-		wp_enqueue_script( 'wp-color-picker-alpha', trailingslashit( Kirki::$url ) . 'assets/vendor/wp-color-picker-alpha/wp-color-picker-alpha.js', array( 'wp-color-picker' ), '1.2', true );
+		wp_enqueue_script( 'wp-color-picker-alpha', trailingslashit( Kirki::$url ) . 'controls/assets/vendor/wp-color-picker-alpha/wp-color-picker-alpha.js', array( 'wp-color-picker' ), '1.2', true );
 		wp_enqueue_script( 'kirki-dynamic-control', trailingslashit( Kirki::$url ) . 'controls/assets/js/dynamic-control.js', array( 'jquery', 'customize-base' ), false, true );
 		wp_enqueue_script( 'kirki-gradient', trailingslashit( Kirki::$url ) . 'controls/assets/js/gradient.js', array( 'jquery', 'customize-base', 'kirki-dynamic-control', 'wp-color-picker-alpha' ), false, true );
 		wp_enqueue_style( 'kirki-gradient-css', trailingslashit( Kirki::$url ) . 'controls/assets/css/gradient.css', null );
