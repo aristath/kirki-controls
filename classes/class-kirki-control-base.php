@@ -14,7 +14,7 @@
 /**
  * A base for controls.
  */
-class Kirki_Control_Base extends Kirki_Control_Base {
+class Kirki_Control_Base extends WP_Customize_Control {
 
 	/**
 	 * Used to automatically generate all CSS output.
