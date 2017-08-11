@@ -60,9 +60,9 @@ class Kirki_Control_Editor extends WP_Customize_Control {
 	 */
 	public function enqueue() {
 
-		wp_enqueue_script( 'kirki-dynamic-control', trailingslashit( Kirki::$url ) . 'assets/js/dynamic-control.js', array( 'jquery', 'customize-base' ), false, true );
-		wp_enqueue_script( 'kirki-editor', trailingslashit( Kirki::$url ) . 'controls/editor/editor.js', array( 'jquery', 'customize-base', 'kirki-dynamic-control' ), false, true );
-		wp_enqueue_style( 'kirki-editor-css', trailingslashit( Kirki::$url ) . 'controls/editor/editor.css', null );
+		wp_enqueue_script( 'kirki-dynamic-control', trailingslashit( Kirki::$url ) . 'controls/assets/js/dynamic-control.js', array( 'jquery', 'customize-base' ), false, true );
+		wp_enqueue_script( 'kirki-editor', trailingslashit( Kirki::$url ) . 'controls/assets/js/editor.js', array( 'jquery', 'customize-base', 'kirki-dynamic-control' ), false, true );
+		wp_enqueue_style( 'kirki-editor-css', trailingslashit( Kirki::$url ) . 'controls/assets/css/editor.css', null );
 		wp_localize_script( 'kirki-editor', 'editorKirkiL10n', array(
 			'open-editor'   => esc_attr__( 'Open Editor', 'kirki' ),
 			'close-editor'  => esc_attr__( 'Close Editor', 'kirki' ),

@@ -50,9 +50,9 @@ class Kirki_Control_Switch extends WP_Customize_Control {
 	 */
 	public function enqueue() {
 
-		wp_enqueue_script( 'kirki-dynamic-control', trailingslashit( Kirki::$url ) . 'assets/js/dynamic-control.js', array( 'jquery', 'customize-base' ), false, true );
-		wp_enqueue_script( 'kirki-switch', trailingslashit( Kirki::$url ) . 'controls/switch/switch.js', array( 'jquery', 'customize-base', 'kirki-dynamic-control' ), false, true );
-		wp_enqueue_style( 'kirki-switch-css', trailingslashit( Kirki::$url ) . 'controls/switch/switch.css', null );
+		wp_enqueue_script( 'kirki-dynamic-control', trailingslashit( Kirki::$url ) . 'controls/assets/js/dynamic-control.js', array( 'jquery', 'customize-base' ), false, true );
+		wp_enqueue_script( 'kirki-switch', trailingslashit( Kirki::$url ) . 'controls/assets/js/switch.js', array( 'jquery', 'customize-base', 'kirki-dynamic-control' ), false, true );
+		wp_enqueue_style( 'kirki-switch-css', trailingslashit( Kirki::$url ) . 'controls/assets/css/switch.css', null );
 	}
 
 	/**

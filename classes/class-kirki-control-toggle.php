@@ -50,9 +50,9 @@ class Kirki_Control_Toggle extends WP_Customize_Control {
 	 */
 	public function enqueue() {
 
-		wp_enqueue_script( 'kirki-dynamic-control', trailingslashit( Kirki::$url ) . 'assets/js/dynamic-control.js', array( 'jquery', 'customize-base' ), false, true );
-		wp_enqueue_script( 'kirki-toggle', trailingslashit( Kirki::$url ) . 'controls/toggle/toggle.js', array( 'jquery', 'customize-base', 'kirki-dynamic-control' ), false, true );
-		wp_enqueue_style( 'kirki-toggle-css', trailingslashit( Kirki::$url ) . 'controls/toggle/toggle.css', null );
+		wp_enqueue_script( 'kirki-dynamic-control', trailingslashit( Kirki::$url ) . 'controls/assets/js/dynamic-control.js', array( 'jquery', 'customize-base' ), false, true );
+		wp_enqueue_script( 'kirki-toggle', trailingslashit( Kirki::$url ) . 'controls/assets/js/toggle.js', array( 'jquery', 'customize-base', 'kirki-dynamic-control' ), false, true );
+		wp_enqueue_style( 'kirki-toggle-css', trailingslashit( Kirki::$url ) . 'controls/assets/css/toggle.css', null );
 	}
 
 	/**
