@@ -19,7 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Slider control (range).
  */
-class Kirki_Control_Slider extends WP_Customize_Control {
+class Kirki_Control_Slider extends Kirki_Control_Base {
 
 	/**
 	 * The control type.

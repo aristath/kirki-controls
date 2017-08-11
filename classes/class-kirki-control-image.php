@@ -12,7 +12,7 @@
 /**
  * Adds the image control.
  */
-class Kirki_Control_Image extends WP_Customize_Control {
+class Kirki_Control_Image extends Kirki_Control_Base {
 
 	/**
 	 * The control type.

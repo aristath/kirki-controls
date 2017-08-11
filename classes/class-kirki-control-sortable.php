@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Sortable control (uses checkboxes).
  */
-class Kirki_Control_Sortable extends WP_Customize_Control {
+class Kirki_Control_Sortable extends Kirki_Control_Base {
 
 	/**
 	 * The control type.

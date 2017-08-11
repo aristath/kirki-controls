@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Typography control.
  */
-class Kirki_Control_Typography extends WP_Customize_Control {
+class Kirki_Control_Typography extends Kirki_Control_Base {
 
 	/**
 	 * The control type.

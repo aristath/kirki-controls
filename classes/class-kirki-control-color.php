@@ -19,7 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * @see https://github.com/23r9i0/wp-color-picker-alpha
  */
-class Kirki_Control_Color extends WP_Customize_Control {
+class Kirki_Control_Color extends Kirki_Control_Base {
 
 	/**
 	 * The control type.

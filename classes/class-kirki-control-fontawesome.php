@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Select control.
  */
-class Kirki_Control_FontAwesome extends WP_Customize_Control {
+class Kirki_Control_FontAwesome extends Kirki_Control_Base {
 
 	/**
 	 * The control type.

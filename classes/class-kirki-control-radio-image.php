@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Radio Image control (modified radio).
  */
-class Kirki_Control_Radio_Image extends WP_Customize_Control {
+class Kirki_Control_Radio_Image extends Kirki_Control_Base {
 
 	/**
 	 * The control type.

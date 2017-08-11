@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Palette control (modified radio).
  */
-class Kirki_Control_Palette extends WP_Customize_Control {
+class Kirki_Control_Palette extends Kirki_Control_Base {
 
 	/**
 	 * The control type.

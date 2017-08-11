@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Dashicons control (modified radio).
  */
-class Kirki_Control_Dashicons extends WP_Customize_Control {
+class Kirki_Control_Dashicons extends Kirki_Control_Base {
 
 	/**
 	 * The control type.

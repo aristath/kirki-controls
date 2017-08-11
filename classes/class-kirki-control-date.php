@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * A simple date control, using jQuery UI.
  */
-class Kirki_Control_Date extends WP_Customize_Control {
+class Kirki_Control_Date extends Kirki_Control_Base {
 
 	/**
 	 * The control type.

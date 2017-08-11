@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Preset control (modified select).
  */
-class Kirki_Control_Preset extends WP_Customize_Control {
+class Kirki_Control_Preset extends Kirki_Control_Base {
 
 	/**
 	 * The control type.

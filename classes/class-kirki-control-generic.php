@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * A generic and pretty abstract control.
  * Allows for great manipulation using the field's "choices" argumnent.
  */
-class Kirki_Control_Generic extends WP_Customize_Control {
+class Kirki_Control_Generic extends Kirki_Control_Base {
 
 	/**
 	 * The control type.

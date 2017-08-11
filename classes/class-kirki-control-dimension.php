@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * A text control with validation for CSS units.
  */
-class Kirki_Control_Dimension extends WP_Customize_Control {
+class Kirki_Control_Dimension extends Kirki_Control_Base {
 
 	/**
 	 * The control type.

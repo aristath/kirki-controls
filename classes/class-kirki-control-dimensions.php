@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Dimensions control.
  * multiple fields with CSS units validation.
  */
-class Kirki_Control_Dimensions extends WP_Customize_Control {
+class Kirki_Control_Dimensions extends Kirki_Control_Base {
 
 	/**
 	 * The control type.

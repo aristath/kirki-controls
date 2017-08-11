@@ -20,7 +20,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Adds a multicheck control.
  */
-class Kirki_Control_MultiCheck extends WP_Customize_Control {
+class Kirki_Control_MultiCheck extends Kirki_Control_Base {
 
 	/**
 	 * The control type.

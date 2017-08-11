@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Multicolor control.
  */
-class Kirki_Control_Multicolor extends WP_Customize_Control {
+class Kirki_Control_Multicolor extends Kirki_Control_Base {
 
 	/**
 	 * The control type.

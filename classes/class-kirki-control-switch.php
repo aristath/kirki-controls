@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Switch control (modified checkbox).
  */
-class Kirki_Control_Switch extends WP_Customize_Control {
+class Kirki_Control_Switch extends Kirki_Control_Base {
 
 	/**
 	 * The control type.

@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Radio control
  */
-class Kirki_Control_Radio extends WP_Customize_Control {
+class Kirki_Control_Radio extends Kirki_Control_Base {
 
 	/**
 	 * The control type.

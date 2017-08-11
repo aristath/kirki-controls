@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Adds a color-palette control.
  * This is essentially a radio control, styled as a palette.
  */
-class Kirki_Control_Color_Palette extends WP_Customize_Control {
+class Kirki_Control_Color_Palette extends Kirki_Control_Base {
 
 	/**
 	 * The control type.

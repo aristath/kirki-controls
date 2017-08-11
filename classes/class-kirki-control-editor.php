@@ -19,7 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * A TinyMCE control.
  */
-class Kirki_Control_Editor extends WP_Customize_Control {
+class Kirki_Control_Editor extends Kirki_Control_Base {
 
 	/**
 	 * The control type.

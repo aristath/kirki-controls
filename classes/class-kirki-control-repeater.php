@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Repeater control
  */
-class Kirki_Control_Repeater extends WP_Customize_Control {
+class Kirki_Control_Repeater extends Kirki_Control_Base {
 
 	/**
 	 * The control type.

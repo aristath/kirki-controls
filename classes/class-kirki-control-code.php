@@ -20,7 +20,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Adds a "code" control, using CodeMirror.
  */
-class Kirki_Control_Code extends WP_Customize_Control {
+class Kirki_Control_Code extends Kirki_Control_Base {
 
 	/**
 	 * The control type.
