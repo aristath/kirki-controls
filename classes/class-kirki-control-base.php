@@ -33,6 +33,14 @@ class Kirki_Control_Base extends WP_Customize_Control {
 	public $option_type = 'theme_mod';
 
 	/**
+	 * The kirki_config we're using for this control
+	 *
+	 * @access public
+	 * @var string
+	 */
+	public $kirki_config = 'global';
+
+	/**
 	 * Enqueue control related scripts/styles.
 	 *
 	 * @access public

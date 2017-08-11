@@ -1,3 +1,4 @@
+/* global dimensionskirkiL10n */
 wp.customize.controlConstructor['kirki-dimensions'] = wp.customize.kirkiDynamicControl.extend({
 
 	initKirkiControl: function() {
@@ -7,6 +8,8 @@ wp.customize.controlConstructor['kirki-dimensions'] = wp.customize.kirkiDynamicC
 		    value       = {},
 		    subsArray   = [],
 		    i;
+
+		control.container.html( control.getHTML() );
 
 		_.each( subControls, function( v, i ) {
 			if ( true === v ) {
@@ -18,6 +21,44 @@ wp.customize.controlConstructor['kirki-dimensions'] = wp.customize.kirkiDynamicC
 			value[ subsArray[ i ] ] = control.setting._value[ subsArray[ i ] ];
 			control.updateDimensionsValue( subsArray[ i ], value );
 		}
+	},
+
+	/**
+	 * Gets the HTML for this control.
+	 */
+	getHTML: function() {
+		var control = this,
+		    html    = '';
+
+		control.params = _.defaults( control.params, {
+			label: '',
+			description: '',
+			'default': {},
+			choices: {},
+			value: {}
+		});
+
+		html += '<label>';
+		html += '<span class="customize-control-title">' + control.params.label + '</span>';
+		html += '<span class="description customize-control-description">' + control.params.description + '</span>';
+		html += '<div class="wrapper"><div class="control">';
+		_.each( control.params['default'], function( choiceVal, choiceKey ) {
+			html += '<div class="' + choiceKey + '">';
+			html += '<h5>';
+			if ( ! _.isUndefined( control.params.choices.labels ) && ! _.isUndefined( control.params.choices.labels[ choiceKey ] ) ) {
+				html += control.params.choices.labels[ choiceKey ];
+			} else if ( ! _.isUndefined( dimensionskirkiL10n[ choiceKey ] ) ) {
+				html += dimensionskirkiL10n[ choiceKey ];
+			} else {
+				html += choiceKey;
+			}
+			html += '</h5>';
+			html += '<div class="' + choiceKey + ' input-wrapper">' + '<input type="text" value="' + control.params.value[ choiceKey ].replace( '%%', '%' ) + '"/></div>';
+			html += '</div>';
+		});
+		html += '</div></div></label>';
+
+		return html;
 	},
 
 	/**
