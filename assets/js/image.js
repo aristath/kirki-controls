@@ -8,8 +8,7 @@ wp.customize.controlConstructor['kirki-image'] = wp.customize.kirkiDynamicContro
 		    preview,
 		    previewImage,
 		    removeButton,
-		    defaultButton,
-			url;
+		    defaultButton;
 
 		control.addHTML();
 
@@ -139,7 +138,9 @@ wp.customize.controlConstructor['kirki-image'] = wp.customize.kirkiDynamicContro
 
 	addHTML: function() {
 		var control = this,
-		    html = '';
+		    html = '',
+		    saveAs,
+		    url;
 
 		saveAs = ( ! _.isUndefined( control.params.choices ) && ! _.isUndefined( control.params.choices.save_as ) ) ? control.params.choices.save_as : 'url';
 

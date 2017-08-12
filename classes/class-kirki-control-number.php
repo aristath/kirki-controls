@@ -37,11 +37,6 @@ class Kirki_Control_Number extends Kirki_Control_Base {
 		wp_enqueue_script( 'kirki-dynamic-control', Kirki_Controls_Bootstrap::get_url( 'assets/js/dynamic-control.js' ), array( 'jquery', 'customize-base' ), false, true );
 		wp_enqueue_script( 'kirki-number', Kirki_Controls_Bootstrap::get_url( 'assets/js/number.js' ), array( 'jquery', 'customize-base', 'kirki-dynamic-control', 'jquery-ui-button', 'jquery-ui-spinner' ), false, true );
 		wp_enqueue_style( 'kirki-styles', Kirki_Controls_Bootstrap::get_url( 'assets/styles.css' ), null );
-		wp_localize_script( 'kirki-number', 'numberKirkiL10n', array(
-			'min-error'  => esc_attr__( 'Value lower than allowed minimum', 'kirki' ),
-			'max-error'  => esc_attr__( 'Value higher than allowed maximum', 'kirki' ),
-			'step-error' => esc_attr__( 'Invalid Value', 'kirki' ),
-		) );
 	}
 
 	/**
@@ -64,5 +59,20 @@ class Kirki_Control_Number extends Kirki_Control_Base {
 			</div>
 		</label>
 		<?php
+	}
+
+	/**
+	 * Returns an array of translation strings.
+	 *
+	 * @access protected
+	 * @since 3.0.0
+	 * @return array
+	 */
+	protected function l10n() {
+		return array(
+			'minError'  => esc_attr__( 'Value lower than allowed minimum', 'kirki' ),
+			'maxError'  => esc_attr__( 'Value higher than allowed maximum', 'kirki' ),
+			'stepError' => esc_attr__( 'Invalid Value', 'kirki' ),
+		);
 	}
 }

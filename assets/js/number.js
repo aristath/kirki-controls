@@ -46,17 +46,17 @@ wp.customize.controlConstructor['kirki-number'] = wp.customize.kirkiDynamicContr
 				value = Number( value );
 
 				if ( false !== min && value < min ) {
-					invalid = 'min-error';
+					invalid = 'minError';
 				} else if ( false !== max && value > max ) {
-					invalid = 'max-error';
+					invalid = 'maxError';
 				} else if ( false !== step && false !== min && ! Number.isInteger( ( value - min ) / step ) ) {
-					invalid = 'step-error';
+					invalid = 'stepError';
 				}
 
 				if ( false !== invalid ) {
 					setting.notifications.add( code, new wp.customize.Notification( code, {
 						type: 'warning',
-						message: numberKirkiL10n[ invalid ]
+						message: control.params.l10n[ invalid ]
 					} ) );
 				} else {
 					setting.notifications.remove( code );

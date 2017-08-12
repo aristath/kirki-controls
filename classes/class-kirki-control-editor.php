@@ -30,18 +30,18 @@ class Kirki_Control_Editor extends Kirki_Control_Base {
 	public $type = 'kirki-editor';
 
 	/**
-	 * Enqueue control related scripts/styles.
+	 * Returns an array of translation strings.
 	 *
-	 * @access public
+	 * @access protected
+	 * @since 3.0.0
+	 * @return array
 	 */
-	public function enqueue() {
-
-		parent::enqueue();
-		wp_localize_script( 'kirki-editor', 'editorKirkiL10n', array(
-			'open-editor'   => esc_attr__( 'Open Editor', 'kirki' ),
-			'close-editor'  => esc_attr__( 'Close Editor', 'kirki' ),
-			'switch-editor' => esc_attr__( 'Switch Editor', 'kirki' ),
-		) );
+	protected function l10n() {
+		return array(
+			'openEditor'   => esc_attr__( 'Open Editor', 'kirki' ),
+			'closeEditor'  => esc_attr__( 'Close Editor', 'kirki' ),
+			'switchEditor' => esc_attr__( 'Switch Editor', 'kirki' ),
+		);
 	}
 
 	/**

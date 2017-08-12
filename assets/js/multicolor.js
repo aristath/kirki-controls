@@ -7,12 +7,7 @@ wp.customize.controlConstructor['kirki-multicolor'] = wp.customize.Control.exten
 
 		var control = this;
 
-		// Init the control.
-		if ( ! _.isUndefined( window.kirkiControlLoader ) && _.isFunction( kirkiControlLoader ) ) {
-			kirkiControlLoader( control );
-		} else {
-			control.initKirkiControl();
-		}
+		control.initKirkiControl();
 	},
 
 	initKirkiControl: function() {

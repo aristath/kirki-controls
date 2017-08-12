@@ -8,11 +8,7 @@ wp.customize.controlConstructor['kirki-sortable'] = wp.customize.Control.extend(
 		var control = this;
 
 		// Init the control.
-		if ( ! _.isUndefined( window.kirkiControlLoader ) && _.isFunction( kirkiControlLoader ) ) {
-			kirkiControlLoader( control );
-		} else {
-			control.initKirkiControl();
-		}
+		control.initKirkiControl();
 	},
 
 	initKirkiControl: function() {

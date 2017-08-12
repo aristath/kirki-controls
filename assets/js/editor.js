@@ -1,3 +1,4 @@
+/* global tinyMCE */
 wp.customize.controlConstructor['kirki-editor'] = wp.customize.kirkiDynamicControl.extend({
 
 	initKirkiControl: function() {
@@ -11,7 +12,7 @@ wp.customize.controlConstructor['kirki-editor'] = wp.customize.kirkiDynamicContr
 		    content;
 
 		// Add the button text
-		toggler.html( editorKirkiL10n['open-editor'] );
+		toggler.html( control.params.l10n.openEditor );
 
 		toggler.on( 'click', function() {
 
@@ -59,14 +60,14 @@ wp.customize.controlConstructor['kirki-editor'] = wp.customize.kirkiDynamicContr
 
 		// Reset all editor buttons.
 		// Necessary if we have multiple editor fields.
-		jQuery( '.customize-control-kirki-editor .toggle-editor' ).html( editorKirkiL10n['switch-editor'] );
+		jQuery( '.customize-control-kirki-editor .toggle-editor' ).html( control.params.l10n.switchEditor );
 
 		// Change the button text & color.
 		if ( false !== control.getEditorWrapperSetting() ) {
-			jQuery( '.customize-control-kirki-editor .toggle-editor' ).html( editorKirkiL10n['switch-editor'] );
-			jQuery( '#customize-control-' + control.getEditorWrapperSetting() + ' .toggle-editor' ).html( editorKirkiL10n['close-editor'] );
+			jQuery( '.customize-control-kirki-editor .toggle-editor' ).html( control.params.l10n.switchEditor );
+			jQuery( '#customize-control-' + control.getEditorWrapperSetting() + ' .toggle-editor' ).html( control.params.l10n.closeEditor );
 		} else {
-			jQuery( '.customize-control-kirki-editor .toggle-editor' ).html( editorKirkiL10n['open-editor'] );
+			jQuery( '.customize-control-kirki-editor .toggle-editor' ).html( control.params.l10n.openEditor );
 		}
 	},
 
