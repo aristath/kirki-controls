@@ -28,15 +28,14 @@ class Kirki_Control_Number extends Kirki_Control_Base {
 	public $type = 'kirki-number';
 
 	/**
-	 * Enqueue control related scripts/styles.
+	 * Returns an array of extra field dependencies for Kirki controls.
 	 *
-	 * @access public
+	 * @access protected
+	 * @since 3.0.10
+	 * @return array
 	 */
-	public function enqueue() {
-
-		wp_enqueue_script( 'kirki-dynamic-control', Kirki_Controls_Bootstrap::get_url( 'assets/js/dynamic-control.js' ), array( 'jquery', 'customize-base' ), false, true );
-		wp_enqueue_script( 'kirki-number', Kirki_Controls_Bootstrap::get_url( 'assets/js/number.js' ), array( 'jquery', 'customize-base', 'kirki-dynamic-control', 'jquery-ui-button', 'jquery-ui-spinner' ), false, true );
-		wp_enqueue_style( 'kirki-styles', Kirki_Controls_Bootstrap::get_url( 'assets/styles.css' ), null );
+	protected function kirki_script_dependencies() {
+		return array( 'jquery-ui-button', 'jquery-ui-spinner' );
 	}
 
 	/**

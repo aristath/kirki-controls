@@ -84,16 +84,26 @@ class Kirki_Control_Multicolor extends Kirki_Control_Base {
 	}
 
 	/**
+	 * Returns an array of extra field dependencies for Kirki controls.
+	 *
+	 * @access protected
+	 * @since 3.0.10
+	 * @return array
+	 */
+	protected function kirki_script_dependencies() {
+		return array( 'wp-color-picker-alpha' );
+	}
+
+	/**
 	 * Enqueue control related scripts/styles.
 	 *
 	 * @access public
 	 */
-	public function enqueue_scripts() {
+	public function enqueue() {
 
 		wp_enqueue_script( 'wp-color-picker-alpha', Kirki_Controls_Bootstrap::get_url( 'assets/vendor/wp-color-picker-alpha/wp-color-picker-alpha.js' ), array( 'wp-color-picker' ), '1.2', true );
-		wp_enqueue_script( 'kirki-multicolor', Kirki_Controls_Bootstrap::get_url( 'assets/js/multicolor.js' ), array( 'jquery', 'customize-base', 'wp-color-picker-alpha' ), false, true );
-		wp_enqueue_style( 'kirki-styles', Kirki_Controls_Bootstrap::get_url( 'assets/styles.css' ), null );
 		wp_enqueue_style( 'wp-color-picker' );
+		parent::enqueue();
 	}
 
 	/**

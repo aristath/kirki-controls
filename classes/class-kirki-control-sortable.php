@@ -28,14 +28,14 @@ class Kirki_Control_Sortable extends Kirki_Control_Base {
 	public $type = 'kirki-sortable';
 
 	/**
-	 * Enqueue control related scripts/styles.
+	 * Returns an array of extra field dependencies for Kirki controls.
 	 *
-	 * @access public
+	 * @access protected
+	 * @since 3.0.10
+	 * @return array
 	 */
-	public function enqueue() {
-
-		wp_enqueue_script( 'kirki-sortable', Kirki_Controls_Bootstrap::get_url( 'assets/js/sortable.js' ), array( 'jquery', 'customize-base', 'jquery-ui-core', 'jquery-ui-sortable' ), false, true );
-		wp_enqueue_style( 'kirki-styles', Kirki_Controls_Bootstrap::get_url( 'assets/styles.css' ), null );
+	protected function kirki_script_dependencies() {
+		return array( 'jquery-ui-core', 'jquery-ui-sortable' );
 	}
 
 	/**

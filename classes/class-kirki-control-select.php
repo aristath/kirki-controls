@@ -37,15 +37,23 @@ class Kirki_Control_Select extends Kirki_Control_Base {
 	public $multiple = 1;
 
 	/**
+	 * Returns an array of extra field dependencies for Kirki controls.
+	 *
+	 * @access protected
+	 * @since 3.0.10
+	 * @return array
+	 */
+	protected function kirki_script_dependencies() {
+		return array( 'select2' );
+	}
+
+	/**
 	 * Enqueue control related scripts/styles.
 	 *
 	 * @access public
 	 */
 	public function enqueue() {
 
-		wp_enqueue_script( 'kirki-dynamic-control', Kirki_Controls_Bootstrap::get_url( 'assets/js/dynamic-control.js' ), array( 'jquery', 'customize-base' ), false, true );
-		wp_enqueue_script( 'kirki-select', Kirki_Controls_Bootstrap::get_url( 'assets/js/select.js' ), array( 'jquery', 'customize-base', 'kirki-dynamic-control', 'select2', 'jquery-ui-sortable' ), false, true );
-		wp_enqueue_style( 'kirki-styles', Kirki_Controls_Bootstrap::get_url( 'assets/styles.css' ), null );
 		wp_enqueue_script( 'select2', Kirki_Controls_Bootstrap::get_url( 'assets/vendor/select2/js/select2.full.js' ), array( 'jquery' ), '4.0.3', true );
 		wp_enqueue_style( 'select2', Kirki_Controls_Bootstrap::get_url( 'assets/vendor/select2/css/select2.css' ), array(), '4.0.3' );
 	}

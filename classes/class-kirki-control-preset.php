@@ -28,16 +28,25 @@ class Kirki_Control_Preset extends Kirki_Control_Base {
 	public $type = 'kirki-preset';
 
 	/**
+	 * Returns an array of extra field dependencies for Kirki controls.
+	 *
+	 * @access protected
+	 * @since 3.0.10
+	 * @return array
+	 */
+	protected function kirki_script_dependencies() {
+		return array( 'kirki-set-setting-value' );
+	}
+
+	/**
 	 * Enqueue control related scripts/styles.
 	 *
 	 * @access public
 	 */
 	public function enqueue() {
 
-		wp_enqueue_script( 'kirki-dynamic-control', Kirki_Controls_Bootstrap::get_url( 'assets/js/dynamic-control.js' ), array( 'jquery', 'customize-base' ), false, true );
 		wp_register_script( 'kirki-set-setting-value', Kirki_Controls_Bootstrap::get_url( 'preset/set-setting-value.js' ) );
-		wp_enqueue_script( 'kirki-preset', Kirki_Controls_Bootstrap::get_url( 'assets/js/preset.js' ), array( 'jquery', 'customize-base', 'kirki-dynamic-control', 'kirki-set-setting-value' ), false, true );
-		wp_enqueue_style( 'kirki-styles', Kirki_Controls_Bootstrap::get_url( 'assets/styles.css' ), null );
+		parent::enqueue();
 	}
 
 	/**
