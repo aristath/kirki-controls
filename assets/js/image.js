@@ -1,29 +1,22 @@
-wp.customize.controlConstructor['kirki-image'] = wp.customize.Control.extend({
-
-	// When we're finished loading continue processing
-	ready: function() {
-
-		'use strict';
-
-		var control = this;
-
-		// Init the control.
-		if ( ! _.isUndefined( window.kirkiControlLoader ) && _.isFunction( kirkiControlLoader ) ) {
-			kirkiControlLoader( control );
-		} else {
-			control.initKirkiControl();
-		}
-	},
+wp.customize.controlConstructor['kirki-image'] = wp.customize.kirkiDynamicControl.extend({
 
 	initKirkiControl: function() {
 
-		var control       = this,
-		    value         = control.getValue(),
-		    saveAs        = ( ! _.isUndefined( control.params.choices ) && ! _.isUndefined( control.params.choices.save_as ) ) ? control.params.choices.save_as : 'url',
-		    preview       = control.container.find( '.placeholder, .thumbnail' ),
-		    previewImage  = ( 'array' === saveAs ) ? value.url : value,
-		    removeButton  = control.container.find( '.image-upload-remove-button' ),
-		    defaultButton = control.container.find( '.image-default-button' );
+		var control = this,
+		    value   = control.getValue(),
+		    saveAs,
+		    preview,
+		    previewImage,
+		    removeButton,
+		    defaultButton,
+			url;
+
+		control.addHTML();
+
+		preview       = control.container.find( '.placeholder, .thumbnail' );
+	    previewImage  = ( 'array' === saveAs ) ? value.url : value;
+	    removeButton  = control.container.find( '.image-upload-remove-button' );
+	    defaultButton = control.container.find( '.image-default-button' );
 
 		control.container.find( '.kirki-controls-loading-spinner' ).hide();
 
@@ -144,22 +137,43 @@ wp.customize.controlConstructor['kirki-image'] = wp.customize.Control.extend({
 		});
 	},
 
+	addHTML: function() {
+		var control = this,
+		    html = '';
+
+		saveAs = ( ! _.isUndefined( control.params.choices ) && ! _.isUndefined( control.params.choices.save_as ) ) ? control.params.choices.save_as : 'url';
+
+		url = control.params.value;
+		url = ( _.isObject( control.params.value ) && ! _.isUndefined( control.params.value.url ) ) ? control.params.value.url : url;
+
+		html += '<label>';
+		html += '<span class="customize-control-title">' + control.params.label + '</span>';
+		html += '<span class="description customize-control-description">' + control.params.description + '</span>';
+		html += '</label>';
+		html += '<div class="image-wrapper attachment-media-view image-upload">';
+		if ( '' !== url ) {
+			html += '<div class="thumbnail thumbnail-image"><img src="' + url + '" alt="" /></div>';
+		} else {
+			html += '<div class="placeholder">' + control.params.l10n.noFileSelected + '</div>';
+		}
+		html += '<div class="actions">';
+		html += '<button class="button image-upload-remove-button' + ( '' === url ? ' hidden' : '' ) + '">' + control.params.l10n.remove + '</button>';
+		if ( control.params['default'] && '' !== control.params['default'] ) {
+			html += '<button type="button" class="button image-default-button"' + ( ( control.params['default'] === control.params.value || ( ! _.isUndefined( control.params.value.url ) && control.params['default'] === control.params.value.url ) ) ? ' style="display:none;' : '' ) + '">' + control.params.l10n.defaultImage + '</button>';
+		}
+		html += '<button type="button" class="button image-upload-button">' + control.params.l10n.selectFile + '</button>';
+		html += '</div></div>';
+
+		control.container.html( html );
+	},
+
 	/**
 	 * Gets the value.
 	 */
 	getValue: function() {
 
-		'use strict';
-
-		var control = this,
-		    input   = control.container.find( '.image-hidden-value' ),
-		    value   = jQuery( input ).val(),
-		    saveAs  = ( ! _.isUndefined( control.params.choices ) && ! _.isUndefined( control.params.choices.save_as ) ) ? control.params.choices.save_as : 'url';
-
-		if ( 'array' === saveAs ) {
-			return JSON.parse( value );
-		}
-		return value;
+		var control = this;
+		return _.defaults( control.setting._value, control.params['default'] );
 	},
 
 	/**
@@ -167,21 +181,23 @@ wp.customize.controlConstructor['kirki-image'] = wp.customize.Control.extend({
 	 */
 	saveValue: function( property, value ) {
 
-		'use strict';
+		var control  = this,
+		    sumValue = control.getValue(),
+			saveAs    = ( ! _.isUndefined( control.params.choices ) && ! _.isUndefined( control.params.choices.save_as ) ) ? control.params.choices.save_as : 'url';
 
-		var control   = this,
-		    input     = jQuery( '#customize-control-' + control.id.replace( '[', '-' ).replace( ']', '' ) + ' .image-hidden-value' ),
-		    valueJSON = jQuery( input ).val(),
-		    saveAs    = ( ! _.isUndefined( control.params.choices ) && ! _.isUndefined( control.params.choices.save_as ) ) ? control.params.choices.save_as : 'url',
-		    valueObj  = 'array' === saveAs ? JSON.parse( valueJSON ) : {};
+		sumValue[ property ] = value;
 
 		if ( 'array' === saveAs ) {
-			valueObj[ property ] = value;
-			control.setting.set( valueObj );
-			jQuery( input ).attr( 'value', JSON.stringify( valueObj ) ).trigger( 'change' );
-		} else {
-			control.setting.set( value );
-			jQuery( input ).attr( 'value', value ).trigger( 'change' );
+			wp.customize( control.id, function( obj ) {
+
+				// Reset the setting value, so that the change is triggered
+				obj.set( '' );
+
+				// Set the right value
+				obj.set( sumValue );
+			});
+			return;
 		}
+		control.setting.set( value );
 	}
 });
