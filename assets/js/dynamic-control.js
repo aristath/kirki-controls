@@ -186,6 +186,12 @@
 			this.container.on( 'change keyup paste click', 'input', function() {
 				control.setting.set( jQuery( this ).val() );
 			});
+
+			control.addHTML();
+		},
+
+		addHTML: function() {
+
 		},
 
 		kirkiValidateCSSValue: function( value ) {
