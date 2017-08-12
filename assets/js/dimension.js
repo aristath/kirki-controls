@@ -23,13 +23,11 @@ wp.customize.controlConstructor['kirki-dimension'] = wp.customize.kirkiDynamicCo
 		    html    = '';
 
 		html += '<label class="customizer-text">';
-		if ( control.params.label ) {
 			html += '<span class="customize-control-title">' + control.params.label + '</span>';
-		}
-		if ( control.params.description ) {
 			html += '<span class="description customize-control-description">' + control.params.description + '</span>';
-		}
-		html += '<div class="input-wrapper"><input type="text" value="' + control.params.value.replace( '%%', '%' ) + '"/></div>';
+			html += '<div class="input-wrapper">';
+				html += '<input type="text" value="' + control.params.value.replace( '%%', '%' ) + '"/>';
+			html += '</div>';
 		html += '</label>';
 
 		control.container.html( html );
