@@ -1,19 +1,4 @@
-wp.customize.controlConstructor['kirki-typography'] = wp.customize.Control.extend({
-
-	// When we're finished loading continue processing
-	ready: function() {
-
-		'use strict';
-
-		var control = this;
-
-		// Init the control.
-		if ( ! _.isUndefined( window.kirkiControlLoader ) && _.isFunction( kirkiControlLoader ) ) {
-			kirkiControlLoader( control );
-		} else {
-			control.initKirkiControl();
-		}
-	},
+wp.customize.controlConstructor['kirki-typography'] = wp.customize.kirkiDynamicControl.extend({
 
 	initKirkiControl: function() {
 
@@ -375,13 +360,8 @@ wp.customize.controlConstructor['kirki-typography'] = wp.customize.Control.exten
 	 */
 	getValue: function() {
 
-		'use strict';
-
-		var control   = this,
-		    input     = control.container.find( '.typography-hidden-value' ),
-		    valueJSON = jQuery( input ).val();
-
-		return JSON.parse( valueJSON );
+		var control = this;
+		return _.defaults( control.setting._value, control.params['default'] );
 	},
 
 	/**
@@ -389,15 +369,18 @@ wp.customize.controlConstructor['kirki-typography'] = wp.customize.Control.exten
 	 */
 	saveValue: function( property, value ) {
 
-		'use strict';
+		var control  = this,
+		    sumValue = control.getValue();
 
-		var control   = this,
-		    input     = control.container.find( '.typography-hidden-value' ),
-		    valueJSON = jQuery( input ).val(),
-		    valueObj  = JSON.parse( valueJSON );
+		sumValue[ property ] = value;
 
-		valueObj[ property ] = value;
-		jQuery( input ).attr( 'value', JSON.stringify( valueObj ) ).trigger( 'change' );
-		control.setting.set( valueObj );
+		wp.customize( control.id, function( obj ) {
+
+			// Reset the setting value, so that the change is triggered
+			obj.set( '' );
+
+			// Set the right value
+			obj.set( sumValue );
+		});
 	}
 });
