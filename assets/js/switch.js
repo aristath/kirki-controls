@@ -6,8 +6,14 @@ wp.customize.controlConstructor['kirki-switch'] = wp.customize.kirkiDynamicContr
 
 		var control       = this,
 		    checkboxValue = control.setting._value,
-		    on            = jQuery( control.container.find( '.switch-on' ) ),
-		    off           = jQuery( control.container.find( '.switch-off' ) );
+		    html          = '',
+		    on,
+		    off;
+
+		control.addHTML();
+
+		on  = jQuery( control.container.find( '.switch-on' ) );
+		off = jQuery( control.container.find( '.switch-off' ) );
 
 		// CSS modifications depending on label sizes.
 		jQuery( control.container.find( '.switch label ' ) ).css( 'width', ( on.width() + off.width() + 40 ) + 'px' );
@@ -20,5 +26,22 @@ wp.customize.controlConstructor['kirki-switch'] = wp.customize.kirkiDynamicContr
 			checkboxValue = ( jQuery( this ).is( ':checked' ) ) ? true : false;
 			control.setting.set( checkboxValue );
 		});
+	},
+
+	addHTML: function() {
+		var control = this,
+		    html = '';
+
+		html += '<div class="switch' + ( ( control.params.choices.round ) ? ' round' : '' ) + '">';
+			html += '<span class="customize-control-title">' + control.params.label + '</span>';
+			html += '<span class="description customize-control-description">' + control.params.description + '</span>';
+			html += '<input class="screen-reader-text" name="switch_' + control.id + '" id="switch_' + control.id + '" type="checkbox" value="' + control.params.value + '" ' + control.params.link + ( '1' === control.params.value ? ' checked' : '' ) + '/>';
+			html += '<label class="switch-label" for="switch_' + control.id + '">';
+				html += '<span class="switch-on">' + control.params.choices.on + '</span>';
+				html += '<span class="switch-off">' + control.params.choices.off + '</span>';
+			html += '</label>';
+		html += '</div>';
+
+		control.container.html( html );
 	}
 });
