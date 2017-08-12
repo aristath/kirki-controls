@@ -56,7 +56,7 @@ class Kirki_Control_Base extends WP_Customize_Control {
 	 *
 	 * @access public
 	 */
-	public function enqueue_scripts() {
+	public function enqueue() {
 
 		$type = str_replace( 'kirki-', '', $this->type );
 		wp_enqueue_script( 'kirki-dynamic-control', Kirki_Controls_Bootstrap::get_url( 'assets/js/dynamic-control.js' ), array( 'jquery', 'customize-base' ), false, true );
