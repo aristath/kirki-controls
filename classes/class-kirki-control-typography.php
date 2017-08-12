@@ -81,14 +81,14 @@ class Kirki_Control_Typography extends Kirki_Control_Base {
 	 */
 	public function enqueue_scripts() {
 
-		wp_enqueue_script( 'wp-color-picker-alpha', trailingslashit( Kirki::$url ) . 'controls/assets/vendor/wp-color-picker-alpha/wp-color-picker-alpha.js', array( 'wp-color-picker' ), '1.2', true );
+		wp_enqueue_script( 'wp-color-picker-alpha', Kirki_Controls_Bootstrap::get_url( 'assets/vendor/wp-color-picker-alpha/wp-color-picker-alpha.js' ), array( 'wp-color-picker' ), '1.2', true );
 		wp_enqueue_style( 'wp-color-picker' );
 
-		wp_enqueue_script( 'kirki-typography', trailingslashit( Kirki::$url ) . 'controls/assets/js/typography.js', array( 'jquery', 'customize-base', 'select2', 'wp-color-picker-alpha' ), false, true );
-		wp_enqueue_style( 'kirki-styles', trailingslashit( Kirki::$url ) . 'controls/assets/styles.css', null );
+		wp_enqueue_script( 'kirki-typography', Kirki_Controls_Bootstrap::get_url( 'assets/js/typography.js' ), array( 'jquery', 'customize-base', 'select2', 'wp-color-picker-alpha' ), false, true );
+		wp_enqueue_style( 'kirki-styles', Kirki_Controls_Bootstrap::get_url( 'assets/styles.css' ), null );
 
-		wp_enqueue_script( 'select2', trailingslashit( Kirki::$url ) . 'controls/assets/vendor/select2/js/select2.full.js', array( 'jquery' ), '4.0.3', true );
-		wp_enqueue_style( 'select2', trailingslashit( Kirki::$url ) . 'controls/assets/vendor/select2/css/select2.css', array(), '4.0.3' );
+		wp_enqueue_script( 'select2', Kirki_Controls_Bootstrap::get_url( 'assets/vendor/select2/js/select2.full.js' ), array( 'jquery' ), '4.0.3', true );
+		wp_enqueue_style( 'select2', Kirki_Controls_Bootstrap::get_url( 'assets/vendor/select2/css/select2.css' ), array(), '4.0.3' );
 
 		$custom_fonts_array  = ( isset( $this->choices['fonts'] ) && ( isset( $this->choices['fonts']['google'] ) || isset( $this->choices['fonts']['standard'] ) ) && ( ! empty( $this->choices['fonts']['google'] ) || ! empty( $this->choices['fonts']['standard'] ) ) );
 		$localize_script_var = ( $custom_fonts_array ) ? 'kirkiFonts' . $this->id : 'kirkiAllFonts';

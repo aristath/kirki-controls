@@ -34,8 +34,8 @@ class Kirki_Control_Sortable extends Kirki_Control_Base {
 	 */
 	public function enqueue() {
 
-		wp_enqueue_script( 'kirki-sortable', trailingslashit( Kirki::$url ) . 'controls/assets/js/sortable.js', array( 'jquery', 'customize-base', 'jquery-ui-core', 'jquery-ui-sortable' ), false, true );
-		wp_enqueue_style( 'kirki-styles', trailingslashit( Kirki::$url ) . 'controls/assets/styles.css', null );
+		wp_enqueue_script( 'kirki-sortable', Kirki_Controls_Bootstrap::get_url( 'assets/js/sortable.js' ), array( 'jquery', 'customize-base', 'jquery-ui-core', 'jquery-ui-sortable' ), false, true );
+		wp_enqueue_style( 'kirki-styles', Kirki_Controls_Bootstrap::get_url( 'assets/styles.css' ), null );
 	}
 
 	/**

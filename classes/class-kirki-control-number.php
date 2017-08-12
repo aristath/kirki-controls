@@ -34,9 +34,9 @@ class Kirki_Control_Number extends Kirki_Control_Base {
 	 */
 	public function enqueue() {
 
-		wp_enqueue_script( 'kirki-dynamic-control', trailingslashit( Kirki::$url ) . 'controls/assets/js/dynamic-control.js', array( 'jquery', 'customize-base' ), false, true );
-		wp_enqueue_script( 'kirki-number', trailingslashit( Kirki::$url ) . 'controls/assets/js/number.js', array( 'jquery', 'customize-base', 'kirki-dynamic-control', 'jquery-ui-button', 'jquery-ui-spinner' ), false, true );
-		wp_enqueue_style( 'kirki-styles', trailingslashit( Kirki::$url ) . 'controls/assets/styles.css', null );
+		wp_enqueue_script( 'kirki-dynamic-control', Kirki_Controls_Bootstrap::get_url( 'assets/js/dynamic-control.js' ), array( 'jquery', 'customize-base' ), false, true );
+		wp_enqueue_script( 'kirki-number', Kirki_Controls_Bootstrap::get_url( 'assets/js/number.js' ), array( 'jquery', 'customize-base', 'kirki-dynamic-control', 'jquery-ui-button', 'jquery-ui-spinner' ), false, true );
+		wp_enqueue_style( 'kirki-styles', Kirki_Controls_Bootstrap::get_url( 'assets/styles.css' ), null );
 		wp_localize_script( 'kirki-number', 'numberKirkiL10n', array(
 			'min-error'  => esc_attr__( 'Value lower than allowed minimum', 'kirki' ),
 			'max-error'  => esc_attr__( 'Value higher than allowed maximum', 'kirki' ),

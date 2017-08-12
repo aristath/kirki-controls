@@ -34,10 +34,10 @@ class Kirki_Control_Preset extends Kirki_Control_Base {
 	 */
 	public function enqueue() {
 
-		wp_enqueue_script( 'kirki-dynamic-control', trailingslashit( Kirki::$url ) . 'controls/assets/js/dynamic-control.js', array( 'jquery', 'customize-base' ), false, true );
-		wp_register_script( 'kirki-set-setting-value', trailingslashit( Kirki::$url ) . 'controls/preset/set-setting-value.js' );
-		wp_enqueue_script( 'kirki-preset', trailingslashit( Kirki::$url ) . 'controls/assets/js/preset.js', array( 'jquery', 'customize-base', 'kirki-dynamic-control', 'kirki-set-setting-value' ), false, true );
-		wp_enqueue_style( 'kirki-styles', trailingslashit( Kirki::$url ) . 'controls/assets/styles.css', null );
+		wp_enqueue_script( 'kirki-dynamic-control', Kirki_Controls_Bootstrap::get_url( 'assets/js/dynamic-control.js' ), array( 'jquery', 'customize-base' ), false, true );
+		wp_register_script( 'kirki-set-setting-value', Kirki_Controls_Bootstrap::get_url( 'preset/set-setting-value.js' ) );
+		wp_enqueue_script( 'kirki-preset', Kirki_Controls_Bootstrap::get_url( 'assets/js/preset.js' ), array( 'jquery', 'customize-base', 'kirki-dynamic-control', 'kirki-set-setting-value' ), false, true );
+		wp_enqueue_style( 'kirki-styles', Kirki_Controls_Bootstrap::get_url( 'assets/styles.css' ), null );
 	}
 
 	/**

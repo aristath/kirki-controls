@@ -43,11 +43,11 @@ class Kirki_Control_Select extends Kirki_Control_Base {
 	 */
 	public function enqueue() {
 
-		wp_enqueue_script( 'kirki-dynamic-control', trailingslashit( Kirki::$url ) . 'controls/assets/js/dynamic-control.js', array( 'jquery', 'customize-base' ), false, true );
-		wp_enqueue_script( 'kirki-select', trailingslashit( Kirki::$url ) . 'controls/assets/js/select.js', array( 'jquery', 'customize-base', 'kirki-dynamic-control', 'select2', 'jquery-ui-sortable' ), false, true );
-		wp_enqueue_style( 'kirki-styles', trailingslashit( Kirki::$url ) . 'controls/assets/styles.css', null );
-		wp_enqueue_script( 'select2', trailingslashit( Kirki::$url ) . 'controls/assets/vendor/select2/js/select2.full.js', array( 'jquery' ), '4.0.3', true );
-		wp_enqueue_style( 'select2', trailingslashit( Kirki::$url ) . 'controls/assets/vendor/select2/css/select2.css', array(), '4.0.3' );
+		wp_enqueue_script( 'kirki-dynamic-control', Kirki_Controls_Bootstrap::get_url( 'assets/js/dynamic-control.js' ), array( 'jquery', 'customize-base' ), false, true );
+		wp_enqueue_script( 'kirki-select', Kirki_Controls_Bootstrap::get_url( 'assets/js/select.js' ), array( 'jquery', 'customize-base', 'kirki-dynamic-control', 'select2', 'jquery-ui-sortable' ), false, true );
+		wp_enqueue_style( 'kirki-styles', Kirki_Controls_Bootstrap::get_url( 'assets/styles.css' ), null );
+		wp_enqueue_script( 'select2', Kirki_Controls_Bootstrap::get_url( 'assets/vendor/select2/js/select2.full.js' ), array( 'jquery' ), '4.0.3', true );
+		wp_enqueue_style( 'select2', Kirki_Controls_Bootstrap::get_url( 'assets/vendor/select2/css/select2.css' ), array(), '4.0.3' );
 	}
 
 	/**
