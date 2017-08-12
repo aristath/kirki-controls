@@ -7,6 +7,8 @@ wp.customize.controlConstructor['kirki-slider'] = wp.customize.kirkiDynamicContr
 		    inputDefault,
 		    changeAction;
 
+		control.addHTML();
+
 		// Update the text value
 		jQuery( 'input[type=range]' ).on( 'mousedown', function() {
 			value = jQuery( this ).attr( 'value' );
@@ -31,5 +33,26 @@ wp.customize.controlConstructor['kirki-slider'] = wp.customize.kirkiDynamicContr
 		control.container.on( changeAction, 'input', function() {
 			control.setting.set( jQuery( this ).val() );
 		});
+	},
+
+	addHTML: function() {
+		var control = this,
+		    html = '';
+
+		html += '<label>';
+			html += '<span class="customize-control-title">' + control.params.label + '</span>';
+			html += '<span class="description customize-control-description">' + control.params.description + '</span>';
+			html += '<div class="wrapper">';
+				html += '<input type="range" min="' + control.params.choices.min + '" max="' + control.params.choices.max + '" step="' + control.params.choices.step + '" value="' + control.params.value + '" ' + control.params.link + ' data-reset_value="' + control.params['default'] + '" />';
+				html += '<div class="kirki_range_value">';
+					html += '<span class="value">' + control.params.value + '</span>';
+					html += control.params.choices.suffix ? control.params.choices.suffix : '';
+				html += '</div>';
+				html += '<div class="kirki-slider-reset"><span class="dashicons dashicons-image-rotate"></span></div>';
+			html += '</div>';
+		html += '</label>';
+
+		control.container.html( html );
 	}
+
 });
