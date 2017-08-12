@@ -34,42 +34,7 @@ class Kirki_Controls_Bootstrap {
 	 * @since 3.0.10
 	 * @var array
 	 */
-	protected $control_types = array(
-		'checkbox'              => 'WP_Customize_Control',
-		'kirki-background'      => 'Kirki_Control_Background',
-		'kirki-code'            => 'Kirki_Control_Code',
-		'kirki-color'           => 'Kirki_Control_Color',
-		'kirki-color-palette'   => 'Kirki_Control_Color_Palette',
-		'kirki-custom'          => 'Kirki_Control_Custom',
-		'kirki-date'            => 'Kirki_Control_Date',
-		'kirki-dashicons'       => 'Kirki_Control_Dashicons',
-		'kirki-dimension'       => 'Kirki_Control_Dimension',
-		'kirki-dimensions'      => 'Kirki_Control_Dimensions',
-		'kirki-editor'          => 'Kirki_Control_Editor',
-		'kirki-fontawesome'     => 'Kirki_Control_FontAwesome',
-		'kirki-gradient'        => 'Kirki_Control_Gradient',
-		'kirki-image'           => 'Kirki_Control_Image',
-		'kirki-multicolor'      => 'Kirki_Control_Multicolor',
-		'kirki-multicheck'      => 'Kirki_Control_MultiCheck',
-		'kirki-number'          => 'Kirki_Control_Number',
-		'kirki-palette'         => 'Kirki_Control_Palette',
-		'kirki-preset'          => 'Kirki_Control_Preset',
-		'kirki-radio'           => 'Kirki_Control_Radio',
-		'kirki-radio-buttonset' => 'Kirki_Control_Radio_ButtonSet',
-		'kirki-radio-image'     => 'Kirki_Control_Radio_Image',
-		'repeater'              => 'Kirki_Control_Repeater',
-		'kirki-select'          => 'Kirki_Control_Select',
-		'kirki-slider'          => 'Kirki_Control_Slider',
-		'kirki-sortable'        => 'Kirki_Control_Sortable',
-		'kirki-spacing'         => 'Kirki_Control_Dimensions',
-		'kirki-switch'          => 'Kirki_Control_Switch',
-		'kirki-generic'         => 'Kirki_Control_Generic',
-		'kirki-toggle'          => 'Kirki_Control_Toggle',
-		'kirki-typography'      => 'Kirki_Control_Typography',
-		'image'                 => 'Kirki_Control_Image',
-		'cropped_image'         => 'WP_Customize_Cropped_Image_Control',
-		'upload'                => 'WP_Customize_Upload_Control',
-	);
+	private $control_types = array();
 
 	/**
 	 * An array of control classes that we don't want to register.
@@ -91,9 +56,12 @@ class Kirki_Controls_Bootstrap {
 	 * @since 3.0.10
 	 */
 	public function __construct() {
+
 		$this->define_path();
 		spl_autoload_register( array( $this, 'autoload' ) );
 		add_action( 'customize_register', array( $this, 'register_control_types' ) );
+		$this->control_types = $this->get_control_types();
+		add_filter( 'kirki/control_types', array( $this, 'get_control_types' ), 1 );
 	}
 
 	/**
@@ -106,7 +74,6 @@ class Kirki_Controls_Bootstrap {
 
 		global $wp_customize;
 
-		$this->control_types = apply_filters( 'kirki/control_types', $this->control_types );
 		$skip_control_types  = apply_filters( 'kirki/control_types/exclude', $this->do_not_register_types );
 
 		foreach ( $this->control_types as $control_type ) {
@@ -114,6 +81,53 @@ class Kirki_Controls_Bootstrap {
 				$wp_customize->register_control_type( $control_type );
 			}
 		}
+	}
+
+	/**
+	 * Adds default control types for Kirki.
+	 *
+	 * @access public
+	 * @since 3.0.10
+	 * @param array $control_types Any pre-existing control-types.
+	 * @return array
+	 */
+	public function get_control_types() {
+		return array(
+			'checkbox'              => 'WP_Customize_Control',
+			'kirki-background'      => 'Kirki_Control_Background',
+			'kirki-code'            => 'Kirki_Control_Code',
+			'kirki-color'           => 'Kirki_Control_Color',
+			'kirki-color-palette'   => 'Kirki_Control_Color_Palette',
+			'kirki-custom'          => 'Kirki_Control_Custom',
+			'kirki-date'            => 'Kirki_Control_Date',
+			'kirki-dashicons'       => 'Kirki_Control_Dashicons',
+			'kirki-dimension'       => 'Kirki_Control_Dimension',
+			'kirki-dimensions'      => 'Kirki_Control_Dimensions',
+			'kirki-editor'          => 'Kirki_Control_Editor',
+			'kirki-fontawesome'     => 'Kirki_Control_FontAwesome',
+			'kirki-gradient'        => 'Kirki_Control_Gradient',
+			'kirki-image'           => 'Kirki_Control_Image',
+			'kirki-multicolor'      => 'Kirki_Control_Multicolor',
+			'kirki-multicheck'      => 'Kirki_Control_MultiCheck',
+			'kirki-number'          => 'Kirki_Control_Number',
+			'kirki-palette'         => 'Kirki_Control_Palette',
+			'kirki-preset'          => 'Kirki_Control_Preset',
+			'kirki-radio'           => 'Kirki_Control_Radio',
+			'kirki-radio-buttonset' => 'Kirki_Control_Radio_ButtonSet',
+			'kirki-radio-image'     => 'Kirki_Control_Radio_Image',
+			'repeater'              => 'Kirki_Control_Repeater',
+			'kirki-select'          => 'Kirki_Control_Select',
+			'kirki-slider'          => 'Kirki_Control_Slider',
+			'kirki-sortable'        => 'Kirki_Control_Sortable',
+			'kirki-spacing'         => 'Kirki_Control_Dimensions',
+			'kirki-switch'          => 'Kirki_Control_Switch',
+			'kirki-generic'         => 'Kirki_Control_Generic',
+			'kirki-toggle'          => 'Kirki_Control_Toggle',
+			'kirki-typography'      => 'Kirki_Control_Typography',
+			'image'                 => 'Kirki_Control_Image',
+			'cropped_image'         => 'WP_Customize_Cropped_Image_Control',
+			'upload'                => 'WP_Customize_Upload_Control',
+		);
 	}
 
 	/**
@@ -128,7 +142,7 @@ class Kirki_Controls_Bootstrap {
 		if ( 0 === stripos( $class_name, 'Kirki_Control_' ) || 0 === stripos( $class_name, 'Kirki_Settings_' ) ) {
 
 			// Build the file-path.
-			$path = wp_normalize_path( KIRKI_CONTROLS_PATH . '/classes/' . 'class-' . strtolower( str_replace( '_', '-', $class_name ) ) . '.php' );
+			$path = wp_normalize_path( dirname( __FILE__ ) . '/classes/' . 'class-' . strtolower( str_replace( '_', '-', $class_name ) ) . '.php' );
 			if ( file_exists( $path ) ) {
 				include_once $path;
 			}
