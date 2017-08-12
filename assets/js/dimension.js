@@ -5,6 +5,8 @@ wp.customize.controlConstructor['kirki-dimension'] = wp.customize.kirkiDynamicCo
 		var control = this,
 		    value;
 
+		control.addHTML();
+
 		// Notifications.
 		control.kirkiNotifications();
 
@@ -14,6 +16,23 @@ wp.customize.controlConstructor['kirki-dimension'] = wp.customize.kirkiDynamicCo
 			value = jQuery( this ).val();
 			control.setting.set( value );
 		});
+	},
+
+	addHTML: function() {
+		var control = this,
+		    html    = '';
+
+		html += '<label class="customizer-text">';
+		if ( control.params.label ) {
+			html += '<span class="customize-control-title">' + control.params.label + '</span>';
+		}
+		if ( control.params.description ) {
+			html += '<span class="description customize-control-description">' + control.params.description + '</span>';
+		}
+		html += '<div class="input-wrapper"><input type="text" value="' + control.params.value.replace( '%%', '%' ) + '"/></div>';
+		html += '</label>';
+
+		control.container.html( html );
 	},
 
 	/**
@@ -32,7 +51,7 @@ wp.customize.controlConstructor['kirki-dimension'] = wp.customize.kirkiDynamicCo
 						code,
 						{
 							type: 'warning',
-							message: dimensionkirkiL10n['invalid-value']
+							message: control.params.l10n.invalidValue
 						}
 					) );
 				} else {

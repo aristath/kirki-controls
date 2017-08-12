@@ -28,15 +28,15 @@ class Kirki_Control_Dimension extends Kirki_Control_Base {
 	public $type = 'kirki-dimension';
 
 	/**
-	 * Enqueue control related scripts/styles.
+	 * Returns an array of translation strings.
 	 *
-	 * @access public
+	 * @access protected
+	 * @since 3.0.0
+	 * @return array
 	 */
-	public function enqueue() {
-
-		parent::enqueue();
-		wp_localize_script( 'kirki-dimension', 'dimensionkirkiL10n', array(
-			'invalid-value' => esc_attr__( 'Invalid Value', 'kirki' ),
-		) );
+	protected function l10n() {
+		return array(
+			'invalidValue' => esc_attr__( 'Invalid Value', 'kirki' ),
+		);
 	}
 }
