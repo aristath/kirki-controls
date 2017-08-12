@@ -16,9 +16,9 @@ before_install:
   - composer install --dev
 
 before_script:
-  - bash tests/bin/install-wp-tests.sh wordpress_test root '' localhost latest
-  - curl -s http://getcomposer.org/installer | php
-  - php composer.phar install --dev --no-interaction
+  # - bash tests/bin/install-wp-tests.sh wordpress_test root '' localhost latest
+  # - curl -s http://getcomposer.org/installer | php
+  # - php composer.phar install --dev --no-interaction
   - export PHPCS_DIR=/tmp/phpcs
   - export SNIFFS_DIR=/tmp/sniffs
   # Install CodeSniffer for WordPress Coding Standards checks.
