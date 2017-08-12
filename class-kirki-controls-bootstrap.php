@@ -14,6 +14,9 @@ if ( class_exists( 'Kirki_Controls_Bootstrap' ) ) {
 	return;
 }
 
+/**
+ * Takes care of bootstrapping Kirki Controls.
+ */
 class Kirki_Controls_Bootstrap {
 
 	/**
@@ -88,7 +91,6 @@ class Kirki_Controls_Bootstrap {
 	 *
 	 * @access public
 	 * @since 3.0.10
-	 * @param array $control_types Any pre-existing control-types.
 	 * @return array
 	 */
 	public function get_control_types() {
@@ -142,7 +144,7 @@ class Kirki_Controls_Bootstrap {
 		if ( 0 === stripos( $class_name, 'Kirki_Control_' ) || 0 === stripos( $class_name, 'Kirki_Settings_' ) ) {
 
 			// Build the file-path.
-			$path = wp_normalize_path( dirname( __FILE__ ) . '/classes/' . 'class-' . strtolower( str_replace( '_', '-', $class_name ) ) . '.php' );
+			$path = wp_normalize_path( dirname( __FILE__ ) . '/classes/class-' . strtolower( str_replace( '_', '-', $class_name ) ) . '.php' );
 			if ( file_exists( $path ) ) {
 				include_once $path;
 			}
@@ -180,7 +182,7 @@ class Kirki_Controls_Bootstrap {
 				self::$url = str_replace( get_stylesheet_directory(), get_stylesheet_directory_uri(), KIRKI_CONTROLS_PATH );
 			} elseif ( false !== strpos( KIRKI_CONTROLS_PATH, get_template_directory() ) ) {
 				self::$url = str_replace( get_template_directory(), get_template_directory_uri(), KIRKI_CONTROLS_PATH );
-			} elseif ( false !== strpos( KIRKI_CONTROLS_PATH, WP_PLUGIN_DIR ) )  {
+			} elseif ( false !== strpos( KIRKI_CONTROLS_PATH, WP_PLUGIN_DIR ) ) {
 				self::$url = str_replace( WP_PLUGIN_DIR, plugins_url(), KIRKI_CONTROLS_PATH );
 			}
 		}
