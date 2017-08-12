@@ -28,30 +28,6 @@ class Kirki_Control_Typography extends Kirki_Control_Base {
 	public $type = 'kirki-typography';
 
 	/**
-	 * Used to automatically generate all CSS output.
-	 *
-	 * @access public
-	 * @var array
-	 */
-	public $output = array();
-
-	/**
-	 * Data type
-	 *
-	 * @access public
-	 * @var string
-	 */
-	public $option_type = 'theme_mod';
-
-	/**
-	 * The kirki_config we're using for this control
-	 *
-	 * @access public
-	 * @var string
-	 */
-	public $kirki_config = 'global';
-
-	/**
 	 * Constructor.
 	 *
 	 * Supplied `$args` override class property defaults.
@@ -129,24 +105,10 @@ class Kirki_Control_Typography extends Kirki_Control_Base {
 	 * @see WP_Customize_Control::to_json()
 	 */
 	public function to_json() {
+
 		parent::to_json();
-
-		$this->json['default'] = $this->setting->default;
-		if ( isset( $this->default ) ) {
-			$this->json['default'] = $this->default;
-		}
-		$this->json['output']  = $this->output;
 		$this->json['value']   = Kirki_Field_Typography::sanitize( $this->value() );
-		$this->json['choices'] = $this->choices;
-		$this->json['link']    = $this->get_link();
-		$this->json['id']      = $this->id;
-
-		$this->json['inputAttrs'] = '';
-		foreach ( $this->input_attrs as $attr => $value ) {
-			$this->json['inputAttrs'] .= $attr . '="' . esc_attr( $value ) . '" ';
-		}
-
-		$defaults = array(
+		$this->json['default'] = wp_parse_args( $this->json['default'], array(
 			'font-family'    => false,
 			'font-size'      => false,
 			'variant'        => false,
@@ -155,8 +117,7 @@ class Kirki_Control_Typography extends Kirki_Control_Base {
 			'word-spacing'   => false,
 			'color'          => false,
 			'text-align'     => false,
-		);
-		$this->json['default'] = wp_parse_args( $this->json['default'], $defaults );
+		) );
 
 		// Fix for https://github.com/aristath/kirki/issues/1405.
 		foreach ( array_keys( $this->json['value'] ) as $key ) {
@@ -446,11 +407,4 @@ class Kirki_Control_Typography extends Kirki_Control_Base {
 		} // End foreach().
 		return $google_fonts_final;
 	}
-
-	/**
-	 * Render the control's content.
-	 *
-	 * @see WP_Customize_Control::render_content()
-	 */
-	protected function render_content() {}
 }

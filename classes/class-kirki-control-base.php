@@ -41,11 +41,27 @@ class Kirki_Control_Base extends WP_Customize_Control {
 	public $kirki_config = 'global';
 
 	/**
+	 * Returns an array of extra field dependencies for Kirki controls.
+	 *
+	 * @access protected
+	 * @since 3.0.10
+	 * @return array
+	 */
+	protected function kirki_script_dependencies() {
+		return array();
+	}
+
+	/**
 	 * Enqueue control related scripts/styles.
 	 *
 	 * @access public
 	 */
-	public function enqueue() {
+	public function enqueue_scripts() {
+
+		$type = str_replace( 'kirki-', '', $this->type );
+		wp_enqueue_script( 'kirki-dynamic-control', trailingslashit( Kirki::$url ) . 'controls/assets/js/dynamic-control.js', array( 'jquery', 'customize-base' ), false, true );
+		wp_enqueue_script( $this->type , trailingslashit( Kirki::$url ) . "controls/assets/js/$type.js", array_merge( array( 'jquery', 'customize-base', 'kirki-dynamic-control' ), $this->kirki_script_dependencies() ), false, true );
+		wp_enqueue_style( $this->type, trailingslashit( Kirki::$url ) . "controls/assets/css/$type.css", null );
 	}
 
 	/**

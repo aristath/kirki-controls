@@ -26,20 +26,15 @@ class Kirki_Control_Background extends Kirki_Control_Base {
 	public $type = 'kirki-background';
 
 	/**
-	 * Used to automatically generate all CSS output.
+	 * Returns an array of extra field dependencies for Kirki controls.
 	 *
-	 * @access public
-	 * @var array
+	 * @access protected
+	 * @since 3.0.10
+	 * @return array
 	 */
-	public $output = array();
-
-	/**
-	 * Data type
-	 *
-	 * @access public
-	 * @var string
-	 */
-	public $option_type = 'theme_mod';
+	protected function kirki_script_dependencies() {
+		return array( 'wp-color-picker-alpha' );
+	}
 
 	/**
 	 * Enqueue control related scripts/styles.
@@ -52,47 +47,8 @@ class Kirki_Control_Background extends Kirki_Control_Base {
 		wp_enqueue_script( 'wp-color-picker-alpha', trailingslashit( Kirki::$url ) . 'controls/assets/vendor/wp-color-picker-alpha/wp-color-picker-alpha.js', array( 'wp-color-picker' ), '1.2', true );
 		wp_enqueue_style( 'wp-color-picker' );
 
-		wp_enqueue_script( 'kirki-background', trailingslashit( Kirki::$url ) . 'controls/assets/js/background.js', array( 'jquery', 'wp-color-picker-alpha' ) );
-		wp_enqueue_style( 'kirki-background', trailingslashit( Kirki::$url ) . 'controls/assets/css/background.css', null );
+		parent::enqueue();
 	}
-
-	/**
-	 * Refresh the parameters passed to the JavaScript via JSON.
-	 *
-	 * @access public
-	 */
-	public function to_json() {
-		parent::to_json();
-
-		$this->json['default'] = $this->setting->default;
-		if ( isset( $this->default ) ) {
-			$this->json['default'] = $this->default;
-		}
-		$this->json['output']  = $this->output;
-		$this->json['value']   = $this->value();
-		$this->json['choices'] = $this->choices;
-		$this->json['link']    = $this->get_link();
-		$this->json['id']      = $this->id;
-
-		$this->json['inputAttrs'] = '';
-		foreach ( $this->input_attrs as $attr => $value ) {
-			$this->json['inputAttrs'] .= $attr . '="' . esc_attr( $value ) . '" ';
-		}
-	}
-
-	/**
-	 * Render the control's content.
-	 *
-	 * Allows the content to be overridden without having to rewrite the wrapper in `$this::render()`.
-	 *
-	 * Supports basic input types `text`, `checkbox`, `textarea`, `radio`, `select` and `dropdown-pages`.
-	 * Additional input types such as `email`, `url`, `number`, `hidden` and `date` are supported implicitly.
-	 *
-	 * Control content can alternately be rendered in JS. See WP_Customize_Control::print_template().
-	 *
-	 * @since 3.4.0
-	 */
-	protected function render_content() {}
 
 	/**
 	 * An Underscore (JS) template for this control's content (but not its container).

@@ -28,30 +28,6 @@ class Kirki_Control_Repeater extends Kirki_Control_Base {
 	public $type = 'repeater';
 
 	/**
-	 * Used to automatically generate all CSS output.
-	 *
-	 * @access public
-	 * @var array
-	 */
-	public $output = array();
-
-	/**
-	 * Data type
-	 *
-	 * @access public
-	 * @var string
-	 */
-	public $option_type = 'theme_mod';
-
-	/**
-	 * The kirki_config we're using for this control
-	 *
-	 * @access public
-	 * @var string
-	 */
-	public $kirki_config = 'global';
-
-	/**
 	 * The fields that each container row will contain.
 	 *
 	 * @access public

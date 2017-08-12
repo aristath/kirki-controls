@@ -29,17 +29,6 @@ class Kirki_Control_Dimensions extends Kirki_Control_Base {
 	public $type = 'kirki-dimensions';
 
 	/**
-	 * Enqueue control related scripts/styles.
-	 *
-	 * @access public
-	 */
-	public function enqueue() {
-		wp_enqueue_script( 'kirki-dynamic-control', trailingslashit( Kirki::$url ) . 'controls/assets/js/dynamic-control.js', array( 'jquery', 'customize-base' ), false, true );
-		wp_enqueue_script( 'kirki-dimensions', trailingslashit( Kirki::$url ) . 'controls/assets/js/dimensions.js', array( 'jquery', 'customize-base', 'kirki-dynamic-control' ), false, true );
-		wp_enqueue_style( 'kirki-dimensions-css', trailingslashit( Kirki::$url ) . 'controls/assets/css/dimensions.css', null );
-	}
-
-	/**
 	 * Returns an array of translation strings.
 	 *
 	 * @access protected

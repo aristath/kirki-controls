@@ -28,22 +28,6 @@ class Kirki_Control_FontAwesome extends Kirki_Control_Base {
 	public $type = 'kirki-fontawesome';
 
 	/**
-	 * Used to automatically generate all CSS output.
-	 *
-	 * @access public
-	 * @var array
-	 */
-	public $output = array();
-
-	/**
-	 * Data type
-	 *
-	 * @access public
-	 * @var string
-	 */
-	public $option_type = 'theme_mod';
-
-	/**
 	 * Enqueue control related scripts/styles.
 	 *
 	 * @access public
@@ -64,31 +48,6 @@ class Kirki_Control_FontAwesome extends Kirki_Control_Base {
 	}
 
 	/**
-	 * Refresh the parameters passed to the JavaScript via JSON.
-	 *
-	 * @see WP_Customize_Control::to_json()
-	 */
-	public function to_json() {
-		parent::to_json();
-
-		$this->json['default'] = $this->setting->default;
-		if ( isset( $this->default ) ) {
-			$this->json['default'] = $this->default;
-		}
-		$this->json['output']  = $this->output;
-		$this->json['value']   = $this->value();
-		$this->json['choices'] = $this->choices;
-		$this->json['link']    = $this->get_link();
-		$this->json['id']      = $this->id;
-
-		$this->json['inputAttrs'] = '';
-		foreach ( $this->input_attrs as $attr => $value ) {
-			$this->json['inputAttrs'] .= $attr . '="' . esc_attr( $value ) . '" ';
-		}
-	}
-
-
-	/**
 	 * An Underscore (JS) template for this control's content (but not its container).
 	 *
 	 * Class variables for this control class are available in the `data` JS object;
@@ -107,18 +66,4 @@ class Kirki_Control_FontAwesome extends Kirki_Control_Base {
 		</label>
 		<?php
 	}
-
-	/**
-	 * Render the control's content.
-	 *
-	 * Allows the content to be overridden without having to rewrite the wrapper in `$this::render()`.
-	 *
-	 * Supports basic input types `text`, `checkbox`, `textarea`, `radio`, `select` and `dropdown-pages`.
-	 * Additional input types such as `email`, `url`, `number`, `hidden` and `date` are supported implicitly.
-	 *
-	 * Control content can alternately be rendered in JS. See WP_Customize_Control::print_template().
-	 *
-	 * @since 3.0.0
-	 */
-	protected function render_content() {}
 }

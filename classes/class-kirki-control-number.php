@@ -28,30 +28,6 @@ class Kirki_Control_Number extends Kirki_Control_Base {
 	public $type = 'kirki-number';
 
 	/**
-	 * Used to automatically generate all CSS output.
-	 *
-	 * @access public
-	 * @var array
-	 */
-	public $output = array();
-
-	/**
-	 * Data type
-	 *
-	 * @access public
-	 * @var string
-	 */
-	public $option_type = 'theme_mod';
-
-	/**
-	 * The kirki_config we're using for this control
-	 *
-	 * @access public
-	 * @var string
-	 */
-	public $kirki_config = 'global';
-
-	/**
 	 * Enqueue control related scripts/styles.
 	 *
 	 * @access public
@@ -66,31 +42,6 @@ class Kirki_Control_Number extends Kirki_Control_Base {
 			'max-error'  => esc_attr__( 'Value higher than allowed maximum', 'kirki' ),
 			'step-error' => esc_attr__( 'Invalid Value', 'kirki' ),
 		) );
-	}
-
-	/**
-	 * Refresh the parameters passed to the JavaScript via JSON.
-	 *
-	 * @see WP_Customize_Control::to_json()
-	 */
-	public function to_json() {
-		parent::to_json();
-
-		$this->json['default'] = $this->setting->default;
-		if ( isset( $this->default ) ) {
-			$this->json['default'] = $this->default;
-		}
-		$this->json['output']  = $this->output;
-		$this->json['value']   = $this->value();
-		$this->json['choices'] = $this->choices;
-		$this->json['link']    = $this->get_link();
-		$this->json['id']      = $this->id;
-
-		$this->json['inputAttrs'] = '';
-		foreach ( $this->input_attrs as $attr => $value ) {
-			$this->json['inputAttrs'] .= $attr . '="' . esc_attr( $value ) . '" ';
-		}
-
 	}
 
 	/**
