@@ -60,8 +60,8 @@ class Kirki_Control_Base extends WP_Customize_Control {
 
 		$type = str_replace( 'kirki-', '', $this->type );
 		wp_enqueue_script( 'kirki-dynamic-control', Kirki_Controls_Bootstrap::get_url( 'assets/js/dynamic-control.js' ), array( 'jquery', 'customize-base' ), false, true );
-		wp_enqueue_script( $this->type , Kirki_Controls_Bootstrap::get_url( "controls/assets/js/$type.js" ), array_merge( array( 'jquery', 'customize-base', 'kirki-dynamic-control' ), $this->kirki_script_dependencies() ), false, true );
-		wp_enqueue_style( 'kirki-styles', Kirki_Controls_Bootstrap::get_url( 'controls/assets/styles.css' ), null );
+		wp_enqueue_script( $this->type , Kirki_Controls_Bootstrap::get_url( "assets/js/$type.js" ), array_merge( $this->kirki_script_dependencies(), array( 'jquery', 'customize-base', 'kirki-dynamic-control' ) ), false, true );
+		wp_enqueue_style( 'kirki-styles', Kirki_Controls_Bootstrap::get_url( 'assets/styles.css' ), null );
 	}
 
 	/**
