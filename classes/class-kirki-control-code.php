@@ -69,26 +69,4 @@ class Kirki_Control_Code extends Kirki_Control_Base {
 		wp_enqueue_script( 'kirki-code', Kirki_Controls_Bootstrap::get_url( 'assets/js/code.js' ), array( 'jquery', 'customize-base', 'kirki-dynamic-control', 'codemirror' ), false, true );
 		wp_enqueue_style( 'kirki-styles', Kirki_Controls_Bootstrap::get_url( 'assets/styles.css' ), null );
 	}
-
-	/**
-	 * An Underscore (JS) template for this control's content (but not its container).
-	 *
-	 * Class variables for this control class are available in the `data` JS object;
-	 * export custom variables by overriding {@see WP_Customize_Control::to_json()}.
-	 *
-	 * @see WP_Customize_Control::print_template()
-	 *
-	 * @access protected
-	 */
-	protected function content_template() {
-		?>
-		<label>
-			<# if ( data.label ) { #><span class="customize-control-title">{{{ data.label }}}</span><# } #>
-			<# if ( data.description ) { #><span class="description customize-control-description">{{{ data.description }}}</span><# } #>
-			<div class="codemirror-kirki-wrapper">
-				<textarea {{{ data.inputAttrs }}} class="kirki-codemirror-editor">{{{ data.value }}}</textarea>
-			</div>
-		</label>
-		<?php
-	}
 }

@@ -4,11 +4,15 @@ wp.customize.controlConstructor['kirki-code'] = wp.customize.kirkiDynamicControl
 	initKirkiControl: function() {
 
 		var control  = this,
-		    element  = control.container.find( '.kirki-codemirror-editor' ),
 		    language = ( 'html' === control.params.choices.language ) ? { name: 'htmlmixed' } : control.params.choices.language,
+		    element,
 		    editor,
 		    container,
 		    height;
+
+		control.addHTML();
+
+		element = control.container.find( '.kirki-codemirror-editor' );
 
 		editor = CodeMirror.fromTextArea( element[0], {
 			value:        control.setting._value,
@@ -38,5 +42,20 @@ wp.customize.controlConstructor['kirki-code'] = wp.customize.kirkiDynamicControl
 		element.parents( '.accordion-section' ).on( 'click', function() {
 			editor.refresh();
 		});
+	},
+
+	addHTML: function() {
+		var control = this,
+		    html    = '';
+
+		html += '<label>';
+			html += '<span class="customize-control-title">' + control.params.label + '</span>';
+			html += '<span class="description customize-control-description">' + control.params.description + '</span>';
+			html += '<div class="codemirror-kirki-wrapper">';
+				html += '<textarea ' + control.params.inputAttrs + ' class="kirki-codemirror-editor">' + control.params.value + '</textarea>';
+			html += '</div>';
+		html += '</label>';
+
+		control.container.html( html );
 	}
 });
