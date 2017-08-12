@@ -58,7 +58,7 @@ class Kirki_Control_Dimension extends Kirki_Control_Base {
 	 */
 	public function enqueue() {
 
-		wp_enqueue_script( 'kirki-dynamic-control', trailingslashit( Kirki::$url ) . 'controls/assets/js/dynamic-control.js', array( 'jquery', 'customize-base' ), false, true );
+		parent::enqueue();
 		wp_enqueue_script( 'kirki-dimension', trailingslashit( Kirki::$url ) . 'controls/assets/js/dimension.js', array( 'jquery', 'customize-base', 'kirki-dynamic-control' ), false, true );
 		wp_enqueue_style( 'kirki-dimension-css', trailingslashit( Kirki::$url ) . 'controls/assets/css/dimension.css', null );
 		wp_localize_script( 'kirki-dimension', 'dimensionkirkiL10n', array(
@@ -89,27 +89,5 @@ class Kirki_Control_Dimension extends Kirki_Control_Base {
 			$this->json['inputAttrs'] .= $attr . '="' . esc_attr( $value ) . '" ';
 		}
 
-	}
-
-	/**
-	 * An Underscore (JS) template for this control's content (but not its container).
-	 *
-	 * Class variables for this control class are available in the `data` JS object;
-	 * export custom variables by overriding {@see WP_Customize_Control::to_json()}.
-	 *
-	 * @see WP_Customize_Control::print_template()
-	 *
-	 * @access protected
-	 */
-	protected function content_template() {
-		?>
-		<label class="customizer-text">
-			<# if ( data.label ) { #><span class="customize-control-title">{{{ data.label }}}</span><# } #>
-			<# if ( data.description ) { #><span class="description customize-control-description">{{{ data.description }}}</span><# } #>
-			<div class="input-wrapper">
-				<input {{{ data.inputAttrs }}} type="text" value="{{ data.value.replace( '%%', '%' ) }}"/>
-			</div>
-		</label>
-		<?php
 	}
 }
