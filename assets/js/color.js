@@ -2,8 +2,14 @@ wp.customize.controlConstructor['kirki-color'] = wp.customize.kirkiDynamicContro
 
 	initKirkiControl: function() {
 		var control = this,
-		    picker  = control.container.find( '.kirki-color-control' ),
-		    clear;
+		    html,
+		    clear,
+		    picker;
+
+		control.addHTML();
+
+		picker = control.container.find( '.kirki-color-control' );
+
 
 		// If we have defined any extra choices, make sure they are passed-on to Iris.
 		if ( ! _.isUndefined( control.params.choices ) ) {
@@ -28,5 +34,19 @@ wp.customize.controlConstructor['kirki-color'] = wp.customize.kirkiDynamicContro
 				}, 20 );
 			}
 		});
+	},
+
+	addHTML: function() {
+		var control = this,
+		    html    = '';
+
+		html  = '<label>';
+			html += '<span class="customize-control-title">' + control.params.label + '</span>';
+			html += '<span class="description customize-control-description">' + control.params.description + '</span>';
+			html += '<input type="text" data-palette="' + control.params.palette + '" data-default-color="' + control.params['default'] + '" data-alpha="' + control.params.alpha + '" value="' + control.params.value + '" class="kirki-color-control" ' + control.params.link + ' />';
+		html += '</label>';
+
+		control.container.html( html );
+
 	}
 });
