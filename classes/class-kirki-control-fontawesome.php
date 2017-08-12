@@ -39,7 +39,7 @@ class Kirki_Control_FontAwesome extends Kirki_Control_Base {
 		wp_enqueue_style( 'kirki-fontawesome-font-css', trailingslashit( Kirki::$url ) . 'controls/assets/vendor/fontawesome/font-awesome.css', null );
 		wp_enqueue_script( 'select2', trailingslashit( Kirki::$url ) . 'controls/assets/vendor/select2/js/select2.full.js', array( 'jquery' ), '4.0.3', true );
 		wp_enqueue_style( 'select2', trailingslashit( Kirki::$url ) . 'controls/assets/vendor/select2/css/select2.css', array(), '4.0.3' );
-		wp_enqueue_style( 'kirki-select2', trailingslashit( Kirki::$url ) . 'controls/assets/vendor/select2/kirki.css', null );
+		wp_enqueue_style( 'kirki-styles', trailingslashit( Kirki::$url ) . 'controls/assets/styles.css', null );
 		ob_start();
 		$json_path = wp_normalize_path( Kirki::$path . '/controls/assets/vendor/fontawesome/fontawesome.json' );
 		include( $json_path );
