@@ -10,7 +10,6 @@ wp.customize.controlConstructor['kirki-color'] = wp.customize.kirkiDynamicContro
 
 		picker = control.container.find( '.kirki-color-control' );
 
-
 		// If we have defined any extra choices, make sure they are passed-on to Iris.
 		if ( ! _.isUndefined( control.params.choices ) ) {
 			picker.wpColorPicker( control.params.choices );
