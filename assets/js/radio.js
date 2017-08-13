@@ -12,7 +12,7 @@ wp.customize.controlConstructor['kirki-radio'] = wp.customize.kirkiDynamicContro
 		html += '<span class="description customize-control-description">' + control.params.description + '</span>';
 		_.each( control.params.choices, function( value, key ) {
 			html += '<label>';
-				html += '<input type="radio" value="' + key + '" name="_customize-radio-' + control.id + '" ' + control.params.link + ( control.params.value === key ? ' checked' : '' ) + '/>';
+				html += '<input ' + control.params.inputAttrs + ' type="radio" value="' + key + '" name="_customize-radio-' + control.id + '" ' + control.params.link + ( control.params.value === key ? ' checked' : '' ) + '/>';
 				if ( _.isArray( value ) ) {
 					html += value[0] + '<span class="option-description">' + value[1] + '</span>';
 				} else {

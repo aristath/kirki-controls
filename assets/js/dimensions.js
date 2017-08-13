@@ -61,7 +61,7 @@ wp.customize.controlConstructor['kirki-dimensions'] = wp.customize.kirkiDynamicC
 								}
 							html += '</h5>';
 							html += '<div class="' + choiceKey + ' input-wrapper">';
-								html += '<input type="text" data-choice="' + choiceKey + '" value="' + control.params.value[ choiceKey ].replace( '%%', '%' ) + '"/>';
+								html += '<input type="text" ' + control.params.inputAttrs + ' data-choice="' + choiceKey + '" value="' + control.params.value[ choiceKey ].replace( '%%', '%' ) + '"/>';
 							html += '</div>';
 						html += '</div>';
 					});

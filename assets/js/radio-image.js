@@ -11,7 +11,7 @@ wp.customize.controlConstructor['kirki-radio-image'] = wp.customize.kirkiDynamic
 		html += '<div id="input_' + control.id + '" class="image">';
 			_.each( control.params.choices, function( value, key ) {
 				var dataAlt = ( _.isObject( value ) && ! _.isUndefined( value.alt ) ) ? value.alt : '';
-				html += '<input class="image-select" type="radio" value="' + key + '" name="_customize-radio-' + control.id + '" id="' + control.id + key + '" ' + control.params.link + ( control.params.value === key ? ' checked="checked"' : '' ) + ' data-alt="' + dataAlt + '">';
+				html += '<input ' + control.params.inputAttrs + ' class="image-select" type="radio" value="' + key + '" name="_customize-radio-' + control.id + '" id="' + control.id + key + '" ' + control.params.link + ( control.params.value === key ? ' checked="checked"' : '' ) + ' data-alt="' + dataAlt + '">';
 					html += '<label for="' + control.id + key + '" ' + control.params.labelStyle + ' class="' + control.id + key + '">';
 						if ( _.isObject( value ) ) {
 							html += '<img src="' + value.src + '" alt="' + value.alt + '">';

@@ -26,7 +26,7 @@ wp.customize.controlConstructor['kirki-dimension'] = wp.customize.kirkiDynamicCo
 			html += '<span class="customize-control-title">' + control.params.label + '</span>';
 			html += '<span class="description customize-control-description">' + control.params.description + '</span>';
 			html += '<div class="input-wrapper">';
-				html += '<input type="text" value="' + control.params.value.replace( '%%', '%' ) + '"/>';
+				html += '<input type="text" ' + control.params.inputAttrs + 'value="' + control.params.value.replace( '%%', '%' ) + '"/>';
 			html += '</div>';
 		html += '</label>';
 

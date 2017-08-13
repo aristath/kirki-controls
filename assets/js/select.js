@@ -40,7 +40,7 @@ wp.customize.controlConstructor['kirki-select'] = wp.customize.kirkiDynamicContr
 		html += '<label>';
 			html += '<span class="customize-control-title">' + control.params.label + '</span>';
 			html += '<span class="description customize-control-description">' + control.params.description + '</span>';
-			html += '<select ' + control.params.link + ( 1 < control.params.multiple ? ' data-multiple="' + control.params.multiple + '" multiple="multiple"' : '' ) + '>';
+			html += '<select ' + control.params.inputAttrs + ' ' + control.params.link + ( 1 < control.params.multiple ? ' data-multiple="' + control.params.multiple + '" multiple="multiple"' : '' ) + '>';
 
 				_.each( control.params.choices, function( optionLabel, optionKey ) {
 					var selected = ( control.params.value === optionKey );

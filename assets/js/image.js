@@ -151,7 +151,7 @@ wp.customize.controlConstructor['kirki-image'] = wp.customize.kirkiDynamicContro
 		html += '<span class="customize-control-title">' + control.params.label + '</span>';
 		html += '<span class="description customize-control-description">' + control.params.description + '</span>';
 		html += '</label>';
-		html += '<div class="image-wrapper attachment-media-view image-upload">';
+		html += '<div class="image-wrapper attachment-media-view image-upload" ' + control.params.inputAttrs + '>';
 		if ( '' !== url ) {
 			html += '<div class="thumbnail thumbnail-image"><img src="' + url + '" alt="" /></div>';
 		} else {
