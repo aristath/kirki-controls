@@ -7,6 +7,8 @@ wp.customize.controlConstructor['kirki-multicolor'] = wp.customize.Control.exten
 
 		var control = this;
 
+		control.addHTML();
+
 		control.initKirkiControl();
 	},
 
@@ -66,6 +68,28 @@ wp.customize.controlConstructor['kirki-multicolor'] = wp.customize.Control.exten
 
 			i++;
 		}
+	},
+
+	addHTML: function() {
+		var control = this,
+		    html    = '';
+
+		html += '<span class="customize-control-title">' + control.params.label + '</span>';
+		html += '<span class="description customize-control-description">' + control.params.description + '</span>';
+		html += '<div class="multicolor-group-wrapper">';
+			_.each( control.params.choices, function( val, key ) {
+				if ( 'irisArgs' !== key ) {
+					html += '<div class="multicolor-single-color-wrapper">';
+						html += ( val ) ? '<label for="' + control.id + '-' + key + '">' + val + '</label>' : '';
+						html += '<input ' + control.params.inputAttrs + ' id="' + control.id + '-' + key + '" type="text" data-palette="' + control.params.palette + '" data-default-color="' + control.params['default'][ key ] + '" data-alpha="' + control.params.alpha + '" value="' + control.params.value[ key ] + '" class="kirki-color-control color-picker multicolor-index-' + key + '" />';
+					html += '</div>';
+				}
+			});
+		html += '</div>';
+		html += '<div class="iris-target"></div>';
+		html += '<input class="multicolor-hidden-value" type="hidden" value=\'' + JSON.stringify( control.params.value ) + '\' ' + control.params.link + '>';
+
+		control.container.html( html );
 	},
 
 	/**

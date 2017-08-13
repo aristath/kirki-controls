@@ -105,39 +105,4 @@ class Kirki_Control_Multicolor extends Kirki_Control_Base {
 		wp_enqueue_style( 'wp-color-picker' );
 		parent::enqueue();
 	}
-
-	/**
-	 * An Underscore (JS) template for this control's content (but not its container).
-	 *
-	 * Class variables for this control class are available in the `data` JS object;
-	 * export custom variables by overriding {@see WP_Customize_Control::to_json()}.
-	 *
-	 * @see WP_Customize_Control::print_template()
-	 *
-	 * @access protected
-	 */
-	protected function content_template() {
-		?>
-		<span class="customize-control-title">
-			{{{ data.label }}}
-		</span>
-		<# if ( data.description ) { #>
-			<span class="description customize-control-description">{{{ data.description }}}</span>
-		<# } #>
-		<div class="multicolor-group-wrapper">
-			<# for ( key in data.choices ) { #>
-				<# if ( 'irisArgs' !== key ) { #>
-					<div class="multicolor-single-color-wrapper">
-						<# if ( data.choices[ key ] ) { #>
-							<label for="{{ data.id }}-{{ key }}">{{ data.choices[ key ] }}</label>
-						<# } #>
-						<input {{{ data.inputAttrs }}} id="{{ data.id }}-{{ key }}" type="text" data-palette="{{ data.palette }}" data-default-color="{{ data.default[ key ] }}" data-alpha="{{ data.alpha }}" value="{{ data.value[ key ] }}" class="kirki-color-control color-picker multicolor-index-{{ key }}" />
-					</div>
-				<# } #>
-			<# } #>
-		</div>
-		<div class="iris-target"></div>
-		<input class="multicolor-hidden-value" type="hidden" value='{{{ JSON.stringify( data.value ) }}}' {{{ data.link }}}>
-		<?php
-	}
 }
