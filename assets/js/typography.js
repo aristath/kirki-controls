@@ -10,6 +10,8 @@ wp.customize.controlConstructor['kirki-typography'] = wp.customize.kirkiDynamicC
 		    value                 = control.getValue(),
 		    picker;
 
+		control.addHTML();
+
 		control.renderFontSelector();
 		control.renderBackupFontSelector();
 		control.renderVariantSelector();
@@ -66,6 +68,163 @@ wp.customize.controlConstructor['kirki-typography'] = wp.customize.kirkiDynamicC
 				}, 100 );
 			}
 		});
+	},
+
+	addHTML: function() {
+		var control = this,
+		    data    = control.params,
+		    html    = '',
+		    valueJSON;
+
+		html += '<label class="customizer-text">';
+			html += '<span class="customize-control-title">' + data.label + '</span>';
+			html += '<span class="description customize-control-description">' + data.description + '</span>';
+		html += '</label>';
+
+		html += '<div class="wrapper">';
+
+			if ( data['default']['font-family'] ) {
+				if ( '' === data.value['font-family'] ) {
+					data.value['font-family'] = data['default']['font-family'];
+				}
+				if ( data.choices.fonts ) {
+					data.fonts = data.choices.fonts;
+				}
+				html += '<div class="font-family">';
+					html += '<h5>' + data.l10n.fontFamily + '</h5>';
+					html += '<select ' + data.inputAttrs + ' id="kirki-typography-font-family-' + data.id + '" placeholder="' + data.l10n.selectFontFamily + '"></select>';
+				html += '</div>';
+				if ( ! _.isUndefined( data.choices['font-backup'] ) && true === data.choices['font-backup'] ) {
+					html += '<div class="font-backup hide-on-standard-fonts kirki-font-backup-wrapper">';
+						html += '<h5>' + data.l10n.backupFont + '</h5>';
+						html += '<select ' + data.inputAttrs + ' id="kirki-typography-font-backup-' + data.id + '" placeholder="' + data.l10n.selectFontFamily + '"></select>';
+					html += '</div>';
+				}
+				if ( true === data.show_variants || false !== data['default'].variant ) {
+					html += '<div class="variant kirki-variant-wrapper">';
+						html += '<h5>' + data.l10n.variant + '</h5>';
+						html += '<select ' + data.inputAttrs + ' class="variant" id="kirki-typography-variant-' + data.id + '"></select>';
+					html += '</div>';
+				}
+				if ( true === data.show_subsets ) {
+					html += '<div class="subsets hide-on-standard-fonts kirki-subsets-wrapper">';
+						html += '<h5>' + data.l10n.subsets + '</h5>';
+						html += '<select ' + data.inputAttrs + ' class="subset" id="kirki-typography-subsets-' + data.id + '"' + ( ( _.isUndefined( data.choices['disable-multiple-variants'] ) || false === data.choices['disable-multiple-variants'] ) ? ' multiple' : '' ) + '>';
+							_.each( data.value.subsets, function( subset ) {
+								html += '<option value="' + subset + '" selected="selected">' + data.languages[ subset ] + '</option>';
+							});
+						html += '</select>';
+					html += '</div>';
+				}
+			}
+
+			if ( data['default']['font-size'] ) {
+				html += '<div class="font-size">';
+					html += '<h5>' + data.l10n.fontSize + '</h5>';
+					html += '<input ' + data.inputAttrs + ' type="text" value="' + data.value['font-size'] + '"/>';
+				html += '</div>';
+			}
+
+			if ( data['default']['line-height'] ) {
+				html += '<div class="line-height">';
+					html += '<h5>' + data.l10n.lineHeight + '</h5>';
+					html += '<input ' + data.inputAttrs + ' type="text" value="' + data.value['line-height'] + '"/>';
+				html += '</div>';
+			}
+
+			if ( data['default']['letter-spacing'] ) {
+				html += '<div class="letter-spacing">';
+					html += '<h5>' + data.l10n.letterSpacing + '</h5>';
+					html += '<input ' + data.inputAttrs + ' type="text" value="' + data.value['letter-spacing'] + '"/>';
+				html += '</div>';
+			}
+
+			if ( data['default']['word-spacing'] ) {
+				html += '<div class="word-spacing">';
+					html += '<h5>' + data.l10n.wordSpacing + '</h5>';
+					html += '<input ' + data.inputAttrs + ' type="text" value="' + data.value['word-spacing'] + '"/>';
+				html += '</div>';
+			}
+
+			if ( data['default']['text-align'] ) {
+				html += '<div class="text-align">';
+					html += '<h5>' + data.l10n.textAlign + '</h5>';
+					html += '<input ' + data.inputAttrs + ' type="radio" value="inherit" name="_customize-typography-text-align-radio-' + data.id + '" id="' + data.id + '-text-align-inherit" ' + ( 'inherit' === data.value['text-align'] ? ' checked="checked"' : '' ) + '>';
+						html += '<label for="' + data.id + '-text-align-inherit">';
+							html += '<span class="dashicons dashicons-editor-removeformatting"></span>';
+							html += '<span class="screen-reader-text">' + data.l10n.inherit + '</span>';
+						html += '</label>';
+					html += '</input>';
+
+					html += '<input ' + data.inputAttrs + ' type="radio" value="left" name="_customize-typography-text-align-radio-' + data.id + '" id="' + data.id + '-text-align-left" ' + ( 'left' === data.value['text-align'] ? ' checked="checked"' : '' ) + '>';
+						html += '<label for="' + data.id + '-text-align-left">';
+							html += '<span class="dashicons dashicons-editor-alignleft"></span>';
+							html += '<span class="screen-reader-text">' + data.l10n.left + '</span>';
+						html += '</label>';
+					html += '</input>';
+
+					html += '<input ' + data.inputAttrs + ' type="radio" value="center" name="_customize-typography-text-align-radio-' + data.id + '" id="' + data.id + '-text-align-center" ' + ( 'center' === data.value['text-align'] ? ' checked="checked"' : '' ) + '>';
+						html += '<label for="' + data.id + '-text-align-center">';
+							html += '<span class="dashicons dashicons-editor-aligncenter"></span>';
+							html += '<span class="screen-reader-text">' + data.l10n.center + '</span>';
+						html += '</label>';
+					html += '</input>';
+
+					html += '<input ' + data.inputAttrs + ' type="radio" value="right" name="_customize-typography-text-align-radio-' + data.id + '" id="' + data.id + '-text-align-right" ' + ( 'right' === data.value['text-align'] ? ' checked="checked"' : '' ) + '>';
+						html += '<label for="' + data.id + '-text-align-right">';
+							html += '<span class="dashicons dashicons-editor-alignright"></span>';
+							html += '<span class="screen-reader-text">' + data.l10n.right + '</span>';
+						html += '</label>';
+					html += '</input>';
+
+					html += '<input ' + data.inputAttrs + ' type="radio" value="justify" name="_customize-typography-text-align-radio-' + data.id + '" id="' + data.id + '-text-align-justify" ' + ( 'justify' === data.value['text-align'] ? ' checked="checked"' : '' ) + '>';
+						html += '<label for="' + data.id + '-text-align-justify">';
+							html += '<span class="dashicons dashicons-editor-justify"></span>';
+							html += '<span class="screen-reader-text">' + data.l10n.justify + '</span>';
+						html += '</label>';
+					html += '</input>';
+				html += '</div>';
+			}
+
+			if ( data['default']['text-transform'] ) {
+				html += '<div class="text-transform">';
+					html += '<h5>' + data.l10n.textTransform + '</h5>';
+					html += '<select ' + data.inputAttrs + ' id="kirki-typography-text-transform-' + data.id + '">';
+						_.each( ['none', 'capitalize', 'uppercase', 'lowercase', 'initial', 'inherit'], function( textTransform ) {
+							html += '<option value="none"' + ( textTransform === data.value['text-transform'] ? ' selected' : '' ) + '>' + data.l10n[ textTransform ] + '</option>';
+						});
+					html += '</select>';
+				html += '</div>';
+			}
+
+			if ( false !== data['default'].color && data['default'].color ) {
+				html += '<div class="color">';
+					html += '<h5>' + data.l10n.color + '</h5>';
+					html += '<input ' + data.inputAttrs + ' type="text" data-palette="' + data.palette + '" data-default-color="' + data['default'].color + '" value="' + data.value.color + '" class="kirki-color-control" ' + data.link + ' />';
+				html += '</div>';
+			}
+
+			if ( data['default']['margin-top'] ) {
+				html += '<div class="margin-top">';
+					html += '<h5>' + data.l10n.marginTop + '</h5>';
+					html += '<input ' + data.inputAttrs + ' type="text" value="' + data.value['margin-top'] + '"/>';
+				html += '</div>';
+			}
+
+			if ( data['default']['margin-bottom'] ) {
+				html += '<div class="margin-bottom">';
+					html += '<h5>' + data.l10n.marginBottom + '</h5>';
+					html += '<input ' + data.inputAttrs + ' type="text" value="' + data.value['margin-bottom'] + '"/>';
+				html += '</div>';
+			}
+		html += '</div>';
+
+		if ( ! _.isUndefined( data.value['font-family'] ) ) {
+			data.value['font-family'] = data.value['font-family'].replace( /&quot;/g, '&#39' );
+		}
+		valueJSON = JSON.stringify( data.value ).replace( /'/g, '&#39' );
+
+		html += '<input class="typography-hidden-value" type="hidden" value=\'' + valueJSON + '\' ' + data.link + '>';
 	},
 
 	/**
