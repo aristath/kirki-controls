@@ -11,6 +11,8 @@ wp.customize.controlConstructor['kirki-editor'] = wp.customize.kirkiDynamicContr
 		    setChange,
 		    content;
 
+		control.addHTML();
+
 		// Add the button text
 		toggler.html( control.params.l10n.openEditor );
 
@@ -50,6 +52,23 @@ wp.customize.controlConstructor['kirki-editor'] = wp.customize.kirkiDynamicContr
 			wp.customize.instance( control.getEditorWrapperSetting() ).set( jQuery( this ).val() );
 		});
 	},
+
+	addHTML: function() {
+		var control = this,
+		    html    = '',
+			data    = control.params;
+
+		html += '<label>';
+			html += '<span class="customize-control-title">' + data.label + '</span>';
+			html += '<span class="description customize-control-description">' + data.description + '</span>';
+			html += '<div class="customize-control-content">';
+				html += '<a href="#" class="button button-primary toggle-editor"></a>';
+				html += '<textarea ' + data.inputAttrs + ' class="hidden" ' + data.link + '>' + data.value + '</textarea>';
+			html += '</div>';
+		html += '</label>';
+
+		control.container.html( html );
+	}
 
 	/**
 	 * Modify the button text and classes.
