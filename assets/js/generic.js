@@ -23,14 +23,14 @@ wp.customize.controlConstructor['kirki-generic'] = wp.customize.kirkiDynamicCont
 			html += '<span class="description customize-control-description">' + control.params.description + '</span>';
 			html += '<div class="customize-control-content">';
 				if ( 'textarea' === control.params.choices.element ) {
-					html += '<textarea ' + control.params.link;
+					html += '<textarea ' + control.params.inputAttrs + ' ' + control.params.link;
 					_.each( control.params.choices, function( value, key ) {
 						html += key += '"' + value + '"';
 					});
 					html += control.params.value;
 					html += '</textarea>';
 				} else {
-					html += '<' + element + ' value="' + control.params.value + '" ' + control.params.link;
+					html += '<' + element + ' value="' + control.params.value + '" ' + control.params.link + control.params.inputAttrs + ' ';
 					_.each( control.params.choices, function( value, key ) {
 						html += key += '"' + value + '"';
 					});
