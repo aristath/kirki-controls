@@ -2,9 +2,6 @@ wp.customize.controlConstructor['kirki-background'] = wp.customize.Control.exten
 
 	// When we're finished loading continue processing
 	ready: function() {
-
-		'use strict';
-
 		var control = this;
 
 		control.addHTML();
@@ -254,9 +251,6 @@ wp.customize.controlConstructor['kirki-background'] = wp.customize.Control.exten
 	 * Saves the value.
 	 */
 	saveValue: function( property, value ) {
-
-		'use strict';
-
 		var control   = this,
 		    input     = jQuery( '#customize-control-' + control.id.replace( '[', '-' ).replace( ']', '' ) + ' .background-hidden-value' ),
 		    valueJSON = jQuery( input ).val(),

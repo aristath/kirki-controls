@@ -2,9 +2,6 @@
 wp.customize.controlConstructor['kirki-typography'] = wp.customize.kirkiDynamicControl.extend({
 
 	initKirkiControl: function() {
-
-		'use strict';
-
 		var control               = this,
 		    textTransformSelector = control.selector + ' .text-transform select',
 		    value                 = control.getValue(),

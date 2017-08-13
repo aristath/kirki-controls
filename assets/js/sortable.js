@@ -2,9 +2,6 @@ wp.customize.controlConstructor['kirki-sortable'] = wp.customize.Control.extend(
 
 	// When we're finished loading continue processing
 	ready: function() {
-
-		'use strict';
-
 		var control = this;
 
 		// Init the control.
@@ -12,9 +9,6 @@ wp.customize.controlConstructor['kirki-sortable'] = wp.customize.Control.extend(
 	},
 
 	initKirkiControl: function() {
-
-		'use strict';
-
 		var control = this;
 
 		control.container.find( '.kirki-controls-loading-spinner' ).hide();
@@ -46,9 +40,6 @@ wp.customize.controlConstructor['kirki-sortable'] = wp.customize.Control.extend(
 	 * Updates the sorting list
 	 */
 	updateValue: function() {
-
-		'use strict';
-
 		var control = this,
 		    newValue = [];
 

@@ -2,9 +2,6 @@ wp.customize.controlConstructor['kirki-multicolor'] = wp.customize.Control.exten
 
 	// When we're finished loading continue processing
 	ready: function() {
-
-		'use strict';
-
 		var control = this;
 
 		control.addHTML();
@@ -13,9 +10,6 @@ wp.customize.controlConstructor['kirki-multicolor'] = wp.customize.Control.exten
 	},
 
 	initKirkiControl: function() {
-
-		'use strict';
-
 		var control = this,
 		    colors  = control.params.choices,
 		    keys    = Object.keys( colors ),

@@ -1,9 +1,6 @@
 wp.customize.controlConstructor['kirki-switch'] = wp.customize.kirkiDynamicControl.extend({
 
 	initKirkiControl: function() {
-
-		'use strict';
-
 		var control       = this,
 		    checkboxValue = control.setting._value,
 		    html          = '',
