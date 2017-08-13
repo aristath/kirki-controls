@@ -4,14 +4,19 @@ wp.customize.controlConstructor['kirki-editor'] = wp.customize.kirkiDynamicContr
 	initKirkiControl: function() {
 
 		var control      = this,
-		    element      = control.container.find( 'textarea' ),
-		    toggler      = control.container.find( '.toggle-editor' ),
-		    wpEditorArea = jQuery( '#kirki_editor_pane textarea.wp-editor-area' ),
-		    editor       = tinyMCE.get( 'kirki-editor' ),
+		    element,
+		    toggler,
+		    wpEditorArea,
+		    editor,
 		    setChange,
 		    content;
 
 		control.addHTML();
+
+		element      = control.container.find( 'textarea' );
+		toggler      = control.container.find( '.toggle-editor' );
+		wpEditorArea = jQuery( '#kirki_editor_pane textarea.wp-editor-area' );
+		editor       = tinyMCE.get( 'kirki-editor' );
 
 		// Add the button text
 		toggler.html( control.params.l10n.openEditor );
