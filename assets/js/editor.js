@@ -73,7 +73,7 @@ wp.customize.controlConstructor['kirki-editor'] = wp.customize.kirkiDynamicContr
 		html += '</label>';
 
 		control.container.html( html );
-	}
+	},
 
 	/**
 	 * Modify the button text and classes.
