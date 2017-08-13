@@ -222,6 +222,8 @@ wp.customize.controlConstructor['kirki-typography'] = wp.customize.kirkiDynamicC
 		valueJSON = JSON.stringify( data.value ).replace( /'/g, '&#39' );
 
 		html += '<input class="typography-hidden-value" type="hidden" value=\'' + valueJSON + '\' ' + data.link + '>';
+
+		control.container.html( html );
 	},
 
 	/**
