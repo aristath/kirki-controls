@@ -3,8 +3,18 @@ wp.customize.controlConstructor['kirki-number'] = wp.customize.kirkiDynamicContr
 	initKirkiControl: function() {
 
 		var control = this,
-		    element = this.container.find( 'input' ),
-		    step    = 1;
+		    step    = 1,
+		    element;
+
+		control.params.choices = _.defaults( control.params.choices, {
+			min: -99999,
+			max: 99999,
+			step: 1
+		});
+
+		control.addHTML();
+
+		element = this.container.find( 'input' );
 
 		// Set step value.
 		if ( ! _.isUndefined( control.params.choices ) && ! _.isUndefined( control.params.choices.step ) ) {
@@ -12,11 +22,7 @@ wp.customize.controlConstructor['kirki-number'] = wp.customize.kirkiDynamicContr
 		}
 
 		// Init the spinner
-		jQuery( element ).spinner({
-			min: ( ! _.isUndefined( control.params.choices ) && ! _.isUndefined( control.params.choices.min ) ) ? control.params.choices.min : -99999,
-			max: ( ! _.isUndefined( control.params.choices ) && ! _.isUndefined( control.params.choices.max ) ) ? control.params.choices.max : 99999,
-			step: step
-		});
+		jQuery( element ).spinner( control.params.choices );
 
 		// On change
 		this.container.on( 'change click keyup paste', 'input', function() {
@@ -25,6 +31,21 @@ wp.customize.controlConstructor['kirki-number'] = wp.customize.kirkiDynamicContr
 
 		// Notifications.
 		control.kirkiNotifications();
+	},
+
+	addHTML: function() {
+		var control = this,
+		    html    = '';
+
+		html += '<label>';
+			html += '<span class="customize-control-title">' + control.params.label + '</span>';
+			html += '<span class="description customize-control-description">' + control.params.description + '</span>';
+			html += '<div class="customize-control-content">';
+				html += '<input ' + control.params.inputAttrs + ' type="text" ' + control.params.link + ' value="' + control.params.value + '" />';
+			html += '</div>';
+		html += '</label>';
+
+		control.container.html( html );
 	},
 
 	/**
