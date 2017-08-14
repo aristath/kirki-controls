@@ -54,11 +54,12 @@ class Kirki_Control_Typography extends Kirki_Control_Base {
 		parent::enqueue();
 
 		$custom_fonts_array  = ( isset( $this->choices['fonts'] ) && ( isset( $this->choices['fonts']['google'] ) || isset( $this->choices['fonts']['standard'] ) ) && ( ! empty( $this->choices['fonts']['google'] ) || ! empty( $this->choices['fonts']['standard'] ) ) );
-		$localize_script_var = ( $custom_fonts_array ) ? 'kirkiFonts' . $this->id : 'kirkiAllFonts';
-		wp_localize_script( 'kirki-typography', $localize_script_var, array(
-			'standard' => $this->get_standard_fonts(),
-			'google'   => $this->get_google_fonts(),
-		) );
+		if ( $custom_fonts_array ) {
+			wp_localize_script( 'kirki-typography', 'kirkiFonts', array(
+				'standard' => $this->get_standard_fonts(),
+				'google'   => $this->get_google_fonts(),
+			) );
+		}
 	}
 
 	/**

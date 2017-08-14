@@ -89,6 +89,8 @@ class Kirki_Control_Base extends WP_Customize_Control {
 		$this->json['id']      = $this->id;
 		// Translation strings.
 		$this->json['l10n']    = $this->l10n();
+		// The ajaxurl in case we need it.
+		$this->json['ajaxurl'] = admin_url( 'admin-ajax.php' );
 		// Input attributes.
 		$this->json['inputAttrs'] = '';
 		foreach ( $this->input_attrs as $attr => $value ) {
@@ -121,6 +123,8 @@ class Kirki_Control_Base extends WP_Customize_Control {
 	 * @access protected
 	 */
 	protected function content_template() {
+		// This HTML will be replaced when the control is loaded.
+		echo '<h4>' . esc_attr__( 'Please wait while we load the control', 'kirki' ) . '</h4>';
 	}
 
 	/**

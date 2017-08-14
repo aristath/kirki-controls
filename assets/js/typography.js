@@ -2,6 +2,23 @@
 wp.customize.controlConstructor['kirki-typography'] = wp.customize.kirkiDynamicControl.extend({
 
 	initKirkiControl: function() {
+		var control = this;
+
+		// If kirkiAllFonts is not defined,
+		// then get the fonts using an ajax call.
+		if ( _.isUndefined( window.kirkiAllFonts ) && _.isUndefined( window[ 'kirkiFonts' + control.id ] ) ) {
+			jQuery.post( control.params.ajaxurl, { 'action': 'kirki_get_googlefonts_ajax' }, function( response ) {
+				window.kirkiAllFonts = JSON.parse( response );
+				control.initKirkiTypographyControl();
+			});
+			return;
+		}
+
+		// If we're here then kirkiAllFonts is already defined.
+		control.initKirkiTypographyControl();
+	},
+
+	initKirkiTypographyControl: function() {
 		var control               = this,
 		    textTransformSelector = control.selector + ' .text-transform select',
 		    value                 = control.getValue(),

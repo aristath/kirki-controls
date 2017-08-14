@@ -65,6 +65,9 @@ class Kirki_Controls_Bootstrap {
 		add_action( 'customize_register', array( $this, 'register_control_types' ) );
 		$this->control_types = $this->get_control_types();
 		add_filter( 'kirki/control_types', array( $this, 'get_control_types' ), 1 );
+
+		add_action( 'wp_ajax_kirki_get_googlefonts_ajax', array( $this, 'get_googlefonts_ajax' ) );
+		add_action( 'wp_ajax_nopriv_kirki_get_googlefonts_ajax', array( $this, 'get_googlefonts_ajax' ) );
 	}
 
 	/**
@@ -187,5 +190,107 @@ class Kirki_Controls_Bootstrap {
 			}
 		}
 		return esc_url_raw( trailingslashit( self::$url ) . $file );
+	}
+
+	/**
+	 * This is fired via AJAX to return an array of googlefonts.
+	 *
+	 * @access public
+	 * @since 3.0.10
+	 * @return string
+	 */
+	function get_googlefonts_ajax() {
+		if ( ! class_exists( 'Kirki_Fonts' ) ) {
+			include_once dirname( __FILE__ ) . '/classes/class-kirki-fonts.php';
+		}
+		// Add fonts to our JS objects.
+		$google_fonts = Kirki_Fonts::get_google_fonts();
+		$all_variants = Kirki_Fonts::get_all_variants();
+		$all_subsets  = Kirki_Fonts::get_google_font_subsets();
+
+		$google_fonts_final = array();
+		foreach ( $google_fonts as $family => $args ) {
+			$variants = ( isset( $args['variants'] ) ) ? $args['variants'] : array( 'regular', '700' );
+			$subsets  = ( isset( $args['subsets'] ) ) ? $args['subsets'] : array();
+
+			$available_variants = array();
+			if ( is_array( $variants ) ) {
+				foreach ( $variants as $variant ) {
+					if ( array_key_exists( $variant, $all_variants ) ) {
+						$available_variants[] = array(
+							'id'    => $variant,
+							'label' => $all_variants[ $variant ],
+						);
+					}
+				}
+			}
+
+			$available_subsets = array();
+			if ( is_array( $subsets ) ) {
+				foreach ( $subsets as $subset ) {
+					if ( array_key_exists( $subset, $all_subsets ) ) {
+						$available_subsets[] = array(
+							'id'    => $subset,
+							'label' => $all_subsets[ $subset ],
+						);
+					}
+				}
+			}
+
+			$google_fonts_final[] = array(
+				'family'   => $family,
+				'label'    => ( isset( $args['label'] ) ) ? $args['label'] : $family,
+				'variants' => $available_variants,
+				'subsets'  => $available_subsets,
+			);
+		} // End foreach().
+
+		$standard_fonts = Kirki_Fonts::get_standard_fonts();
+
+		$standard_fonts_final = array();
+		$default_variants = $this->format_variants_array( array( 'regular', 'italic', '700', '700italic' ) );
+		foreach ( $standard_fonts as $key => $font ) {
+			$standard_fonts_final[] = array(
+				'family'      => $font['stack'],
+				'label'       => $font['label'],
+				'subsets'     => array(),
+				'is_standard' => true,
+				'variants'    => ( isset( $font['variants'] ) ) ? $this->format_variants_array( $font['variants'] ) : $default_variants,
+			);
+		}
+
+		echo wp_json_encode( array(
+			'standard' => $standard_fonts_final,
+			'google'   => $google_fonts_final,
+		) );
+		wp_die();
+	}
+
+	/**
+	 * Formats variants.
+	 *
+	 * @access protected
+	 * @since 3.0.0
+	 * @param array $variants The variants.
+	 * @return array
+	 */
+	protected function format_variants_array( $variants ) {
+
+		if ( ! class_exists( 'Kirki_Fonts' ) ) {
+			include_once dirname( __FILE__ ) . '/classes/class-kirki-fonts.php';
+		}
+		$all_variants = Kirki_Fonts::get_all_variants();
+		$final_variants = array();
+		foreach ( $variants as $variant ) {
+			if ( is_string( $variant ) ) {
+				$final_variants[] = array(
+					'id'    => $variant,
+					'label' => isset( $all_variants[ $variant ] ) ? $all_variants[ $variant ] : $variant,
+				);
+			} elseif ( is_array( $variant ) && isset( $variant['id'] ) && isset( $variant['label'] ) ) {
+				$final_variants[] = $variant;
+			}
+		}
+		return $final_variants;
 	}
 }
