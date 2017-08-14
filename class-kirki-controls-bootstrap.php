@@ -197,7 +197,7 @@ class Kirki_Controls_Bootstrap {
 	 *
 	 * @access public
 	 * @since 3.0.10
-	 * @return string
+	 * @return void Echoes a JSON containing all googlefonts.
 	 */
 	function get_googlefonts_ajax() {
 		if ( ! class_exists( 'Kirki_Fonts' ) ) {
