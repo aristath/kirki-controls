@@ -116,7 +116,6 @@
 
 			control.deferred.embedded.done( function() {
 				control.initKirkiControl();
-				control.kirkiControlHook();
 			});
 		},
 
@@ -217,8 +216,6 @@
 				return false;
 			}
 			return true;
-		},
-
-		kirkiControlHook: {}
+		}
 	});
 })();
