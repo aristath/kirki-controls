@@ -27,5 +27,10 @@ wp.customize.controlConstructor['kirki-color-palette'] = wp.customize.kirkiDynam
 		html += '</div>';
 
 		control.container.html( html );
+	},
+
+	kirkiSetControlValue: function( value ) {
+		var control = this;
+		jQuery( control.findElement( control.id, 'input[value="' + value + '"]' ) ).prop( 'checked', true );
 	}
 });

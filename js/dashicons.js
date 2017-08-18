@@ -28,5 +28,10 @@ wp.customize.controlConstructor['kirki-dashicons'] = wp.customize.kirkiDynamicCo
 		html += '</div>';
 
 		control.container.html( html );
+	},
+
+	kirkiSetControlValue: function( value ) {
+		var control = this;
+		jQuery( control.findElement( control.id, 'input[value="' + value + '"]' ) ).prop( 'checked', true );
 	}
 });

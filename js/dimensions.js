@@ -124,5 +124,12 @@ wp.customize.controlConstructor['kirki-dimensions'] = wp.customize.kirkiDynamicC
 				}
 			});
 		});
+	},
+
+	kirkiSetControlValue: function( value ) {
+		var control = this;
+		_.each( value, function( subValue, id ) {
+			jQuery( control.findElement( control.id, '.' + id + ' input' ) ).prop( 'value', subValue );
+		});
 	}
 });

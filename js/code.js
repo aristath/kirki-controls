@@ -57,5 +57,10 @@ wp.customize.controlConstructor['kirki-code'] = wp.customize.kirkiDynamicControl
 		html += '</label>';
 
 		control.container.html( html );
+	},
+
+	kirkiSetControlValue: function( value ) {
+		var control = this;
+		jQuery( control.findElement( control.id, '.CodeMirror' ) )[0].CodeMirror.setValue( value );
 	}
 });

@@ -53,6 +53,11 @@ wp.customize.controlConstructor['kirki-slider'] = wp.customize.kirkiDynamicContr
 		html += '</label>';
 
 		control.container.html( html );
-	}
+	},
 
+	kirkiSetControlValue: function( value ) {
+		var control = this;
+		jQuery( control.findElement( control.id, 'input' ) ).prop( 'value', value );
+		jQuery( control.findElement( control.id, '.kirki_range_value .value' ) ).html( value );
+	}
 });

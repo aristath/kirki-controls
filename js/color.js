@@ -47,5 +47,10 @@ wp.customize.controlConstructor['kirki-color'] = wp.customize.kirkiDynamicContro
 
 		control.container.html( html );
 
+	},
+
+	kirkiSetControlValue: function( value ) {
+		var control = this;
+		control.setColorPicker( control.findElement( control.id, '.kirki-color-control' ), value );
 	}
 });

@@ -40,5 +40,17 @@ wp.customize.controlConstructor['kirki-switch'] = wp.customize.kirkiDynamicContr
 		html += '</div>';
 
 		control.container.html( html );
+	},
+
+	kirkiSetValue: function( value ) {
+		var control = this;
+		value = ( 1 === value || '1' === value || true === value ) ? true : false;
+		wp.customize.instance( control.id ).set( value );
+	},
+
+	kirkiSetControlValue: function( value ) {
+		var control = this;
+		value = ( 1 === value || '1' === value || true === value ) ? true : false;
+		jQuery( control.findElement( control.id, 'input' ) ).prop( 'checked', value );
 	}
 });

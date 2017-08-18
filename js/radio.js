@@ -22,5 +22,10 @@ wp.customize.controlConstructor['kirki-radio'] = wp.customize.kirkiDynamicContro
 		});
 
 		control.container.html( html );
+	},
+
+	kirkiSetControlValue: function( value ) {
+		var control = this;
+		jQuery( control.findElement( control.id, 'input[value="' + value + '"]' ) ).prop( 'checked', true );
 	}
 });
