@@ -28,28 +28,6 @@ class Kirki_Control_Preset extends Kirki_Control_Base {
 	public $type = 'kirki-preset';
 
 	/**
-	 * Returns an array of extra field dependencies for Kirki controls.
-	 *
-	 * @access protected
-	 * @since 3.0.10
-	 * @return array
-	 */
-	protected function kirki_script_dependencies() {
-		return array( 'kirki-set-setting-value' );
-	}
-
-	/**
-	 * Enqueue control related scripts/styles.
-	 *
-	 * @access public
-	 */
-	public function enqueue() {
-
-		wp_register_script( 'kirki-set-setting-value', Kirki_Controls_Bootstrap::get_url( 'preset/set-setting-value.js' ) );
-		parent::enqueue();
-	}
-
-	/**
 	 * An Underscore (JS) template for this control's content (but not its container).
 	 *
 	 * Class variables for this control class are available in the `data` JS object;
