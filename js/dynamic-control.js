@@ -216,6 +216,25 @@
 				return false;
 			}
 			return true;
+		},
+
+		/**
+		 * Set the value of a control and change the UI accordingly.
+		 *
+		 * @param {mixed} [value] The value we want to set.
+		 * @param {string} [key]  If we want to save an object, then setting the key
+		 *                        will only change the value of the item with this key.
+		 */
+		kirkiSetValue: function( value, key ) {
+			var control = this,
+			    input;
+
+			// Set the value.
+			control.setting.set( value );
+
+			// Change the value in the control visually.
+			input = control.container.find( 'input' );
+			jQuery( input ).attr( 'value', value );
 		}
 	});
 })();
