@@ -2,6 +2,6 @@ wp.customize.controlConstructor['kirki-palette'] = wp.customize.kirkiDynamicCont
 
 	kirkiSetControlValue: function( value ) {
 		var control = this;
-		jQuery( control.findElement( control.id, 'input[value="' + value + '"]' ) ).prop( 'checked', true );
+		jQuery( control.container.find( 'input[value="' + value + '"]' ) ).prop( 'checked', true );
 	}
 });

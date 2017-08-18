@@ -51,6 +51,6 @@ wp.customize.controlConstructor['kirki-color'] = wp.customize.kirkiDynamicContro
 
 	kirkiSetControlValue: function( value ) {
 		var control = this;
-		control.setColorPicker( control.findElement( control.id, '.kirki-color-control' ), value );
+		control.setColorPicker( control.container.find( '.kirki-color-control' ), value );
 	}
 });

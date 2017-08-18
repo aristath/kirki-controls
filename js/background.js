@@ -268,16 +268,16 @@ wp.customize.controlConstructor['kirki-background'] = wp.customize.Control.exten
 
 		// Change the value visually.
 		if ( ! _.isUndefined( value['background-color'] ) ) {
-			control.setColorPicker( control.findElement( control.id, '.kirki-color-control' ), value['background-color'] );
+			control.setColorPicker( control.container.find( '.kirki-color-control' ), value['background-color'] );
 		}
-		control.findElement( control.id, '.placeholder, .thumbnail' ).removeClass().addClass( 'placeholder' ).html( 'No file selected' );
+		control.container.find( '.placeholder, .thumbnail' ).removeClass().addClass( 'placeholder' ).html( 'No file selected' );
 		_.each( ['background-repeat', 'background-position'], function( subVal ) {
 			if ( ! _.isUndefined( value[ subVal ] ) ) {
-				control.setSelect2( control.findElement( control.id, '.' + subVal + ' select' ), value[ subVal ] );
+				control.setSelect2( control.container.find( '.' + subVal + ' select' ), value[ subVal ] );
 			}
 		});
 		_.each( ['background-size', 'background-attachment'], function( subVal ) {
-			jQuery( control.findElement( control.id, '.' + subVal + ' input[value="' + value + '"]' ) ).prop( 'checked', true );
+			jQuery( control.container.find( '.' + subVal + ' input[value="' + value + '"]' ) ).prop( 'checked', true );
 		});
 	}
 });

@@ -297,17 +297,6 @@
 		 */
 		setTextarea: function( selector, value ) {
 			jQuery( selector ).prop( 'value', value );
-		},
-
-		/**
-		 * Finds an element inside this control.
-		 *
-		 * @since 3.0.0
-		 * @param string setting The setting ID.
-		 * @param string element The CSS identifier.
-		 */
-		findElement: function( setting, element ) {
-			return wp.customize.control( setting ).container.find( element );
 		}
 	});
 })();

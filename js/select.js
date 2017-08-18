@@ -69,6 +69,6 @@ wp.customize.controlConstructor['kirki-select'] = wp.customize.kirkiDynamicContr
 
 	kirkiSetControlValue: function( value ) {
 		var control = this;
-		control.setSelect2( control.findElement( control.id, 'select' ), value );
+		control.setSelect2( control.container.find( 'select' ), value );
 	}
 });

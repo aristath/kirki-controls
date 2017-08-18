@@ -24,6 +24,6 @@ wp.customize.controlConstructor['kirki-toggle'] = wp.customize.kirkiDynamicContr
 	kirkiSetControlValue: function( value ) {
 		var control = this;
 		value = ( 1 === value || '1' === value || true === value ) ? true : false;
-		jQuery( control.findElement( control.id, 'input' ) ).prop( 'checked', value );
+		jQuery( control.container.find( 'input' ) ).prop( 'checked', value );
 	}
 });

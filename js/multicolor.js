@@ -106,7 +106,7 @@ wp.customize.controlConstructor['kirki-multicolor'] = wp.customize.Control.exten
 	kirkiSetControlValue: function( value ) {
 		var control = this;
 		_.each( value, function( subVal, index ) {
-			control.setColorPicker( control.findElement( control.id, '.multicolor-index-' + index ), subVal );
+			control.setColorPicker( control.container.find( '.multicolor-index-' + index ), subVal );
 		});
 	}
 });

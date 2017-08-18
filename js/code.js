@@ -61,6 +61,6 @@ wp.customize.controlConstructor['kirki-code'] = wp.customize.kirkiDynamicControl
 
 	kirkiSetControlValue: function( value ) {
 		var control = this;
-		jQuery( control.findElement( control.id, '.CodeMirror' ) )[0].CodeMirror.setValue( value );
+		jQuery( control.container.find( '.CodeMirror' ) )[0].CodeMirror.setValue( value );
 	}
 });

@@ -57,7 +57,7 @@ wp.customize.controlConstructor['kirki-slider'] = wp.customize.kirkiDynamicContr
 
 	kirkiSetControlValue: function( value ) {
 		var control = this;
-		jQuery( control.findElement( control.id, 'input' ) ).prop( 'value', value );
-		jQuery( control.findElement( control.id, '.kirki_range_value .value' ) ).html( value );
+		jQuery( control.container.find( 'input' ) ).prop( 'value', value );
+		jQuery( control.container.find( '.kirki_range_value .value' ) ).html( value );
 	}
 });
