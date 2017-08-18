@@ -558,5 +558,23 @@ wp.customize.controlConstructor['kirki-typography'] = wp.customize.kirkiDynamicC
 			// Set the right value
 			obj.set( sumValue );
 		});
+	},
+
+	kirkiSetControlValue: function( value ) {
+		var control = this;
+		_.each( ['font-family', 'variant', 'subsets'], function( subVal ) {
+			if ( ! _.isUndefined( value[ subVal ] ) ) {
+				control.setSelect2( control.findElement( control.id, '.' + subVal + ' select' ), value[ subVal ] );
+			}
+		});
+		_.each( ['font-size', 'line-height', 'letter-spacing', 'word-spacing'], function( subVal ) {
+			if ( ! _.isUndefined( value[ subVal ] ) ) {
+				jQuery( control.findElement( control.id, '.' + subVal + ' input' ) ).prop( 'value', value[ subVal ] );
+			}
+		});
+
+		if ( ! _.isUndefined( value.color ) ) {
+			control.setColorPicker( control.findElement( control.id, '.kirki-color-control' ), value.color );
+		}
 	}
 });

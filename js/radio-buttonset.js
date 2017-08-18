@@ -15,5 +15,10 @@ wp.customize.controlConstructor['kirki-radio-buttonset'] = wp.customize.kirkiDyn
 		html += '</div>';
 
 		control.container.html( html );
+	},
+
+	kirkiSetControlValue: function( value ) {
+		var control = this;
+		jQuery( control.findElement( control.id, 'input[value="' + value + '"]' ) ).prop( 'checked', true );
 	}
 });

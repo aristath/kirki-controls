@@ -65,5 +65,10 @@ wp.customize.controlConstructor['kirki-select'] = wp.customize.kirkiDynamicContr
 		html += '</label>';
 
 		control.container.html( html );
+	},
+
+	kirkiSetControlValue: function( value ) {
+		var control = this;
+		control.setSelect2( control.findElement( control.id, 'select' ), value );
 	}
 });

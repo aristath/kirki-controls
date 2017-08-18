@@ -219,7 +219,7 @@
 		},
 
 		/**
-		 * Set the value of a control and change the UI accordingly.
+		 * Set the value of a control.
 		 *
 		 * @param {mixed} [value] The value we want to set.
 		 * @param {string} [key]  If we want to save an object, then setting the key
@@ -227,14 +227,87 @@
 		 */
 		kirkiSetValue: function( value, key ) {
 			var control = this,
-			    input;
+			    valObj;
+
+			// Calculate the value if we've got a key defined.
+			if ( ! _.isUndefined( key ) ) {
+				valObj = control.setting._value;
+				valObj[ key ] = value;
+				value = valObj;
+			}
+
+			// Reset the value.
+			if ( _.isUndefined( key ) ) {
+				control.setting.set( '' );
+			} else {
+				control.setting.set( {} );
+			}
 
 			// Set the value.
 			control.setting.set( value );
+		},
+
+		/**
+		 * Changes the value of the control visually.
+		 *
+		 * @param {mixed} [value] The value we want to set.
+		 * @param {string} [key]  If we want to save an object, then setting the key
+		 *                        will only change the value of the item with this key.
+		 */
+		kirkiSetControlValue: function( value, key ) {
+			var control = this,
+				input;
 
 			// Change the value in the control visually.
 			input = control.container.find( 'input' );
 			jQuery( input ).attr( 'value', value );
+		},
+
+		/**
+		 * Set the value for colorpickers.
+		 * CAUTION: This only sets the value visually, it does not change it in th wp object.
+		 *
+		 * @since 3.0.0
+		 * @param object selector jQuery object for this element.
+		 * @param string value    The value we want to set.
+		 */
+		setColorPicker: function( selector, value ) {
+			selector.attr( 'data-default-color', value ).data( 'default-color', value ).wpColorPicker( 'color', value );
+		},
+
+		/**
+		 * Sets the value in a select2 element.
+		 * CAUTION: This only sets the value visually, it does not change it in th wp object.
+		 *
+		 * @since 3.0.0
+		 * @param string selector The CSS identifier for this select2.
+		 * @param string value    The value we want to set.
+		 */
+		setSelect2: function( selector, value ) {
+			jQuery( selector ).select2().val( value ).trigger( 'change' );
+		},
+
+		/**
+		 * Sets the value in textarea elements.
+		 * CAUTION: This only sets the value visually, it does not change it in th wp object.
+		 *
+		 * @since 3.0.0
+		 * @param string selector The CSS identifier for this textarea.
+		 * @param string value    The value we want to set.
+		 */
+		setTextarea: function( selector, value ) {
+			jQuery( selector ).prop( 'value', value );
+		},
+
+		/**
+		 * Finds an element inside this control.
+		 *
+		 * @since 3.0.0
+		 * @param string setting The setting ID.
+		 * @param string element The CSS identifier.
+		 */
+		findElement: function( setting, element ) {
+			return wp.customize.control( setting ).container.find( element );
 		}
 	});
 })();

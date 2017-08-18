@@ -44,5 +44,14 @@ wp.customize.controlConstructor['kirki-generic'] = wp.customize.kirkiDynamicCont
 		html += '</label>';
 
 		control.container.html( html );
+	},
+
+	kirkiSetControlValue: function( value ) {
+		var control = this;
+
+		if ( _.isUndefined( control.choices ) || _.isUndefined( control.choices.element ) ) {
+			control.choices.element = 'input';
+		}
+		jQuery( control.findElement( control.id, control.choices.element ) ).prop( 'value', value );
 	}
 });
