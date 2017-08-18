@@ -45,13 +45,13 @@ class Kirki_Control_FontAwesome extends Kirki_Control_Base {
 	 */
 	public function enqueue() {
 
-		wp_enqueue_style( 'kirki-fontawesome-font-css', Kirki_Controls_Bootstrap::get_url( 'controls/assets/vendor/fontawesome/font-awesome.css' ), null );
-		wp_enqueue_script( 'select2', Kirki_Controls_Bootstrap::get_url( 'controls/assets/vendor/select2/js/select2.full.js' ), array( 'jquery' ), '4.0.3', true );
-		wp_enqueue_style( 'select2', Kirki_Controls_Bootstrap::get_url( 'controls/assets/vendor/select2/css/select2.css' ), array(), '4.0.3' );
+		wp_enqueue_style( 'kirki-fontawesome-font-css', Kirki_Controls_Bootstrap::get_url( 'controls/vendor/fontawesome/font-awesome.css' ), null );
+		wp_enqueue_script( 'select2', Kirki_Controls_Bootstrap::get_url( 'controls/vendor/select2/js/select2.full.js' ), array( 'jquery' ), '4.0.3', true );
+		wp_enqueue_style( 'select2', Kirki_Controls_Bootstrap::get_url( 'controls/vendor/select2/css/select2.css' ), array(), '4.0.3' );
 		parent::enqueue();
 
 		ob_start();
-		$json_path = wp_normalize_path( Kirki::$path . '/controls/assets/vendor/fontawesome/fontawesome.json' );
+		$json_path = wp_normalize_path( Kirki::$path . '/controls/vendor/fontawesome/fontawesome.json' );
 		include( $json_path );
 		$font_awesome_json = ob_get_clean();
 		wp_localize_script( 'kirki-fontawesome', 'fontAwesomeJSON', $font_awesome_json );

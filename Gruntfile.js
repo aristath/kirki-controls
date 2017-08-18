@@ -6,7 +6,7 @@ module.exports = function( grunt ) {
 		sass: {
 			dist: {
 				files: {
-					'assets/styles.css': 'assets/scss/main.scss'
+					'css/styles.css': 'scss/main.scss'
 				}
 			}
 		},
@@ -15,7 +15,7 @@ module.exports = function( grunt ) {
 		jscs: {
 			src: [
 				'Gruntfile.js',
-				'assets/js/*.js'
+				'js/*.js'
 			],
 			options: {
 				config: '.jscsrc',
@@ -26,11 +26,11 @@ module.exports = function( grunt ) {
 		// Watch task (run with "grunt watch")
 		watch: {
 			css: {
-				files: ['assets/scss/*.scss'],
+				files: ['scss/*.scss'],
 				tasks: ['sass']
 			},
 			scripts: {
-				files: ['assets/js/*.js', 'Gruntfile.js'],
+				files: ['js/*.js', 'Gruntfile.js'],
 				tasks: ['jscs']
 			}
 		}

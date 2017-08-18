@@ -147,7 +147,7 @@ class Kirki_Controls_Bootstrap {
 		if ( 0 === stripos( $class_name, 'Kirki_Control_' ) || 0 === stripos( $class_name, 'Kirki_Settings_' ) ) {
 
 			// Build the file-path.
-			$path = wp_normalize_path( dirname( __FILE__ ) . '/classes/class-' . strtolower( str_replace( '_', '-', $class_name ) ) . '.php' );
+			$path = wp_normalize_path( dirname( __FILE__ ) . '/php/class-' . strtolower( str_replace( '_', '-', $class_name ) ) . '.php' );
 			if ( file_exists( $path ) ) {
 				include_once $path;
 			}
@@ -200,7 +200,7 @@ class Kirki_Controls_Bootstrap {
 	 */
 	function get_googlefonts_ajax() {
 		if ( ! class_exists( 'Kirki_Fonts' ) ) {
-			include_once dirname( __FILE__ ) . '/classes/class-kirki-fonts.php';
+			include_once dirname( __FILE__ ) . '/php/class-kirki-fonts.php';
 		}
 		// Add fonts to our JS objects.
 		$google_fonts = Kirki_Fonts::get_google_fonts();
@@ -276,7 +276,7 @@ class Kirki_Controls_Bootstrap {
 	protected function format_variants_array( $variants ) {
 
 		if ( ! class_exists( 'Kirki_Fonts' ) ) {
-			include_once dirname( __FILE__ ) . '/classes/class-kirki-fonts.php';
+			include_once dirname( __FILE__ ) . '/php/class-kirki-fonts.php';
 		}
 		$all_variants = Kirki_Fonts::get_all_variants();
 		$final_variants = array();

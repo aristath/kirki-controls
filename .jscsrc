@@ -3,6 +3,6 @@
     "fileExtensions": [ ".js" ],
     "excludeFiles": [
     	"**.min.js",
-    	"assets/js/vendor",
+    	"js/vendor",
     ]
 }

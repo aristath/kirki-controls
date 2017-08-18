@@ -38,4 +38,4 @@ ratings:
   - "**.js"
   - "**.php"
 exclude_paths:
-- assets/vendor/*
+- vendor/*
