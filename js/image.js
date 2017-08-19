@@ -4,7 +4,7 @@ wp.customize.controlConstructor['kirki-image'] = wp.customize.kirkiDynamicContro
 	initKirkiControl: function() {
 
 		var control = this,
-		    value   = control.getValue(),
+		    value   = _.defaults( control.setting._value, control.params['default'] ),
 		    saveAs,
 		    preview,
 		    previewImage,
@@ -63,14 +63,14 @@ wp.customize.controlConstructor['kirki-image'] = wp.customize.kirkiDynamicContro
 					}
 
 					if ( 'array' === saveAs ) {
-						control.saveValue( 'id', uploadedImage.toJSON().id );
-						control.saveValue( 'url', uploadedImage.toJSON().sizes.full.url );
-						control.saveValue( 'width', uploadedImage.toJSON().width );
-						control.saveValue( 'height', uploadedImage.toJSON().height );
+						control.kirkiSetValue( uploadedImage.toJSON().id, 'id' );
+						control.kirkiSetValue( uploadedImage.toJSON().sizes.full.url, 'url' );
+						control.kirkiSetValue( uploadedImage.toJSON().width, 'width' );
+						control.kirkiSetValue( uploadedImage.toJSON().height, 'height' );
 					} else if ( 'id' === saveAs ) {
-						control.saveValue( 'id', uploadedImage.toJSON().id );
+						control.kirkiSetValue( uploadedImage.toJSON().id, 'id' );
 					} else {
-						control.saveValue( 'url', uploadedImage.toJSON().sizes.full.url );
+						control.kirkiSetValue( uploadedImage.toJSON().sizes.full.url, 'url' );
 					}
 
 					if ( preview.length ) {
@@ -93,10 +93,10 @@ wp.customize.controlConstructor['kirki-image'] = wp.customize.kirkiDynamicContro
 
 			e.preventDefault();
 
-			control.saveValue( 'id', '' );
-			control.saveValue( 'url', '' );
-			control.saveValue( 'width', '' );
-			control.saveValue( 'height', '' );
+			control.kirkiSetValue( '', 'id' );
+			control.kirkiSetValue( '', 'url' );
+			control.kirkiSetValue( '', 'width' );
+			control.kirkiSetValue( '', 'height' );
 
 			preview       = control.container.find( '.placeholder, .thumbnail' );
 			removeButton  = control.container.find( '.image-upload-remove-button' );
@@ -121,7 +121,7 @@ wp.customize.controlConstructor['kirki-image'] = wp.customize.kirkiDynamicContro
 
 			e.preventDefault();
 
-			control.saveValue( 'url', control.params['default'] );
+			control.kirkiSetValue( 'url', control.params['default'] );
 
 			preview       = control.container.find( '.placeholder, .thumbnail' );
 			removeButton  = control.container.find( '.image-upload-remove-button' );
@@ -167,39 +167,5 @@ wp.customize.controlConstructor['kirki-image'] = wp.customize.kirkiDynamicContro
 		html += '</div></div>';
 
 		control.container.html( html );
-	},
-
-	/**
-	 * Gets the value.
-	 */
-	getValue: function() {
-
-		var control = this;
-		return _.defaults( control.setting._value, control.params['default'] );
-	},
-
-	/**
-	 * Saves the value.
-	 */
-	saveValue: function( property, value ) {
-
-		var control  = this,
-		    sumValue = control.getValue(),
-			saveAs    = ( ! _.isUndefined( control.params.choices ) && ! _.isUndefined( control.params.choices.save_as ) ) ? control.params.choices.save_as : 'url';
-
-		sumValue[ property ] = value;
-
-		if ( 'array' === saveAs ) {
-			wp.customize( control.id, function( obj ) {
-
-				// Reset the setting value, so that the change is triggered
-				obj.set( '' );
-
-				// Set the right value
-				obj.set( sumValue );
-			} );
-			return;
-		}
-		control.setting.set( value );
 	}
 } );
