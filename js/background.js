@@ -26,13 +26,13 @@ wp.customize.controlConstructor['kirki-background'] = wp.customize.kirkiDynamicC
 		} );
 
 		_.each( {
-			'repeat': ['change', '.background-repeat select'],
-			'size': ['change click', '.background-size input'],
-			'position': ['change', '.background-position select'],
-			'attachment': ['change click', '.background-attachment input']
+			'repeat': ['change', 'select'],
+			'size': ['change click', 'input'],
+			'position': ['change', 'select'],
+			'attachment': ['change click', 'input']
 		}, function( args, key ) {
-			control.container.on( args[0], args[1], function() {
-				control.kirkiSetValue( jQuery( this ).val(), key );
+			control.container.on( args[0], '.background-' + key + ' ' + args[1], function() {
+				control.kirkiSetValue( jQuery( this ).val(), 'background-' + key );
 			} );
 		} );
 
@@ -154,9 +154,9 @@ wp.customize.controlConstructor['kirki-background'] = wp.customize.kirkiDynamicC
 				html += '<h4>' + data.l10n.backgroundRepeat + '</h4>';
 				html += '<select ' + data.inputAttrs + '>';
 					html += '<option value="no-repeat"' + ( 'no-repeat' === data.value['background-repeat'] ? ' selected' : '' ) + '>' + data.l10n.noRepeat + '</option>';
-					html += '<option value="no-repeat"' + ( 'repeat-all' === data.value['background-repeat'] ? ' selected' : '' ) + '>' + data.l10n.repeatAll + '</option>';
-					html += '<option value="no-repeat"' + ( 'repeat-x' === data.value['background-repeat'] ? ' selected' : '' ) + '>' + data.l10n.repeatHor + '</option>';
-					html += '<option value="no-repeat"' + ( 'repeat-y' === data.value['background-repeat'] ? ' selected' : '' ) + '>' + data.l10n.repeatVer + '</option>';
+					html += '<option value="repeat-all"' + ( 'repeat-all' === data.value['background-repeat'] ? ' selected' : '' ) + '>' + data.l10n.repeatAll + '</option>';
+					html += '<option value="repeat-x"' + ( 'repeat-x' === data.value['background-repeat'] ? ' selected' : '' ) + '>' + data.l10n.repeatX + '</option>';
+					html += '<option value="repeat-y"' + ( 'repeat-y' === data.value['background-repeat'] ? ' selected' : '' ) + '>' + data.l10n.repeatY + '</option>';
 				html += '</select>';
 			html += '</div>';
 
