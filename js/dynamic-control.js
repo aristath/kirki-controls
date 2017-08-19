@@ -204,6 +204,10 @@
 		 * @returns {void}
 		 */
 		addHTML: function() {
+			var control = this,
+			    html    = '';
+
+			control.container.html( html );
 		},
 
 		/**
