@@ -226,16 +226,16 @@ class Kirki_Control_Repeater extends Kirki_Control_Base {
 							break;
 						case 'select':
 						case 'dropdown-pages':
-							wp_enqueue_script( 'select2', Kirki_Controls_Bootstrap::get_url( 'vendor/select2/js/select2.full.js' ), array( 'jquery' ), '4.0.3', true );
-							wp_enqueue_style( 'select2', Kirki_Controls_Bootstrap::get_url( 'vendor/select2/css/select2.css' ), array(), '4.0.3' );
+							wp_enqueue_script( 'select2', kirki_controls()->get_url( 'vendor/select2/js/select2.full.js' ), array( 'jquery' ), '4.0.3', true );
+							wp_enqueue_style( 'select2', kirki_controls()->get_url( 'vendor/select2/css/select2.css' ), array(), '4.0.3' );
 							break;
 					}
 				}
 			}
 		}
 
-		wp_enqueue_script( 'kirki-repeater', Kirki_Controls_Bootstrap::get_url( 'js/repeater.js' ), array( 'jquery', 'customize-base', 'jquery-ui-core', 'jquery-ui-sortable' ), false, true );
-		wp_enqueue_style( 'kirki-styles', Kirki_Controls_Bootstrap::get_url( 'css/styles.css' ), null );
+		wp_enqueue_script( 'kirki-repeater', kirki_controls()->get_url( 'js/repeater.js' ), array( 'jquery', 'customize-base', 'jquery-ui-core', 'jquery-ui-sortable' ), false, true );
+		wp_enqueue_style( 'kirki-styles', kirki_controls()->get_url( 'css/styles.css' ), null );
 	}
 
 	/**

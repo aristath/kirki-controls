@@ -45,11 +45,11 @@ class Kirki_Control_Typography extends Kirki_Control_Base {
 	 */
 	public function enqueue() {
 
-		wp_enqueue_script( 'wp-color-picker-alpha', Kirki_Controls_Bootstrap::get_url( 'vendor/wp-color-picker-alpha/wp-color-picker-alpha.js' ), array( 'wp-color-picker' ), '1.2', true );
+		wp_enqueue_script( 'wp-color-picker-alpha', kirki_controls()->get_url( 'vendor/wp-color-picker-alpha/wp-color-picker-alpha.js' ), array( 'wp-color-picker' ), '1.2', true );
 		wp_enqueue_style( 'wp-color-picker' );
 
-		wp_enqueue_script( 'select2', Kirki_Controls_Bootstrap::get_url( 'vendor/select2/js/select2.full.js' ), array( 'jquery' ), '4.0.3', true );
-		wp_enqueue_style( 'select2', Kirki_Controls_Bootstrap::get_url( 'vendor/select2/css/select2.css' ), array(), '4.0.3' );
+		wp_enqueue_script( 'select2', kirki_controls()->get_url( 'vendor/select2/js/select2.full.js' ), array( 'jquery' ), '4.0.3', true );
+		wp_enqueue_style( 'select2', kirki_controls()->get_url( 'vendor/select2/css/select2.css' ), array(), '4.0.3' );
 
 		parent::enqueue();
 

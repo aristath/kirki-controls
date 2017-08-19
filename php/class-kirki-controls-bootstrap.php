@@ -20,14 +20,23 @@ if ( class_exists( 'Kirki_Controls_Bootstrap' ) ) {
 class Kirki_Controls_Bootstrap {
 
 	/**
-	 * The URL of the controls folder.
+	 * A single instance of this object.
 	 *
 	 * @static
+	 * @access private
+	 * @since 3.0.10
+	 * @var object Kirki_Controls_Bootstrap
+	 */
+	private static $instance;
+
+	/**
+	 * The URL of the controls folder.
+	 *
 	 * @access protected
 	 * @since 3.0.10
 	 * @var string
 	 */
-	protected static $url = '';
+	protected $url = '';
 
 	/**
 	 * An array of control-types along with their classes.
@@ -53,14 +62,28 @@ class Kirki_Controls_Bootstrap {
 	);
 
 	/**
-	 * The class contructor.
+	 * Get a single instance of this object.
 	 *
+	 * @static
 	 * @access public
 	 * @since 3.0.10
+	 * @return object Kirki_Controls_Bootstrap
 	 */
-	public function __construct() {
+	public static function get_instance() {
+		if ( ! self::$instance ) {
+			self::$instance = new self();
+		}
+		return self::$instance;
+	}
 
-		$this->define_path();
+	/**
+	 * The class contructor.
+	 *
+	 * @access private
+	 * @since 3.0.10
+	 */
+	private function __construct() {
+
 		spl_autoload_register( array( $this, 'autoload' ) );
 		add_action( 'customize_register', array( $this, 'register_control_types' ) );
 		$this->control_types = $this->get_control_types();
@@ -155,41 +178,27 @@ class Kirki_Controls_Bootstrap {
 	}
 
 	/**
-	 * Defines the KIRKI_CONTROLS_PATH constant.
-	 *
-	 * @access protected
-	 * @since 3.0.10
-	 */
-	public function define_path() {
-
-		if ( ! defined( 'KIRKI_CONTROLS_PATH' ) ) {
-			define( 'KIRKI_CONTROLS_PATH', dirname( __FILE__ ) );
-		}
-	}
-
-	/**
 	 * Gets the URL of a file relative to the root folder of Kirki Controls.
 	 *
-	 * @static
 	 * @access public
 	 * @since 3.0.10
 	 * @param string $file The filename with relative path.
 	 * @return string      The URL.
 	 */
-	public static function get_url( $file ) {
-		if ( '' === self::$url ) {
+	public function get_url( $file ) {
+		if ( '' === $this->url ) {
 			// Fallback first.
-			self::$url = str_replace( ABSPATH, home_url(), KIRKI_CONTROLS_PATH );
+			$this->url = str_replace( ABSPATH, home_url(), KIRKI_CONTROLS_PATH );
 			// Check if in a theme, parent theme or plugin.
 			if ( false !== strpos( KIRKI_CONTROLS_PATH, get_stylesheet_directory() ) ) {
-				self::$url = str_replace( get_stylesheet_directory(), get_stylesheet_directory_uri(), KIRKI_CONTROLS_PATH );
+				$this->url = str_replace( get_stylesheet_directory(), get_stylesheet_directory_uri(), KIRKI_CONTROLS_PATH );
 			} elseif ( false !== strpos( KIRKI_CONTROLS_PATH, get_template_directory() ) ) {
-				self::$url = str_replace( get_template_directory(), get_template_directory_uri(), KIRKI_CONTROLS_PATH );
+				$this->url = str_replace( get_template_directory(), get_template_directory_uri(), KIRKI_CONTROLS_PATH );
 			} elseif ( false !== strpos( KIRKI_CONTROLS_PATH, WP_PLUGIN_DIR ) ) {
-				self::$url = str_replace( WP_PLUGIN_DIR, plugins_url(), KIRKI_CONTROLS_PATH );
+				$this->url = str_replace( WP_PLUGIN_DIR, plugins_url(), KIRKI_CONTROLS_PATH );
 			}
 		}
-		return esc_url_raw( trailingslashit( self::$url ) . $file );
+		return esc_url_raw( trailingslashit( $this->url ) . $file );
 	}
 
 	/**
@@ -200,7 +209,7 @@ class Kirki_Controls_Bootstrap {
 	 */
 	function get_googlefonts_ajax() {
 		if ( ! class_exists( 'Kirki_Fonts' ) ) {
-			include_once dirname( __FILE__ ) . '/php/class-kirki-fonts.php';
+			include_once KIRKI_CONTROLS_PATH . '/php/class-kirki-fonts.php';
 		}
 		// Add fonts to our JS objects.
 		$google_fonts = Kirki_Fonts::get_google_fonts();

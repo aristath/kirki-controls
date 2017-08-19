@@ -44,7 +44,7 @@ class Kirki_Control_Background extends Kirki_Control_Base {
 	public function enqueue() {
 
 		wp_enqueue_style( 'wp-color-picker-alpha' );
-		wp_enqueue_script( 'wp-color-picker-alpha', Kirki_Controls_Bootstrap::get_url( 'vendor/wp-color-picker-alpha/wp-color-picker-alpha.js' ), array( 'wp-color-picker' ), '1.2', true );
+		wp_enqueue_script( 'wp-color-picker-alpha', kirki_controls()->get_url( 'vendor/wp-color-picker-alpha/wp-color-picker-alpha.js' ), array( 'wp-color-picker' ), '1.2', true );
 		wp_enqueue_style( 'wp-color-picker' );
 
 		parent::enqueue();

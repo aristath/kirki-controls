@@ -9,11 +9,13 @@ wp.customize.controlConstructor['kirki-color-palette'] = wp.customize.kirkiDynam
 		if ( ! control.params.choices ) {
 			return;
 		}
+		control.params.choices = _.defaults( control.params.choices, {
+			style: 'square',
+			'box-shadow': '',
+			margin: false
+		});
 
-		inputWrapperClasses  = 'colors-wrapper';
-		inputWrapperClasses += ( ! _.isUndefined( control.params.choices.style ) && 'round' === control.params.choices.style ) ? ' round' : ' square';
-		inputWrapperClasses += ( ! _.isUndefined( control.params.choices['box-shadow'] ) && true === control.params.choices['box-shadow'] ) ? ' box-shadow' : '';
-		inputWrapperClasses += ( ! _.isUndefined( control.params.choices.margin ) && true === control.params.choices.margin ) ? ' with-margin' : '';
+		inputWrapperClasses  = 'colors-wrapper ' + control.params.choices.style + ( ( true === control.params.choices['box-shadow'] ) ? ' box-shadow' : '' ) + ( inputWrapperClasses += ( true === control.params.choices.margin ) ? ' with-margin' : '' );
 
 		html += '<span class="customize-control-title">' + control.params.label + '</span>';
 		html += '<span class="description customize-control-description">' + control.params.description + '</span>';
