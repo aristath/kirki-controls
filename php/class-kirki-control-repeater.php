@@ -84,7 +84,7 @@ class Kirki_Control_Repeater extends Kirki_Control_Base {
 		}
 
 		// An array to store keys of fields that need to be filtered.
-		$media_fields_to_filter = array();
+		$filter_media_fields = array();
 
 		foreach ( $args['fields'] as $key => $value ) {
 			if ( ! isset( $value['default'] ) ) {
@@ -102,7 +102,7 @@ class Kirki_Control_Repeater extends Kirki_Control_Base {
 					case 'cropped_image':
 					case 'upload':
 						// We add it to the list of fields that need some extra filtering/processing.
-						$media_fields_to_filter[ $key ] = true;
+						$filter_media_fields[ $key ] = true;
 						break;
 
 					case 'dropdown-pages':
@@ -141,7 +141,7 @@ class Kirki_Control_Repeater extends Kirki_Control_Base {
 					foreach ( $filtered_value_field as $key => &$value ) {
 
 						// We check if this field was marked as requiring extra filtering (in this case image, cropped_images, upload).
-						if ( array_key_exists( $key, $media_fields_to_filter ) ) {
+						if ( array_key_exists( $key, $filter_media_fields ) ) {
 
 							// What follows was made this way to preserve backward compatibility.
 							// The repeater control use to store the URL for images instead of the attachment ID.

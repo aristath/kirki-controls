@@ -47,7 +47,7 @@ class Kirki_Controls_Bootstrap {
 	 * @since 3.0.10
 	 * @var array
 	 */
-	protected $do_not_register_types = array(
+	protected $skip_types = array(
 		'Kirki_Control_Repeater',
 		'WP_Customize_Control',
 	);
@@ -80,7 +80,7 @@ class Kirki_Controls_Bootstrap {
 
 		global $wp_customize;
 
-		$skip_control_types  = apply_filters( 'kirki/control_types/exclude', $this->do_not_register_types );
+		$skip_control_types  = apply_filters( 'kirki/control_types/exclude', $this->skip_types );
 
 		foreach ( $this->control_types as $control_type ) {
 			if ( ! in_array( $control_type, $skip_control_types, true ) && class_exists( $control_type ) ) {
@@ -248,7 +248,7 @@ class Kirki_Controls_Bootstrap {
 
 		$standard_fonts_final = array();
 		$default_variants = $this->format_variants_array( array( 'regular', 'italic', '700', '700italic' ) );
-		foreach ( $standard_fonts as $key => $font ) {
+		foreach ( array_keys( $standard_fonts ) as $key ) {
 			$standard_fonts_final[] = array(
 				'family'      => $font['stack'],
 				'label'       => $font['label'],

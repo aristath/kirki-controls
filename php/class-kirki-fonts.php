@@ -237,10 +237,6 @@ final class Kirki_Fonts {
 	 */
 	public static function get_font_choices() {
 		$fonts = self::get_all_fonts();
-		$fonts_array = array();
-		foreach ( $fonts as $key => $args ) {
-			$fonts_array[ $key ] = $key;
-		}
-		return $fonts_array;
+		return array_combine( array_keys( $fonts ), array_keys( $fonts ) );
 	}
 }
