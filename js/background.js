@@ -1,35 +1,26 @@
 /* global wp, _ */
-wp.customize.controlConstructor['kirki-background'] = wp.customize.Control.extend( {
-
-	/**
-	 * @inheritdoc
-	 */
-	ready: function() {
-		var control = this;
-
-		control.addHTML();
-		control.initKirkiControl();
-	},
+wp.customize.controlConstructor['kirki-background'] = wp.customize.kirkiDynamicControl.extend( {
 
 	initKirkiControl: function() {
 
 		var control = this,
-		    value   = control.getValue(),
-		    picker  = control.container.find( '.kirki-color-control' );
+		    value   = _.defaults( control.setting._value, control.params['default'] ),
+		    picker;
+
+		control.addHTML();
+
+		picker = control.container.find( '.kirki-color-control' );
 
 		// Hide unnecessary controls if the value doesn't have an image.
 		if ( _.isUndefined( value['background-image'] ) || '' === value['background-image'] ) {
-			control.container.find( '.background-wrapper > .background-repeat' ).hide();
-			control.container.find( '.background-wrapper > .background-position' ).hide();
-			control.container.find( '.background-wrapper > .background-size' ).hide();
-			control.container.find( '.background-wrapper > .background-attachment' ).hide();
+			control.container.find( '.background-wrapper > .background-repeat', '.background-wrapper > .background-position', '.background-wrapper > .background-size', '.background-wrapper > .background-attachment' ).hide();
 		}
 
 		// Color.
 		picker.wpColorPicker( {
 			change: function() {
 				setTimeout( function() {
-					control.kirkiSetValue( 'background-color', picker.val() );
+					control.kirkiSetValue( picker.val(), 'background-color' );
 				}, 100 );
 			}
 		} );
@@ -41,11 +32,17 @@ wp.customize.controlConstructor['kirki-background'] = wp.customize.Control.exten
 			'attachment': ['change click', '.background-attachment input']
 		}, function( args, key ) {
 			control.container.on( args[0], args[1], function() {
-				control.kirkiSetValue( key, jQuery( this ).val() );
+				control.kirkiSetValue( jQuery( this ).val(), key );
 			} );
 		} );
 
-		// Background-Image.
+		control.kirkiAddImage();
+		control.kirkiRemoveImage();
+	},
+
+	kirkiAddImage: function() {
+		var control = this;
+
 		control.container.on( 'click', '.background-image-upload-button', function( e ) {
 			var image = wp.media( { multiple: false } ).open().on( 'select', function() {
 
@@ -75,7 +72,7 @@ wp.customize.controlConstructor['kirki-background'] = wp.customize.Control.exten
 					control.container.find( '.background-wrapper > .background-repeat, .background-wrapper > .background-position, .background-wrapper > .background-size, .background-wrapper > .background-attachment' ).show();
 				}
 
-				control.kirkiSetValue( 'background-image', imageUrl );
+				control.kirkiSetValue( imageUrl, 'background-image' );
 				preview      = control.container.find( '.placeholder, .thumbnail' );
 				removeButton = control.container.find( '.background-image-upload-remove-button' );
 
@@ -89,6 +86,10 @@ wp.customize.controlConstructor['kirki-background'] = wp.customize.Control.exten
 
 			e.preventDefault();
 		} );
+	},
+
+	kirkiRemoveImage: function() {
+		var control = this;
 
 		control.container.on( 'click', '.background-image-upload-remove-button', function( e ) {
 
@@ -97,16 +98,13 @@ wp.customize.controlConstructor['kirki-background'] = wp.customize.Control.exten
 
 			e.preventDefault();
 
-			control.kirkiSetValue( 'background-image', '' );
+			control.kirkiSetValue( '', 'background-image' );
 
 			preview      = control.container.find( '.placeholder, .thumbnail' );
 			removeButton = control.container.find( '.background-image-upload-remove-button' );
 
 			// Hide unnecessary controls.
-			control.container.find( '.background-wrapper > .background-repeat' ).hide();
-			control.container.find( '.background-wrapper > .background-position' ).hide();
-			control.container.find( '.background-wrapper > .background-size' ).hide();
-			control.container.find( '.background-wrapper > .background-attachment' ).hide();
+			control.container.find( '.background-wrapper > .background-repeat', '.background-wrapper > .background-position', '.background-wrapper > .background-size', '.background-wrapper > .background-attachment' ).hide();
 
 			if ( preview.length ) {
 				preview.removeClass().addClass( 'placeholder' ).html( 'No file selected' );
@@ -121,8 +119,7 @@ wp.customize.controlConstructor['kirki-background'] = wp.customize.Control.exten
 
 		var control = this,
 		    html    = '',
-		    data    = control.params,
-		    valueJSON;
+		    data    = control.params;
 
 		html += '<label>';
 			html += '<span class="customize-control-title">' + data.label + '</span>';
@@ -146,8 +143,8 @@ wp.customize.controlConstructor['kirki-background'] = wp.customize.Control.exten
 						html += '<div class="placeholder">' + data.l10n.noFileSelected + '</div>';
 					}
 					html += '<div class="actions">';
-						html += '<button class="button background-image-upload-remove-button' + ( ! data.value['background-image'] ? ' hidden' : '' ) + '">' + data.l10n.remove + '</button>';
-						html += '<button type="button" class="button background-image-upload-button">' + data.l10n.selectFile + '</button>';
+						html += '<button class="button background-image-upload-remove-button' + ( ! data.value['background-image'] ? ' hidden' : '' ) + '">' + data.l10n.remove + '</button> ';
+						html += '<button type="button" class="button background-image-upload-button">' + data.l10n.selectFile + '</button> ';
 					html += '</div>';
 				html += '</div>';
 			html += '</div>';
@@ -207,52 +204,9 @@ wp.customize.controlConstructor['kirki-background'] = wp.customize.Control.exten
 					html += '</input>';
 				html += '</div>';
 			html += '</div>';
-
-			valueJSON = JSON.stringify( data.value ).replace( /'/g, '&#39' );
-			html += '<input class="background-hidden-value" type="hidden" value=\'' + valueJSON + '\' ' + data.link + '>';
 		html += '</div>';
 
 		control.container.html( html );
-	},
-
-	/**
-	 * Gets the value.
-	 */
-	getValue: function() {
-
-		var control = this,
-		    value   = {};
-
-		// Make sure everything we're going to need exists.
-		_.each( control.params['default'], function( defaultParamValue, param ) {
-			if ( false !== defaultParamValue ) {
-				value[ param ] = defaultParamValue;
-				if ( ! _.isUndefined( control.setting._value[ param ] ) ) {
-					value[ param ] = control.setting._value[ param ];
-				}
-			}
-		} );
-		_.each( control.setting._value, function( subValue, param ) {
-			if ( _.isUndefined( value[ param ] ) ) {
-				value[ param ] = subValue;
-			}
-		} );
-		return value;
-	},
-
-	/**
-	 * Saves the value.
-	 */
-	kirkiSetValue: function( value, property ) {
-		var control   = this,
-		    input     = jQuery( '#customize-control-' + control.id.replace( '[', '-' ).replace( ']', '' ) + ' .background-hidden-value' ),
-		    valueJSON = jQuery( input ).val(),
-		    valueObj  = JSON.parse( valueJSON );
-
-		// Set the value.
-		valueObj[ property ] = value;
-		control.setting.set( valueObj );
-		jQuery( input ).attr( 'value', JSON.stringify( valueObj ) ).trigger( 'change' );
 	},
 
 	// Changes the value visually.
