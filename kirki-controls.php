@@ -29,3 +29,4 @@ if ( ! function_exists( 'kirki_controls' ) ) {
 		return Kirki_Controls_Bootstrap::get_instance();
 	}
 }
+kirki_controls();

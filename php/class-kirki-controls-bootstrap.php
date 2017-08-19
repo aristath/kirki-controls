@@ -170,7 +170,7 @@ class Kirki_Controls_Bootstrap {
 		if ( 0 === stripos( $class_name, 'Kirki_Control_' ) || 0 === stripos( $class_name, 'Kirki_Settings_' ) ) {
 
 			// Build the file-path.
-			$path = wp_normalize_path( dirname( __FILE__ ) . '/php/class-' . strtolower( str_replace( '_', '-', $class_name ) ) . '.php' );
+			$path = wp_normalize_path( dirname( __FILE__ ) . '/class-' . strtolower( str_replace( '_', '-', $class_name ) ) . '.php' );
 			if ( file_exists( $path ) ) {
 				include_once $path;
 			}
