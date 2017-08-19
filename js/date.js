@@ -1,5 +1,5 @@
 /* global wp, _ */
-wp.customize.controlConstructor['kirki-date'] = wp.customize.kirkiDynamicControl.extend({
+wp.customize.controlConstructor['kirki-date'] = wp.customize.kirkiDynamicControl.extend( {
 
 	initKirkiControl: function() {
 
@@ -14,7 +14,7 @@ wp.customize.controlConstructor['kirki-date'] = wp.customize.kirkiDynamicControl
 		// Save the changes
 		this.container.on( 'change keyup paste', 'input.datepicker', function() {
 			control.setting.set( jQuery( this ).val() );
-		});
+		} );
 	},
 
 	addHTML: function() {
@@ -40,4 +40,4 @@ wp.customize.controlConstructor['kirki-date'] = wp.customize.kirkiDynamicControl
 	kirkiSetControlValue: function( value ) {
 		wp.customize.kirkiDynamicControl.prototype.kirkiSetControlValue.call( this, value );
 	}
-});
+} );

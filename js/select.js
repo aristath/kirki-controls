@@ -1,5 +1,5 @@
 /* global wp, _ */
-wp.customize.controlConstructor['kirki-select'] = wp.customize.kirkiDynamicControl.extend({
+wp.customize.controlConstructor['kirki-select'] = wp.customize.kirkiDynamicControl.extend( {
 
 	initKirkiControl: function() {
 
@@ -31,7 +31,7 @@ wp.customize.controlConstructor['kirki-select'] = wp.customize.kirkiDynamicContr
 		jQuery( element ).select2( select2Options ).on( 'change', function() {
 			selectValue = jQuery( this ).val();
 			control.setting.set( selectValue );
-		});
+		} );
 	},
 
 	addHTML: function() {
@@ -56,12 +56,12 @@ wp.customize.controlConstructor['kirki-select'] = wp.customize.kirkiDynamicContr
 								selected = _.contains( control.params.value, optgroupOptionKey );
 							}
 							html += '<option value="' + optgroupOptionKey + '"' + ( selected ? ' selected' : '' ) + '>' + optgroupOptionLabel + '</option>';
-						});
+						} );
 						html += '</optgroup>';
 					} else {
 						html += '<option value="' + optionKey + '"' + ( selected ? ' selected' : '' ) + '>' + optionLabel + '</option>';
 					}
-				});
+				} );
 			html += '</select>';
 		html += '</label>';
 
@@ -72,4 +72,4 @@ wp.customize.controlConstructor['kirki-select'] = wp.customize.kirkiDynamicContr
 		var control = this;
 		control.setSelect2( control.container.find( 'select' ), value );
 	}
-});
+} );

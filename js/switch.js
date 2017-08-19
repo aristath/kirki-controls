@@ -1,5 +1,5 @@
 /* global wp, _ */
-wp.customize.controlConstructor['kirki-switch'] = wp.customize.kirkiDynamicControl.extend({
+wp.customize.controlConstructor['kirki-switch'] = wp.customize.kirkiDynamicControl.extend( {
 
 	initKirkiControl: function() {
 		var control       = this,
@@ -23,7 +23,7 @@ wp.customize.controlConstructor['kirki-switch'] = wp.customize.kirkiDynamicContr
 		this.container.on( 'change', 'input', function() {
 			checkboxValue = ( jQuery( this ).is( ':checked' ) ) ? true : false;
 			control.setting.set( checkboxValue );
-		});
+		} );
 	},
 
 	addHTML: function() {
@@ -54,4 +54,4 @@ wp.customize.controlConstructor['kirki-switch'] = wp.customize.kirkiDynamicContr
 		value = ( 1 === value || '1' === value || true === value ) ? true : false;
 		jQuery( control.container.find( 'input' ) ).prop( 'checked', value );
 	}
-});
+} );

@@ -1,5 +1,5 @@
 /* global wp, _ */
-wp.customize.controlConstructor['kirki-sortable'] = wp.customize.Control.extend({
+wp.customize.controlConstructor['kirki-sortable'] = wp.customize.Control.extend( {
 
 	// When we're finished loading continue processing
 	ready: function() {
@@ -18,23 +18,23 @@ wp.customize.controlConstructor['kirki-sortable'] = wp.customize.Control.extend(
 		control.sortableContainer = control.container.find( 'ul.sortable' ).first();
 
 		// Init sortable.
-		control.sortableContainer.sortable({
+		control.sortableContainer.sortable( {
 
 			// Update value when we stop sorting.
 			stop: function() {
 				control.updateValue();
 			}
-		}).disableSelection().find( 'li' ).each( function() {
+		} ).disableSelection().find( 'li' ).each( function() {
 
 			// Enable/disable options when we click on the eye of Thundera.
 			jQuery( this ).find( 'i.visibility' ).click( function() {
 				jQuery( this ).toggleClass( 'dashicons-visibility-faint' ).parents( 'li:eq(0)' ).toggleClass( 'invisible' );
-			});
-		}).click( function() {
+			} );
+		} ).click( function() {
 
 			// Update value on click.
 			control.updateValue();
-		});
+		} );
 	},
 
 	/**
@@ -48,7 +48,7 @@ wp.customize.controlConstructor['kirki-sortable'] = wp.customize.Control.extend(
 			if ( ! jQuery( this ).is( '.invisible' ) ) {
 				newValue.push( jQuery( this ).data( 'value' ) );
 			}
-		});
+		} );
 		control.setting.set( newValue );
 	}
-});
+} );

@@ -1,5 +1,5 @@
 /* global wp, _ */
-wp.customize.controlConstructor['kirki-background'] = wp.customize.Control.extend({
+wp.customize.controlConstructor['kirki-background'] = wp.customize.Control.extend( {
 
 	/**
 	 * @inheritdoc
@@ -26,15 +26,15 @@ wp.customize.controlConstructor['kirki-background'] = wp.customize.Control.exten
 		}
 
 		// Color.
-		picker.wpColorPicker({
+		picker.wpColorPicker( {
 			change: function() {
 				setTimeout( function() {
 					control.kirkiSetValue( 'background-color', picker.val() );
 				}, 100 );
 			}
-		});
+		} );
 
-		_.each({
+		_.each( {
 			'repeat': ['change', '.background-repeat select'],
 			'size': ['change click', '.background-size input'],
 			'position': ['change', '.background-position select'],
@@ -42,12 +42,12 @@ wp.customize.controlConstructor['kirki-background'] = wp.customize.Control.exten
 		}, function( args, key ) {
 			control.container.on( args[0], args[1], function() {
 				control.kirkiSetValue( key, jQuery( this ).val() );
-			});
-		});
+			} );
+		} );
 
 		// Background-Image.
 		control.container.on( 'click', '.background-image-upload-button', function( e ) {
-			var image = wp.media({ multiple: false }).open().on( 'select', function() {
+			var image = wp.media( { multiple: false } ).open().on( 'select', function() {
 
 				// This will return the selected image from the Media Uploader, the result is an object.
 				var uploadedImage = image.state().get( 'selection' ).first(),
@@ -85,10 +85,10 @@ wp.customize.controlConstructor['kirki-background'] = wp.customize.Control.exten
 				if ( removeButton.length ) {
 					removeButton.show();
 				}
-		    });
+		    } );
 
 			e.preventDefault();
-		});
+		} );
 
 		control.container.on( 'click', '.background-image-upload-remove-button', function( e ) {
 
@@ -114,7 +114,7 @@ wp.customize.controlConstructor['kirki-background'] = wp.customize.Control.exten
 			if ( removeButton.length ) {
 				removeButton.hide();
 			}
-		});
+		} );
 	},
 
 	addHTML: function() {
@@ -179,7 +179,7 @@ wp.customize.controlConstructor['kirki-background'] = wp.customize.Control.exten
 						'right bottom': 'rightBottom'
 					}, function( val, key ) {
 						html += '<option value="' + key + '"' + ( key === data.value['background-position'] ? 'selected' : '' ) + '>' + data.l10n[ val ] + '</option>';
-					});
+					} );
 				html += '</select>';
 			html += '</div>';
 
@@ -191,7 +191,7 @@ wp.customize.controlConstructor['kirki-background'] = wp.customize.Control.exten
 						html += '<input ' + data.inputAttrs + ' class="switch-input screen-reader-text" type="radio" value="' + val + '" name="_customize-bg-' + data.id + '-size" id="' + data.id + val + '" ' + ( val === data.value['background-size'] ? 'checked="checked"' : '' ) + '>';
 							html += '<label class="switch-label switch-label-' + ( val === data.value['background-size'] ? 'on' : 'off' ) + '" for="' + data.id + val + '">' + data.l10n[ val ] + '</label>';
 						html += '</input>';
-					});
+					} );
 				html += '</div>';
 			html += '</div>';
 
@@ -231,12 +231,12 @@ wp.customize.controlConstructor['kirki-background'] = wp.customize.Control.exten
 					value[ param ] = control.setting._value[ param ];
 				}
 			}
-		});
+		} );
 		_.each( control.setting._value, function( subValue, param ) {
 			if ( _.isUndefined( value[ param ] ) ) {
 				value[ param ] = subValue;
 			}
-		});
+		} );
 		return value;
 	},
 
@@ -268,9 +268,9 @@ wp.customize.controlConstructor['kirki-background'] = wp.customize.Control.exten
 			if ( ! _.isUndefined( value[ subVal ] ) ) {
 				control.setSelect2( control.container.find( '.' + subVal + ' select' ), value[ subVal ] );
 			}
-		});
+		} );
 		_.each( ['background-size', 'background-attachment'], function( subVal ) {
 			jQuery( control.container.find( '.' + subVal + ' input[value="' + value + '"]' ) ).prop( 'checked', true );
-		});
+		} );
 	}
-});
+} );

@@ -1,5 +1,5 @@
 /* global wp, _ */
-wp.customize.controlConstructor['kirki-radio-image'] = wp.customize.kirkiDynamicControl.extend({
+wp.customize.controlConstructor['kirki-radio-image'] = wp.customize.kirkiDynamicControl.extend( {
 
 	addHTML: function() {
 		var control = this,
@@ -23,7 +23,7 @@ wp.customize.controlConstructor['kirki-radio-image'] = wp.customize.kirkiDynamic
 						html += '<span class="image-clickable"></span>';
 					html += '</label>';
 				html += '</input>';
-			});
+			} );
 		html += '</div>';
 
 		control.container.html( html );
@@ -33,4 +33,4 @@ wp.customize.controlConstructor['kirki-radio-image'] = wp.customize.kirkiDynamic
 		var control = this;
 		jQuery( control.container.find( 'input[value="' + value + '"]' ) ).prop( 'checked', true );
 	}
-});
+} );

@@ -1,5 +1,5 @@
 /* global wp, _, CodeMirror */
-wp.customize.controlConstructor['kirki-code'] = wp.customize.kirkiDynamicControl.extend({
+wp.customize.controlConstructor['kirki-code'] = wp.customize.kirkiDynamicControl.extend( {
 
 	initKirkiControl: function() {
 
@@ -20,7 +20,7 @@ wp.customize.controlConstructor['kirki-code'] = wp.customize.kirkiDynamicControl
 			lineNumbers:  true,
 			lineWrapping: true,
 			theme:        control.params.choices.theme
-		});
+		} );
 
 		if ( ! _.isUndefined( control.params.choices.height ) ) {
 			height = Number( control.params.choices.height );
@@ -36,12 +36,12 @@ wp.customize.controlConstructor['kirki-code'] = wp.customize.kirkiDynamicControl
 		// On change make sure we infor the Customizer API
 		editor.on( 'change', function() {
 			control.setting.set( editor.getValue() );
-		});
+		} );
 
 		// Hack to refresh the editor when we open a section
 		element.parents( '.accordion-section' ).on( 'click', function() {
 			editor.refresh();
-		});
+		} );
 	},
 
 	addHTML: function() {
@@ -63,4 +63,4 @@ wp.customize.controlConstructor['kirki-code'] = wp.customize.kirkiDynamicControl
 		var control = this;
 		jQuery( control.container.find( '.CodeMirror' ) )[0].CodeMirror.setValue( value );
 	}
-});
+} );

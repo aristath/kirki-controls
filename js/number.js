@@ -1,5 +1,5 @@
 /* global wp, _ */
-wp.customize.controlConstructor['kirki-number'] = wp.customize.kirkiDynamicControl.extend({
+wp.customize.controlConstructor['kirki-number'] = wp.customize.kirkiDynamicControl.extend( {
 
 	initKirkiControl: function() {
 
@@ -11,7 +11,7 @@ wp.customize.controlConstructor['kirki-number'] = wp.customize.kirkiDynamicContr
 			min: -99999,
 			max: 99999,
 			step: 1
-		});
+		} );
 
 		control.addHTML();
 
@@ -28,7 +28,7 @@ wp.customize.controlConstructor['kirki-number'] = wp.customize.kirkiDynamicContr
 		// On change
 		this.container.on( 'change click keyup paste', 'input', function() {
 			control.setting.set( jQuery( this ).val() );
-		});
+		} );
 
 		// Notifications.
 		control.kirkiNotifications();
@@ -83,7 +83,7 @@ wp.customize.controlConstructor['kirki-number'] = wp.customize.kirkiDynamicContr
 				} else {
 					setting.notifications.remove( code );
 				}
-			});
-		});
+			} );
+		} );
 	}
-});
+} );

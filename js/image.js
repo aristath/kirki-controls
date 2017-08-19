@@ -1,5 +1,5 @@
 /* global wp, _ */
-wp.customize.controlConstructor['kirki-image'] = wp.customize.kirkiDynamicControl.extend({
+wp.customize.controlConstructor['kirki-image'] = wp.customize.kirkiDynamicControl.extend( {
 
 	initKirkiControl: function() {
 
@@ -50,7 +50,7 @@ wp.customize.controlConstructor['kirki-image'] = wp.customize.kirkiDynamicContro
 		}
 
 		control.container.on( 'click', '.image-upload-button', function( e ) {
-			var image = wp.media({ multiple: false }).open().on( 'select', function() {
+			var image = wp.media( { multiple: false } ).open().on( 'select', function() {
 
 					// This will return the selected image from the Media Uploader, the result is an object.
 					var uploadedImage = image.state().get( 'selection' ).first(),
@@ -80,10 +80,10 @@ wp.customize.controlConstructor['kirki-image'] = wp.customize.kirkiDynamicContro
 						removeButton.show();
 						defaultButton.hide();
 					}
-			    });
+			    } );
 
 			e.preventDefault();
-		});
+		} );
 
 		control.container.on( 'click', '.image-upload-remove-button', function( e ) {
 
@@ -111,7 +111,7 @@ wp.customize.controlConstructor['kirki-image'] = wp.customize.kirkiDynamicContro
 					defaultButton.show();
 				}
 			}
-		});
+		} );
 
 		control.container.on( 'click', '.image-default-button', function( e ) {
 
@@ -134,7 +134,7 @@ wp.customize.controlConstructor['kirki-image'] = wp.customize.kirkiDynamicContro
 				removeButton.show();
 				defaultButton.hide();
 			}
-		});
+		} );
 	},
 
 	addHTML: function() {
@@ -197,9 +197,9 @@ wp.customize.controlConstructor['kirki-image'] = wp.customize.kirkiDynamicContro
 
 				// Set the right value
 				obj.set( sumValue );
-			});
+			} );
 			return;
 		}
 		control.setting.set( value );
 	}
-});
+} );

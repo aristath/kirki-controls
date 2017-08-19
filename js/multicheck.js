@@ -1,5 +1,5 @@
 /* global wp, _ */
-wp.customize.controlConstructor['kirki-multicheck'] = wp.customize.kirkiDynamicControl.extend({
+wp.customize.controlConstructor['kirki-multicheck'] = wp.customize.kirkiDynamicControl.extend( {
 
 	initKirkiControl: function() {
 
@@ -18,11 +18,11 @@ wp.customize.controlConstructor['kirki-multicheck'] = wp.customize.kirkiDynamicC
 					value[ i ] = key;
 					i++;
 				}
-			});
+			} );
 
 			// Update the value in the customizer.
 			control.setting.set( value );
-		});
+		} );
 	},
 
 	addHTML: function() {
@@ -40,7 +40,7 @@ wp.customize.controlConstructor['kirki-multicheck'] = wp.customize.kirkiDynamicC
 		html += '<ul>';
 			_.each( control.params.choices, function( val, key ) {
 				html += '<li><label><input ' + control.params.inputAttrs + ' type="checkbox" value="' + key + '"' + ( _.contains( control.params.value, key ) ? ' checked' : '' ) + '/>' + val + '</label></li>';
-			});
+			} );
 		html += '</ul>';
 
 		control.container.html( html );
@@ -50,9 +50,9 @@ wp.customize.controlConstructor['kirki-multicheck'] = wp.customize.kirkiDynamicC
 		var control = this;
 		control.container.find( 'input' ).each( function() {
 			jQuery( this ).prop( 'checked', false );
-		});
+		} );
 		_.each( value, function( subValue, i ) {
 			jQuery( control.container.find( 'input[value="' + value[ i ] + '"]' ) ).prop( 'checked', true );
-		});
+		} );
 	}
-});
+} );

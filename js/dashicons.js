@@ -1,5 +1,5 @@
 /* global wp, _ */
-wp.customize.controlConstructor['kirki-dashicons'] = wp.customize.kirkiDynamicControl.extend({
+wp.customize.controlConstructor['kirki-dashicons'] = wp.customize.kirkiDynamicControl.extend( {
 
 	addHTML: function() {
 		var control = this,
@@ -15,7 +15,7 @@ wp.customize.controlConstructor['kirki-dashicons'] = wp.customize.kirkiDynamicCo
 					html += '<input ' + data.inputAttrs + ' class="dashicons-select" type="radio" value="' + key + '" name="_customize-dashicons-radio-' + data.id + '" id="' + data.id + key + '" ' + data.link + ( data.value === key ? ' checked="checked"' : '' ) + '>';
 						html += '<label for="' + data.id + key + '"><span class="dashicons dashicons-' + data.choices[ key ] + '"></span></label>';
 					html += '</input>';
-				});
+				} );
 			} else {
 				_.each( cats, function( cat ) {
 					html += '<h4>' + data.l10n[ cat ] + '</h4>';
@@ -23,8 +23,8 @@ wp.customize.controlConstructor['kirki-dashicons'] = wp.customize.kirkiDynamicCo
 						html += '<input ' + data.inputAttrs + ' class="dashicons-select" type="radio" value="' + val + '" name="_customize-dashicons-radio-' + data.id + '" id="' + data.id + val + '" ' + data.link + ( data.value === val ? ' checked="checked"' : '' ) + '>';
 							html += '<label for="' + data.id + val + '"><span class="dashicons dashicons-' + val + '"></span></label>';
 						html += '</input>';
-					});
-				});
+					} );
+				} );
 			}
 		html += '</div>';
 
@@ -35,4 +35,4 @@ wp.customize.controlConstructor['kirki-dashicons'] = wp.customize.kirkiDynamicCo
 		var control = this;
 		jQuery( control.container.find( 'input[value="' + value + '"]' ) ).prop( 'checked', true );
 	}
-});
+} );

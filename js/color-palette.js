@@ -1,5 +1,5 @@
 /* global wp, _ */
-wp.customize.controlConstructor['kirki-color-palette'] = wp.customize.kirkiDynamicControl.extend({
+wp.customize.controlConstructor['kirki-color-palette'] = wp.customize.kirkiDynamicControl.extend( {
 
 	addHTML: function() {
 		var control = this,
@@ -24,7 +24,7 @@ wp.customize.controlConstructor['kirki-color-palette'] = wp.customize.kirkiDynam
 					html += '<span class="color-palette-color" style="background:' + val + ';">' + val + '</span>';
 				html += '</label>';
 			html += '</input>';
-		});
+		} );
 		html += '</div>';
 
 		control.container.html( html );
@@ -34,4 +34,4 @@ wp.customize.controlConstructor['kirki-color-palette'] = wp.customize.kirkiDynam
 		var control = this;
 		jQuery( control.container.find( 'input[value="' + value + '"]' ) ).prop( 'checked', true );
 	}
-});
+} );

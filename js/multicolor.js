@@ -1,5 +1,5 @@
 /* global wp, _ */
-wp.customize.controlConstructor['kirki-multicolor'] = wp.customize.Control.extend({
+wp.customize.controlConstructor['kirki-multicolor'] = wp.customize.Control.extend( {
 
 	// When we're finished loading continue processing
 	ready: function() {
@@ -43,7 +43,7 @@ wp.customize.controlConstructor['kirki-multicolor'] = wp.customize.Control.exten
 			if ( _.isObject( colors.irisArgs ) ) {
 				_.each( colors.irisArgs, function( irisValue, irisKey ) {
 					args[ irisKey ] = irisValue;
-				});
+				} );
 			}
 
 			// Did we change the value?
@@ -79,7 +79,7 @@ wp.customize.controlConstructor['kirki-multicolor'] = wp.customize.Control.exten
 						html += '<input ' + control.params.inputAttrs + ' id="' + control.id + '-' + key + '" type="text" data-palette="' + control.params.palette + '" data-default-color="' + control.params['default'][ key ] + '" data-alpha="' + control.params.alpha + '" value="' + control.params.value[ key ] + '" class="kirki-color-control color-picker multicolor-index-' + key + '" />';
 					html += '</div>';
 				}
-			});
+			} );
 		html += '</div>';
 		html += '<div class="iris-target"></div>';
 		html += '<input class="multicolor-hidden-value" type="hidden" value=\'' + JSON.stringify( control.params.value ) + '\' ' + control.params.link + '>';
@@ -108,6 +108,6 @@ wp.customize.controlConstructor['kirki-multicolor'] = wp.customize.Control.exten
 		var control = this;
 		_.each( value, function( subVal, index ) {
 			control.setColorPicker( control.container.find( '.multicolor-index-' + index ), subVal );
-		});
+		} );
 	}
-});
+} );

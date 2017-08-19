@@ -1,5 +1,5 @@
 /* global wp, _ */
-wp.customize.controlConstructor['kirki-slider'] = wp.customize.kirkiDynamicControl.extend({
+wp.customize.controlConstructor['kirki-slider'] = wp.customize.kirkiDynamicControl.extend( {
 
 	initKirkiControl: function() {
 		var control = this,
@@ -16,8 +16,8 @@ wp.customize.controlConstructor['kirki-slider'] = wp.customize.kirkiDynamicContr
 			jQuery( this ).mousemove( function() {
 				value = jQuery( this ).attr( 'value' );
 				jQuery( this ).closest( 'label' ).find( '.kirki_range_value .value' ).text( value );
-			});
-		});
+			} );
+		} );
 
 		// Handle the reset button
 		jQuery( '.kirki-slider-reset' ).click( function() {
@@ -26,14 +26,14 @@ wp.customize.controlConstructor['kirki-slider'] = wp.customize.kirkiDynamicContr
 			thisInput.val( inputDefault );
 			thisInput.change();
 			jQuery( this ).closest( 'label' ).find( '.kirki_range_value .value' ).text( inputDefault );
-		});
+		} );
 
 		changeAction = ( 'postMessage' === control.setting.transport ) ? 'mousemove change' : 'change';
 
 		// Save changes.
 		control.container.on( changeAction, 'input', function() {
 			control.setting.set( jQuery( this ).val() );
-		});
+		} );
 	},
 
 	addHTML: function() {
@@ -61,4 +61,4 @@ wp.customize.controlConstructor['kirki-slider'] = wp.customize.kirkiDynamicContr
 		jQuery( control.container.find( 'input' ) ).prop( 'value', value );
 		jQuery( control.container.find( '.kirki_range_value .value' ) ).html( value );
 	}
-});
+} );

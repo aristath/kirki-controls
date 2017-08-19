@@ -1,5 +1,5 @@
 /* global wp, _ */
-wp.customize.controlConstructor['kirki-dimensions'] = wp.customize.kirkiDynamicControl.extend({
+wp.customize.controlConstructor['kirki-dimensions'] = wp.customize.kirkiDynamicControl.extend( {
 
 	initKirkiControl: function() {
 
@@ -15,7 +15,7 @@ wp.customize.controlConstructor['kirki-dimensions'] = wp.customize.kirkiDynamicC
 			if ( true === v ) {
 				subsArray.push( i );
 			}
-		});
+		} );
 
 		control.container.on( 'change keyup paste', 'input', function() {
 			var choice = jQuery( this ).data( 'choice' );
@@ -23,7 +23,7 @@ wp.customize.controlConstructor['kirki-dimensions'] = wp.customize.kirkiDynamicC
 
 			// Save the value
 			control.saveValue( value );
-		});
+		} );
 
 		// Notifications.
 		control.kirkiNotifications();
@@ -42,7 +42,7 @@ wp.customize.controlConstructor['kirki-dimensions'] = wp.customize.kirkiDynamicC
 			'default': {},
 			choices: {},
 			value: {}
-		});
+		} );
 		control.params.value = _.defaults( control.params.value, control.params['default'] );
 
 		html += '<label>';
@@ -65,7 +65,7 @@ wp.customize.controlConstructor['kirki-dimensions'] = wp.customize.kirkiDynamicC
 								html += '<input type="text" ' + control.params.inputAttrs + ' data-choice="' + choiceKey + '" value="' + control.params.value[ choiceKey ].replace( '%%', '%' ) + '"/>';
 							html += '</div>';
 						html += '</div>';
-					});
+					} );
 				html += '</div>';
 			html += '</div>';
 		html += '</label>';
@@ -83,7 +83,7 @@ wp.customize.controlConstructor['kirki-dimensions'] = wp.customize.kirkiDynamicC
 
 		_.each( value, function( newSubValue, i ) {
 			newValue[ i ] = newSubValue;
-		});
+		} );
 
 		control.setting.set( newValue );
 	},
@@ -109,7 +109,7 @@ wp.customize.controlConstructor['kirki-dimensions'] = wp.customize.kirkiDynamicC
 					} else {
 						delete subs[ key ];
 					}
-				});
+				} );
 
 				if ( ! _.isEmpty( subs ) ) {
 					message = control.params.l10n['invalid-value'] + ' (' + _.values( subs ).toString() + ') ';
@@ -123,14 +123,14 @@ wp.customize.controlConstructor['kirki-dimensions'] = wp.customize.kirkiDynamicC
 				} else {
 					setting.notifications.remove( code );
 				}
-			});
-		});
+			} );
+		} );
 	},
 
 	kirkiSetControlValue: function( value ) {
 		var control = this;
 		_.each( value, function( subValue, id ) {
 			jQuery( control.container.find( '.' + id + ' input' ) ).prop( 'value', subValue );
-		});
+		} );
 	}
-});
+} );

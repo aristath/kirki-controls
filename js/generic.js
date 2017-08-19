@@ -1,5 +1,5 @@
 /* global wp, _ */
-wp.customize.controlConstructor['kirki-generic'] = wp.customize.kirkiDynamicControl.extend({
+wp.customize.controlConstructor['kirki-generic'] = wp.customize.kirkiDynamicControl.extend( {
 
 	initKirkiControl: function() {
 
@@ -11,7 +11,7 @@ wp.customize.controlConstructor['kirki-generic'] = wp.customize.kirkiDynamicCont
 		// Save the value
 		this.container.on( 'change keyup paste click', element, function() {
 			control.setting.set( jQuery( this ).val() );
-		});
+		} );
 	},
 
 	addHTML: function() {
@@ -27,14 +27,14 @@ wp.customize.controlConstructor['kirki-generic'] = wp.customize.kirkiDynamicCont
 					html += '<textarea ' + control.params.inputAttrs + ' ' + control.params.link;
 					_.each( control.params.choices, function( value, key ) {
 						html += key += '"' + value + '"';
-					});
+					} );
 					html += control.params.value;
 					html += '</textarea>';
 				} else {
 					html += '<' + element + ' value="' + control.params.value + '" ' + control.params.link + control.params.inputAttrs + ' ';
 					_.each( control.params.choices, function( value, key ) {
 						html += key += '"' + value + '"';
-					});
+					} );
 					if ( control.params.choices.content ) {
 						html += '>' + control.params.choices.content + '</' + element + '>';
 					} else {
@@ -55,4 +55,4 @@ wp.customize.controlConstructor['kirki-generic'] = wp.customize.kirkiDynamicCont
 		}
 		jQuery( control.container.find( control.choices.element ) ).prop( 'value', value );
 	}
-});
+} );

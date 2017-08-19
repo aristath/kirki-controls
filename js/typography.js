@@ -1,5 +1,5 @@
 /* global wp, _, kirkiAllFonts */
-wp.customize.controlConstructor['kirki-typography'] = wp.customize.kirkiDynamicControl.extend({
+wp.customize.controlConstructor['kirki-typography'] = wp.customize.kirkiDynamicControl.extend( {
 
 	initKirkiControl: function() {
 		var control = this;
@@ -10,7 +10,7 @@ wp.customize.controlConstructor['kirki-typography'] = wp.customize.kirkiDynamicC
 			jQuery.post( control.params.ajaxurl, { 'action': 'kirki_get_googlefonts_ajax' }, function( response ) {
 				window.kirkiAllFonts = JSON.parse( response );
 				control.initKirkiTypographyControl();
-			});
+			} );
 			return;
 		}
 
@@ -34,54 +34,54 @@ wp.customize.controlConstructor['kirki-typography'] = wp.customize.kirkiDynamicC
 		// Font-size.
 		this.container.on( 'change keyup paste', '.font-size input', function() {
 			control.saveValue( 'font-size', jQuery( this ).val() );
-		});
+		} );
 
 		// Line-height.
 		this.container.on( 'change keyup paste', '.line-height input', function() {
 			control.saveValue( 'line-height', jQuery( this ).val() );
-		});
+		} );
 
 		// Margin-top.
 		this.container.on( 'change keyup paste', '.margin-top input', function() {
 			control.saveValue( 'margin-top', jQuery( this ).val() );
-		});
+		} );
 
 		// Margin-bottom.
 		this.container.on( 'change keyup paste', '.margin-bottom input', function() {
 			control.saveValue( 'margin-bottom', jQuery( this ).val() );
-		});
+		} );
 
 		// Letter-spacing.
 		value['letter-spacing'] = ( jQuery.isNumeric( value['letter-spacing'] ) ) ? value['letter-spacing'] + 'px' : value['letter-spacing'];
 		this.container.on( 'change keyup paste', '.letter-spacing input', function() {
 			value['letter-spacing'] = ( jQuery.isNumeric( jQuery( this ).val() ) ) ? jQuery( this ).val() + 'px' : jQuery( this ).val();
 			control.saveValue( 'letter-spacing', value['letter-spacing'] );
-		});
+		} );
 
 		// Word-spacing.
 		this.container.on( 'change keyup paste', '.word-spacing input', function() {
 			control.saveValue( 'word-spacing', jQuery( this ).val() );
-		});
+		} );
 
 		this.container.on( 'change', '.text-align input', function() {
 			control.saveValue( 'text-align', jQuery( this ).val() );
-		});
+		} );
 
 		// Text-transform
 		jQuery( textTransformSelector ).select2().on( 'change', function() {
 			control.saveValue( 'text-transform', jQuery( this ).val() );
-		});
+		} );
 
 		picker = this.container.find( '.kirki-color-control' );
 
 		// Change color
-		picker.wpColorPicker({
+		picker.wpColorPicker( {
 			change: function() {
 				setTimeout( function() {
 					control.saveValue( 'color', picker.val() );
 				}, 100 );
 			}
-		});
+		} );
 	},
 
 	addHTML: function() {
@@ -126,7 +126,7 @@ wp.customize.controlConstructor['kirki-typography'] = wp.customize.kirkiDynamicC
 						html += '<select ' + data.inputAttrs + ' class="subset" id="kirki-typography-subsets-' + data.id + '"' + ( ( _.isUndefined( data.choices['disable-multiple-variants'] ) || false === data.choices['disable-multiple-variants'] ) ? ' multiple' : '' ) + '>';
 							_.each( data.value.subsets, function( subset ) {
 								html += '<option value="' + subset + '" selected="selected">' + data.languages[ subset ] + '</option>';
-							});
+							} );
 						html += '</select>';
 					html += '</div>';
 				}
@@ -206,7 +206,7 @@ wp.customize.controlConstructor['kirki-typography'] = wp.customize.kirkiDynamicC
 					html += '<select ' + data.inputAttrs + ' id="kirki-typography-text-transform-' + data.id + '">';
 						_.each( ['none', 'capitalize', 'uppercase', 'lowercase', 'initial', 'inherit'], function( textTransform ) {
 							html += '<option value="none"' + ( textTransform === data.value['text-transform'] ? ' selected' : '' ) + '>' + data.l10n[ textTransform ] + '</option>';
-						});
+						} );
 					html += '</select>';
 				html += '</div>';
 			}
@@ -261,21 +261,21 @@ wp.customize.controlConstructor['kirki-typography'] = wp.customize.kirkiDynamicC
 		// Format standard fonts as an array.
 		if ( ! _.isUndefined( fonts.standard ) ) {
 			_.each( fonts.standard, function( font ) {
-				standardFonts.push({
+				standardFonts.push( {
 					id: font.family.replace( /&quot;/g, '&#39' ),
 					text: font.label
-				});
-			});
+				} );
+			} );
 		}
 
 		// Format google fonts as an array.
 		if ( ! _.isUndefined( fonts.standard ) ) {
 			_.each( fonts.google, function( font ) {
-				googleFonts.push({
+				googleFonts.push( {
 					id: font.family,
 					text: font.label
-				});
-			});
+				} );
+			} );
 		}
 
 		// Combine forces and build the final data.
@@ -285,9 +285,9 @@ wp.customize.controlConstructor['kirki-typography'] = wp.customize.kirkiDynamicC
 		];
 
 		// Instantiate select2 with the data.
-		fontSelect = jQuery( selector ).select2({
+		fontSelect = jQuery( selector ).select2( {
 			data: data
-		});
+		} );
 
 		// Set the initial value.
 		if ( value['font-family'] ) {
@@ -308,7 +308,7 @@ wp.customize.controlConstructor['kirki-typography'] = wp.customize.kirkiDynamicC
 
 			// Re-init subsets selector.
 			control.renderSubsetSelector();
-		});
+		} );
 	},
 
 	/**
@@ -340,17 +340,17 @@ wp.customize.controlConstructor['kirki-typography'] = wp.customize.kirkiDynamicC
 		// Format standard fonts as an array.
 		if ( ! _.isUndefined( fonts.standard ) ) {
 			_.each( fonts.standard, function( font ) {
-				standardFonts.push({
+				standardFonts.push( {
 					id: font.family.replace( /&quot;/g, '&#39' ),
 					text: font.label
-				});
-			});
+				} );
+			} );
 		}
 
 		// Instantiate select2 with the data.
-		fontSelect = jQuery( selector ).select2({
+		fontSelect = jQuery( selector ).select2( {
 			data: standardFonts
-		});
+		} );
 
 		// Set the initial value.
 		fontSelect.val( value['font-backup'].replace( /'/g, '"' ) ).trigger( 'change' );
@@ -360,7 +360,7 @@ wp.customize.controlConstructor['kirki-typography'] = wp.customize.kirkiDynamicC
 
 			// Set the value.
 			control.saveValue( 'font-backup', jQuery( this ).val() );
-		});
+		} );
 	},
 
 	/**
@@ -386,11 +386,11 @@ wp.customize.controlConstructor['kirki-typography'] = wp.customize.kirkiDynamicC
 				if ( value.variant === variant.id ) {
 					isValid = true;
 				}
-				data.push({
+				data.push( {
 					id: variant.id,
 					text: variant.label
-				});
-			});
+				} );
+			} );
 			if ( ! isValid ) {
 				value.variant = 'regular';
 			}
@@ -401,9 +401,9 @@ wp.customize.controlConstructor['kirki-typography'] = wp.customize.kirkiDynamicC
 			}
 
 			// Instantiate select2 with the data.
-			variantSelector = jQuery( selector ).select2({
+			variantSelector = jQuery( selector ).select2( {
 				data: data
-			});
+			} );
 			variantSelector.val( value.variant ).trigger( 'change' );
 			variantSelector.on( 'change', function() {
 				control.saveValue( 'variant', jQuery( this ).val() );
@@ -414,7 +414,7 @@ wp.customize.controlConstructor['kirki-typography'] = wp.customize.kirkiDynamicC
 
 				control.saveValue( 'font-weight', fontWeight );
 				control.saveValue( 'font-style', fontStyle );
-			});
+			} );
 		} else {
 			jQuery( control.selector + ' .variant' ).hide();
 		}
@@ -443,15 +443,15 @@ wp.customize.controlConstructor['kirki-typography'] = wp.customize.kirkiDynamicC
 					if ( -1 === validValue.indexOf( subset.id ) ) {
 						validValue = _.reject( validValue, function( subValue ) {
 							return subValue === subset.id;
-						});
+						} );
 					}
 				}
 
-				data.push({
+				data.push( {
 					id: subset.id,
 					text: subset.label
-				});
-			});
+				} );
+			} );
 
 		} else {
 			jQuery( control.selector + ' .subsets' ).hide();
@@ -463,13 +463,13 @@ wp.customize.controlConstructor['kirki-typography'] = wp.customize.kirkiDynamicC
 		}
 
 		// Instantiate select2 with the data.
-		subsetSelector = jQuery( selector ).select2({
+		subsetSelector = jQuery( selector ).select2( {
 			data: data
-		});
+		} );
 		subsetSelector.val( validValue ).trigger( 'change' );
 		subsetSelector.on( 'change', function() {
 			control.saveValue( 'subsets', jQuery( this ).val() );
-		});
+		} );
 	},
 
 	/**
@@ -503,14 +503,14 @@ wp.customize.controlConstructor['kirki-typography'] = wp.customize.kirkiDynamicC
 				variants = font.variants;
 				return font.variants;
 			}
-		});
+		} );
 
 		_.each( fonts.google, function( font ) {
 			if ( font.family === fontFamily ) {
 				variants = font.variants;
 				return font.variants;
 			}
-		});
+		} );
 		return variants;
 	},
 
@@ -527,7 +527,7 @@ wp.customize.controlConstructor['kirki-typography'] = wp.customize.kirkiDynamicC
 			if ( font.family === fontFamily ) {
 				subsets = font.subsets;
 			}
-		});
+		} );
 		return subsets;
 	},
 
@@ -557,7 +557,7 @@ wp.customize.controlConstructor['kirki-typography'] = wp.customize.kirkiDynamicC
 
 			// Set the right value
 			obj.set( sumValue );
-		});
+		} );
 	},
 
 	kirkiSetControlValue: function( value ) {
@@ -566,15 +566,15 @@ wp.customize.controlConstructor['kirki-typography'] = wp.customize.kirkiDynamicC
 			if ( ! _.isUndefined( value[ subVal ] ) ) {
 				control.setSelect2( control.container.find( '.' + subVal + ' select' ), value[ subVal ] );
 			}
-		});
+		} );
 		_.each( ['font-size', 'line-height', 'letter-spacing', 'word-spacing'], function( subVal ) {
 			if ( ! _.isUndefined( value[ subVal ] ) ) {
 				jQuery( control.container.find( '.' + subVal + ' input' ) ).prop( 'value', value[ subVal ] );
 			}
-		});
+		} );
 
 		if ( ! _.isUndefined( value.color ) ) {
 			control.setColorPicker( control.container.find( '.kirki-color-control' ), value.color );
 		}
 	}
-});
+} );

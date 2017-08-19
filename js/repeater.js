@@ -1,5 +1,5 @@
 /* global wp, _ */
-/*jshint -W065 */
+/* jshint -W065 */
 var RepeaterRow = function( rowIndex, container, label, control ) {
 
 	'use strict';
@@ -12,19 +12,19 @@ var RepeaterRow = function( rowIndex, container, label, control ) {
 
 	this.header.on( 'click', function() {
 		self.toggleMinimize();
-	});
+	} );
 
 	this.container.on( 'click', '.repeater-row-remove', function() {
 		self.remove();
-	});
+	} );
 
 	this.header.on( 'mousedown', function() {
 		self.container.trigger( 'row:start-dragging' );
-	});
+	} );
 
 	this.container.on( 'keyup change', 'input, select, textarea', function( e ) {
 		self.container.trigger( 'row:update', [ self.rowIndex, jQuery( e.target ).data( 'field' ), e.target ] );
-	});
+	} );
 
 	this.setRowIndex = function( rowIndex ) {
 		this.rowIndex = rowIndex;
@@ -43,7 +43,7 @@ var RepeaterRow = function( rowIndex, container, label, control ) {
 	this.remove = function() {
 		this.container.slideUp( 300, function() {
 			jQuery( this ).detach();
-		});
+		} );
 		this.container.trigger( 'row:remove', [ this.rowIndex ] );
 	};
 
@@ -79,7 +79,7 @@ var RepeaterRow = function( rowIndex, container, label, control ) {
 	this.updateLabel();
 };
 
-wp.customize.controlConstructor.repeater = wp.customize.Control.extend({
+wp.customize.controlConstructor.repeater = wp.customize.Control.extend( {
 
 	// When we're finished loading continue processing
 	ready: function() {
@@ -136,32 +136,32 @@ wp.customize.controlConstructor.repeater = wp.customize.Control.extend({
 			} else {
 				jQuery( control.selector + ' .limit' ).addClass( 'highlight' );
 			}
-		});
+		} );
 
 		this.container.on( 'click', '.repeater-row-remove', function() {
 			control.currentIndex--;
 			if ( ! limit || control.currentIndex < limit ) {
 				jQuery( control.selector + ' .limit' ).removeClass( 'highlight' );
 			}
-		});
+		} );
 
 		this.container.on( 'click keypress', '.repeater-field-image .upload-button,.repeater-field-cropped_image .upload-button,.repeater-field-upload .upload-button', function( e ) {
 			e.preventDefault();
 			control.$thisButton = jQuery( this );
 			control.openFrame( e );
-		});
+		} );
 
 		this.container.on( 'click keypress', '.repeater-field-image .remove-button,.repeater-field-cropped_image .remove-button', function( e ) {
 			e.preventDefault();
 			control.$thisButton = jQuery( this );
 			control.removeImage( e );
-		});
+		} );
 
 		this.container.on( 'click keypress', '.repeater-field-upload .remove-button', function( e ) {
 			e.preventDefault();
 			control.$thisButton = jQuery( this );
 			control.removeFile( e );
-		});
+		} );
 
 		/**
 		 * Function that loads the Mustache template
@@ -177,7 +177,7 @@ wp.customize.controlConstructor.repeater = wp.customize.Control.extend({
 			    options = {
 					evaluate: /<#([\s\S]+?)#>/g,
 					interpolate: /\{\{\{([\s\S]+?)\}\}\}/g,
-					escape: /\{\{([^\}]+?)\}\}(?!\})/g,
+					escape: /\{\{([^\}]+?)\}\}(?!\} )/g,
 					variable: 'data'
 			    };
 
@@ -185,7 +185,7 @@ wp.customize.controlConstructor.repeater = wp.customize.Control.extend({
 				compiled = _.template( control.container.find( '.customize-control-repeater-content' ).first().html(), null, options );
 				return compiled( data );
 			};
-		});
+		} );
 
 		// When we load the control, the fields have not been filled up
 		// This is the first time that we create all the rows
@@ -194,18 +194,18 @@ wp.customize.controlConstructor.repeater = wp.customize.Control.extend({
 				theNewRow = control.addRow( subValue );
 				control.initColorPicker();
 				control.initSelect( theNewRow, subValue );
-			});
+			} );
 		}
 
 		// Once we have displayed the rows, we cleanup the values
 		this.setValue( settingValue, true, true );
 
-		this.repeaterFieldsContainer.sortable({
+		this.repeaterFieldsContainer.sortable( {
 			handle: '.repeater-row-header',
 			update: function() {
 				control.sort();
 			}
-		});
+		} );
 
 	},
 
@@ -235,15 +235,15 @@ wp.customize.controlConstructor.repeater = wp.customize.Control.extend({
 
 		var libMediaType = this.getMimeType();
 
-		this.frame = wp.media({
+		this.frame = wp.media( {
 			states: [
-			new wp.media.controller.Library({
-					library:  wp.media.query({ type: libMediaType }),
+			new wp.media.controller.Library( {
+					library:  wp.media.query( { type: libMediaType } ),
 					multiple: false,
 					date:     false
-				})
+				} )
 			]
-		});
+		} );
 
 		// When a file is selected, run a callback.
 		this.frame.on( 'select', this.onSelect, this );
@@ -267,7 +267,7 @@ wp.customize.controlConstructor.repeater = wp.customize.Control.extend({
 			// Make fields is defined and only do the hack for cropped_image
 			if ( _.isObject( this.params.fields[ currentFieldId ] ) && 'cropped_image' === this.params.fields[ currentFieldId ].type ) {
 
-				//Iterate over the list of attributes
+				// Iterate over the list of attributes
 				attrs.forEach( function( el ) {
 
 					// If the attribute exists in the field
@@ -280,25 +280,25 @@ wp.customize.controlConstructor.repeater = wp.customize.Control.extend({
 			}
 		}
 
-		this.frame = wp.media({
+		this.frame = wp.media( {
 			button: {
 				text: 'Select and Crop',
 				close: false
 			},
 			states: [
-				new wp.media.controller.Library({
-					library:         wp.media.query({ type: libMediaType }),
+				new wp.media.controller.Library( {
+					library:         wp.media.query( { type: libMediaType } ),
 					multiple:        false,
 					date:            false,
 					suggestedWidth:  this.params.width,
 					suggestedHeight: this.params.height
-				}),
-				new wp.media.controller.CustomizeImageCropper({
+				} ),
+				new wp.media.controller.CustomizeImageCropper( {
 					imgSelectOptions: this.calculateImageSelectOptions,
 					control: this
-				})
+				} )
 			]
-		});
+		} );
 
 		this.frame.on( 'select', this.onSelectForCrop, this );
 		this.frame.on( 'cropped', this.onCropped, this );
@@ -538,7 +538,7 @@ wp.customize.controlConstructor.repeater = wp.customize.Control.extend({
 
 		$targetDiv.find( '.kirki-image-attachment' ).slideUp( 'fast', function() {
 			jQuery( this ).show().html( jQuery( this ).data( 'placeholder' ) );
-		});
+		} );
 		$targetDiv.find( '.hidden-field' ).val( '' );
 		$uploadButton.text( $uploadButton.data( 'label' ) );
 		this.$thisButton.hide();
@@ -563,7 +563,7 @@ wp.customize.controlConstructor.repeater = wp.customize.Control.extend({
 
 		$targetDiv.find( '.kirki-file-attachment' ).slideUp( 'fast', function() {
 			jQuery( this ).show().html( jQuery( this ).data( 'placeholder' ) );
-		});
+		} );
 		$targetDiv.find( '.hidden-field' ).val( '' );
 		$uploadButton.text( $uploadButton.data( 'label' ) );
 		this.$thisButton.hide();
@@ -605,14 +605,14 @@ wp.customize.controlConstructor.repeater = wp.customize.Control.extend({
 				if ( 'image' === value.type || 'cropped_image' === value.type || 'upload' === value.type ) {
 					filter.push( index );
 				}
-			});
+			} );
 			jQuery.each( newValue, function( index, value ) {
 				jQuery.each( filter, function( ind, field ) {
 					if ( ! _.isUndefined( value[ field ] ) && ! _.isUndefined( value[ field ].id ) ) {
 						filteredValue[index][ field ] = value[ field ].id;
 					}
-				});
-			});
+				} );
+			} );
 		}
 
 		this.setting.set( encodeURI( JSON.stringify( filteredValue ) ) );
@@ -673,12 +673,12 @@ wp.customize.controlConstructor.repeater = wp.customize.Control.extend({
 
 			newRow.container.on( 'row:remove', function( e, rowIndex ) {
 				control.deleteRow( rowIndex );
-			});
+			} );
 
 			newRow.container.on( 'row:update', function( e, rowIndex, fieldName, element ) {
 				control.updateField.call( control, e, rowIndex, fieldName, element );
 				newRow.updateLabel();
-			});
+			} );
 
 			// Add the row to rows collection
 			this.rows[ this.currentIndex ] = newRow;
@@ -711,14 +711,14 @@ wp.customize.controlConstructor.repeater = wp.customize.Control.extend({
 
 		$rows.each( function( i, element ) {
 			newOrder.push( jQuery( element ).data( 'row' ) );
-		});
+		} );
 
 		jQuery.each( newOrder, function( newPosition, oldPosition ) {
 			newRows[ newPosition ] = control.rows[ oldPosition ];
 			newRows[ newPosition ].setRowIndex( newPosition );
 
 			newSettings[ newPosition ] = settings[ oldPosition ];
-		});
+		} );
 
 		control.rows = newRows;
 		control.setValue( newSettings );
@@ -890,6 +890,6 @@ wp.customize.controlConstructor.repeater = wp.customize.Control.extend({
 
 			currentSettings[ rowIndex ][ currentDropdown.data( 'field' ) ] = jQuery( this ).val();
 			control.setValue( currentSettings );
-		});
+		} );
 	}
-});
+} );

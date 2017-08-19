@@ -1,5 +1,5 @@
 /* global wp, _, tinyMCE */
-wp.customize.controlConstructor['kirki-editor'] = wp.customize.kirkiDynamicControl.extend({
+wp.customize.controlConstructor['kirki-editor'] = wp.customize.kirkiDynamicControl.extend( {
 
 	initKirkiControl: function() {
 
@@ -35,7 +35,7 @@ wp.customize.controlConstructor['kirki-editor'] = wp.customize.kirkiDynamicContr
 			// Modify the preview-area height.
 			control.previewHeight();
 
-		});
+		} );
 
 		// Update the option from the editor contents on change.
 		if ( editor ) {
@@ -49,13 +49,13 @@ wp.customize.controlConstructor['kirki-editor'] = wp.customize.kirkiDynamicContr
 					element.val( content ).trigger( 'change' );
 					wp.customize.instance( control.getEditorWrapperSetting() ).set( content );
 				}, 500 );
-			});
+			} );
 		}
 
 		// Handle text mode.
 		wpEditorArea.on( 'change keyup paste', function() {
 			wp.customize.instance( control.getEditorWrapperSetting() ).set( jQuery( this ).val() );
-		});
+		} );
 	},
 
 	addHTML: function() {
@@ -158,4 +158,4 @@ wp.customize.controlConstructor['kirki-editor'] = wp.customize.kirkiDynamicContr
 	kirkiSetControlValue: function( value ) {
 		wp.customize.kirkiDynamicControl.prototype.kirkiSetControlValue.call( this, value );
 	}
-});
+} );

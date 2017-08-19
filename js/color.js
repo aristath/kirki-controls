@@ -1,5 +1,5 @@
 /* global wp, _ */
-wp.customize.controlConstructor['kirki-color'] = wp.customize.kirkiDynamicControl.extend({
+wp.customize.controlConstructor['kirki-color'] = wp.customize.kirkiDynamicControl.extend( {
 
 	initKirkiControl: function() {
 		var control = this,
@@ -21,11 +21,11 @@ wp.customize.controlConstructor['kirki-color'] = wp.customize.kirkiDynamicContro
 			clear = control.container.find( '.wp-picker-clear' );
 			clear.click( function() {
 				control.setting.set( '' );
-			});
+			} );
 		}, 200 );
 
 		// Saves our settings to the WP API
-		picker.wpColorPicker({
+		picker.wpColorPicker( {
 			change: function() {
 
 				// Small hack: the picker needs a small delay
@@ -33,7 +33,7 @@ wp.customize.controlConstructor['kirki-color'] = wp.customize.kirkiDynamicContro
 					control.setting.set( picker.val() );
 				}, 20 );
 			}
-		});
+		} );
 	},
 
 	addHTML: function() {
@@ -54,4 +54,4 @@ wp.customize.controlConstructor['kirki-color'] = wp.customize.kirkiDynamicContro
 		var control = this;
 		control.setColorPicker( control.container.find( '.kirki-color-control' ), value );
 	}
-});
+} );

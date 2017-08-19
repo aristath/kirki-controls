@@ -1,5 +1,5 @@
 /* global wp, _ */
-wp.customize.controlConstructor['kirki-gradient'] = wp.customize.kirkiDynamicControl.extend({
+wp.customize.controlConstructor['kirki-gradient'] = wp.customize.kirkiDynamicControl.extend( {
 
 	initKirkiControl: function() {
 
@@ -25,7 +25,7 @@ wp.customize.controlConstructor['kirki-gradient'] = wp.customize.kirkiDynamicCon
 		_.each( { 'start': pickerStart, 'end': pickerEnd }, function( obj, index ) {
 
 			// Saves our settings to the WP API
-			obj.wpColorPicker({
+			obj.wpColorPicker( {
 				change: function() {
 					setTimeout( function() {
 
@@ -40,8 +40,8 @@ wp.customize.controlConstructor['kirki-gradient'] = wp.customize.kirkiDynamicCon
 
 					}, 100 );
 				}
-			});
-		});
+			} );
+		} );
 
 		jQuery( control.container.find( '.global .angle' ) ).show();
 		if ( ! _.isUndefined( value.mode && 'radial' === value.mode ) ) {
@@ -57,7 +57,7 @@ wp.customize.controlConstructor['kirki-gradient'] = wp.customize.kirkiDynamicCon
 			if ( 'radial' === value.mode ) {
 				jQuery( control.container.find( '.global .angle' ) ).hide();
 			}
-		});
+		} );
 
 		// Angle (-90° -to 90°).
 		throttledAngleChange = _.throttle( function() {
@@ -71,7 +71,7 @@ wp.customize.controlConstructor['kirki-gradient'] = wp.customize.kirkiDynamicCon
 		}, 20 );
 		angleElement.on( 'input change oninput', function() {
 			throttledAngleChange();
-		});
+		} );
 
 		// Start Position( 0% - 100%);
 		throttledPositionStartChange = _.throttle( function() {
@@ -85,7 +85,7 @@ wp.customize.controlConstructor['kirki-gradient'] = wp.customize.kirkiDynamicCon
 		}, 20 );
 		startPositionElement.on( 'input change oninput', function() {
 			throttledPositionStartChange();
-		});
+		} );
 
 		// End Position( 0% - 100%);
 		throttledPositionEndChange = _.throttle( function() {
@@ -99,7 +99,7 @@ wp.customize.controlConstructor['kirki-gradient'] = wp.customize.kirkiDynamicCon
 		}, 20 );
 		endPositionElement.on( 'input change oninput', function() {
 			throttledPositionEndChange();
-		});
+		} );
 	},
 
 	/**
@@ -118,12 +118,12 @@ wp.customize.controlConstructor['kirki-gradient'] = wp.customize.kirkiDynamicCon
 					value[ param ] = control.setting._value[ param ];
 				}
 			}
-		});
+		} );
 		_.each( control.setting._value, function( subValue, param ) {
 			if ( ! _.isUndefined( value[ param ] ) ) {
 				value[ param ] = subValue;
 			}
-		});
+		} );
 		return value;
 	},
 
@@ -162,6 +162,6 @@ wp.customize.controlConstructor['kirki-gradient'] = wp.customize.kirkiDynamicCon
 			// Set the right value
 			obj.set( value );
 
-		});
+		} );
 	}
-});
+} );

@@ -1,5 +1,5 @@
 /* global wp, _ */
-wp.customize.controlConstructor['kirki-dimension'] = wp.customize.kirkiDynamicControl.extend({
+wp.customize.controlConstructor['kirki-dimension'] = wp.customize.kirkiDynamicControl.extend( {
 
 	initKirkiControl: function() {
 
@@ -16,7 +16,7 @@ wp.customize.controlConstructor['kirki-dimension'] = wp.customize.kirkiDynamicCo
 
 			value = jQuery( this ).val();
 			control.setting.set( value );
-		});
+		} );
 	},
 
 	addHTML: function() {
@@ -59,4 +59,4 @@ wp.customize.controlConstructor['kirki-dimension'] = wp.customize.kirkiDynamicCo
 			} );
 		} );
 	}
-});
+} );

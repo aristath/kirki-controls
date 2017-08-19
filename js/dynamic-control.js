@@ -17,7 +17,7 @@
 	 * @augments wp.customize.Control
 	 * @augments wp.customize.Class
 	 */
-	wp.customize.kirkiDynamicControl = wp.customize.Control.extend({
+	wp.customize.kirkiDynamicControl = wp.customize.Control.extend( {
 
 		initialize: function( id, options ) {
 			var control = this,
@@ -58,8 +58,8 @@
 					control.elements.push( element );
 					element.sync( setting );
 					element.set( setting() );
-				});
-			});
+				} );
+			} );
 		},
 
 		/**
@@ -101,7 +101,7 @@
 						element.set( newValue[ propertyName ] );
 					}
 				} );
-			});
+			} );
 		},
 
 		/**
@@ -117,7 +117,7 @@
 
 			control.deferred.embedded.done( function() {
 				control.initKirkiControl();
-			});
+			} );
 		},
 
 		/**
@@ -193,7 +193,7 @@
 			// Save the value
 			this.container.on( 'change keyup paste click', 'input', function() {
 				control.setting.set( jQuery( this ).val() );
-			});
+			} );
 
 			control.addHTML();
 		},
@@ -310,5 +310,5 @@
 		setSelect2: function( selector, value ) {
 			jQuery( selector ).select2().val( value ).trigger( 'change' );
 		}
-	});
-})();
+	} );
+} )();
