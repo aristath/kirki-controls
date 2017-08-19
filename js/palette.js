@@ -1,3 +1,4 @@
+/* global wp, _ */
 wp.customize.controlConstructor['kirki-palette'] = wp.customize.kirkiDynamicControl.extend({
 
 	kirkiSetControlValue: function( value ) {

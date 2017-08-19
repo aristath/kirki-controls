@@ -1,4 +1,4 @@
-/* global kirkiAllFonts */
+/* global wp, _, kirkiAllFonts */
 wp.customize.controlConstructor['kirki-typography'] = wp.customize.kirkiDynamicControl.extend({
 
 	initKirkiControl: function() {

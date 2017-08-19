@@ -1,3 +1,4 @@
+/* global wp, _ */
 /**
  * The majority of the code in this file
  * is derived from the wp-customize-posts plugin

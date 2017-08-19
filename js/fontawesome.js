@@ -1,4 +1,4 @@
-/* global fontAwesomeJSON */
+/* global wp, _, fontAwesomeJSON */
 wp.customize.controlConstructor['kirki-fontawesome'] = wp.customize.kirkiDynamicControl.extend({
 
 	initKirkiControl: function() {

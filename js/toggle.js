@@ -1,3 +1,4 @@
+/* global wp, _ */
 wp.customize.controlConstructor['kirki-toggle'] = wp.customize.kirkiDynamicControl.extend({
 
 	addHTML: function() {

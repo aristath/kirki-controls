@@ -1,3 +1,4 @@
+/* global wp, _ */
 /*jshint -W065 */
 var RepeaterRow = function( rowIndex, container, label, control ) {
 

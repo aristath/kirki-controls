@@ -1,3 +1,4 @@
+/* global wp, _ */
 wp.customize.controlConstructor['kirki-background'] = wp.customize.Control.extend({
 
 	/**
