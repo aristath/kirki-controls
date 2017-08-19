@@ -257,7 +257,7 @@ class Kirki_Controls_Bootstrap {
 
 		$standard_fonts_final = array();
 		$default_variants = $this->format_variants_array( array( 'regular', 'italic', '700', '700italic' ) );
-		foreach ( array_keys( $standard_fonts ) as $key ) {
+		foreach ( $standard_fonts as $font ) {
 			$standard_fonts_final[] = array(
 				'family'      => $font['stack'],
 				'label'       => $font['label'],
