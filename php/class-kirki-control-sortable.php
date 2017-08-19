@@ -65,7 +65,7 @@ class Kirki_Control_Sortable extends Kirki_Control_Base {
 						<i class="dashicons dashicons-visibility visibility"></i>
 						{{{ data.choices[ choiceID ] }}}
 					</li>
-				<# }); #>
+				<# } ); #>
 				<# _.each( data.choices, function( choiceLabel, choiceID ) { #>
 					<# if ( -1 === data.value.indexOf( choiceID ) ) { #>
 						<li {{{ data.inputAttrs }}} class='kirki-sortable-item invisible' data-value='{{ choiceID }}'>
@@ -74,7 +74,7 @@ class Kirki_Control_Sortable extends Kirki_Control_Base {
 							{{{ data.choices[ choiceID ] }}}
 						</li>
 					<# } #>
-				<# }); #>
+				<# } ); #>
 			</ul>
 		</label>
 

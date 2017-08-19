@@ -467,7 +467,7 @@ wp.customize.controlConstructor.repeater = wp.customize.Control.extend( {
 		this.$thisButton.text( this.$thisButton.data( 'alt-label' ) );
 		$targetDiv.find( '.remove-button' ).show();
 
-		//This will activate the save button
+		// This will activate the save button.
 		$targetDiv.find( 'input, textarea, select' ).trigger( 'change' );
 		this.frame.close();
 
@@ -491,7 +491,7 @@ wp.customize.controlConstructor.repeater = wp.customize.Control.extend( {
 		$targetDiv.find( '.upload-button' ).show();
 		$targetDiv.find( '.remove-button' ).show();
 
-		//This will activate the save button
+		// This will activate the save button.
 		$targetDiv.find( 'input, textarea, select' ).trigger( 'change' );
 		this.frame.close();
 

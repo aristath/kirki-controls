@@ -344,7 +344,7 @@ class Kirki_Control_Repeater extends Kirki_Control_Base {
 									<select data-field="{{{ field.id }}}"<# if ( ! _.isUndefined( field.multiple ) && false !== field.multiple ) { #> multiple="multiple" data-multiple="{{ field.multiple }}"<# } #>>
 										<# _.each( field.choices, function( choice, i ) { #>
 											<option value="{{{ i }}}" <# if ( field.default == i ) { #> selected="selected" <# } #>>{{ choice }}</option>
-										<# }); #>
+										<# } ); #>
 									</select>
 								</label>
 
@@ -364,7 +364,7 @@ class Kirki_Control_Repeater extends Kirki_Control_Base {
 
 									<# _.each( field.choices, function( choice, i ) { #>
 										<label><input type="radio" name="{{{ field.id }}}{{ index }}" data-field="{{{ field.id }}}" value="{{{ i }}}" <# if ( field.default == i ) { #> checked="checked" <# } #>> {{ choice }} <br/></label>
-									<# }); #>
+									<# } ); #>
 								</label>
 
 							<# } else if ( 'radio-image' === field.type ) { #>
@@ -377,7 +377,7 @@ class Kirki_Control_Repeater extends Kirki_Control_Base {
 										<input type="radio" id="{{{ field.id }}}_{{ index }}_{{{ i }}}" name="{{{ field.id }}}{{ index }}" data-field="{{{ field.id }}}" value="{{{ i }}}" <# if ( field.default == i ) { #> checked="checked" <# } #>>
 											<label for="{{{ field.id }}}_{{ index }}_{{{ i }}}"><img src="{{ choice }}"></label>
 										</input>
-									<# }); #>
+									<# } ); #>
 								</label>
 
 							<# } else if ( 'color' === field.type ) { #>
@@ -473,7 +473,7 @@ class Kirki_Control_Repeater extends Kirki_Control_Base {
 							<# } #>
 
 						</div>
-					<# }); #>
+					<# } ); #>
 					<button type="button" class="button-link repeater-row-remove"><?php esc_attr_e( 'Remove', 'kirki' ); ?></button>
 				</div>
 			</li>

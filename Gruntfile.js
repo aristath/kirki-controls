@@ -1,7 +1,7 @@
 /* global module */
 module.exports = function( grunt ) {
 
-	grunt.initConfig({
+	grunt.initConfig( {
 
 		// Compile CSS
 		sass: {
@@ -35,7 +35,7 @@ module.exports = function( grunt ) {
 				tasks: ['jscs']
 			}
 		}
-	});
+	} );
 
 	grunt.loadNpmTasks( 'grunt-contrib-sass' );
 	grunt.loadNpmTasks( 'grunt-contrib-watch' );

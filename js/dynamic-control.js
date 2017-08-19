@@ -230,7 +230,7 @@
 			unit = value.replace( numericValue, '' );
 
 			// Check the validity of the numeric value and units.
-			if ( isNaN( numericValue ) || -1 === jQuery.inArray( unit, validUnits ) ) {
+			if ( isNaN( numericValue ) || 0 > _.indexOf( validUnits, unit ) ) {
 				return false;
 			}
 			return true;
