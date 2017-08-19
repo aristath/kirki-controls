@@ -1,5 +1,5 @@
 /* global wp, _ */
-wp.customize.controlConstructor['kirki-multicolor'] = wp.customize.Control.extend( {
+wp.customize.controlConstructor['kirki-multicolor'] = wp.customize.kirkiDynamicControl.extend( {
 
 	initKirkiControl: function() {
 		var control = this,
