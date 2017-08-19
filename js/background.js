@@ -1,11 +1,12 @@
 wp.customize.controlConstructor['kirki-background'] = wp.customize.Control.extend({
 
-	// When we're finished loading continue processing
+	/**
+	 * @inheritdoc
+	 */
 	ready: function() {
 		var control = this;
 
 		control.addHTML();
-
 		control.initKirkiControl();
 	},
 
@@ -32,24 +33,15 @@ wp.customize.controlConstructor['kirki-background'] = wp.customize.Control.exten
 			}
 		});
 
-		// Background-Repeat.
-		control.container.on( 'change', '.background-repeat select', function() {
-			control.kirkiSetValue( 'background-repeat', jQuery( this ).val() );
-		});
-
-		// Background-Size.
-		control.container.on( 'change click', '.background-size input', function() {
-			control.kirkiSetValue( 'background-size', jQuery( this ).val() );
-		});
-
-		// Background-Position.
-		control.container.on( 'change', '.background-position select', function() {
-			control.kirkiSetValue( 'background-position', jQuery( this ).val() );
-		});
-
-		// Background-Attachment.
-		control.container.on( 'change click', '.background-attachment input', function() {
-			control.kirkiSetValue( 'background-attachment', jQuery( this ).val() );
+		_.each({
+			'repeat': ['change', '.background-repeat select'],
+			'size': ['change click', '.background-size input'],
+			'position': ['change', '.background-position select'],
+			'attachment': ['change click', '.background-attachment input']
+		}, function( args, key ) {
+			control.container.on( args[0], args[1], function() {
+				control.kirkiSetValue( key, jQuery( this ).val() );
+			});
 		});
 
 		// Background-Image.

@@ -10,7 +10,7 @@
 	'use strict';
 
 	/**
-	 * A dynamic color-alpha control.
+	 * The base for our dynamic controls.
 	 *
 	 * @class
 	 * @augments wp.customize.Control
@@ -178,6 +178,13 @@
 			wp.customize.Control.prototype.focus.call( control, args );
 		},
 
+		/**
+		 * Initialize the kirki control.
+		 *
+		 * This is where the main control scripts live.
+		 *
+		 * @returns {void}
+		 */
 		initKirkiControl: function() {
 
 			var control = this;
@@ -190,10 +197,20 @@
 			control.addHTML();
 		},
 
+		/**
+		 * Actually renders the HTML in the control.
+		 *
+		 * @returns {void}
+		 */
 		addHTML: function() {
-
 		},
 
+		/**
+		 * Validates dimension css values.
+		 *
+		 * @param {string} [value] The value we want to validate.
+		 * @returns {bool}
+		 */
 		kirkiValidateCSSValue: function( value ) {
 
 			var validUnits = ['rem', 'em', 'ex', '%', 'px', 'cm', 'mm', 'in', 'pt', 'pc', 'ch', 'vh', 'vw', 'vmin', 'vmax'],
@@ -221,9 +238,10 @@
 		/**
 		 * Set the value of a control.
 		 *
-		 * @param {mixed} [value] The value we want to set.
-		 * @param {string} [key]  If we want to save an object, then setting the key
-		 *                        will only change the value of the item with this key.
+		 * @param {mixed}  [value] The value we want to set.
+		 * @param {string} [key]   If we want to save an object, then setting the key
+		 *                         will only change the value of the item with this key.
+		 * @returns {void}
 		 */
 		kirkiSetValue: function( value, key ) {
 			var control = this,
@@ -250,9 +268,10 @@
 		/**
 		 * Changes the value of the control visually.
 		 *
-		 * @param {mixed} [value] The value we want to set.
-		 * @param {string} [key]  If we want to save an object, then setting the key
-		 *                        will only change the value of the item with this key.
+		 * @param {mixed}  [value] The value we want to set.
+		 * @param {string} [key]   If we want to save an object, then setting the key
+		 *                         will only change the value of the item with this key.
+		 * @returns {void}
 		 */
 		kirkiSetControlValue: function( value, key ) {
 			var control = this,
@@ -265,11 +284,13 @@
 
 		/**
 		 * Set the value for colorpickers.
-		 * CAUTION: This only sets the value visually, it does not change it in th wp object.
 		 *
-		 * @since 3.0.0
-		 * @param object selector jQuery object for this element.
-		 * @param string value    The value we want to set.
+		 * CAUTION: This only sets the value visually, it does not change it in the wp object.
+		 *
+		 * @since 3.0.10
+		 * @param {object} [selector] jQuery object for this element.
+		 * @param {string} [value]    The value we want to set.
+		 * @returns {void}
 		 */
 		setColorPicker: function( selector, value ) {
 			selector.attr( 'data-default-color', value ).data( 'default-color', value ).wpColorPicker( 'color', value );
@@ -277,26 +298,16 @@
 
 		/**
 		 * Sets the value in a select2 element.
+		 *
 		 * CAUTION: This only sets the value visually, it does not change it in th wp object.
 		 *
-		 * @since 3.0.0
-		 * @param string selector The CSS identifier for this select2.
-		 * @param string value    The value we want to set.
+		 * @since 3.0.10
+		 * @param {string} [selector] The CSS identifier for this select2.
+		 * @param {string} [value]    The value we want to set.
+		 * @returns {void}
 		 */
 		setSelect2: function( selector, value ) {
 			jQuery( selector ).select2().val( value ).trigger( 'change' );
-		},
-
-		/**
-		 * Sets the value in textarea elements.
-		 * CAUTION: This only sets the value visually, it does not change it in th wp object.
-		 *
-		 * @since 3.0.0
-		 * @param string selector The CSS identifier for this textarea.
-		 * @param string value    The value we want to set.
-		 */
-		setTextarea: function( selector, value ) {
-			jQuery( selector ).prop( 'value', value );
 		}
 	});
 })();
