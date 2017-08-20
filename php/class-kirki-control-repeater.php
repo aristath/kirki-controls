@@ -367,18 +367,6 @@ class Kirki_Control_Repeater extends Kirki_Control_Base {
 									<# } ); #>
 								</label>
 
-							<# } else if ( 'radio-image' === field.type ) { #>
-
-								<label>
-									<# if ( field.label ) { #><span class="customize-control-title">{{ field.label }}</span><# } #>
-									<# if ( field.description ) { #><span class="description customize-control-description">{{ field.description }}</span><# } #>
-
-									<# _.each( field.choices, function( choice, i ) { #>
-										<input type="radio" id="{{{ field.id }}}_{{ index }}_{{{ i }}}" name="{{{ field.id }}}{{ index }}" data-field="{{{ field.id }}}" value="{{{ i }}}" <# if ( field.default == i ) { #> checked="checked" <# } #>>
-											<label for="{{{ field.id }}}_{{ index }}_{{{ i }}}"><img src="{{ choice }}"></label>
-										</input>
-									<# } ); #>
-								</label>
 							<# } #>
 
 						</div>

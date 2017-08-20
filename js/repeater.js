@@ -911,7 +911,8 @@ var kirkiRepeaterGetFieldHTML = {
 				addImage: 'Add Image',
 				changeImage: 'ChangeImage',
 				hexValue: 'Hex Value'
-			}
+			},
+			index: 0
 		} );
 	},
 
@@ -1026,5 +1027,21 @@ var kirkiRepeaterGetFieldHTML = {
 			html += '<input class="color-picker-hex" type="text" maxlength="7" placeholder="' + field.l10n.hexValue + '" value="' + field['default'] + '" data-field="' + field.id + '" ' + defaultValue + '/>';
 		html += '</label>';
 
+		return html;
+	},
+
+	radioImage: function( field ) {
+		var html = '';
+
+		field = this.defaults( field );
+
+		html += '<label>';
+			html += this.labelAndDescription();
+			_.each( field.choices, function( choice, i ) {
+				html += '<input type="radio" id="' + field.id + '_' + field.index + '_' + i + '" name="' + field.id + field.index + '" data-field="' + field.id + '" value="' + i + '" ' + ( field['default'] === i ? ' checked="checked"' : '' ) + '>';
+					html += '<label for="' + field.id + '_' + field.index + '_' + i + '"><img src="' + choice + '"></label>';
+				html += '</input>';
+			} );
+		html += '</label>';
 	}
 };
