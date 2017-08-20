@@ -293,32 +293,6 @@ class Kirki_Control_Repeater extends Kirki_Control_Base {
 
 						<div class="repeater-field repeater-field-{{{ field.type }}}">
 
-							<# if ( 'text' === field.type || 'url' === field.type || 'link' === field.type || 'email' === field.type || 'tel' === field.type || 'date' === field.type || 'number' === field.type ) { #>
-								<# var fieldExtras = ''; #>
-								<# if ( 'link' === field.type ) { #>
-									<# field.type = 'url' #>
-								<# } #>
-
-								<# if ( 'number' === field.type ) { #>
-									<# if ( ! _.isUndefined( field.choices ) && ! _.isUndefined( field.choices.min ) ) { #>
-										<# fieldExtras += ' min="' + field.choices.min + '"'; #>
-									<# } #>
-									<# if ( ! _.isUndefined( field.choices ) && ! _.isUndefined( field.choices.max ) ) { #>
-										<# fieldExtras += ' max="' + field.choices.max + '"'; #>
-									<# } #>
-									<# if ( ! _.isUndefined( field.choices ) && ! _.isUndefined( field.choices.step ) ) { #>
-										<# fieldExtras += ' step="' + field.choices.step + '"'; #>
-									<# } #>
-								<# } #>
-
-								<label>
-									<# if ( field.label ) { #><span class="customize-control-title">{{ field.label }}</span><# } #>
-									<# if ( field.description ) { #><span class="description customize-control-description">{{ field.description }}</span><# } #>
-									<input type="{{field.type}}" name="" value="{{{ field.default }}}" data-field="{{{ field.id }}}"{{ fieldExtras }}>
-								</label>
-
-							<# } #>
-
 						</div>
 					<# } ); #>
 					<button type="button" class="button-link repeater-row-remove"><?php esc_attr_e( 'Remove', 'kirki' ); ?></button>

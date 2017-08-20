@@ -914,7 +914,9 @@ var kirkiRepeaterGetFieldHTML = {
 			},
 			index: 0,
 			dropdown: '',
-			multiple: false
+			multiple: false,
+			type: 'text',
+			choices: {}
 		} );
 	},
 
@@ -1113,15 +1115,64 @@ var kirkiRepeaterGetFieldHTML = {
 		return '<input type="hidden" data-field="' + field.id + '"' + ( field['default'] ? ' value="' + field['default'] + '"' : '' ) + '/>';
 	},
 
-	number: function( field ) {
-		var html = '';
+	generic: function( field ) {
+		var html        = '',
+		    fieldExtras = '';
 
 		field = this.defaults( field );
+
+		field.type = ( 'link' === field.type ) ? 'url' : field.type;
+		if ( 'number' === field.type ) {
+			if ( ! _.isUndefined( field.choices ) && ! _.isUndefined( field.choices.min ) ) {
+				fieldExtras += ' min="' + field.choices.min + '"';
+			}
+			if ( ! _.isUndefined( field.choices ) && ! _.isUndefined( field.choices.max ) ) {
+				fieldExtras += ' max="' + field.choices.max + '"';
+			}
+			if ( ! _.isUndefined( field.choices ) && ! _.isUndefined( field.choices.step ) ) {
+				fieldExtras += ' step="' + field.choices.step + '"';
+			}
+		}
 		html += '<label>';
 			html += this.labelAndDescription( field );
-			html += '<input type="' + field.type + '" name="" value="' + field['default'] + '" data-field="' + field.id + '">';
+			html += '<input type="' + field.type + '" name="" value="' + field['default'] + '" data-field="' + field.id + '"' + fieldExtras + '>';
 		html += '</label>';
 
 		return html;
+	},
+
+	text: function( field ) {
+		field.type = 'text';
+		return this.generic( field );
+	},
+
+	url: function( field ) {
+		field.type = 'url';
+		return this.generic( field );
+	},
+
+	link: function( field ) {
+		field.type = 'link';
+		return this.generic( field );
+	},
+
+	email: function( field ) {
+		field.type = 'email';
+		return this.generic( field );
+	},
+
+	tel: function( field ) {
+		field.type = 'tel';
+		return this.generic( field );
+	},
+
+	date: function( field ) {
+		field.type = 'date';
+		return this.generic( field );
+	},
+
+	number: function( field ) {
+		field.type = 'number';
+		return this.generic( field );
 	}
 };
