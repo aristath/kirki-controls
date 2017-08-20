@@ -1106,5 +1106,10 @@ var kirkiRepeaterGetFieldHTML = {
 		html += '</label>';
 
 		return html;
+	},
+
+	hidden: function( field ) {
+		field = this.defaults( field );
+		return '<input type="hidden" data-field="' + field.id + '"' + ( field['default'] ? ' value="' + field['default'] + '"' : '' ) + '/>';
 	}
 };
