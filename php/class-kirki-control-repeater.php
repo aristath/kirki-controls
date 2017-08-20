@@ -463,13 +463,6 @@ class Kirki_Control_Repeater extends Kirki_Control_Base {
 										<input type="hidden" class="hidden-field" value="{{{ field.default }}}" data-field="{{{ field.id }}}" >
 									<# } #>
 								</div>
-
-							<# } else if ( 'custom' === field.type ) { #>
-
-								<# if ( field.label ) { #><span class="customize-control-title">{{ field.label }}</span><# } #>
-								<# if ( field.description ) { #><span class="description customize-control-description">{{ field.description }}</span><# } #>
-								<div data-field="{{{ field.id }}}">{{{ field.default }}}</div>
-
 							<# } #>
 
 						</div>

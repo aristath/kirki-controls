@@ -893,3 +893,23 @@ wp.customize.controlConstructor.repeater = wp.customize.Control.extend( {
 		} );
 	}
 } );
+
+var kirkiRepeaterGetFieldHTML = {
+
+	custom: function( field ) {
+		var html = '';
+
+		field = _.defaults( field, {
+			id: '',
+			'default': '',
+			label: '',
+			description: ''
+		} );
+
+		html += ( field.label ) ? '<span class="customize-control-title">' + field.label + '</span>' : '';
+		html += ( field.description ) ? '<span class="description customize-control-description">' + field.description + '</span>' : '';
+		html += '<div data-field="' + field.id + '">' + field['default'] + '</div>';
+
+		return html;
+	}
+};
