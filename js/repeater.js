@@ -913,7 +913,8 @@ var kirkiRepeaterGetFieldHTML = {
 				hexValue: 'Hex Value'
 			},
 			index: 0,
-			dropdown: ''
+			dropdown: '',
+			multiple: false
 		} );
 	},
 
@@ -1071,6 +1072,23 @@ var kirkiRepeaterGetFieldHTML = {
 		html += '<label>';
 			html += this.labelAndDescription( field );
 			html += '<div class="customize-control-content repeater-dropdown-pages">' + field.dropdown + '</div>';
+		html += '</label>';
+
+		return html;
+	},
+
+	select: function( field ) {
+		var html = '';
+
+		field = this.defaults( field );
+
+		html += '<label>';
+			html += this.labelAndDescription( field );
+			html += '<select data-field="' + field.id + '"' + ( false !== field.multiple ? ' multiple="multiple" data-multiple="' + field.multiple + '"' : '' ) + '>';
+				_.each( field.choices, function( choice, i ) {
+					html += '<option value="' + i + '" ' + ( field['default'] === i ? ' selected="selected"' : '' ) + '>' + choice + '</option>';
+				} );
+			html += '</select>';
 		html += '</label>';
 
 		return html;

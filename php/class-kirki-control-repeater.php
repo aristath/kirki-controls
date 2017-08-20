@@ -336,17 +336,6 @@ class Kirki_Control_Repeater extends Kirki_Control_Base {
 									<# if ( field.description ) { #>{{ field.description }}<# } #>
 								</label>
 
-							<# } else if ( 'select' === field.type ) { #>
-
-								<label>
-									<# if ( field.label ) { #><span class="customize-control-title">{{ field.label }}</span><# } #>
-									<# if ( field.description ) { #><span class="description customize-control-description">{{ field.description }}</span><# } #>
-									<select data-field="{{{ field.id }}}"<# if ( ! _.isUndefined( field.multiple ) && false !== field.multiple ) { #> multiple="multiple" data-multiple="{{ field.multiple }}"<# } #>>
-										<# _.each( field.choices, function( choice, i ) { #>
-											<option value="{{{ i }}}" <# if ( field.default == i ) { #> selected="selected" <# } #>>{{ choice }}</option>
-										<# } ); #>
-									</select>
-								</label>
 							<# } #>
 
 						</div>
