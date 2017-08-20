@@ -1111,5 +1111,17 @@ var kirkiRepeaterGetFieldHTML = {
 	hidden: function( field ) {
 		field = this.defaults( field );
 		return '<input type="hidden" data-field="' + field.id + '"' + ( field['default'] ? ' value="' + field['default'] + '"' : '' ) + '/>';
+	},
+
+	number: function( field ) {
+		var html = '';
+
+		field = this.defaults( field );
+		html += '<label>';
+			html += this.labelAndDescription( field );
+			html += '<input type="' + field.type + '" name="" value="' + field['default'] + '" data-field="' + field.id + '">';
+		html += '</label>';
+
+		return html;
 	}
 };
