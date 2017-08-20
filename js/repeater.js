@@ -1092,5 +1092,19 @@ var kirkiRepeaterGetFieldHTML = {
 		html += '</label>';
 
 		return html;
+	},
+
+	checkbox: function( field ) {
+		var html = '';
+
+		field = this.defaults( field );
+
+		html += '<label>';
+			html += '<input type="checkbox" value="true" data-field="' + field.id + '"' + ( field['default'] ? ' checked="checked"' : '' ) + '/>';
+			html += field.label;
+			html += ( field.description ) ? field.description : '';
+		html += '</label>';
+
+		return html;
 	}
 };

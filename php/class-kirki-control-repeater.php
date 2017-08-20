@@ -329,13 +329,6 @@ class Kirki_Control_Repeater extends Kirki_Control_Base {
 
 								<input type="hidden" data-field="{{{ field.id }}}" <# if ( field.default ) { #> value="{{{ field.default }}}" <# } #> />
 
-							<# } else if ( 'checkbox' === field.type ) { #>
-
-								<label>
-									<input type="checkbox" value="true" data-field="{{{ field.id }}}" <# if ( field.default ) { #> checked="checked" <# } #> /> {{ field.label }}
-									<# if ( field.description ) { #>{{ field.description }}<# } #>
-								</label>
-
 							<# } #>
 
 						</div>
