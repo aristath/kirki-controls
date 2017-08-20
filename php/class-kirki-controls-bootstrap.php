@@ -121,8 +121,8 @@ class Kirki_Controls_Bootstrap {
 	 */
 	public function get_control_types() {
 		return array(
-			'checkbox'              => 'WP_Customize_Control',
 			'kirki-background'      => 'Kirki_Control_Background',
+			'kirki-checkbox'        => 'Kirki_Control_Checkbox',
 			'kirki-code'            => 'Kirki_Control_Code',
 			'kirki-color'           => 'Kirki_Control_Color',
 			'kirki-color-palette'   => 'Kirki_Control_Color_Palette',
