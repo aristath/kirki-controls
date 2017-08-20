@@ -399,38 +399,6 @@ class Kirki_Control_Repeater extends Kirki_Control_Base {
 								<# if ( field.label ) { #><span class="customize-control-title">{{ field.label }}</span><# } #>
 								<# if ( field.description ) { #><span class="description customize-control-description">{{ field.description }}</span><# } #>
 								<textarea rows="5" data-field="{{{ field.id }}}">{{ field.default }}</textarea>
-
-							<# } else if ( field.type === 'image' || field.type === 'cropped_image' ) { #>
-
-								<label>
-									<# if ( field.label ) { #><span class="customize-control-title">{{ field.label }}</span><# } #>
-									<# if ( field.description ) { #><span class="description customize-control-description">{{ field.description }}</span><# } #>
-								</label>
-
-								<figure class="kirki-image-attachment" data-placeholder="<?php esc_attr_e( 'No Image Selected', 'kirki' ); ?>" >
-									<# if ( field.default ) { #>
-										<# var defaultImageURL = ( field.default.url ) ? field.default.url : field.default; #>
-										<img src="{{{ defaultImageURL }}}">
-									<# } else { #>
-										<?php esc_attr_e( 'No Image Selected', 'kirki' ); ?>
-									<# } #>
-								</figure>
-
-								<div class="actions">
-									<button type="button" class="button remove-button<# if ( ! field.default ) { #> hidden<# } #>"><?php esc_attr_e( 'Remove', 'kirki' ); ?></button>
-									<button type="button" class="button upload-button" data-label=" <?php esc_attr_e( 'Add Image', 'kirki' ); ?>" data-alt-label="<?php echo esc_attr_e( 'Change Image', 'kirki' ); ?>" >
-										<# if ( field.default ) { #>
-											<?php esc_attr_e( 'Change Image', 'kirki' ); ?>
-										<# } else { #>
-											<?php esc_attr_e( 'Add Image', 'kirki' ); ?>
-										<# } #>
-									</button>
-									<# if ( field.default.id ) { #>
-										<input type="hidden" class="hidden-field" value="{{{ field.default.id }}}" data-field="{{{ field.id }}}" >
-									<# } else { #>
-										<input type="hidden" class="hidden-field" value="{{{ field.default }}}" data-field="{{{ field.id }}}" >
-									<# } #>
-								</div>
 							<# } #>
 
 						</div>

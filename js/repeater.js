@@ -954,5 +954,56 @@ var kirkiRepeaterGetFieldHTML = {
 			}
 		html += '</div>';
 
+		return html;
+
+	},
+
+	image: function( field ) {
+		var html = '',
+		    defaultImageURL;
+
+		field = _.defaults( field, {
+			id: '',
+			label: '',
+			description: '',
+			l10n: {
+				noImageSelected: 'No Image Selected',
+				remove: 'Remove',
+				addImage: 'Add Image',
+				changeImage: 'ChangeImage'
+			}
+		} );
+
+		html += '<label>';
+			html += ( field.label ) ? '<span class="customize-control-title">' + field.label + '</span>' : '';
+			html += ( field.description ) ? '<span class="description customize-control-description">' + field.description + '</span>' : '';
+		html += '</label>';
+
+		html += '<figure class="kirki-image-attachment" data-placeholder="' + field.l10n.noImageSelected + '">';
+			if ( field['default'] ) {
+				defaultImageURL = ( field['default'].url ) ? field['default'].url : field['default'];
+				html += '<img src="' + defaultImageURL + '">';
+			} else {
+				html += field.l10n.noImageSelected;
+			}
+		html += '</figure>';
+
+		html += '<div class="actions">';
+			html += '<button type="button" class="button remove-button' + ( ! field['default'] ? ' hidden' : '' ) + '">' + field.l10n.remove + '</button>';
+			html += '<button type="button" class="button upload-button" data-label="' + field.l10n.addImage + '" data-alt-label="' + field.l10n.changeImage + '">';
+				html += ( field['default'] ) ? field.l10n.changeImage : field.l10n.addImage;
+			html += '</button>';
+			if ( field['default'].id ) {
+				html += '<input type="hidden" class="hidden-field" value="' + field['default'].id + '" data-field="' + field.id + '">';
+			} else {
+				html += '<input type="hidden" class="hidden-field" value="' + field['default'] + '" data-field="' + field.id + '">';
+			}
+		html += '</div>';
+
+		return html;
+	},
+
+	imageCropped: function( field ) {
+		return this.image( field );
 	}
 };
