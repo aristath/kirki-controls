@@ -7,7 +7,7 @@ wp.customize.controlConstructor['kirki-background'] = wp.customize.kirkiDynamicC
 		    value   = _.defaults( control.setting._value, control.params['default'] ),
 		    picker;
 
-		control.addHTML();
+		control.container.html( control.getHTML( control ) );
 
 		picker = control.container.find( '.kirki-color-control' );
 
@@ -115,10 +115,9 @@ wp.customize.controlConstructor['kirki-background'] = wp.customize.kirkiDynamicC
 		} );
 	},
 
-	addHTML: function() {
+	getHTML: function( control ) {
 
-		var control = this,
-		    html    = '',
+		var html    = '',
 		    data    = control.params;
 
 		html += '<label>';
@@ -206,7 +205,7 @@ wp.customize.controlConstructor['kirki-background'] = wp.customize.kirkiDynamicC
 			html += '</div>';
 		html += '</div>';
 
-		control.container.html( html );
+		return html;
 	},
 
 	// Changes the value visually.

@@ -1,10 +1,9 @@
 /* global wp, _ */
 wp.customize.controlConstructor['kirki-toggle'] = wp.customize.kirkiDynamicControl.extend( {
 
-	addHTML: function() {
+	getHTML: function( control ) {
 
-		var control = this,
-		    html = '';
+		var html = '';
 
 		html += '<label for="toggle_' + control.id + '">';
 			html += '<span class="customize-control-title">' + control.params.label + '</span>';
@@ -13,7 +12,7 @@ wp.customize.controlConstructor['kirki-toggle'] = wp.customize.kirkiDynamicContr
 			html += '<span class="switch"></span>';
 		html += '</label>';
 
-		control.container.html( html );
+		return html;
 	},
 
 	kirkiSetValue: function( value ) {

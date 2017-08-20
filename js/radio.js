@@ -1,9 +1,8 @@
 /* global wp, _ */
 wp.customize.controlConstructor['kirki-radio'] = wp.customize.kirkiDynamicControl.extend( {
 
-	addHTML: function() {
-		var control = this,
-		    html    = '';
+	getHTML: function( control ) {
+		var html = '';
 
 		if ( ! control.params.choices ) {
 			return;
@@ -22,7 +21,7 @@ wp.customize.controlConstructor['kirki-radio'] = wp.customize.kirkiDynamicContro
 			html += '</label>';
 		} );
 
-		control.container.html( html );
+		return html;
 	},
 
 	kirkiSetControlValue: function( value ) {

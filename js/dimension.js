@@ -6,7 +6,7 @@ wp.customize.controlConstructor['kirki-dimension'] = wp.customize.kirkiDynamicCo
 		var control = this,
 		    value;
 
-		control.addHTML();
+		control.container.html( control.getHTML( control ) );
 
 		// Notifications.
 		control.kirkiNotifications();
@@ -19,9 +19,8 @@ wp.customize.controlConstructor['kirki-dimension'] = wp.customize.kirkiDynamicCo
 		} );
 	},
 
-	addHTML: function() {
-		var control = this,
-		    html    = '';
+	getHTML: function( control ) {
+		var html = '';
 
 		html += '<label class="customizer-text">';
 			html += '<span class="customize-control-title">' + control.params.label + '</span>';
@@ -31,7 +30,7 @@ wp.customize.controlConstructor['kirki-dimension'] = wp.customize.kirkiDynamicCo
 			html += '</div>';
 		html += '</label>';
 
-		control.container.html( html );
+		return html;
 	},
 
 	/**

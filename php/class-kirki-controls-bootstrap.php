@@ -143,7 +143,7 @@ class Kirki_Controls_Bootstrap {
 			'kirki-radio'           => 'Kirki_Control_Radio',
 			'kirki-radio-buttonset' => 'Kirki_Control_Radio_ButtonSet',
 			'kirki-radio-image'     => 'Kirki_Control_Radio_Image',
-			'repeater'              => 'Kirki_Control_Repeater',
+			'kirki-repeater'        => 'Kirki_Control_Repeater',
 			'kirki-select'          => 'Kirki_Control_Select',
 			'kirki-slider'          => 'Kirki_Control_Slider',
 			'kirki-sortable'        => 'Kirki_Control_Sortable',

@@ -5,7 +5,7 @@ wp.customize.controlConstructor['kirki-multicheck'] = wp.customize.kirkiDynamicC
 
 		var control = this;
 
-		control.addHTML();
+		control.container.html( control.getHTML( control ) );
 
 		// Save the value
 		control.container.on( 'change', 'input', function() {
@@ -25,10 +25,9 @@ wp.customize.controlConstructor['kirki-multicheck'] = wp.customize.kirkiDynamicC
 		} );
 	},
 
-	addHTML: function() {
+	getHTML: function( control ) {
 
-		var control = this,
-		    html    = '';
+		var html = '';
 
 		if ( ! control.params.choices ) {
 			return;
@@ -43,7 +42,7 @@ wp.customize.controlConstructor['kirki-multicheck'] = wp.customize.kirkiDynamicC
 			} );
 		html += '</ul>';
 
-		control.container.html( html );
+		return html;
 	},
 
 	kirkiSetControlValue: function( value ) {

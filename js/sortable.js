@@ -4,7 +4,7 @@ wp.customize.controlConstructor['kirki-sortable'] = wp.customize.kirkiDynamicCon
 	initKirkiControl: function() {
 		var control = this;
 
-		control.addHTML();
+		control.container.html( control.getHTML( control ) );
 
 		control.container.find( '.kirki-controls-loading-spinner' ).hide();
 
@@ -31,36 +31,34 @@ wp.customize.controlConstructor['kirki-sortable'] = wp.customize.kirkiDynamicCon
 		} );
 	},
 
-	addHTML: function() {
-		var control = this,
-		    data    = control.params,
-		    html    = '';
+	getHTML: function( control ) {
+		var html = '';
 
 		html += '<label class="kirki-sortable">';
-			html += '<span class="customize-control-title">' + data.label + '</span>';
-			html += '<span class="description customize-control-description">' + data.description + '</span>';
+			html += '<span class="customize-control-title">' + control.params.label + '</span>';
+			html += '<span class="description customize-control-description">' + control.params.description + '</span>';
 
 			html += '<ul class="sortable">';
-				_.each( data.value, function( choiceID ) {
-					html += '<li ' + data.inputAttrs + ' class="kirki-sortable-item" data-value="' + choiceID + '">';
+				_.each( control.params.value, function( choiceID ) {
+					html += '<li ' + control.params.inputAttrs + ' class="kirki-sortable-item" data-value="' + choiceID + '">';
 						html += '<i class="dashicons dashicons-menu"></i>';
 						html += '<i class="dashicons dashicons-visibility visibility"></i>';
-						html += data.choices[ choiceID ];
+						html += control.params.choices[ choiceID ];
 					html += '</li>';
 				} );
-				_.each( data.choices, function( choiceLabel, choiceID ) {
-					if ( -1 === data.value.indexOf( choiceID ) ) {
-						html += '<li ' + data.inputAttrs + ' class="kirki-sortable-item invisible" data-value="' + choiceID + '">';
+				_.each( control.params.choices, function( choiceLabel, choiceID ) {
+					if ( -1 === control.params.value.indexOf( choiceID ) ) {
+						html += '<li ' + control.params.inputAttrs + ' class="kirki-sortable-item invisible" data-value="' + choiceID + '">';
 							html += '<i class="dashicons dashicons-menu"></i>';
 							html += '<i class="dashicons dashicons-visibility visibility"></i>';
-							html += data.choices[ choiceID ];
+							html += control.params.choices[ choiceID ];
 						html += '</li>';
 					}
 				} );
 			html += '</ul>';
 		html += '</label>';
 
-		control.container.html( html );
+		return html;
 	},
 
 	/**

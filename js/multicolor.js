@@ -11,7 +11,7 @@ wp.customize.controlConstructor['kirki-multicolor'] = wp.customize.kirkiDynamicC
 		    irisInput,
 		    irisPicker;
 
-		control.addHTML();
+		control.container.html( control.getHTML( control ) );
   		target = control.container.find( '.iris-target' );
 
 		// Colors loop
@@ -59,9 +59,8 @@ wp.customize.controlConstructor['kirki-multicolor'] = wp.customize.kirkiDynamicC
 		picker.wpColorPicker( args );
 	},
 
-	addHTML: function() {
-		var control = this,
-		    html    = '';
+	getHTML: function( control ) {
+		var html = '';
 
 		html += '<span class="customize-control-title">' + control.params.label + '</span>';
 		html += '<span class="description customize-control-description">' + control.params.description + '</span>';
@@ -77,7 +76,7 @@ wp.customize.controlConstructor['kirki-multicolor'] = wp.customize.kirkiDynamicC
 		html += '</div>';
 		html += '<div class="iris-target"></div>';
 
-		control.container.html( html );
+		return html;
 	},
 
 	kirkiSetControlValue: function( value ) {

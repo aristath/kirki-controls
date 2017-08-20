@@ -195,7 +195,7 @@
 				control.setting.set( jQuery( this ).val() );
 			} );
 
-			control.addHTML();
+			control.container.html( control.getHTML( control ) )
 		},
 
 		/**
@@ -203,11 +203,11 @@
 		 *
 		 * @returns {void}
 		 */
-		addHTML: function() {
+		getHTML: function( control ) {
 			var control = this,
 			    html    = '';
 
-			control.container.html( html );
+			return html;
 		},
 
 		/**

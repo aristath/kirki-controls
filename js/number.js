@@ -13,7 +13,7 @@ wp.customize.controlConstructor['kirki-number'] = wp.customize.kirkiDynamicContr
 			step: 1
 		} );
 
-		control.addHTML();
+		control.container.html( control.getHTML( control ) );
 
 		element = this.container.find( 'input' );
 
@@ -34,9 +34,8 @@ wp.customize.controlConstructor['kirki-number'] = wp.customize.kirkiDynamicContr
 		control.kirkiNotifications();
 	},
 
-	addHTML: function() {
-		var control = this,
-		    html    = '';
+	getHTML: function( control ) {
+		var html = '';
 
 		html += '<label>';
 			html += '<span class="customize-control-title">' + control.params.label + '</span>';
@@ -46,7 +45,7 @@ wp.customize.controlConstructor['kirki-number'] = wp.customize.kirkiDynamicContr
 			html += '</div>';
 		html += '</label>';
 
-		control.container.html( html );
+		return html;
 	},
 
 	/**

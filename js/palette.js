@@ -1,9 +1,8 @@
 /* global wp, _ */
 wp.customize.controlConstructor['kirki-palette'] = wp.customize.kirkiDynamicControl.extend( {
 
-	addHTML: function() {
-		var control = this,
-		    html    = '';
+	getHTML: function( control ) {
+		var html = '';
 
 		if ( ! control.params.choices ) {
 			return;
@@ -22,7 +21,7 @@ wp.customize.controlConstructor['kirki-palette'] = wp.customize.kirkiDynamicCont
 		} );
 		html += '</div>';
 
-		control.container.html( html );
+		return html;
 
 	},
 
