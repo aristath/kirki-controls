@@ -998,5 +998,15 @@ var kirkiRepeaterGetFieldHTML = {
 
 	imageCropped: function( field ) {
 		return this.image( field );
+	},
+
+	textarea: function( field ) {
+		var html = '';
+
+		field = this.defaults( field );
+		html += this.labelAndDescription();
+		html += '<textarea rows="5" data-field="' + field.id + '">' + field['default'] + '</textarea>';
+
+		return html;
 	}
 };

@@ -393,12 +393,6 @@ class Kirki_Control_Repeater extends Kirki_Control_Base {
 									<input class="color-picker-hex" type="text" maxlength="7" placeholder="<?php esc_attr_e( 'Hex Value', 'kirki' ); ?>"  value="{{{ field.default }}}" data-field="{{{ field.id }}}" {{ defaultValue }} />
 
 								</label>
-
-							<# } else if ( 'textarea' === field.type ) { #>
-
-								<# if ( field.label ) { #><span class="customize-control-title">{{ field.label }}</span><# } #>
-								<# if ( field.description ) { #><span class="description customize-control-description">{{ field.description }}</span><# } #>
-								<textarea rows="5" data-field="{{{ field.id }}}">{{ field.default }}</textarea>
 							<# } #>
 
 						</div>
