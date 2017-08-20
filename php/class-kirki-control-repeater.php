@@ -347,14 +347,6 @@ class Kirki_Control_Repeater extends Kirki_Control_Base {
 										<# } ); #>
 									</select>
 								</label>
-
-							<# } else if ( 'dropdown-pages' === field.type ) { #>
-
-								<label>
-									<# if ( field.label ) { #><span class="customize-control-title">{{{ data.label }}}</span><# } #>
-									<# if ( field.description ) { #><span class="description customize-control-description">{{{ field.description }}}</span><# } #>
-									<div class="customize-control-content repeater-dropdown-pages">{{{ field.dropdown }}}</div>
-								</label>
 							<# } #>
 
 						</div>
