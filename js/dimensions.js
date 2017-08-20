@@ -9,7 +9,7 @@ wp.customize.controlConstructor['kirki-dimensions'] = wp.customize.kirkiDynamicC
 		    subsArray   = [],
 		    i;
 
-		control.addHTML();
+		control.container.html( control.getHTML( control ) );
 
 		_.each( subControls, function( v, i ) {
 			if ( true === v ) {
@@ -32,9 +32,8 @@ wp.customize.controlConstructor['kirki-dimensions'] = wp.customize.kirkiDynamicC
 	/**
 	 * Adds the HTML for this control.
 	 */
-	addHTML: function() {
-		var control = this,
-		    html    = '';
+	getHTML: function( control ) {
+		var html = '';
 
 		control.params = _.defaults( control.params, {
 			label: '',
@@ -70,7 +69,7 @@ wp.customize.controlConstructor['kirki-dimensions'] = wp.customize.kirkiDynamicC
 			html += '</div>';
 		html += '</label>';
 
-		control.container.html( html );
+		return html;
 	},
 
 	/**

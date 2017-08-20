@@ -1,9 +1,8 @@
 /* global wp, _ */
 wp.customize.controlConstructor['kirki-dashicons'] = wp.customize.kirkiDynamicControl.extend( {
 
-	addHTML: function() {
-		var control = this,
-		    html    = '',
+	getHTML: function( control ) {
+		var html    = '',
 		    data    = control.params,
 		    cats    = ['admin-menu', 'welcome-screen', 'post-formats', 'media', 'image-editing', 'tinymce', 'posts', 'sorting', 'social', 'wordpress_org', 'products', 'taxonomies', 'widgets', 'notifications', 'misc'];
 
@@ -28,7 +27,7 @@ wp.customize.controlConstructor['kirki-dashicons'] = wp.customize.kirkiDynamicCo
 			}
 		html += '</div>';
 
-		control.container.html( html );
+		return html;
 	},
 
 	kirkiSetControlValue: function( value ) {

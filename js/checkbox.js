@@ -1,10 +1,8 @@
 /* global wp, _ */
 wp.customize.controlConstructor['kirki-checkbox'] = wp.customize.kirkiDynamicControl.extend( {
 
-	addHTML: function() {
-
-		var control = this,
-		    html = '';
+	getHTML: function( control ) {
+		var html = '';
 
 		html += '<label>';
 			html += '<input type="checkbox" value="' + control.params.value + '" ' + control.params.link + ( ( true === control.params.value || 'true' === control.params.value || 1 === control.params.value || '1' === control.params.value ) ? ' checked="checked"' : '' ) + '/>';
@@ -12,7 +10,7 @@ wp.customize.controlConstructor['kirki-checkbox'] = wp.customize.kirkiDynamicCon
 			html += '<span class="description customize-control-description">' + control.params.description + '</span>';
 		html += '</label>';
 
-		control.container.html( html );
+		return html;
 	},
 
 	kirkiSetValue: function( value ) {

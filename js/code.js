@@ -10,7 +10,7 @@ wp.customize.controlConstructor['kirki-code'] = wp.customize.kirkiDynamicControl
 		    container,
 		    height;
 
-		control.addHTML();
+		control.container.html( control.getHTML( control ) );
 
 		element = control.container.find( '.kirki-codemirror-editor' );
 
@@ -44,9 +44,8 @@ wp.customize.controlConstructor['kirki-code'] = wp.customize.kirkiDynamicControl
 		} );
 	},
 
-	addHTML: function() {
-		var control = this,
-		    html    = '';
+	getHTML: function( control ) {
+		var html    = '';
 
 		html += '<label>';
 			html += '<span class="customize-control-title">' + control.params.label + '</span>';
@@ -56,7 +55,7 @@ wp.customize.controlConstructor['kirki-code'] = wp.customize.kirkiDynamicControl
 			html += '</div>';
 		html += '</label>';
 
-		control.container.html( html );
+		return html;
 	},
 
 	kirkiSetControlValue: function( value ) {

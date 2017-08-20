@@ -1,9 +1,8 @@
 /* global wp, _ */
 wp.customize.controlConstructor['kirki-radio-image'] = wp.customize.kirkiDynamicControl.extend( {
 
-	addHTML: function() {
-		var control = this,
-		    html    = '';
+	getHTML: function( control ) {
+		var html = '';
 
 		html += '<label class="customizer-text">';
 			html += '<span class="customize-control-title">' + control.params.label + '</span>';
@@ -26,7 +25,7 @@ wp.customize.controlConstructor['kirki-radio-image'] = wp.customize.kirkiDynamic
 			} );
 		html += '</div>';
 
-		control.container.html( html );
+		return html;
 	},
 
 	kirkiSetControlValue: function( value ) {

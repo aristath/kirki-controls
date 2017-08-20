@@ -3,11 +3,10 @@ wp.customize.controlConstructor['kirki-color'] = wp.customize.kirkiDynamicContro
 
 	initKirkiControl: function() {
 		var control = this,
-		    html,
 		    clear,
 		    picker;
 
-		control.addHTML();
+		control.container.html( control.getHTML( control ) );
 
 		picker = control.container.find( '.kirki-color-control' );
 
@@ -36,9 +35,8 @@ wp.customize.controlConstructor['kirki-color'] = wp.customize.kirkiDynamicContro
 		} );
 	},
 
-	addHTML: function() {
-		var control = this,
-		    html    = '';
+	getHTML: function( control ) {
+		var html    = '';
 
 		html  = '<label>';
 			html += '<span class="customize-control-title">' + control.params.label + '</span>';
@@ -46,7 +44,7 @@ wp.customize.controlConstructor['kirki-color'] = wp.customize.kirkiDynamicContro
 			html += '<input type="text" ' + control.params.inputAttrs + ' data-palette="' + control.params.palette + '" data-default-color="' + control.params['default'] + '" data-alpha="' + control.params.alpha + '" value="' + control.params.value + '" class="kirki-color-control" ' + control.params.link + ' />';
 		html += '</label>';
 
-		control.container.html( html );
+		return html;
 
 	},
 

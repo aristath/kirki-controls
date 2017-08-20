@@ -1,9 +1,8 @@
 /* global wp, _ */
 wp.customize.controlConstructor['kirki-radio-buttonset'] = wp.customize.kirkiDynamicControl.extend( {
 
-	addHTML: function() {
-		var control = this,
-		    html    = '';
+	getHTML: function( control ) {
+		var html = '';
 
 		html += '<span class="customize-control-title">' + control.params.label + '</span>';
 		html += '<span class="description customize-control-description">' + control.params.description + '</span>';
@@ -15,7 +14,7 @@ wp.customize.controlConstructor['kirki-radio-buttonset'] = wp.customize.kirkiDyn
 			} );
 		html += '</div>';
 
-		control.container.html( html );
+		return html;
 	},
 
 	kirkiSetControlValue: function( value ) {

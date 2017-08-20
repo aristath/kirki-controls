@@ -6,7 +6,7 @@ wp.customize.controlConstructor['kirki-generic'] = wp.customize.kirkiDynamicCont
 		var control = this,
 			element = control.params.choices.element ? control.params.choices.element : 'input';
 
-		control.addHTML();
+		control.container.html( control.getHTML( control ) );
 
 		// Save the value
 		this.container.on( 'change keyup paste click', element, function() {
@@ -14,9 +14,8 @@ wp.customize.controlConstructor['kirki-generic'] = wp.customize.kirkiDynamicCont
 		} );
 	},
 
-	addHTML: function() {
-		var control = this,
-		    element = control.params.choices.element ? control.params.choices.element : 'input',
+	getHTML: function( control ) {
+		var element = control.params.choices.element ? control.params.choices.element : 'input',
 		    html    = '',
 		    extras  = '';
 
@@ -43,7 +42,7 @@ wp.customize.controlConstructor['kirki-generic'] = wp.customize.kirkiDynamicCont
 			html += '</div>';
 		html += '</label>';
 
-		control.container.html( html );
+		return html;
 	},
 
 	kirkiSetControlValue: function( value ) {

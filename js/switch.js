@@ -8,7 +8,7 @@ wp.customize.controlConstructor['kirki-switch'] = wp.customize.kirkiDynamicContr
 		    on,
 		    off;
 
-		control.addHTML();
+		control.container.html( control.getHTML( control ) );
 
 		on  = jQuery( control.container.find( '.switch-on' ) );
 		off = jQuery( control.container.find( '.switch-off' ) );
@@ -26,9 +26,8 @@ wp.customize.controlConstructor['kirki-switch'] = wp.customize.kirkiDynamicContr
 		} );
 	},
 
-	addHTML: function() {
-		var control = this,
-		    html = '';
+	getHTML: function( control ) {
+		var html = '';
 
 		html += '<div class="switch' + ( ( control.params.choices.round ) ? ' round' : '' ) + '">';
 			html += '<span class="customize-control-title">' + control.params.label + '</span>';
@@ -40,7 +39,7 @@ wp.customize.controlConstructor['kirki-switch'] = wp.customize.kirkiDynamicContr
 			html += '</label>';
 		html += '</div>';
 
-		control.container.html( html );
+		return html;
 	},
 
 	kirkiSetValue: function( value ) {

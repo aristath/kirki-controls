@@ -6,7 +6,7 @@ wp.customize.controlConstructor['kirki-image'] = wp.customize.kirkiDynamicContro
 		var control = this,
 		    value   = _.defaults( control.setting._value, control.params['default'] );
 
-		control.addHTML();
+		control.container.html( control.getHTML( control ) );
 		control.kirkiSetControlValue( value );
 
 		control.kirkiAddImage();
@@ -100,9 +100,8 @@ wp.customize.controlConstructor['kirki-image'] = wp.customize.kirkiDynamicContro
 		} );
 	},
 
-	addHTML: function() {
-		var control = this,
-		    html    = '',
+	getHTML: function( control ) {
+		var html    = '',
 		    saveAs  = ( _.isUndefined( control.params.choices ) || _.isUndefined( control.params.choices.save_as ) ) ? 'url' : control.params.choices.save_as,
 		    value   = control.params.value,
 		    url     = value;
@@ -126,7 +125,7 @@ wp.customize.controlConstructor['kirki-image'] = wp.customize.kirkiDynamicContro
 			html += '</div>';
 		html += '</div>';
 
-		control.container.html( html );
+		return html;
 	},
 
 	kirkiSetValue: function( value, property ) {

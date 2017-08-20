@@ -8,7 +8,7 @@ wp.customize.controlConstructor['kirki-slider'] = wp.customize.kirkiDynamicContr
 		    inputDefault,
 		    changeAction;
 
-		control.addHTML();
+		control.container.html( control.getHTML( control ) );
 
 		// Update the text value
 		jQuery( 'input[type=range]' ).on( 'mousedown', function() {
@@ -36,9 +36,8 @@ wp.customize.controlConstructor['kirki-slider'] = wp.customize.kirkiDynamicContr
 		} );
 	},
 
-	addHTML: function() {
-		var control = this,
-		    html = '';
+	getHTML: function( control ) {
+		var html = '';
 
 		html += '<label>';
 			html += '<span class="customize-control-title">' + control.params.label + '</span>';
@@ -53,7 +52,7 @@ wp.customize.controlConstructor['kirki-slider'] = wp.customize.kirkiDynamicContr
 			html += '</div>';
 		html += '</label>';
 
-		control.container.html( html );
+		return html;
 	},
 
 	kirkiSetControlValue: function( value ) {

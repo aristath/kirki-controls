@@ -6,7 +6,7 @@ wp.customize.controlConstructor['kirki-date'] = wp.customize.kirkiDynamicControl
 		var control  = this,
 		    selector = control.selector + ' input.datepicker';
 
-		control.addHTML();
+		control.container.html( control.getHTML( control ) );
 
 		// Init the datepicker
 		jQuery( selector ).datepicker();
@@ -17,20 +17,18 @@ wp.customize.controlConstructor['kirki-date'] = wp.customize.kirkiDynamicControl
 		} );
 	},
 
-	addHTML: function() {
-		var control = this,
-		    html    = '',
-		    data    = control.params;
+	getHTML: function( control ) {
+		var html = '';
 
 		html += '<label>';
-			html += '<span class="customize-control-title">' + data.label + '</span>';
-			html += '<span class="description customize-control-description">' + data.description + '</span>';
+			html += '<span class="customize-control-title">' + control.params.label + '</span>';
+			html += '<span class="description customize-control-description">' + control.params.description + '</span>';
 			html += '<div class="customize-control-content">';
-				html += '<input ' + data.inputAttrs + ' class="datepicker" type="text" id="' + data.id + '" value="' + data.value + '" ' + data.link + '/>';
+				html += '<input ' + control.params.inputAttrs + ' class="datepicker" type="text" id="' + control.params.id + '" value="' + control.params.value + '" ' + control.params.link + '/>';
 			html += '</div>';
 		html += '</label>';
 
-		control.container.html( html );
+		return html;
 
 	},
 
