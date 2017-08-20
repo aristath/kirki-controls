@@ -909,7 +909,8 @@ var kirkiRepeaterGetFieldHTML = {
 				noImageSelected: 'No Image Selected',
 				remove: 'Remove',
 				addImage: 'Add Image',
-				changeImage: 'ChangeImage'
+				changeImage: 'ChangeImage',
+				hexValue: 'Hex Value'
 			}
 		} );
 	},
@@ -1008,5 +1009,22 @@ var kirkiRepeaterGetFieldHTML = {
 		html += '<textarea rows="5" data-field="' + field.id + '">' + field['default'] + '</textarea>';
 
 		return html;
+	},
+
+	color: function( field ) {
+		var html         = '',
+		    defaultValue = '';
+
+		field = this.defaults( field );
+
+		if ( field['default'] ) {
+			defaultValue = ( '#' !== field['default'].substring( 0, 1 ) ) ? '#' + field['default'] : field['default'];
+			defaultValue = ' data-default-color=' + defaultValue; // Quotes added automatically.
+		}
+		html += '<label>';
+			html += this.labelAndDescription();
+			html += '<input class="color-picker-hex" type="text" maxlength="7" placeholder="' + field.l10n.hexValue + '" value="' + field['default'] + '" data-field="' + field.id + '" ' + defaultValue + '/>';
+		html += '</label>';
+
 	}
 };
