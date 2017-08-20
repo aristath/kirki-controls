@@ -355,18 +355,6 @@ class Kirki_Control_Repeater extends Kirki_Control_Base {
 									<# if ( field.description ) { #><span class="description customize-control-description">{{{ field.description }}}</span><# } #>
 									<div class="customize-control-content repeater-dropdown-pages">{{{ field.dropdown }}}</div>
 								</label>
-
-							<# } else if ( 'radio' === field.type ) { #>
-
-								<label>
-									<# if ( field.label ) { #><span class="customize-control-title">{{ field.label }}</span><# } #>
-									<# if ( field.description ) { #><span class="description customize-control-description">{{ field.description }}</span><# } #>
-
-									<# _.each( field.choices, function( choice, i ) { #>
-										<label><input type="radio" name="{{{ field.id }}}{{ index }}" data-field="{{{ field.id }}}" value="{{{ i }}}" <# if ( field.default == i ) { #> checked="checked" <# } #>> {{ choice }} <br/></label>
-									<# } ); #>
-								</label>
-
 							<# } #>
 
 						</div>

@@ -930,7 +930,7 @@ var kirkiRepeaterGetFieldHTML = {
 
 		field = this.defaults( field );
 
-		html += this.labelAndDescription();
+		html += this.labelAndDescription( field );
 		html += '<div data-field="' + field.id + '">' + field['default'] + '</div>';
 
 		return html;
@@ -942,7 +942,7 @@ var kirkiRepeaterGetFieldHTML = {
 
 		field = this.defaults( field );
 
-		html += '<label>' + this.labelAndDescription() + '</label>';
+		html += '<label>' + this.labelAndDescription( field ) + '</label>';
 		html += '<figure class="kirki-file-attachment" data-placeholder="' + field.l10n.noFileSelected + '" >';
 			if ( field['default'] ) {
 				defaultFilename = ( field['default'].filename ) ? field['default'].filename : field['default'];
@@ -973,7 +973,7 @@ var kirkiRepeaterGetFieldHTML = {
 		    defaultImageURL;
 
 		field = this.defaults( field );
-		html += '<label>' + this.labelAndDescription() + '</label>';
+		html += '<label>' + this.labelAndDescription( field ) + '</label>';
 		html += '<figure class="kirki-image-attachment" data-placeholder="' + field.l10n.noImageSelected + '">';
 			if ( field['default'] ) {
 				defaultImageURL = ( field['default'].url ) ? field['default'].url : field['default'];
@@ -1006,7 +1006,7 @@ var kirkiRepeaterGetFieldHTML = {
 		var html = '';
 
 		field = this.defaults( field );
-		html += this.labelAndDescription();
+		html += this.labelAndDescription( field );
 		html += '<textarea rows="5" data-field="' + field.id + '">' + field['default'] + '</textarea>';
 
 		return html;
@@ -1023,7 +1023,7 @@ var kirkiRepeaterGetFieldHTML = {
 			defaultValue = ' data-default-color=' + defaultValue; // Quotes added automatically.
 		}
 		html += '<label>';
-			html += this.labelAndDescription();
+			html += this.labelAndDescription( field );
 			html += '<input class="color-picker-hex" type="text" maxlength="7" placeholder="' + field.l10n.hexValue + '" value="' + field['default'] + '" data-field="' + field.id + '" ' + defaultValue + '/>';
 		html += '</label>';
 
@@ -1036,12 +1036,29 @@ var kirkiRepeaterGetFieldHTML = {
 		field = this.defaults( field );
 
 		html += '<label>';
-			html += this.labelAndDescription();
+			html += this.labelAndDescription( field );
 			_.each( field.choices, function( choice, i ) {
 				html += '<input type="radio" id="' + field.id + '_' + field.index + '_' + i + '" name="' + field.id + field.index + '" data-field="' + field.id + '" value="' + i + '" ' + ( field['default'] === i ? ' checked="checked"' : '' ) + '>';
 					html += '<label for="' + field.id + '_' + field.index + '_' + i + '"><img src="' + choice + '"></label>';
 				html += '</input>';
 			} );
 		html += '</label>';
+
+		return html;
+	},
+
+	radio: function( field ) {
+		var html = '';
+
+		field = this.defaults( field );
+
+		html += '<label>';
+			html += this.labelAndDescription( field );
+			_.each( field.choices, function( choice, i ) {
+				html += '<label><input type="radio" name="' + field.id + field.index + '" data-field="' + field.id + '" value="' + i + '" ' + ( field['default'] === i ? ' checked="checked"' : '' ) + '> ' + choice + '<br/></label>';
+			} );
+		html += '</label>';
+
+		return html;
 	}
 };
