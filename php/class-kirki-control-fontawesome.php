@@ -35,7 +35,7 @@ class Kirki_Control_FontAwesome extends Kirki_Control_Base {
 	 * @return array
 	 */
 	protected function kirki_script_dependencies() {
-		return array( 'kirki-fontawesome-font-css', 'select2' );
+		return array( 'select2' );
 	}
 
 	/**
@@ -45,13 +45,13 @@ class Kirki_Control_FontAwesome extends Kirki_Control_Base {
 	 */
 	public function enqueue() {
 
-		wp_enqueue_style( 'kirki-fontawesome-font-css', kirki_controls()->get_url( 'controls/vendor/fontawesome/font-awesome.css' ), null );
-		wp_enqueue_script( 'select2', kirki_controls()->get_url( 'controls/vendor/select2/js/select2.full.js' ), array( 'jquery' ), '4.0.3', true );
-		wp_enqueue_style( 'select2', kirki_controls()->get_url( 'controls/vendor/select2/css/select2.css' ), array(), '4.0.3' );
+		wp_enqueue_style( 'kirki-fontawesome-font-css', kirki_controls()->get_url( 'vendor/fontawesome/font-awesome.css' ), null );
+		wp_enqueue_script( 'select2', kirki_controls()->get_url( 'vendor/select2/js/select2.full.js' ), array( 'jquery' ), '4.0.3', true );
+		wp_enqueue_style( 'select2', kirki_controls()->get_url( 'vendor/select2/css/select2.css' ), array(), '4.0.3' );
 		parent::enqueue();
 
 		ob_start();
-		$json_path = wp_normalize_path( Kirki::$path . '/controls/vendor/fontawesome/fontawesome.json' );
+		$json_path = wp_normalize_path( KIRKI_CONTROLS_PATH . '/vendor/fontawesome/fontawesome.json' );
 		include( $json_path );
 		$font_awesome_json = ob_get_clean();
 		wp_localize_script( 'kirki-fontawesome', 'fontAwesomeJSON', $font_awesome_json );
