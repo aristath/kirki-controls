@@ -34,7 +34,7 @@ wp.customize.controlConstructor['kirki-multicheck'] = wp.customize.kirkiDynamicC
 			return;
 		}
 
-		html += '<span class="customize-control-title">' + control.params.label + '</span><# } #>';
+		html += '<span class="customize-control-title">' + control.params.label + '</span>';
 		html += '<span class="description customize-control-description">' + control.params.description + '</span>';
 
 		html += '<ul>';
