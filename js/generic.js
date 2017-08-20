@@ -17,19 +17,18 @@ wp.customize.controlConstructor['kirki-generic'] = wp.customize.kirkiDynamicCont
 	addHTML: function() {
 		var control = this,
 		    element = control.params.choices.element ? control.params.choices.element : 'input',
-		    html    = '';
+		    html    = '',
+		    extras  = '';
 
 		html += '<label>';
 			html += '<span class="customize-control-title">' + control.params.label + '</span>';
 			html += '<span class="description customize-control-description">' + control.params.description + '</span>';
 			html += '<div class="customize-control-content">';
 				if ( 'textarea' === control.params.choices.element ) {
-					html += '<textarea ' + control.params.inputAttrs + ' ' + control.params.link;
 					_.each( control.params.choices, function( value, key ) {
-						html += key += '"' + value + '"';
+						extras += ' ' + key + '="' + value + '"';
 					} );
-					html += control.params.value;
-					html += '</textarea>';
+					html += '<textarea ' + control.params.inputAttrs + ' ' + control.params.link + extras + '>' + control.params.value + '</textarea>';
 				} else {
 					html += '<' + element + ' value="' + control.params.value + '" ' + control.params.link + control.params.inputAttrs + ' ';
 					_.each( control.params.choices, function( value, key ) {
@@ -50,17 +49,21 @@ wp.customize.controlConstructor['kirki-generic'] = wp.customize.kirkiDynamicCont
 	kirkiSetControlValue: function( value ) {
 		var control = this;
 
-		if ( _.isUndefined( control.choices ) ) {
-			control.choices = {};
+		if ( _.isUndefined( control.params.choices ) ) {
+			control.params.choices = {};
 		}
-		control.choices = _.defaults( control.choices, {
+		control.params.choices = _.defaults( control.params.choices, {
 			element: 'input'
 		} );
 
-		if ( _.isUndefined( control.choices ) || _.isUndefined( control.choices.element ) ) {
-			control.choices.element = 'input';
+		if ( _.isUndefined( control.params.choices ) || _.isUndefined( control.params.choices.element ) ) {
+			control.params.choices.element = 'input';
 		}
-		jQuery( control.container.find( control.choices.element ) ).prop( 'value', value );
-		jQuery( control.container.find( control.choices.element ) ).val( value );
+
+		if ( 'textarea' === control.params.choices.element ) {
+			control.container.find( 'textarea' ).html( value );
+		}
+		jQuery( control.container.find( control.params.choices.element ) ).prop( 'value', value );
+		jQuery( control.container.find( control.params.choices.element ) ).val( value );
 	}
 } );
