@@ -50,9 +50,17 @@ wp.customize.controlConstructor['kirki-generic'] = wp.customize.kirkiDynamicCont
 	kirkiSetControlValue: function( value ) {
 		var control = this;
 
+		if ( _.isUndefined( control.choices ) ) {
+			control.choices = {};
+		}
+		control.choices = _.defaults( control.choices, {
+			element: 'input'
+		} );
+
 		if ( _.isUndefined( control.choices ) || _.isUndefined( control.choices.element ) ) {
 			control.choices.element = 'input';
 		}
 		jQuery( control.container.find( control.choices.element ) ).prop( 'value', value );
+		jQuery( control.container.find( control.choices.element ) ).val( value );
 	}
 } );
