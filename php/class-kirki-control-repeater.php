@@ -431,38 +431,6 @@ class Kirki_Control_Repeater extends Kirki_Control_Base {
 										<input type="hidden" class="hidden-field" value="{{{ field.default }}}" data-field="{{{ field.id }}}" >
 									<# } #>
 								</div>
-
-							<# } else if ( field.type === 'upload' ) { #>
-
-								<label>
-									<# if ( field.label ) { #><span class="customize-control-title">{{ field.label }}</span><# } #>
-									<# if ( field.description ) { #><span class="description customize-control-description">{{ field.description }}</span><# } #>
-								</label>
-
-								<figure class="kirki-file-attachment" data-placeholder="<?php esc_attr_e( 'No File Selected', 'kirki' ); ?>" >
-									<# if ( field.default ) { #>
-										<# var defaultFilename = ( field.default.filename ) ? field.default.filename : field.default; #>
-										<span class="file"><span class="dashicons dashicons-media-default"></span> {{ defaultFilename }}</span>
-									<# } else { #>
-										<?php esc_attr_e( 'No File Selected', 'kirki' ); ?>
-									<# } #>
-								</figure>
-
-								<div class="actions">
-									<button type="button" class="button remove-button<# if ( ! field.default ) { #> hidden<# } #>"></button>
-									<button type="button" class="button upload-button" data-label="<?php esc_attr_e( 'Add File', 'kirki' ); ?>" data-alt-label="<?php esc_attr_e( 'Change File', 'kirki' ); ?>">
-										<# if ( field.default ) { #>
-											<?php esc_attr_e( 'Change File', 'kirki' ); ?>
-										<# } else { #>
-											<?php esc_attr_e( 'Add File', 'kirki' ); ?>
-										<# } #>
-									</button>
-									<# if ( field.default.id ) { #>
-										<input type="hidden" class="hidden-field" value="{{{ field.default.id }}}" data-field="{{{ field.id }}}" >
-									<# } else { #>
-										<input type="hidden" class="hidden-field" value="{{{ field.default }}}" data-field="{{{ field.id }}}" >
-									<# } #>
-								</div>
 							<# } #>
 
 						</div>

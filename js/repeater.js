@@ -911,5 +911,48 @@ var kirkiRepeaterGetFieldHTML = {
 		html += '<div data-field="' + field.id + '">' + field['default'] + '</div>';
 
 		return html;
+	},
+
+	upload: function( field ) {
+		var html = '',
+		    defaultFilename;
+
+		field = _.defaults( field, {
+			id: '',
+			label: '',
+			description: '',
+			l10n: {
+				noFileSelected: 'No File Selected',
+				addFile: 'Add File',
+				changeFile: 'Change File'
+			},
+			'default': ''
+		} );
+		html += '<label>';
+			html += ( field.label ) ? '<span class="customize-control-title">' + field.label + '</span>' : '';
+			html += ( field.description ) ? '<span class="description customize-control-description">' + field.description + '</span>' : '';
+		html += '</label>';
+
+		html += '<figure class="kirki-file-attachment" data-placeholder="' + field.l10n.noFileSelected + '" >';
+			if ( field['default'] ) {
+				defaultFilename = ( field['default'].filename ) ? field['default'].filename : field['default'];
+				html += '<span class="file"><span class="dashicons dashicons-media-default"></span> ' + defaultFilename + '</span>';
+			} else {
+				html += field.l10n.noFileSelected;
+			}
+		html += '</figure>';
+
+		html += '<div class="actions">';
+			html += '<button type="button" class="button remove-button' + ( ! field['default'] ? ' hidden' : '' ) + '"></button>';
+			html += '<button type="button" class="button upload-button" data-label="' + field.l10n.addFile + '" data-alt-label="' + field.l10n.changeFile + '">';
+				html += ( field['default'] ) ? field.l10n.changeFile : field.l10n.addFile;
+			html += '</button>';
+			if ( field['default'].id ) {
+				html += '<input type="hidden" class="hidden-field" value="' + field['default'].id + '" data-field="' + field.id + '">';
+			} else {
+				html += '<input type="hidden" class="hidden-field" value="' + field['default'] + '" data-field="' + field.id + '">';
+			}
+		html += '</div>';
+
 	}
 };
