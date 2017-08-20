@@ -896,18 +896,39 @@ wp.customize.controlConstructor.repeater = wp.customize.Control.extend( {
 
 var kirkiRepeaterGetFieldHTML = {
 
-	custom: function( field ) {
-		var html = '';
-
-		field = _.defaults( field, {
+	defaults: function( field ) {
+		return _.defaults( field, {
 			id: '',
 			'default': '',
 			label: '',
-			description: ''
+			description: '',
+			l10n: {
+				noFileSelected: 'No File Selected',
+				addFile: 'Add File',
+				changeFile: 'Change File',
+				noImageSelected: 'No Image Selected',
+				remove: 'Remove',
+				addImage: 'Add Image',
+				changeImage: 'ChangeImage'
+			}
 		} );
+	},
+
+	labelAndDescription: function( field ) {
+		var html = '';
 
 		html += ( field.label ) ? '<span class="customize-control-title">' + field.label + '</span>' : '';
 		html += ( field.description ) ? '<span class="description customize-control-description">' + field.description + '</span>' : '';
+
+		return html;
+	},
+
+	custom: function( field ) {
+		var html = '';
+
+		field = this.defaults( field );
+
+		html += this.labelAndDescription();
 		html += '<div data-field="' + field.id + '">' + field['default'] + '</div>';
 
 		return html;
@@ -917,22 +938,9 @@ var kirkiRepeaterGetFieldHTML = {
 		var html = '',
 		    defaultFilename;
 
-		field = _.defaults( field, {
-			id: '',
-			label: '',
-			description: '',
-			l10n: {
-				noFileSelected: 'No File Selected',
-				addFile: 'Add File',
-				changeFile: 'Change File'
-			},
-			'default': ''
-		} );
-		html += '<label>';
-			html += ( field.label ) ? '<span class="customize-control-title">' + field.label + '</span>' : '';
-			html += ( field.description ) ? '<span class="description customize-control-description">' + field.description + '</span>' : '';
-		html += '</label>';
+		field = this.defaults( field );
 
+		html += '<label>' + this.labelAndDescription() + '</label>';
 		html += '<figure class="kirki-file-attachment" data-placeholder="' + field.l10n.noFileSelected + '" >';
 			if ( field['default'] ) {
 				defaultFilename = ( field['default'].filename ) ? field['default'].filename : field['default'];
@@ -962,23 +970,8 @@ var kirkiRepeaterGetFieldHTML = {
 		var html = '',
 		    defaultImageURL;
 
-		field = _.defaults( field, {
-			id: '',
-			label: '',
-			description: '',
-			l10n: {
-				noImageSelected: 'No Image Selected',
-				remove: 'Remove',
-				addImage: 'Add Image',
-				changeImage: 'ChangeImage'
-			}
-		} );
-
-		html += '<label>';
-			html += ( field.label ) ? '<span class="customize-control-title">' + field.label + '</span>' : '';
-			html += ( field.description ) ? '<span class="description customize-control-description">' + field.description + '</span>' : '';
-		html += '</label>';
-
+		field = this.defaults( field );
+		html += '<label>' + this.labelAndDescription() + '</label>';
 		html += '<figure class="kirki-image-attachment" data-placeholder="' + field.l10n.noImageSelected + '">';
 			if ( field['default'] ) {
 				defaultImageURL = ( field['default'].url ) ? field['default'].url : field['default'];
