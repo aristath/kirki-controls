@@ -59,6 +59,8 @@ wp.customize.controlConstructor['kirki-sortable'] = wp.customize.kirkiDynamicCon
 				} );
 			html += '</ul>';
 		html += '</label>';
+
+		control.container.html( html );
 	},
 
 	/**
