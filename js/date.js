@@ -17,10 +17,7 @@ wp.customize.controlConstructor['kirki-date'] = wp.customize.kirkiDynamicControl
 		} );
 	},
 
-	/**
-	 * TODO
-	 */
 	kirkiSetControlValue: function( value ) {
-		wp.customize.kirkiDynamicControl.prototype.kirkiSetControlValue.call( this, value );
+		kirki.setControlValue.dateControl( this, value );
 	}
 } );

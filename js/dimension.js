@@ -43,5 +43,9 @@ wp.customize.controlConstructor['kirki-dimension'] = wp.customize.kirkiDynamicCo
 				}
 			} );
 		} );
+	},
+
+	kirkiSetControlValue: function( value ) {
+		kirki.setControlValue.dimensionControl( this, value );
 	}
 } );

@@ -6,7 +6,6 @@ wp.customize.controlConstructor['kirki-color-palette'] = wp.customize.kirkiDynam
 	},
 
 	kirkiSetControlValue: function( value ) {
-		var control = this;
-		jQuery( control.container.find( 'input[value="' + value + '"]' ) ).prop( 'checked', true );
+		kirki.setControlValue.colorPaletteControl( this.value );
 	}
 } );
