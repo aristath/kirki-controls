@@ -701,7 +701,10 @@ var kirki = {
 					field.params   = _.defaults( field, {
 						label: '',
 						description: '',
-						choices: {}
+						choices: {},
+						inputAttrs: '',
+						link: '',
+						multiple: 1
 					} );
 
 					// Add the value to the field.
