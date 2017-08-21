@@ -1,8 +1,8 @@
-/* global wp, _, kirkiControlsHTML */
+/* global wp, _, kirki */
 wp.customize.controlConstructor['kirki-toggle'] = wp.customize.kirkiDynamicControl.extend( {
 
 	getHTML: function( control ) {
-		return kirkiControlsHTML.toggleTemplate( control );
+		return kirki.template.toggleControl( control );
 	},
 
 	kirkiSetValue: function( value ) {

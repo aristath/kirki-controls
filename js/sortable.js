@@ -1,10 +1,10 @@
-/* global wp, _, kirkiControlsHTML */
+/* global wp, _, kirki */
 wp.customize.controlConstructor['kirki-sortable'] = wp.customize.kirkiDynamicControl.extend( {
 
 	initKirkiControl: function() {
 		var control = this;
 
-		control.container.html( kirkiControlsHTML.sortableTemplate( control ) );
+		control.container.html( kirki.template.sortableControl( control ) );
 
 		control.container.find( '.kirki-controls-loading-spinner' ).hide();
 

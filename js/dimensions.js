@@ -1,4 +1,4 @@
-/* global wp, _, kirkiControlsHTML */
+/* global wp, _, kirki */
 wp.customize.controlConstructor['kirki-dimensions'] = wp.customize.kirkiDynamicControl.extend( {
 
 	initKirkiControl: function() {
@@ -9,7 +9,7 @@ wp.customize.controlConstructor['kirki-dimensions'] = wp.customize.kirkiDynamicC
 		    subsArray   = [],
 		    i;
 
-		control.container.html( kirkiControlsHTML.dimensionsTemplate( control ) );
+		control.container.html( kirki.template.dimensionsControl( control ) );
 
 		_.each( subControls, function( v, i ) {
 			if ( true === v ) {

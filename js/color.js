@@ -1,4 +1,4 @@
-/* global wp, _, kirkiControlsHTML */
+/* global wp, _, kirki */
 wp.customize.controlConstructor['kirki-color'] = wp.customize.kirkiDynamicControl.extend( {
 
 	initKirkiControl: function() {
@@ -6,7 +6,7 @@ wp.customize.controlConstructor['kirki-color'] = wp.customize.kirkiDynamicContro
 		    clear,
 		    picker;
 
-		control.container.html( kirkiControlsHTML.colorTemplate( control ) );
+		control.container.html( kirki.template.colorControl( control ) );
 
 		picker = control.container.find( '.kirki-color-control' );
 

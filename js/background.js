@@ -1,4 +1,4 @@
-/* global wp, _, kirkiControlsHTML */
+/* global wp, _, kirki */
 wp.customize.controlConstructor['kirki-background'] = wp.customize.kirkiDynamicControl.extend( {
 
 	initKirkiControl: function() {
@@ -7,7 +7,7 @@ wp.customize.controlConstructor['kirki-background'] = wp.customize.kirkiDynamicC
 		    value   = _.defaults( control.setting._value, control.params['default'] ),
 		    picker;
 
-			control.container.html( kirkiControlsHTML.backgroundTemplate( control ) );
+			control.container.html( kirki.template.backgroundControl( control ) );
 
 		picker = control.container.find( '.kirki-color-control' );
 
@@ -117,20 +117,6 @@ wp.customize.controlConstructor['kirki-background'] = wp.customize.kirkiDynamicC
 
 	// Changes the value visually.
 	kirkiSetControlValue: function( value, property ) {
-		var control = this;
-
-		// Change the value visually.
-		if ( ! _.isUndefined( value['background-color'] ) ) {
-			control.setColorPicker( control.container.find( '.kirki-color-control' ), value['background-color'] );
-		}
-		control.container.find( '.placeholder, .thumbnail' ).removeClass().addClass( 'placeholder' ).html( 'No file selected' );
-		_.each( ['background-repeat', 'background-position'], function( subVal ) {
-			if ( ! _.isUndefined( value[ subVal ] ) ) {
-				control.setSelect2( control.container.find( '.' + subVal + ' select' ), value[ subVal ] );
-			}
-		} );
-		_.each( ['background-size', 'background-attachment'], function( subVal ) {
-			jQuery( control.container.find( '.' + subVal + ' input[value="' + value + '"]' ) ).prop( 'checked', true );
-		} );
+		kirki.setControlValue( this, value, property );
 	}
 } );

@@ -1,4 +1,4 @@
-/* global wp, _, kirkiControlsHTML */
+/* global wp, _, kirki */
 wp.customize.controlConstructor['kirki-dimension'] = wp.customize.kirkiDynamicControl.extend( {
 
 	initKirkiControl: function() {
@@ -6,7 +6,7 @@ wp.customize.controlConstructor['kirki-dimension'] = wp.customize.kirkiDynamicCo
 		var control = this,
 		    value;
 
-		control.container.html( kirkiControlsHTML.dimensionTemplate( control ) );
+		control.container.html( kirki.template.dimensionControl( control ) );
 
 		// Notifications.
 		control.kirkiNotifications();

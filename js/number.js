@@ -1,4 +1,4 @@
-/* global wp, _, kirkiControlsHTML */
+/* global wp, _, kirki */
 wp.customize.controlConstructor['kirki-number'] = wp.customize.kirkiDynamicControl.extend( {
 
 	initKirkiControl: function() {
@@ -13,7 +13,7 @@ wp.customize.controlConstructor['kirki-number'] = wp.customize.kirkiDynamicContr
 			step: 1
 		} );
 
-		control.container.html( kirkiControlsHTML.numberTemplate( control ) );
+		control.container.html( kirki.template.numberControl( control ) );
 
 		element = this.container.find( 'input' );
 

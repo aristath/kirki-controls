@@ -1,4 +1,4 @@
-/* global wp, _, kirkiControlsHTML */
+/* global wp, _, kirki */
 wp.customize.controlConstructor['kirki-switch'] = wp.customize.kirkiDynamicControl.extend( {
 
 	initKirkiControl: function() {
@@ -8,7 +8,7 @@ wp.customize.controlConstructor['kirki-switch'] = wp.customize.kirkiDynamicContr
 		    on,
 		    off;
 
-		control.container.html( kirkiControlsHTML.switchTemplate( control ) );
+		control.container.html( kirki.template.switchControl( control ) );
 
 		on  = jQuery( control.container.find( '.switch-on' ) );
 		off = jQuery( control.container.find( '.switch-off' ) );

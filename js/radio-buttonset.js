@@ -1,8 +1,8 @@
-/* global wp, _, kirkiControlsHTML */
+/* global wp, _, kirki */
 wp.customize.controlConstructor['kirki-radio-buttonset'] = wp.customize.kirkiDynamicControl.extend( {
 
 	getHTML: function( control ) {
-		return kirkiControlsHTML.radioButtonsetTemplate( control );
+		return kirki.template.radioButtonsetControl( control );
 	},
 
 	kirkiSetControlValue: function( value ) {

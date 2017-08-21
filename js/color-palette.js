@@ -1,8 +1,8 @@
-/* global wp, _, kirkiControlsHTML */
+/* global wp, _, kirki */
 wp.customize.controlConstructor['kirki-color-palette'] = wp.customize.kirkiDynamicControl.extend( {
 
 	getHTML: function( control ) {
-		return kirkiControlsHTML.colorPaletteTemplate( control );
+		return kirki.template.colorPaletteControl( control );
 	},
 
 	kirkiSetControlValue: function( value ) {

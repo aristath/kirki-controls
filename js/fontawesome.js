@@ -1,4 +1,4 @@
-/* global wp, _, fontAwesomeJSON, kirkiControlsHTML */
+/* global wp, _, fontAwesomeJSON, kirki */
 wp.customize.controlConstructor['kirki-fontawesome'] = wp.customize.kirkiDynamicControl.extend( {
 
 	initKirkiControl: function() {
@@ -21,7 +21,7 @@ wp.customize.controlConstructor['kirki-fontawesome'] = wp.customize.kirkiDynamic
 		    },
 		    select;
 
-		control.container.html( kirkiControlsHTML.fontawesomeTemplate( control ) );
+		control.container.html( kirki.template.fontawesomeControl( control ) );
 
 		element = this.container.find( 'select' ),
 

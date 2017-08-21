@@ -1,4 +1,4 @@
-/* global wp, _, kirkiControlsHTML */
+/* global wp, _, kirki */
 wp.customize.controlConstructor['kirki-slider'] = wp.customize.kirkiDynamicControl.extend( {
 
 	initKirkiControl: function() {
@@ -8,7 +8,7 @@ wp.customize.controlConstructor['kirki-slider'] = wp.customize.kirkiDynamicContr
 		    inputDefault,
 		    changeAction;
 
-		control.container.html( kirkiControlsHTML.sliderTemplate( control ) );
+		control.container.html( kirki.template.sliderControl( control ) );
 
 		// Update the text value
 		jQuery( 'input[type=range]' ).on( 'mousedown', function() {

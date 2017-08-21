@@ -1,4 +1,4 @@
-/* global wp, _, kirkiControlsHTML */
+/* global wp, _, kirki */
 wp.customize.controlConstructor['kirki-generic'] = wp.customize.kirkiDynamicControl.extend( {
 
 	initKirkiControl: function() {
@@ -6,7 +6,7 @@ wp.customize.controlConstructor['kirki-generic'] = wp.customize.kirkiDynamicCont
 		var control = this,
 			element = control.params.choices.element ? control.params.choices.element : 'input';
 
-		control.container.html( kirkiControlsHTML.genericTemplate( control ) );
+		control.container.html( kirki.template.genericControl( control ) );
 
 		// Save the value
 		this.container.on( 'change keyup paste click', element, function() {

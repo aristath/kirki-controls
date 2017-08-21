@@ -1,4 +1,4 @@
-/* global wp, _, kirkiControlsHTML */
+/* global wp, _, kirki */
 wp.customize.controlConstructor['kirki-multicolor'] = wp.customize.kirkiDynamicControl.extend( {
 
 	initKirkiControl: function() {
@@ -11,7 +11,7 @@ wp.customize.controlConstructor['kirki-multicolor'] = wp.customize.kirkiDynamicC
 		    irisInput,
 		    irisPicker;
 
-		control.container.html( kirkiControlsHTML.multicolorTemplate( control ) );
+		control.container.html( kirki.template.multicolorControl( control ) );
   		target = control.container.find( '.iris-target' );
 
 		// Colors loop

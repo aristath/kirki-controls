@@ -1,11 +1,11 @@
-/* global wp, _, kirkiControlsHTML */
+/* global wp, _, kirki */
 wp.customize.controlConstructor['kirki-multicheck'] = wp.customize.kirkiDynamicControl.extend( {
 
 	initKirkiControl: function() {
 
 		var control = this;
 
-		control.container.html( kirkiControlsHTML.multicheckTemplate( control ) );
+		control.container.html( kirki.template.multicheckControl( control ) );
 
 		// Save the value
 		control.container.on( 'change', 'input', function() {
