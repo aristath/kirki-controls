@@ -101,7 +101,7 @@ wp.customize.controlConstructor['kirki-image'] = wp.customize.kirkiDynamicContro
 	},
 
 	kirkiSetValue: function( value, property ) {
-		// TODO
+		/* TODO */
 		var control = this;
 		control.setting.set( value );
 	}
