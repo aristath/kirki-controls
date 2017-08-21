@@ -3,9 +3,5 @@ wp.customize.controlConstructor['kirki-radio'] = wp.customize.kirkiDynamicContro
 
 	getHTML: function( control ) {
 		return kirki.template.radioControl( control );
-	},
-
-	kirkiSetControlValue: function( value ) {
-		kirki.setControlValue.radioControl( this, value );
 	}
 } );

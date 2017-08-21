@@ -3,9 +3,6 @@ wp.customize.controlConstructor['kirki-dashicons'] = wp.customize.kirkiDynamicCo
 
 	getHTML: function( control ) {
 		return kirki.template.dashiconsControl( control );
-	},
-
-	kirkiSetControlValue: function( value ) {
-		kirki.setControlValue.dashiconsControl( this, value );
 	}
+
 } );

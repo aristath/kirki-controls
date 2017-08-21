@@ -9,9 +9,5 @@ wp.customize.controlConstructor['kirki-checkbox'] = wp.customize.kirkiDynamicCon
 		var control = this;
 		value = ( 1 === value || '1' === value || true === value ) ? true : false;
 		wp.customize.instance( control.id ).set( value );
-	},
-
-	kirkiSetControlValue: function( value ) {
-		kirki.setControlValue.checkboxControl( this, value );
 	}
 } );

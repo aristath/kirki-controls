@@ -70,9 +70,5 @@ wp.customize.controlConstructor['kirki-number'] = wp.customize.kirkiDynamicContr
 				}
 			} );
 		} );
-	},
-
-	kirkiSetControlValue: function( value ) {
-		kirki.setControlValue.numberControl( this, value );
 	}
 } );

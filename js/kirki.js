@@ -1,5 +1,36 @@
 var kirki = {
 
+	controlMethodNames: {
+		'kirki-background': 'backgroundControl',
+		'kirki-checkbox': 'checkboxControl',
+		'kirki-code': 'codeControl',
+		'kirki-color-palette': 'colorPaletteControl',
+		'kirki-color': 'colorControl',
+		'kirki-dashicons': 'dashiconsControl',
+		'kirki-date': 'dateControl',
+		'kirki-dimension': 'dimensionControl',
+		'kirki-dimensions': 'dimensionsControl',
+		'kirki-editor': 'editorControl',
+		'kirki-fontawesome': 'fontawesomeControl',
+		'kirki-generic': 'genericControl',
+		'kirki-gradient': 'gradientControl',
+		'kirki-image': 'imageControl',
+		'kirki-multicheck': 'multicheckControl',
+		'kirki-multicolor': 'multicolorControl',
+		'kirki-number': 'numberControl',
+		'kirki-palette': 'paletteControl',
+		'kirki-radio-buttonset': 'radioButtonsetControl',
+		'kirki-radio-image': 'radioImageControl',
+		'kirki-radio': 'radioControl',
+		'kirki-repeater': 'repeaterControl',
+		'kirki-select': 'selectControl',
+		'kirki-slider': 'sliderControl',
+		'kirki-sortable': 'sortableControl',
+		'kirki-switch': 'switchControl',
+		'kirki-toggle': 'toggleControl',
+		'kirki-typography': 'typographyControl'
+	},
+
 	/**
 	 * An object containing the templates for controls.
 	 */

@@ -3,9 +3,5 @@ wp.customize.controlConstructor['kirki-palette'] = wp.customize.kirkiDynamicCont
 
 	getHTML: function( control ) {
 		return kirki.template.paletteControl( control );
-	},
-
-	kirkiSetControlValue: function( value ) {
-		kirki.setControlValue.paletteControl( this, value );
 	}
 } );

@@ -113,10 +113,5 @@ wp.customize.controlConstructor['kirki-background'] = wp.customize.kirkiDynamicC
 				removeButton.hide();
 			}
 		} );
-	},
-
-	// Changes the value visually.
-	kirkiSetControlValue: function( value, property ) {
-		kirki.setControlValue( this, value, property );
 	}
 } );

@@ -1,4 +1,4 @@
-/* global wp, _ */
+/* global wp, _, kirki */
 /**
  * The majority of the code in this file
  * is derived from the wp-customize-posts plugin
@@ -278,12 +278,7 @@
 		 * @returns {void}
 		 */
 		kirkiSetControlValue: function( value, key ) {
-			var control = this,
-				input;
-
-			// Change the value in the control visually.
-			input = control.container.find( 'input' );
-			jQuery( input ).attr( 'value', value );
+			kirki.setControlValue[ kirki.controlMethodNames[ control.params.type ] ]( this, value );
 		},
 
 		/**

@@ -15,9 +15,5 @@ wp.customize.controlConstructor['kirki-date'] = wp.customize.kirkiDynamicControl
 		this.container.on( 'change keyup paste', 'input.datepicker', function() {
 			control.setting.set( jQuery( this ).val() );
 		} );
-	},
-
-	kirkiSetControlValue: function( value ) {
-		kirki.setControlValue.dateControl( this, value );
 	}
 } );

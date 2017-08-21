@@ -57,9 +57,5 @@ wp.customize.controlConstructor['kirki-multicolor'] = wp.customize.kirkiDynamicC
 
 		// Did we change the value?
 		picker.wpColorPicker( args );
-	},
-
-	kirkiSetControlValue: function( value ) {
-		kirki.setControlValue.multicolorControl( this, value );
 	}
 } );

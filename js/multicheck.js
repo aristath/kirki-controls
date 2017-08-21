@@ -23,9 +23,5 @@ wp.customize.controlConstructor['kirki-multicheck'] = wp.customize.kirkiDynamicC
 			// Update the value in the customizer.
 			control.setting.set( value );
 		} );
-	},
-
-	kirkiSetControlValue: function( value ) {
-		kirki.setControlValue.multicheckControl( this, value );
 	}
 } );

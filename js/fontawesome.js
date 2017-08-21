@@ -39,9 +39,5 @@ wp.customize.controlConstructor['kirki-fontawesome'] = wp.customize.kirkiDynamic
 			control.setting.set( selectValue );
 		} );
 		select.val( control.setting._value ).trigger( 'change' );
-	},
-
-	kirkiSetControlValue: function( value ) {
-		kirki.setControlValue.fontawesomeControl( this, value );
 	}
 } );

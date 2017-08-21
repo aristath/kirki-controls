@@ -133,9 +133,5 @@ wp.customize.controlConstructor['kirki-editor'] = wp.customize.kirkiDynamicContr
 				jQuery( '#customize-preview' ).addClass( 'is-kirki-editor-open' );
 			}
 		}
-	},
-
-	kirkiSetControlValue: function( value ) {
-		kirki.setControlValue.editorControl( this, value );
 	}
 } );

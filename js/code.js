@@ -42,9 +42,5 @@ wp.customize.controlConstructor['kirki-code'] = wp.customize.kirkiDynamicControl
 		element.parents( '.accordion-section' ).on( 'click', function() {
 			editor.refresh();
 		} );
-	},
-
-	kirkiSetControlValue: function( value ) {
-		kirki.setControlValue.codeControl( this, value );
 	}
 } );

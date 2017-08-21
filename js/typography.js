@@ -399,9 +399,5 @@ wp.customize.controlConstructor['kirki-typography'] = wp.customize.kirkiDynamicC
 			// Set the right value
 			obj.set( sumValue );
 		} );
-	},
-
-	kirkiSetControlValue: function( value ) {
-		kirki.setControlValue.typographyControl( this, value );
 	}
 } );

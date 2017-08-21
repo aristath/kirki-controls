@@ -12,9 +12,5 @@ wp.customize.controlConstructor['kirki-generic'] = wp.customize.kirkiDynamicCont
 		this.container.on( 'change keyup paste click', element, function() {
 			control.setting.set( jQuery( this ).val() );
 		} );
-	},
-
-	kirkiSetControlValue: function( value ) {
-		kirki.setControlValue.genericControl( this, value );
 	}
 } );

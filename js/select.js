@@ -32,9 +32,5 @@ wp.customize.controlConstructor['kirki-select'] = wp.customize.kirkiDynamicContr
 			selectValue = jQuery( this ).val();
 			control.setting.set( selectValue );
 		} );
-	},
-
-	kirkiSetControlValue: function( value ) {
-		kirki.setControlValue.selectControl( this, value );
 	}
 } );

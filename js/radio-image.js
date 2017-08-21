@@ -3,9 +3,5 @@ wp.customize.controlConstructor['kirki-radio-image'] = wp.customize.kirkiDynamic
 
 	getHTML: function( control ) {
 		return kirki.template.radioImageControl( control );
-	},
-
-	kirkiSetControlValue: function( value ) {
-		kirki.setControlValue.radioImageControl( this, value );
 	}
 } );
