@@ -920,7 +920,14 @@ var kirki = {
 	 */
 	setControlValue: {
 
-		backgroundControl: function( control, value, property ) {
+		/**
+		 * Changes the value visually for 'background' controls.
+		 *
+		 * @param {object} [control] The control.
+		 * @param {object} [value]   The value
+		 * @returns {void}
+		 */
+		backgroundControl: function( control, value ) {
 			if ( ! _.isUndefined( value['background-color'] ) ) {
 				control.setColorPicker( control.container.find( '.kirki-color-control' ), value['background-color'] );
 			}
@@ -935,39 +942,143 @@ var kirki = {
 			} );
 		},
 
+		/**
+		 * Changes the value visually for 'checkbox' controls.
+		 *
+		 * @param {object} [control] The control.
+		 * @param {bool}   [value]   The value
+		 * @returns {void}
+		 */
 		checkboxControl: function( control, value ) {
 			value = ( 1 === value || '1' === value || true === value ) ? true : false;
 			jQuery( control.container.find( 'input' ) ).prop( 'checked', value );
 		},
 
+		/**
+		 * Changes the value visually for 'code' controls.
+		 *
+		 * @param {object} [control] The control.
+		 * @param {string} [value]   The value
+		 * @returns {void}
+		 */
 		codeControl: function( control, value ) {
 			jQuery( control.container.find( '.CodeMirror' ) )[0].CodeMirror.setValue( value );
 		},
 
+		/**
+		 * Changes the value visually for 'color-palette' controls.
+		 *
+		 * @param {object} [control] The control.
+		 * @param {object} [value]   The value
+		 * @returns {void}
+		 */
 		colorPaletteControl: function( control, value ) {
 			jQuery( control.container.find( 'input[value="' + value + '"]' ) ).prop( 'checked', true );
 		},
 
+		/**
+		 * Changes the value visually for 'color' controls.
+		 *
+		 * @param {object} [control] The control.
+		 * @param {string} [value]   The value
+		 * @returns {void}
+		 */
 		colorControl: function( control, value ) {
 			control.setColorPicker( control.container.find( '.kirki-color-control' ), value );
 		},
 
+		/**
+		 * Changes the value visually for 'dashicons' controls.
+		 *
+		 * @param {object} [control] The control.
+		 * @param {string} [value]   The value
+		 * @returns {void}
+		 */
 		dashiconsControl: function( control, value ) {
 			jQuery( control.container.find( 'input[value="' + value + '"]' ) ).prop( 'checked', true );
 		},
 
+		/**
+		 * Changes the value visually for 'date' controls.
+		 *
+		 * @param {object} [control] The control.
+		 * @param {string} [value]   The value
+		 * @returns {void}
+		 */
 		dateControl: function( control, value ) {
 			/* TODO */
 		},
 
+		/**
+		 * Changes the value visually for 'dimension' controls.
+		 *
+		 * @param {object} [control] The control.
+		 * @param {string} [value]   The value
+		 * @returns {void}
+		 */
 		dimensionControl: function( control, value ) {
 			jQuery( control.container.find( 'input' ) ).attr( 'value', value );
 		},
 
+		/**
+		 * Changes the value visually for 'dimensions' controls.
+		 *
+		 * @param {object} [control] The control.
+		 * @param {object} [value]   The value
+		 * @returns {void}
+		 */
 		dimensionsControl: function( control, value ) {
 			_.each( value, function( subValue, id ) {
 				jQuery( control.container.find( '.' + id + ' input' ) ).prop( 'value', subValue );
 			} );
+		},
+
+		/**
+		 * Changes the value visually for 'editor' controls.
+		 *
+		 * @param {object} [control] The control.
+		 * @param {string} [value]   The value
+		 * @returns {void}
+		 */
+		editorControl: function( control, value ) {
+			/* TODO */
+		},
+
+		/**
+		 * Changes the value visually for 'fontawesome' controls.
+		 *
+		 * @param {object} [control] The control.
+		 * @param {string} [value]   The value
+		 * @returns {void}
+		 */
+		fontawesomeControl: function( control, value ) {
+			control.setSelect2( control.container.find( 'select' ), value );
+		},
+
+		/**
+		 * Changes the value visually for 'generic' controls.
+		 *
+		 * @param {object} [control] The control.
+		 * @param {string} [value]   The value
+		 * @returns {void}
+		 */
+		genericControl: function( control, value ) {
+			if ( _.isUndefined( control.params.choices ) ) {
+				control.params.choices = {};
+			}
+			control.params.choices = _.defaults( control.params.choices, {
+				element: 'input'
+			} );
+
+			if ( _.isUndefined( control.params.choices ) || _.isUndefined( control.params.choices.element ) ) {
+				control.params.choices.element = 'input';
+			}
+
+			if ( 'textarea' === control.params.choices.element ) {
+				control.container.find( 'textarea' ).html( value );
+			}
+			jQuery( control.container.find( control.params.choices.element ) ).prop( 'value', value );
+			jQuery( control.container.find( control.params.choices.element ) ).val( value );
 		}
 	}
 };
