@@ -650,6 +650,58 @@ var kirki = {
 		},
 
 		/**
+		 * The HTML Template for 'repeater' controls.
+		 *
+		 * @param {object} [control] The control.
+		 * @returns {string}
+		 */
+		repeaterControl: function( control ) {
+			var html = '',
+			    rowTemplate = '';
+
+			// First we need to add the template.
+			rowTemplate += '<li class="field-template hidden">';
+
+				// Go through each field.
+				_.each( control.params.fields, function( field, id ) {
+
+					// Make sure we've got the template for this control-type.
+					if ( ! _.isUndefined( field.type ) && ! _.isUndefined( kirki.controlMethodNames[ 'kirki-' + field.type ] ) ) {
+
+						// Get the field arguments.
+						field = _.defaults( field, {
+							settings: field.id,
+							params: {
+								label: ( ! _.isUndefined( field.label ) ) ? field.label : '',
+								description: ( ! _.isUndefined( field.description ) ) ? field.description : '',
+								id: field.id,
+								choices: ( ! _.isUndefined( field.choices ) ) ? field.choices : {},
+								'default': ( ! _.isUndefined( field['default'] ) ) ? field['default'] : '',
+								type: field.type
+							}
+						});
+
+						// Add the template.
+						rowTemplate += kirki.template[ kirki.controlMethodNames[ 'kirki-' + field.type ] ]( field );
+					}
+				} );
+			rowTemplate += '</li>';
+
+			if ( ! control.params.fields ) {
+				return;
+			}
+
+			html += '<span class="customize-control-title">' + control.params.label + '</span>';
+			html += '<span class="description customize-control-description">' + control.params.description + '</span>';
+
+			html += '<ul class="repeater-fields">';
+				html += rowTemplate;
+			html += '</ul>';
+
+			return html;
+		},
+
+		/**
 		 * The HTML Template for 'select' controls.
 		 *
 		 * @param {object} [control] The control.
