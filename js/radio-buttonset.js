@@ -6,7 +6,6 @@ wp.customize.controlConstructor['kirki-radio-buttonset'] = wp.customize.kirkiDyn
 	},
 
 	kirkiSetControlValue: function( value ) {
-		var control = this;
-		jQuery( control.container.find( 'input[value="' + value + '"]' ) ).prop( 'checked', true );
+		kirki.setControlValue.radioButtonsetControl( this, value );
 	}
 } );

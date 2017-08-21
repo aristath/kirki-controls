@@ -60,9 +60,6 @@ wp.customize.controlConstructor['kirki-multicolor'] = wp.customize.kirkiDynamicC
 	},
 
 	kirkiSetControlValue: function( value ) {
-		var control = this;
-		_.each( value, function( subVal, index ) {
-			control.setColorPicker( control.container.find( '.multicolor-index-' + index ), subVal );
-		} );
+		kirki.setControlValue.multicolorControl( this, value );
 	}
 } );

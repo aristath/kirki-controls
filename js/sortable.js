@@ -31,8 +31,6 @@ wp.customize.controlConstructor['kirki-sortable'] = wp.customize.kirkiDynamicCon
 		} );
 	},
 
-
-
 	/**
 	 * Updates the sorting list
 	 */

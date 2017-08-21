@@ -6,7 +6,6 @@ wp.customize.controlConstructor['kirki-radio-image'] = wp.customize.kirkiDynamic
 	},
 
 	kirkiSetControlValue: function( value ) {
-		var control = this;
-		jQuery( control.container.find( 'input[value="' + value + '"]' ) ).prop( 'checked', true );
+		kirki.setControlValue.radioImageControl( this, value );
 	}
 } );

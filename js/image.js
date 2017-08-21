@@ -107,20 +107,6 @@ wp.customize.controlConstructor['kirki-image'] = wp.customize.kirkiDynamicContro
 	},
 
 	kirkiSetControlValue: function( value ) {
-		var control = this,
-			saveAs  = ( _.isUndefined( control.params.choices ) || _.isUndefined( control.params.choices.save_as ) ) ? 'url' : control.params.choices.save_as,
-			url     = value;
-
-		if ( _.isObject( value ) && ! _.isUndefined( value.url ) ) {
-			jQuery( control.container.find( '.' + control.id + '-image' ) ).prop( 'src', value.url );
-		} else if ( 'id' === saveAs && ! isNaN( value ) ) {
-			wp.media.attachment( value ).fetch().then( function( mediaData ) {
-				setTimeout( function() {
-					jQuery( control.container.find( '.' + control.id + '-image' ) ).prop( 'src', wp.media.attachment( value ).get( 'url' ) );
-				}, 500 );
-			} );
-		} else {
-			jQuery( control.container.find( '.' + control.id + '-image' ) ).prop( 'src', value );
-		}
+		kirki.setControlValue.imageControl( this, value );
 	}
 } );

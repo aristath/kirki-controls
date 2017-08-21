@@ -26,12 +26,6 @@ wp.customize.controlConstructor['kirki-multicheck'] = wp.customize.kirkiDynamicC
 	},
 
 	kirkiSetControlValue: function( value ) {
-		var control = this;
-		control.container.find( 'input' ).each( function() {
-			jQuery( this ).prop( 'checked', false );
-		} );
-		_.each( value, function( subValue, i ) {
-			jQuery( control.container.find( 'input[value="' + value[ i ] + '"]' ) ).prop( 'checked', true );
-		} );
+		kirki.setControlValue.multicheckControl( this, value );
 	}
 } );

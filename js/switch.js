@@ -33,8 +33,6 @@ wp.customize.controlConstructor['kirki-switch'] = wp.customize.kirkiDynamicContr
 	},
 
 	kirkiSetControlValue: function( value ) {
-		var control = this;
-		value = ( 1 === value || '1' === value || true === value ) ? true : false;
-		jQuery( control.container.find( 'input' ) ).prop( 'checked', value );
+		kirki.setControlValue.switchControl( this, value );
 	}
 } );

@@ -924,7 +924,7 @@ var kirki = {
 		 * Changes the value visually for 'background' controls.
 		 *
 		 * @param {object} [control] The control.
-		 * @param {object} [value]   The value
+		 * @param {object} [value]   The value.
 		 * @returns {void}
 		 */
 		backgroundControl: function( control, value ) {
@@ -946,7 +946,7 @@ var kirki = {
 		 * Changes the value visually for 'checkbox' controls.
 		 *
 		 * @param {object} [control] The control.
-		 * @param {bool}   [value]   The value
+		 * @param {bool}   [value]   The value.
 		 * @returns {void}
 		 */
 		checkboxControl: function( control, value ) {
@@ -958,7 +958,7 @@ var kirki = {
 		 * Changes the value visually for 'code' controls.
 		 *
 		 * @param {object} [control] The control.
-		 * @param {string} [value]   The value
+		 * @param {string} [value]   The value.
 		 * @returns {void}
 		 */
 		codeControl: function( control, value ) {
@@ -969,7 +969,7 @@ var kirki = {
 		 * Changes the value visually for 'color-palette' controls.
 		 *
 		 * @param {object} [control] The control.
-		 * @param {object} [value]   The value
+		 * @param {object} [value]   The value.
 		 * @returns {void}
 		 */
 		colorPaletteControl: function( control, value ) {
@@ -980,7 +980,7 @@ var kirki = {
 		 * Changes the value visually for 'color' controls.
 		 *
 		 * @param {object} [control] The control.
-		 * @param {string} [value]   The value
+		 * @param {string} [value]   The value.
 		 * @returns {void}
 		 */
 		colorControl: function( control, value ) {
@@ -991,7 +991,7 @@ var kirki = {
 		 * Changes the value visually for 'dashicons' controls.
 		 *
 		 * @param {object} [control] The control.
-		 * @param {string} [value]   The value
+		 * @param {string} [value]   The value.
 		 * @returns {void}
 		 */
 		dashiconsControl: function( control, value ) {
@@ -1002,7 +1002,7 @@ var kirki = {
 		 * Changes the value visually for 'date' controls.
 		 *
 		 * @param {object} [control] The control.
-		 * @param {string} [value]   The value
+		 * @param {string} [value]   The value.
 		 * @returns {void}
 		 */
 		dateControl: function( control, value ) {
@@ -1013,7 +1013,7 @@ var kirki = {
 		 * Changes the value visually for 'dimension' controls.
 		 *
 		 * @param {object} [control] The control.
-		 * @param {string} [value]   The value
+		 * @param {string} [value]   The value.
 		 * @returns {void}
 		 */
 		dimensionControl: function( control, value ) {
@@ -1024,7 +1024,7 @@ var kirki = {
 		 * Changes the value visually for 'dimensions' controls.
 		 *
 		 * @param {object} [control] The control.
-		 * @param {object} [value]   The value
+		 * @param {object} [value]   The value.
 		 * @returns {void}
 		 */
 		dimensionsControl: function( control, value ) {
@@ -1037,7 +1037,7 @@ var kirki = {
 		 * Changes the value visually for 'editor' controls.
 		 *
 		 * @param {object} [control] The control.
-		 * @param {string} [value]   The value
+		 * @param {string} [value]   The value.
 		 * @returns {void}
 		 */
 		editorControl: function( control, value ) {
@@ -1048,7 +1048,7 @@ var kirki = {
 		 * Changes the value visually for 'fontawesome' controls.
 		 *
 		 * @param {object} [control] The control.
-		 * @param {string} [value]   The value
+		 * @param {string} [value]   The value.
 		 * @returns {void}
 		 */
 		fontawesomeControl: function( control, value ) {
@@ -1059,7 +1059,7 @@ var kirki = {
 		 * Changes the value visually for 'generic' controls.
 		 *
 		 * @param {object} [control] The control.
-		 * @param {string} [value]   The value
+		 * @param {string} [value]   The value.
 		 * @returns {void}
 		 */
 		genericControl: function( control, value ) {
@@ -1079,6 +1079,187 @@ var kirki = {
 			}
 			jQuery( control.container.find( control.params.choices.element ) ).prop( 'value', value );
 			jQuery( control.container.find( control.params.choices.element ) ).val( value );
+		},
+
+		/**
+		 * Changes the value visually for 'image' controls.
+		 *
+		 * @param {object} [control] The control.
+		 * @param {mixed}  [value]   The value.
+		 * @returns {void}
+		 */
+		imageControl: function( control, value ) {
+			var saveAs  = ( _.isUndefined( control.params.choices ) || _.isUndefined( control.params.choices.save_as ) ) ? 'url' : control.params.choices.save_as,
+			    url     = value;
+
+			if ( _.isObject( value ) && ! _.isUndefined( value.url ) ) {
+				jQuery( control.container.find( '.' + control.id + '-image' ) ).prop( 'src', value.url );
+			} else if ( 'id' === saveAs && ! isNaN( value ) ) {
+				wp.media.attachment( value ).fetch().then( function( mediaData ) {
+					setTimeout( function() {
+						jQuery( control.container.find( '.' + control.id + '-image' ) ).prop( 'src', wp.media.attachment( value ).get( 'url' ) );
+					}, 500 );
+				} );
+			} else {
+				jQuery( control.container.find( '.' + control.id + '-image' ) ).prop( 'src', value );
+			}
+		},
+
+		/**
+		 * Changes the value visually for 'multicheck' controls.
+		 *
+		 * @param {object} [control] The control.
+		 * @param {object} [value]   The value.
+		 * @returns {void}
+		 */
+		multicheckControl: function( control, value ) {
+			control.container.find( 'input' ).each( function() {
+				jQuery( this ).prop( 'checked', false );
+			} );
+			_.each( value, function( subValue, i ) {
+				jQuery( control.container.find( 'input[value="' + value[ i ] + '"]' ) ).prop( 'checked', true );
+			} );
+		},
+
+		/**
+		 * Changes the value visually for 'multicolor' controls.
+		 *
+		 * @param {object} [control] The control.
+		 * @param {object} [value]   The value.
+		 * @returns {void}
+		 */
+		multicolorControl: function( value ) {
+			var control = this;
+			_.each( value, function( subVal, index ) {
+				control.setColorPicker( control.container.find( '.multicolor-index-' + index ), subVal );
+			} );
+		},
+
+		/**
+		 * Changes the value visually for 'number' controls.
+		 *
+		 * @param {object} [control] The control.
+		 * @param {object} [value]   The value.
+		 * @returns {void}
+		 */
+		numberControl: function( control, value ) {
+			jQuery( control.container.find( 'input' ) ).attr( 'value', value );
+		},
+
+		/**
+		 * Changes the value visually for 'palette' controls.
+		 *
+		 * @param {object} [control] The control.
+		 * @param {string} [value]   The value.
+		 * @returns {void}
+		 */
+		paletteControl: function( control, value ) {
+			jQuery( control.container.find( 'input[value="' + value + '"]' ) ).prop( 'checked', true );
+		},
+
+		/**
+		 * Changes the value visually for 'radio-buttonset' controls.
+		 *
+		 * @param {object} [control] The control.
+		 * @param {string} [value]   The value.
+		 * @returns {void}
+		 */
+		radioButtonsetControl: function( control, value ) {
+			jQuery( control.container.find( 'input[value="' + value + '"]' ) ).prop( 'checked', true );
+		},
+
+		/**
+		 * Changes the value visually for 'radio-image' controls.
+		 *
+		 * @param {object} [control] The control.
+		 * @param {string} [value]   The value.
+		 * @returns {void}
+		 */
+		radioImageControl: function( control, value ) {
+			jQuery( control.container.find( 'input[value="' + value + '"]' ) ).prop( 'checked', true );
+		},
+
+		/**
+		 * Changes the value visually for 'radio' controls.
+		 *
+		 * @param {object} [control] The control.
+		 * @param {string} [value]   The value.
+		 * @returns {void}
+		 */
+		radioControl: function( control, value ) {
+			jQuery( control.container.find( 'input[value="' + value + '"]' ) ).prop( 'checked', true );
+		},
+
+		/**
+		 * Changes the value visually for 'select' controls.
+		 *
+		 * @param {object} [control] The control.
+		 * @param {string} [value]   The value.
+		 * @returns {void}
+		 */
+		selectControl: function( control, value ) {
+			control.setSelect2( control.container.find( 'select' ), value );
+		},
+
+		/**
+		 * Changes the value visually for 'slider' controls.
+		 *
+		 * @param {object} [control] The control.
+		 * @param {float}  [value]   The value.
+		 * @returns {void}
+		 */
+		sliderControl: function( control, value ) {
+			jQuery( control.container.find( 'input' ) ).prop( 'value', value );
+			jQuery( control.container.find( '.kirki_range_value .value' ) ).html( value );
+		},
+
+		/**
+		 * Changes the value visually for 'switch' controls.
+		 *
+		 * @param {object} [control] The control.
+		 * @param {bool}   [value]   The value.
+		 * @returns {void}
+		 */
+		switchControl: function( control, value ) {
+			value = ( 1 === value || '1' === value || true === value ) ? true : false;
+			jQuery( control.container.find( 'input' ) ).prop( 'checked', value );
+		},
+
+		/**
+		 * Changes the value visually for 'toggle' controls.
+		 *
+		 * @param {object} [control] The control.
+		 * @param {bool}   [value]   The value.
+		 * @returns {void}
+		 */
+		toggleControl: function( control, value ) {
+			value = ( 1 === value || '1' === value || true === value ) ? true : false;
+			jQuery( control.container.find( 'input' ) ).prop( 'checked', value );
+		},
+
+		/**
+		 * Changes the value visually for 'typography' controls.
+		 *
+		 * @param {object} [control] The control.
+		 * @param {object} [value]   The value.
+		 * @returns {void}
+		 */
+		typographyControl: function( control, value ) {
+			_.each( ['font-family', 'variant', 'subsets'], function( subVal ) {
+				if ( ! _.isUndefined( value[ subVal ] ) ) {
+					control.setSelect2( control.container.find( '.' + subVal + ' select' ), value[ subVal ] );
+				}
+			} );
+			_.each( ['font-size', 'line-height', 'letter-spacing', 'word-spacing'], function( subVal ) {
+				if ( ! _.isUndefined( value[ subVal ] ) ) {
+					jQuery( control.container.find( '.' + subVal + ' input' ) ).prop( 'value', value[ subVal ] );
+				}
+			} );
+
+			if ( ! _.isUndefined( value.color ) ) {
+				control.setColorPicker( control.container.find( '.kirki-color-control' ), value.color );
+			}
 		}
+
 	}
 };
