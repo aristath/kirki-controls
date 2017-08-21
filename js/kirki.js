@@ -672,7 +672,7 @@ var kirki = {
 				} );
 			html += '</ul>';
 
-			html += '<button>Add Row</button>';
+			html += '<button class="add-row">Add Row</button>';
 
 			return html;
 		},
