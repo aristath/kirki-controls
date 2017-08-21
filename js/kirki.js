@@ -686,8 +686,14 @@ var kirki = {
 		repeaterControlRow: function( control, value, rowKey ) {
 			var rowTemplate = '';
 
-			rowTemplate = '<li class="field-template">';
-			rowTemplate += '<div class="row-header">Row Title<span class="dashicons dashicons-move"></span><span class="dashicons dashicons-trash"></span></div>';
+			rowTemplate = '<li class="row-template">';
+			rowTemplate += '<div class="row-header">';
+				rowTemplate += 'Row Title';
+				rowTemplate += '<div class="repeater-row-actions">';
+					rowTemplate += '<span class="repeater-row-move-button dashicons dashicons-move"></span>';
+					rowTemplate += '<span class="repeater-row-remove-button dashicons dashicons-trash"></span>';
+				rowTemplate += '</div>';
+			rowTemplate += '</div>';
 
 
 				// Go through each field.
