@@ -1,10 +1,6 @@
 /* global wp, _, kirki */
 wp.customize.controlConstructor['kirki-checkbox'] = wp.customize.kirkiDynamicControl.extend( {
 
-	getHTML: function( control ) {
-		return kirki.template.checkboxControl( control );
-	},
-
 	kirkiSetValue: function( value ) {
 		var control = this;
 		value = ( 1 === value || '1' === value || true === value ) ? true : false;

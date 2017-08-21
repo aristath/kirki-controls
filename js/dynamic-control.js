@@ -206,7 +206,7 @@
 		 * @returns {void}
 		 */
 		getHTML: function( control ) {
-			return '';
+			return kirki.template[ kirki.controlMethodNames[ control.params.type ] ]( control );
 		},
 
 		/**
@@ -278,6 +278,7 @@
 		 * @returns {void}
 		 */
 		kirkiSetControlValue: function( value, key ) {
+			var control = this;
 			kirki.setControlValue[ kirki.controlMethodNames[ control.params.type ] ]( this, value );
 		},
 
