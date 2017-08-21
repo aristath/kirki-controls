@@ -1,4 +1,4 @@
-/* global wp, _ */
+/* global wp, _, kirkiControlsHTML */
 wp.customize.controlConstructor['kirki-slider'] = wp.customize.kirkiDynamicControl.extend( {
 
 	initKirkiControl: function() {
@@ -8,7 +8,7 @@ wp.customize.controlConstructor['kirki-slider'] = wp.customize.kirkiDynamicContr
 		    inputDefault,
 		    changeAction;
 
-		control.container.html( control.getHTML( control ) );
+		control.container.html( kirkiControlsHTML.sliderTemplate( control ) );
 
 		// Update the text value
 		jQuery( 'input[type=range]' ).on( 'mousedown', function() {
@@ -34,25 +34,6 @@ wp.customize.controlConstructor['kirki-slider'] = wp.customize.kirkiDynamicContr
 		control.container.on( changeAction, 'input', function() {
 			control.setting.set( jQuery( this ).val() );
 		} );
-	},
-
-	getHTML: function( control ) {
-		var html = '';
-
-		html += '<label>';
-			html += '<span class="customize-control-title">' + control.params.label + '</span>';
-			html += '<span class="description customize-control-description">' + control.params.description + '</span>';
-			html += '<div class="wrapper">';
-				html += '<input ' + control.params.inputAttrs + ' type="range" min="' + control.params.choices.min + '" max="' + control.params.choices.max + '" step="' + control.params.choices.step + '" value="' + control.params.value + '" ' + control.params.link + ' data-reset_value="' + control.params['default'] + '" />';
-				html += '<div class="kirki_range_value">';
-					html += '<span class="value">' + control.params.value + '</span>';
-					html += control.params.choices.suffix ? control.params.choices.suffix : '';
-				html += '</div>';
-				html += '<div class="kirki-slider-reset"><span class="dashicons dashicons-image-rotate"></span></div>';
-			html += '</div>';
-		html += '</label>';
-
-		return html;
 	},
 
 	kirkiSetControlValue: function( value ) {

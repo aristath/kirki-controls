@@ -1,11 +1,11 @@
-/* global wp, _ */
+/* global wp, _, kirkiControlsHTML */
 wp.customize.controlConstructor['kirki-multicheck'] = wp.customize.kirkiDynamicControl.extend( {
 
 	initKirkiControl: function() {
 
 		var control = this;
 
-		control.container.html( control.getHTML( control ) );
+		control.container.html( kirkiControlsHTML.multicheckTemplate( control ) );
 
 		// Save the value
 		control.container.on( 'change', 'input', function() {
@@ -23,26 +23,6 @@ wp.customize.controlConstructor['kirki-multicheck'] = wp.customize.kirkiDynamicC
 			// Update the value in the customizer.
 			control.setting.set( value );
 		} );
-	},
-
-	getHTML: function( control ) {
-
-		var html = '';
-
-		if ( ! control.params.choices ) {
-			return;
-		}
-
-		html += '<span class="customize-control-title">' + control.params.label + '</span>';
-		html += '<span class="description customize-control-description">' + control.params.description + '</span>';
-
-		html += '<ul>';
-			_.each( control.params.choices, function( val, key ) {
-				html += '<li><label><input ' + control.params.inputAttrs + ' type="checkbox" value="' + key + '"' + ( _.contains( control.params.value, key ) ? ' checked' : '' ) + '/>' + val + '</label></li>';
-			} );
-		html += '</ul>';
-
-		return html;
 	},
 
 	kirkiSetControlValue: function( value ) {

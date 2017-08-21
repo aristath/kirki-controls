@@ -1,4 +1,4 @@
-/* global wp, _, CodeMirror */
+/* global wp, _, CodeMirror, kirkiControlsHTML */
 wp.customize.controlConstructor['kirki-code'] = wp.customize.kirkiDynamicControl.extend( {
 
 	initKirkiControl: function() {
@@ -10,7 +10,7 @@ wp.customize.controlConstructor['kirki-code'] = wp.customize.kirkiDynamicControl
 		    container,
 		    height;
 
-		control.container.html( control.getHTML( control ) );
+		control.container.html( kirkiControlsHTML.codeTemplate( control ) );
 
 		element = control.container.find( '.kirki-codemirror-editor' );
 
@@ -42,20 +42,6 @@ wp.customize.controlConstructor['kirki-code'] = wp.customize.kirkiDynamicControl
 		element.parents( '.accordion-section' ).on( 'click', function() {
 			editor.refresh();
 		} );
-	},
-
-	getHTML: function( control ) {
-		var html    = '';
-
-		html += '<label>';
-			html += '<span class="customize-control-title">' + control.params.label + '</span>';
-			html += '<span class="description customize-control-description">' + control.params.description + '</span>';
-			html += '<div class="codemirror-kirki-wrapper">';
-				html += '<textarea ' + control.params.inputAttrs + ' class="kirki-codemirror-editor">' + control.params.value + '</textarea>';
-			html += '</div>';
-		html += '</label>';
-
-		return html;
 	},
 
 	kirkiSetControlValue: function( value ) {

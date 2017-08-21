@@ -1,4 +1,4 @@
-/* global wp, _, tinyMCE */
+/* global wp, _, tinyMCE, kirkiControlsHTML */
 wp.customize.controlConstructor['kirki-editor'] = wp.customize.kirkiDynamicControl.extend( {
 
 	initKirkiControl: function() {
@@ -11,7 +11,7 @@ wp.customize.controlConstructor['kirki-editor'] = wp.customize.kirkiDynamicContr
 		    setChange,
 		    content;
 
-		control.container.html( control.getHTML( control ) );
+		control.container.html( kirkiControlsHTML.editorTemplate( control ) );
 
 		element      = control.container.find( 'textarea' );
 		toggler      = control.container.find( '.toggle-editor' );
@@ -56,21 +56,6 @@ wp.customize.controlConstructor['kirki-editor'] = wp.customize.kirkiDynamicContr
 		wpEditorArea.on( 'change keyup paste', function() {
 			wp.customize.instance( control.getEditorWrapperSetting() ).set( jQuery( this ).val() );
 		} );
-	},
-
-	getHTML: function( control ) {
-		var html = '';
-
-		html += '<label>';
-			html += '<span class="customize-control-title">' + control.params.label + '</span>';
-			html += '<span class="description customize-control-description">' + control.params.description + '</span>';
-			html += '<div class="customize-control-content">';
-				html += '<a href="#" class="button button-primary toggle-editor"></a>';
-				html += '<textarea ' + control.params.inputAttrs + ' class="hidden" ' + control.params.link + '>' + control.params.value + '</textarea>';
-			html += '</div>';
-		html += '</label>';
-
-		return html;
 	},
 
 	/**

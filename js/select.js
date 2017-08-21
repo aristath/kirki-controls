@@ -1,4 +1,4 @@
-/* global wp, _ */
+/* global wp, _, kirkiControlsHTML */
 wp.customize.controlConstructor['kirki-select'] = wp.customize.kirkiDynamicControl.extend( {
 
 	initKirkiControl: function() {
@@ -20,7 +20,7 @@ wp.customize.controlConstructor['kirki-select'] = wp.customize.kirkiDynamicContr
 			control.params.value = [ control.params.value ];
 		}
 
-		control.container.html( control.getHTML( control ) );
+		control.container.html( kirkiControlsHTML.selectTemplate( control ) );
 
 		element  = this.container.find( 'select' );
 		multiple = parseInt( element.data( 'multiple' ), 10 );
@@ -32,39 +32,6 @@ wp.customize.controlConstructor['kirki-select'] = wp.customize.kirkiDynamicContr
 			selectValue = jQuery( this ).val();
 			control.setting.set( selectValue );
 		} );
-	},
-
-	getHTML: function( control ) {
-		var html = '';
-
-		html += '<label>';
-			html += '<span class="customize-control-title">' + control.params.label + '</span>';
-			html += '<span class="description customize-control-description">' + control.params.description + '</span>';
-			html += '<select ' + control.params.inputAttrs + ' ' + control.params.link + ( 1 < control.params.multiple ? ' data-multiple="' + control.params.multiple + '" multiple="multiple"' : '' ) + '>';
-
-				_.each( control.params.choices, function( optionLabel, optionKey ) {
-					var selected = ( control.params.value === optionKey );
-					if ( 1 < control.params.multiple && control.params.value ) {
-						selected = _.contains( control.params.value, optionKey );
-					}
-					if ( _.isObject( optionLabel ) ) {
-						html += '<optgroup label="' + optionLabel[0] + '">';
-						_.each( optionLabel[1], function( optgroupOptionLabel, optgroupOptionKey ) {
-							selected = ( control.params.value === optgroupOptionKey );
-							if ( 1 < control.params.multiple && control.params.value ) {
-								selected = _.contains( control.params.value, optgroupOptionKey );
-							}
-							html += '<option value="' + optgroupOptionKey + '"' + ( selected ? ' selected' : '' ) + '>' + optgroupOptionLabel + '</option>';
-						} );
-						html += '</optgroup>';
-					} else {
-						html += '<option value="' + optionKey + '"' + ( selected ? ' selected' : '' ) + '>' + optionLabel + '</option>';
-					}
-				} );
-			html += '</select>';
-		html += '</label>';
-
-		return html;
 	},
 
 	kirkiSetControlValue: function( value ) {

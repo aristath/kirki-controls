@@ -1,4 +1,4 @@
-/* global wp, _, fontAwesomeJSON */
+/* global wp, _, fontAwesomeJSON, kirkiControlsHTML */
 wp.customize.controlConstructor['kirki-fontawesome'] = wp.customize.kirkiDynamicControl.extend( {
 
 	initKirkiControl: function() {
@@ -21,7 +21,7 @@ wp.customize.controlConstructor['kirki-fontawesome'] = wp.customize.kirkiDynamic
 		    },
 		    select;
 
-		control.container.html( control.getHTML( control ) );
+		control.container.html( kirkiControlsHTML.fontawesomeTemplate( control ) );
 
 		element = this.container.find( 'select' ),
 
@@ -39,18 +39,6 @@ wp.customize.controlConstructor['kirki-fontawesome'] = wp.customize.kirkiDynamic
 			control.setting.set( selectValue );
 		} );
 		select.val( control.setting._value ).trigger( 'change' );
-	},
-
-	getHTML: function( control ) {
-		var html = '';
-
-		html += '<label>';
-			html += '<span class="customize-control-title">' + control.params.label + '</span>';
-			html += '<span class="description customize-control-description">' + control.params.description + '</span>';
-			html += '<select ' + control.params.inputAttrs + ' ' + control.params.link + '</select>';
-		html += '</label>';
-
-		return html;
 	},
 
 	kirkiSetControlValue: function( value ) {

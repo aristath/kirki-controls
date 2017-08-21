@@ -1,4 +1,4 @@
-/* global wp, _ */
+/* global wp, _, kirkiControlsHTML */
 wp.customize.controlConstructor['kirki-color'] = wp.customize.kirkiDynamicControl.extend( {
 
 	initKirkiControl: function() {
@@ -6,7 +6,7 @@ wp.customize.controlConstructor['kirki-color'] = wp.customize.kirkiDynamicContro
 		    clear,
 		    picker;
 
-		control.container.html( control.getHTML( control ) );
+		control.container.html( kirkiControlsHTML.colorTemplate( control ) );
 
 		picker = control.container.find( '.kirki-color-control' );
 
@@ -33,19 +33,6 @@ wp.customize.controlConstructor['kirki-color'] = wp.customize.kirkiDynamicContro
 				}, 20 );
 			}
 		} );
-	},
-
-	getHTML: function( control ) {
-		var html    = '';
-
-		html  = '<label>';
-			html += '<span class="customize-control-title">' + control.params.label + '</span>';
-			html += '<span class="description customize-control-description">' + control.params.description + '</span>';
-			html += '<input type="text" ' + control.params.inputAttrs + ' data-palette="' + control.params.palette + '" data-default-color="' + control.params['default'] + '" data-alpha="' + control.params.alpha + '" value="' + control.params.value + '" class="kirki-color-control" ' + control.params.link + ' />';
-		html += '</label>';
-
-		return html;
-
 	},
 
 	kirkiSetControlValue: function( value ) {

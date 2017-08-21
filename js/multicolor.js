@@ -1,4 +1,4 @@
-/* global wp, _ */
+/* global wp, _, kirkiControlsHTML */
 wp.customize.controlConstructor['kirki-multicolor'] = wp.customize.kirkiDynamicControl.extend( {
 
 	initKirkiControl: function() {
@@ -11,7 +11,7 @@ wp.customize.controlConstructor['kirki-multicolor'] = wp.customize.kirkiDynamicC
 		    irisInput,
 		    irisPicker;
 
-		control.container.html( control.getHTML( control ) );
+		control.container.html( kirkiControlsHTML.multicolorTemplate( control ) );
   		target = control.container.find( '.iris-target' );
 
 		// Colors loop
@@ -57,26 +57,6 @@ wp.customize.controlConstructor['kirki-multicolor'] = wp.customize.kirkiDynamicC
 
 		// Did we change the value?
 		picker.wpColorPicker( args );
-	},
-
-	getHTML: function( control ) {
-		var html = '';
-
-		html += '<span class="customize-control-title">' + control.params.label + '</span>';
-		html += '<span class="description customize-control-description">' + control.params.description + '</span>';
-		html += '<div class="multicolor-group-wrapper">';
-			_.each( control.params.choices, function( val, key ) {
-				if ( 'irisArgs' !== key ) {
-					html += '<div class="multicolor-single-color-wrapper">';
-						html += ( val ) ? '<label for="' + control.id + '-' + key + '">' + val + '</label>' : '';
-						html += '<input ' + control.params.inputAttrs + ' id="' + control.id + '-' + key + '" type="text" data-palette="' + control.params.palette + '" data-default-color="' + control.params['default'][ key ] + '" data-alpha="' + control.params.alpha + '" value="' + control.params.value[ key ] + '" class="kirki-color-control color-picker multicolor-index-' + key + '" />';
-					html += '</div>';
-				}
-			} );
-		html += '</div>';
-		html += '<div class="iris-target"></div>';
-
-		return html;
 	},
 
 	kirkiSetControlValue: function( value ) {

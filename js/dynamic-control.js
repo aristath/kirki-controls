@@ -195,7 +195,9 @@
 				control.setting.set( jQuery( this ).val() );
 			} );
 
-			control.container.html( control.getHTML( control ) )
+			if ( _.isFunction( control.getHTML ) && '' !== control.getHTML( control ) ) {
+				control.container.html( control.getHTML( control ) );
+			}
 		},
 
 		/**
@@ -204,10 +206,7 @@
 		 * @returns {void}
 		 */
 		getHTML: function( control ) {
-			var control = this,
-			    html    = '';
-
-			return html;
+			return '';
 		},
 
 		/**

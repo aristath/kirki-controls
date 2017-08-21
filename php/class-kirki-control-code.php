@@ -39,7 +39,8 @@ class Kirki_Control_Code extends Kirki_Control_Base {
 
 		// Register codemirror.
 		wp_register_script( 'codemirror', kirki_controls()->get_url( 'vendor/codemirror/lib/codemirror.js' ), array( 'jquery' ) );
-		wp_enqueue_script( 'kirki-dynamic-control', kirki_controls()->get_url( 'js/dynamic-control.js' ), array( 'jquery', 'customize-base' ), false, true );
+		wp_enqueue_script( 'kirki-controls-html', kirki_controls()->get_url( 'js/controls-html.js' ), array( 'jquery', 'customize-base' ), false, true );
+		wp_enqueue_script( 'kirki-dynamic-control', kirki_controls()->get_url( 'js/dynamic-control.js' ), array( 'jquery', 'customize-base', 'kirki-controls-html' ), false, true );
 
 		// If we're using html mode, we'll also need to include the multiplex addon
 		// as well as dependencies for XML, JS, CSS languages.
@@ -66,7 +67,7 @@ class Kirki_Control_Code extends Kirki_Control_Base {
 		// Add theme styles.
 		wp_enqueue_style( 'codemirror-theme-' . $this->choices['theme'], kirki_controls()->get_url( 'vendor/codemirror/theme/' . $this->choices['theme'] . '.css' ) );
 
-		wp_enqueue_script( 'kirki-code', kirki_controls()->get_url( 'js/code.js' ), array( 'jquery', 'customize-base', 'kirki-dynamic-control', 'codemirror' ), false, true );
+		wp_enqueue_script( 'kirki-code', kirki_controls()->get_url( 'js/code.js' ), array( 'jquery', 'customize-base', 'kirki-dynamic-control', 'kirki-controls-html', 'codemirror' ), false, true );
 		wp_enqueue_style( 'kirki-styles', kirki_controls()->get_url( 'css/styles.css' ), null );
 	}
 }
