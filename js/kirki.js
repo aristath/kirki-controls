@@ -706,6 +706,7 @@ var kirki = {
 						link: '',
 						multiple: 1
 					} );
+					field.params.id = control.id + '[]' + '[' + key + ']';
 
 					// Add the value to the field.
 					if ( ! _.isUndefined( value ) && ! _.isUndefined( value[ key ] ) ) {
