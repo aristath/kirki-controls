@@ -1028,6 +1028,44 @@ var kirki = {
 	},
 
 	/**
+	 * An object containing methods for setting the value of controls.
+	 */
+	setValue: {
+
+		defaultControl: function( control, value, key ) {
+			var valObj;
+
+			// Calculate the value if we've got a key defined.
+			if ( ! _.isUndefined( key ) ) {
+				if ( ! _.isUndefined( control.setting ) && ! _.isUndefined( control.setting._value ) ) {
+					valObj = control.setting._value;
+				} else if ( ! _.isUndefined( control.params ) && ! _.isUndefined( control.params.value ) ) {
+					valObj = control.params.value;
+				} else if ( ! _.isUndefined( control.value ) ) {
+					valObj = control.value;
+				}
+				valObj[ key ] = value;
+				value = valObj;
+			}
+
+			// Reset the value.
+			if ( _.isUndefined( key ) ) {
+				control.setting.set( '' );
+			} else {
+				control.setting.set( {} );
+			}
+
+			// Set the value.
+			control.setting.set( value );
+		},
+
+		checkboxControl: function( control, value ) {
+			value = ( 1 === value || '1' === value || true === value ) ? true : false;
+			wp.customize.instance( control.id ).set( value );
+		}
+	},
+
+	/**
 	 * An object containing functions for setting the value visually on controls.
 	 */
 	setControlValue: {
@@ -1622,25 +1660,7 @@ var kirki = {
 		 * @returns {void}
 		 */
 		kirkiSetValue: function( value, key ) {
-			var control = this,
-			    valObj;
-
-			// Calculate the value if we've got a key defined.
-			if ( ! _.isUndefined( key ) ) {
-				valObj = control.setting._value;
-				valObj[ key ] = value;
-				value = valObj;
-			}
-
-			// Reset the value.
-			if ( _.isUndefined( key ) ) {
-				control.setting.set( '' );
-			} else {
-				control.setting.set( {} );
-			}
-
-			// Set the value.
-			control.setting.set( value );
+			kirki.setValue.defaultControl( this, value, key );
 		},
 
 		/**
