@@ -258,9 +258,6 @@ var kirki = {
 		 * @returns {void}
 		 */
 		getHTML: function( control ) {
-			if ( _.isUndefined( kirki.control[ kirki.control.getTypeWithoutPrefix( control.params.type ) ] ) ) {
-				console.log( control );
-			}
 			return kirki.control[ kirki.control.getTypeWithoutPrefix( control.params.type ) ].template( control );
 		},
 
