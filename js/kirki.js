@@ -164,7 +164,11 @@ var kirki = {
 			wp.customize.Control.prototype.ready.call( control );
 
 			control.deferred.embedded.done( function() {
-				control.initKirkiControl();
+				if ( ! _.isUndefined( kirki.control[ kirki.control.getTypeWithoutPrefix( control.params.type ) ].init ) ) {
+					kirki.control[ kirki.control.getTypeWithoutPrefix( control.params.type ) ].init( control );
+				} else {
+					control.initKirkiControl();
+				}
 			} );
 		},
 
