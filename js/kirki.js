@@ -135,7 +135,7 @@ var kirki = {
 				html += '</div>';
 			html += '</div>';
 
-			return html;
+			return '<div class="kirki-control-wrapper-background">' + html + '</div>';
 		},
 
 		/**
@@ -155,7 +155,7 @@ var kirki = {
 				html += '</div>';
 			html += '</label>';
 
-			return html;
+			return '<div class="kirki-control-wrapper-checkbox">' + html + '</div>';
 		},
 
 		/**
@@ -175,7 +175,7 @@ var kirki = {
 				html += '</div>';
 			html += '</label>';
 
-			return html;
+			return '<div class="kirki-control-wrapper-code">' + html + '</div>';
 		},
 
 		/**
@@ -211,7 +211,7 @@ var kirki = {
 			} );
 			html += '</div>';
 
-			return html;
+			return '<div class="kirki-control-wrapper-color-palette">' + html + '</div>';
 		},
 
 		/**
@@ -229,7 +229,7 @@ var kirki = {
 				html += '<input type="text" ' + control.params.inputAttrs + ' data-palette="' + control.params.palette + '" data-default-color="' + control.params['default'] + '" data-alpha="' + control.params.alpha + '" value="' + control.params.value + '" class="kirki-color-control" ' + control.params.link + ' />';
 			html += '</label>';
 
-			return html;
+			return '<div class="kirki-control-wrapper-color">' + html + '</div>';
 
 		},
 
@@ -265,7 +265,7 @@ var kirki = {
 				}
 			html += '</div>';
 
-			return html;
+			return '<div class="kirki-control-wrapper-dashicons">' + html + '</div>';
 		},
 
 		/**
@@ -285,7 +285,7 @@ var kirki = {
 				html += '</div>';
 			html += '</label>';
 
-			return html;
+			return '<div class="kirki-control-wrapper-date">' + html + '</div>';
 
 		},
 
@@ -306,7 +306,7 @@ var kirki = {
 				html += '</div>';
 			html += '</label>';
 
-			return html;
+			return '<div class="kirki-control-wrapper-dimension">' + html + '</div>';
 		},
 
 		/**
@@ -352,7 +352,7 @@ var kirki = {
 				html += '</div>';
 			html += '</label>';
 
-			return html;
+			return '<div class="kirki-control-wrapper-dimensions">' + html + '</div>';
 		},
 
 		/**
@@ -373,7 +373,7 @@ var kirki = {
 				html += '</div>';
 			html += '</label>';
 
-			return html;
+			return '<div class="kirki-control-wrapper-editor">' + html + '</div>';
 		},
 
 		/**
@@ -391,7 +391,7 @@ var kirki = {
 				html += '<select ' + control.params.inputAttrs + ' ' + control.params.link + '</select>';
 			html += '</label>';
 
-			return html;
+			return '<div class="kirki-control-wrapper-fontawesome">' + html + '</div>';
 		},
 
 		/**
@@ -428,7 +428,7 @@ var kirki = {
 				html += '</div>';
 			html += '</label>';
 
-			return html;
+			return '<div class="kirki-control-wrapper-generic">' + html + '</div>';
 		},
 
 		/**
@@ -462,7 +462,7 @@ var kirki = {
 				html += '</div>';
 			html += '</div>';
 
-			return html;
+			return '<div class="kirki-control-wrapper-image">' + html + '</div>';
 		},
 
 		/**
@@ -488,7 +488,7 @@ var kirki = {
 				} );
 			html += '</ul>';
 
-			return html;
+			return '<div class="kirki-control-wrapper-multicheck">' + html + '</div>';
 		},
 
 		/**
@@ -514,7 +514,7 @@ var kirki = {
 			html += '</div>';
 			html += '<div class="iris-target"></div>';
 
-			return html;
+			return '<div class="kirki-control-wrapper-multicolor">' + html + '</div>';
 		},
 
 		/**
@@ -534,7 +534,7 @@ var kirki = {
 				html += '</div>';
 			html += '</label>';
 
-			return html;
+			return '<div class="kirki-control-wrapper-number">' + html + '</div>';
 		},
 
 		/**
@@ -563,7 +563,7 @@ var kirki = {
 			} );
 			html += '</div>';
 
-			return html;
+			return '<div class="kirki-control-wrapper-palette">' + html + '</div>';
 
 		},
 
@@ -586,7 +586,7 @@ var kirki = {
 				} );
 			html += '</div>';
 
-			return html;
+			return '<div class="kirki-control-wrapper-radio-buttonset">' + html + '</div>';
 		},
 
 		/**
@@ -619,7 +619,7 @@ var kirki = {
 				} );
 			html += '</div>';
 
-			return html;
+			return '<div class="kirki-control-wrapper-radio-image">' + html + '</div>';
 		},
 
 		/**
@@ -648,7 +648,7 @@ var kirki = {
 				html += '</label>';
 			} );
 
-			return html;
+			return '<div class="kirki-control-wrapper-radio">' + html + '</div>';
 		},
 
 		/**
@@ -674,7 +674,7 @@ var kirki = {
 
 			html += '<button class="add-row">Add Row</button>';
 
-			return html;
+			return '<div class="kirki-control-wrapper-repeater">' + html + '</div>';
 		},
 
 		/**
@@ -763,7 +763,7 @@ var kirki = {
 				html += '</select>';
 			html += '</label>';
 
-			return html;
+			return '<div class="kirki-control-wrapper-select">' + html + '</div>';
 		},
 
 		/**
@@ -788,7 +788,7 @@ var kirki = {
 				html += '</div>';
 			html += '</label>';
 
-			return html;
+			return '<div class="kirki-control-wrapper-slider">' + html + '</div>';
 		},
 
 		/**
@@ -824,7 +824,7 @@ var kirki = {
 				html += '</ul>';
 			html += '</label>';
 
-			return html;
+			return '<div class="kirki-control-wrapper-sortable">' + html + '</div>';
 		},
 
 		/**
@@ -846,7 +846,7 @@ var kirki = {
 				html += '</label>';
 			html += '</div>';
 
-			return html;
+			return '<div class="kirki-control-wrapper-switch">' + html + '</div>';
 		},
 
 		/**
@@ -866,7 +866,7 @@ var kirki = {
 				html += '<span class="switch"></span>';
 			html += '</label>';
 
-			return html;
+			return '<div class="kirki-control-wrapper-toggle">' + html + '</div>';
 		},
 
 		/**
@@ -1021,7 +1021,7 @@ var kirki = {
 				}
 			html += '</div>';
 
-			return html;
+			return '<div class="kirki-control-wrapper-typography">' + html + '</div>';
 		}
 	},
 
