@@ -11,7 +11,7 @@ wp.customize.controlConstructor['kirki-editor'] = wp.customize.kirkiDynamicContr
 		    setChange,
 		    content;
 
-		control.container.html( kirki.template.editorControl( control ) );
+		control.container.html( kirki.control.template.editorControl( control ) );
 
 		element      = control.container.find( 'textarea' );
 		toggler      = control.container.find( '.toggle-editor' );

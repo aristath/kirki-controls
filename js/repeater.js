@@ -3,7 +3,7 @@ wp.customize.controlConstructor['kirki-repeater'] = wp.customize.kirkiDynamicCon
 	initKirkiControl: function() {
 		var control     = this;
 
-		control.container.html( kirki.template.repeaterControl( control ) );
+		control.container.html( kirki.control.template.repeaterControl( control ) );
 
 		control.repeaterRowAddButton();
 		control.repeaterRowRemoveButton();
@@ -25,7 +25,7 @@ wp.customize.controlConstructor['kirki-repeater'] = wp.customize.kirkiDynamicCon
 		control.container.find( '.add-row' ).click( function( e ) {
 			e.preventDefault();
 			jQuery( control.container.find( '.repeater-rows' ) )
-				.append( kirki.template.repeaterControlRow( control, rowDefaults ) );
+				.append( kirki.control.template.repeaterControlRow( control, rowDefaults ) );
 		});
 
 		control.repeaterRowSortableAccordion();

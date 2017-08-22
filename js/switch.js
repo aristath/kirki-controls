@@ -8,7 +8,7 @@ wp.customize.controlConstructor['kirki-switch'] = wp.customize.kirkiDynamicContr
 		    on,
 		    off;
 
-		control.container.html( kirki.template.switchControl( control ) );
+		control.container.html( kirki.control.template.switchControl( control ) );
 
 		on  = jQuery( control.container.find( '.switch-on' ) );
 		off = jQuery( control.container.find( '.switch-off' ) );
@@ -27,6 +27,6 @@ wp.customize.controlConstructor['kirki-switch'] = wp.customize.kirkiDynamicContr
 	},
 
 	kirkiSetValue: function( value ) {
-		kirki.setValue.checkboxControl( this, value );
+		kirki.value.set.checkboxControl( this, value );
 	}
 } );

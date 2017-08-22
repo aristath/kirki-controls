@@ -6,7 +6,7 @@ wp.customize.controlConstructor['kirki-dimension'] = wp.customize.kirkiDynamicCo
 		var control = this,
 		    value;
 
-		control.container.html( kirki.template.dimensionControl( control ) );
+		control.container.html( kirki.control.template.dimensionControl( control ) );
 
 		// Notifications.
 		control.kirkiNotifications();

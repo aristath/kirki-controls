@@ -21,7 +21,7 @@ wp.customize.controlConstructor['kirki-fontawesome'] = wp.customize.kirkiDynamic
 		    },
 		    select;
 
-		control.container.html( kirki.template.fontawesomeControl( control ) );
+		control.container.html( kirki.control.template.fontawesomeControl( control ) );
 
 		element = this.container.find( 'select' ),
 

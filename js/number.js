@@ -13,7 +13,7 @@ wp.customize.controlConstructor['kirki-number'] = wp.customize.kirkiDynamicContr
 			step: 1
 		} );
 
-		control.container.html( kirki.template.numberControl( control ) );
+		control.container.html( kirki.control.template.numberControl( control ) );
 
 		element = this.container.find( 'input' );
 

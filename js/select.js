@@ -20,7 +20,7 @@ wp.customize.controlConstructor['kirki-select'] = wp.customize.kirkiDynamicContr
 			control.params.value = [ control.params.value ];
 		}
 
-		control.container.html( kirki.template.selectControl( control ) );
+		control.container.html( kirki.control.template.selectControl( control ) );
 
 		element  = this.container.find( 'select' );
 		multiple = parseInt( element.data( 'multiple' ), 10 );

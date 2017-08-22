@@ -5,7 +5,7 @@ wp.customize.controlConstructor['kirki-multicheck'] = wp.customize.kirkiDynamicC
 
 		var control = this;
 
-		control.container.html( kirki.template.multicheckControl( control ) );
+		control.container.html( kirki.control.template.multicheckControl( control ) );
 
 		// Save the value
 		control.container.on( 'change', 'input', function() {

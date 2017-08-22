@@ -10,7 +10,7 @@ wp.customize.controlConstructor['kirki-code'] = wp.customize.kirkiDynamicControl
 		    container,
 		    height;
 
-		control.container.html( kirki.template.codeControl( control ) );
+		control.container.html( kirki.control.template.codeControl( control ) );
 
 		element = control.container.find( '.kirki-codemirror-editor' );
 

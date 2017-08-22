@@ -6,7 +6,7 @@ wp.customize.controlConstructor['kirki-color'] = wp.customize.kirkiDynamicContro
 		    clear,
 		    picker;
 
-		control.container.html( kirki.template.colorControl( control ) );
+		control.container.html( kirki.control.template.colorControl( control ) );
 
 		picker = control.container.find( '.kirki-color-control' );
 

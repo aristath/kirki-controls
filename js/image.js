@@ -6,7 +6,7 @@ wp.customize.controlConstructor['kirki-image'] = wp.customize.kirkiDynamicContro
 		var control = this,
 		    value   = _.defaults( control.setting._value, control.params['default'] );
 
-		control.container.html( kirki.template.imageControl( control ) );
+		control.container.html( kirki.control.template.imageControl( control ) );
 		control.kirkiSetControlValue( value );
 
 		control.kirkiAddImage();

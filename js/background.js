@@ -7,7 +7,7 @@ wp.customize.controlConstructor['kirki-background'] = wp.customize.kirkiDynamicC
 		    value   = _.defaults( control.setting._value, control.params['default'] ),
 		    picker;
 
-			control.container.html( kirki.template.backgroundControl( control ) );
+			control.container.html( kirki.control.template.backgroundControl( control ) );
 
 		picker = control.container.find( '.kirki-color-control' );
 
