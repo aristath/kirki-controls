@@ -29,17 +29,6 @@ class Kirki_Control_Color_Palette extends Kirki_Control_Base {
 	public $type = 'kirki-color-palette';
 
 	/**
-	 * Returns an array of extra field dependencies for Kirki controls.
-	 *
-	 * @access protected
-	 * @since 3.0.10
-	 * @return array
-	 */
-	protected function kirki_script_dependencies() {
-		return array( 'jquery-ui-button' );
-	}
-
-	/**
 	 * Refresh the parameters passed to the JavaScript via JSON.
 	 *
 	 * @access public

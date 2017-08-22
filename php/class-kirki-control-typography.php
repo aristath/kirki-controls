@@ -45,17 +45,11 @@ class Kirki_Control_Typography extends Kirki_Control_Base {
 	 */
 	public function enqueue() {
 
-		wp_enqueue_script( 'wp-color-picker-alpha', kirki_controls()->get_url( 'vendor/wp-color-picker-alpha/wp-color-picker-alpha.js' ), array( 'wp-color-picker' ), '1.2', true );
-		wp_enqueue_style( 'wp-color-picker' );
-
-		wp_enqueue_script( 'select2', kirki_controls()->get_url( 'vendor/select2/js/select2.full.js' ), array( 'jquery' ), '4.0.3', true );
-		wp_enqueue_style( 'select2', kirki_controls()->get_url( 'vendor/select2/css/select2.css' ), array(), '4.0.3' );
-
 		parent::enqueue();
 
 		$custom_fonts_array  = ( isset( $this->choices['fonts'] ) && ( isset( $this->choices['fonts']['google'] ) || isset( $this->choices['fonts']['standard'] ) ) && ( ! empty( $this->choices['fonts']['google'] ) || ! empty( $this->choices['fonts']['standard'] ) ) );
 		if ( $custom_fonts_array ) {
-			wp_localize_script( 'kirki-typography', 'kirkiFonts', array(
+			wp_localize_script( 'kirki', 'kirkiFonts', array(
 				'standard' => $this->get_standard_fonts(),
 				'google'   => $this->get_google_fonts(),
 			) );
@@ -210,40 +204,5 @@ class Kirki_Control_Typography extends Kirki_Control_Base {
 			);
 		} // End foreach().
 		return $google_fonts_final;
-	}
-
-	/**
-	 * Returns an array of translation strings.
-	 *
-	 * @access protected
-	 * @since 3.0.0
-	 * @return array
-	 */
-	protected function l10n() {
-		return array(
-			'fontFamily'       => esc_attr__( 'Font Family', 'kirki' ),
-			'selectFontFamily' => esc_attr__( 'Select Font Family', 'kirki' ),
-			'backupFont'       => esc_attr__( 'Backup Font', 'kirki' ),
-			'variant'          => esc_attr__( 'Variant', 'kirki' ),
-			'fontSize'         => esc_attr__( 'Font Size', 'kirki' ),
-			'lineHeight'       => esc_attr__( 'Line Height', 'kirki' ),
-			'letterSpacing'    => esc_attr__( 'Letter Spacing', 'kirki' ),
-			'wordSpacing'      => esc_attr__( 'Word Spacing', 'kirki' ),
-			'textAlign'        => esc_attr__( 'Text Align', 'kirki' ),
-			'inherit'          => esc_attr__( 'Inherit', 'kirki' ),
-			'left'             => esc_attr__( 'Left', 'kirki' ),
-			'center'           => esc_attr__( 'Center', 'kirki' ),
-			'justify'          => esc_attr__( 'Justify', 'kirki' ),
-			'textTransform'    => esc_attr__( 'Text Transform', 'kirki' ),
-			'none'             => esc_attr__( 'None', 'kirki' ),
-			'capitalize'       => esc_attr__( 'Capitalize', 'kirki' ),
-			'uppercase'        => esc_attr__( 'Uppercase', 'kirki' ),
-			'lowercase'        => esc_attr__( 'Lowercase', 'kirki' ),
-			'initial'          => esc_attr__( 'Initial', 'kirki' ),
-			'inherit'          => esc_attr__( 'Inherit', 'kirki' ),
-			'color'            => esc_attr__( 'Color', 'kirki' ),
-			'marginTop'        => esc_attr__( 'Margin Top', 'kirki' ),
-			'marginBottom'     => esc_attr__( 'Margin Bottom', 'kirki' ),
-		);
 	}
 }
