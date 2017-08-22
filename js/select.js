@@ -1,55 +1,58 @@
 /* global wp, _, kirki */
 
-kirki.control.type.select = kirki.control.type['kirki-select'] = 'selectControl';
+kirki.control.select = {
 
-/**
- * The HTML Template for 'select' controls.
- *
- * @param {object} [control] The control.
- * @returns {string}
- */
-kirki.control.template.selectControl = function( control ) {
-	var html = '';
+	/**
+	 * The HTML Template for 'select' controls.
+	 *
+	 * @param {object} [control] The control.
+	 * @returns {string}
+	 */
+	template: function( control ) {
+		var html = '';
 
-	html += '<label>';
-		html += '<span class="customize-control-title">' + control.params.label + '</span>';
-		html += '<span class="description customize-control-description">' + control.params.description + '</span>';
-		html += '<select ' + control.params.inputAttrs + ' ' + control.params.link + ( 1 < control.params.multiple ? ' data-multiple="' + control.params.multiple + '" multiple="multiple"' : '' ) + '>';
+		html += '<label>';
+			html += '<span class="customize-control-title">' + control.params.label + '</span>';
+			html += '<span class="description customize-control-description">' + control.params.description + '</span>';
+			html += '<select ' + control.params.inputAttrs + ' ' + control.params.link + ( 1 < control.params.multiple ? ' data-multiple="' + control.params.multiple + '" multiple="multiple"' : '' ) + '>';
 
-			_.each( control.params.choices, function( optionLabel, optionKey ) {
-				var selected = ( control.params.value === optionKey );
-				if ( 1 < control.params.multiple && control.params.value ) {
-					selected = _.contains( control.params.value, optionKey );
-				}
-				if ( _.isObject( optionLabel ) ) {
-					html += '<optgroup label="' + optionLabel[0] + '">';
-					_.each( optionLabel[1], function( optgroupOptionLabel, optgroupOptionKey ) {
-						selected = ( control.params.value === optgroupOptionKey );
-						if ( 1 < control.params.multiple && control.params.value ) {
-							selected = _.contains( control.params.value, optgroupOptionKey );
-						}
-						html += '<option value="' + optgroupOptionKey + '"' + ( selected ? ' selected' : '' ) + '>' + optgroupOptionLabel + '</option>';
-					} );
-					html += '</optgroup>';
-				} else {
-					html += '<option value="' + optionKey + '"' + ( selected ? ' selected' : '' ) + '>' + optionLabel + '</option>';
-				}
-			} );
-		html += '</select>';
-	html += '</label>';
+				_.each( control.params.choices, function( optionLabel, optionKey ) {
+					var selected = ( control.params.value === optionKey );
+					if ( 1 < control.params.multiple && control.params.value ) {
+						selected = _.contains( control.params.value, optionKey );
+					}
+					if ( _.isObject( optionLabel ) ) {
+						html += '<optgroup label="' + optionLabel[0] + '">';
+						_.each( optionLabel[1], function( optgroupOptionLabel, optgroupOptionKey ) {
+							selected = ( control.params.value === optgroupOptionKey );
+							if ( 1 < control.params.multiple && control.params.value ) {
+								selected = _.contains( control.params.value, optgroupOptionKey );
+							}
+							html += '<option value="' + optgroupOptionKey + '"' + ( selected ? ' selected' : '' ) + '>' + optgroupOptionLabel + '</option>';
+						} );
+						html += '</optgroup>';
+					} else {
+						html += '<option value="' + optionKey + '"' + ( selected ? ' selected' : '' ) + '>' + optionLabel + '</option>';
+					}
+				} );
+			html += '</select>';
+		html += '</label>';
 
-	return '<div class="kirki-control-wrapper-select">' + html + '</div>';
-};
+		return '<div class="kirki-control-wrapper-select">' + html + '</div>';
+	},
 
-/**
- * Changes the value visually for 'select' controls.
- *
- * @param {object} [control] The control.
- * @param {string} [value]   The value.
- * @returns {void}
- */
-kirki.control.value.set.selectControl = function( control, value ) {
-	control.setSelect2( control.container.find( 'select' ), value );
+	value: {
+		/**
+		 * Changes the value visually for 'select' controls.
+		 *
+		 * @param {object} [control] The control.
+		 * @param {string} [value]   The value.
+		 * @returns {void}
+		 */
+		set: function( control, value ) {
+			control.setSelect2( control.container.find( 'select' ), value );
+		}
+	}
 };
 
 wp.customize.controlConstructor['kirki-select'] = wp.customize.kirkiDynamicControl.extend( {
@@ -73,7 +76,7 @@ wp.customize.controlConstructor['kirki-select'] = wp.customize.kirkiDynamicContr
 			control.params.value = [ control.params.value ];
 		}
 
-		control.container.html( kirki.control.template.selectControl( control ) );
+		control.container.html( kirki.control.select.template( control ) );
 
 		element  = this.container.find( 'select' );
 		multiple = parseInt( element.data( 'multiple' ), 10 );

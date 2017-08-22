@@ -1,41 +1,40 @@
 /* global wp, _, kirki */
+kirki.control.sortable = {
+	/**
+	 * The HTML Template for 'sortable' controls.
+	 *
+	 * @param {object} [control] The control.
+	 * @returns {string}
+	 */
+	template: function( control ) {
+		var html = '';
 
-kirki.control.type.sortable = kirki.control.type['kirki-sortable'] = 'sortableControl';
+		html += '<label class="kirki-sortable">';
+			html += '<span class="customize-control-title">' + control.params.label + '</span>';
+			html += '<span class="description customize-control-description">' + control.params.description + '</span>';
 
-/**
- * The HTML Template for 'sortable' controls.
- *
- * @param {object} [control] The control.
- * @returns {string}
- */
-kirki.control.template.sortableControl = function( control ) {
-	var html = '';
-
-	html += '<label class="kirki-sortable">';
-		html += '<span class="customize-control-title">' + control.params.label + '</span>';
-		html += '<span class="description customize-control-description">' + control.params.description + '</span>';
-
-		html += '<ul class="sortable">';
-			_.each( control.params.value, function( choiceID ) {
-				html += '<li ' + control.params.inputAttrs + ' class="kirki-sortable-item" data-value="' + choiceID + '">';
-					html += '<i class="dashicons dashicons-menu"></i>';
-					html += '<i class="dashicons dashicons-visibility visibility"></i>';
-					html += control.params.choices[ choiceID ];
-				html += '</li>';
-			} );
-			_.each( control.params.choices, function( choiceLabel, choiceID ) {
-				if ( -1 === control.params.value.indexOf( choiceID ) ) {
-					html += '<li ' + control.params.inputAttrs + ' class="kirki-sortable-item invisible" data-value="' + choiceID + '">';
+			html += '<ul class="sortable">';
+				_.each( control.params.value, function( choiceID ) {
+					html += '<li ' + control.params.inputAttrs + ' class="kirki-sortable-item" data-value="' + choiceID + '">';
 						html += '<i class="dashicons dashicons-menu"></i>';
 						html += '<i class="dashicons dashicons-visibility visibility"></i>';
 						html += control.params.choices[ choiceID ];
 					html += '</li>';
-				}
-			} );
-		html += '</ul>';
-	html += '</label>';
+				} );
+				_.each( control.params.choices, function( choiceLabel, choiceID ) {
+					if ( -1 === control.params.value.indexOf( choiceID ) ) {
+						html += '<li ' + control.params.inputAttrs + ' class="kirki-sortable-item invisible" data-value="' + choiceID + '">';
+							html += '<i class="dashicons dashicons-menu"></i>';
+							html += '<i class="dashicons dashicons-visibility visibility"></i>';
+							html += control.params.choices[ choiceID ];
+						html += '</li>';
+					}
+				} );
+			html += '</ul>';
+		html += '</label>';
 
-	return '<div class="kirki-control-wrapper-sortable">' + html + '</div>';
+		return '<div class="kirki-control-wrapper-sortable">' + html + '</div>';
+	}
 };
 
 wp.customize.controlConstructor['kirki-sortable'] = wp.customize.kirkiDynamicControl.extend( {
@@ -43,7 +42,7 @@ wp.customize.controlConstructor['kirki-sortable'] = wp.customize.kirkiDynamicCon
 	initKirkiControl: function() {
 		var control = this;
 
-		control.container.html( kirki.control.template.sortableControl( control ) );
+		control.container.html( kirki.control.sortable.template( control ) );
 
 		control.container.find( '.kirki-controls-loading-spinner' ).hide();
 

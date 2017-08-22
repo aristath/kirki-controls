@@ -1,34 +1,36 @@
 /* global wp, _, fontAwesomeJSON, kirki */
 
-kirki.control.type.fontawesome = kirki.control.type['kirki-fontawesome'] = 'fontawesomeControl';
+kirki.control.fontawesome = {
+	/**
+	 * The HTML Template for 'fontawesome' controls.
+	 *
+	 * @param {object} [control] The control.
+	 * @returns {string}
+	 */
+	template: function( control ) {
+		var html = '';
 
-/**
- * The HTML Template for 'fontawesome' controls.
- *
- * @param {object} [control] The control.
- * @returns {string}
- */
-kirki.control.template.fontawesomeControl = function( control ) {
-	var html = '';
+		html += '<label>';
+			html += '<span class="customize-control-title">' + control.params.label + '</span>';
+			html += '<span class="description customize-control-description">' + control.params.description + '</span>';
+			html += '<select ' + control.params.inputAttrs + ' ' + control.params.link + '</select>';
+		html += '</label>';
 
-	html += '<label>';
-		html += '<span class="customize-control-title">' + control.params.label + '</span>';
-		html += '<span class="description customize-control-description">' + control.params.description + '</span>';
-		html += '<select ' + control.params.inputAttrs + ' ' + control.params.link + '</select>';
-	html += '</label>';
+		return '<div class="kirki-control-wrapper-fontawesome">' + html + '</div>';
+	},
 
-	return '<div class="kirki-control-wrapper-fontawesome">' + html + '</div>';
-};
-
-/**
- * Changes the value visually for 'fontawesome' controls.
- *
- * @param {object} [control] The control.
- * @param {string} [value]   The value.
- * @returns {void}
- */
-kirki.control.value.set.fontawesomeControl = function( control, value ) {
-	control.setSelect2( control.container.find( 'select' ), value );
+	value: {
+		/**
+		 * Changes the value visually for 'fontawesome' controls.
+		 *
+		 * @param {object} [control] The control.
+		 * @param {string} [value]   The value.
+		 * @returns {void}
+		 */
+		set: function( control, value ) {
+			control.setSelect2( control.container.find( 'select' ), value );
+		}
+	}
 };
 
 wp.customize.controlConstructor['kirki-fontawesome'] = wp.customize.kirkiDynamicControl.extend( {
@@ -53,7 +55,7 @@ wp.customize.controlConstructor['kirki-fontawesome'] = wp.customize.kirkiDynamic
 		    },
 		    select;
 
-		control.container.html( kirki.control.template.fontawesomeControl( control ) );
+		control.container.html( kirki.control.fontawesome.template( control ) );
 
 		element = this.container.find( 'select' ),
 

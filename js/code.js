@@ -1,36 +1,38 @@
 /* global wp, _, CodeMirror, kirki */
+kirki.control.code = {
 
-kirki.control.type.code = kirki.control.type['kirki-code'] = 'codeControl';
+	/**
+	 * The HTML Template for 'code' controls.
+	 *
+	 * @param {object} [control] The control.
+	 * @returns {string}
+	 */
+	template: function( control ) {
+		var html    = '';
 
-/**
- * The HTML Template for 'code' controls.
- *
- * @param {object} [control] The control.
- * @returns {string}
- */
-kirki.control.template.codeControl = function( control ) {
-	var html    = '';
+		html += '<label>';
+			html += '<span class="customize-control-title">' + control.params.label + '</span>';
+			html += '<span class="description customize-control-description">' + control.params.description + '</span>';
+			html += '<div class="codemirror-kirki-wrapper">';
+				html += '<textarea ' + control.params.inputAttrs + ' class="kirki-codemirror-editor">' + control.params.value + '</textarea>';
+			html += '</div>';
+		html += '</label>';
 
-	html += '<label>';
-		html += '<span class="customize-control-title">' + control.params.label + '</span>';
-		html += '<span class="description customize-control-description">' + control.params.description + '</span>';
-		html += '<div class="codemirror-kirki-wrapper">';
-			html += '<textarea ' + control.params.inputAttrs + ' class="kirki-codemirror-editor">' + control.params.value + '</textarea>';
-		html += '</div>';
-	html += '</label>';
+		return '<div class="kirki-control-wrapper-code">' + html + '</div>';
+	},
 
-	return '<div class="kirki-control-wrapper-code">' + html + '</div>';
-};
-
-/**
- * Changes the value visually for 'code' controls.
- *
- * @param {object} [control] The control.
- * @param {string} [value]   The value.
- * @returns {void}
- */
-kirki.control.value.set.codeControl = function( control, value ) {
-	jQuery( control.container.find( '.CodeMirror' ) )[0].CodeMirror.setValue( value );
+	/**
+	 * Changes the value visually for 'code' controls.
+	 *
+	 * @param {object} [control] The control.
+	 * @param {string} [value]   The value.
+	 * @returns {void}
+	 */
+	value: {
+		set: function( control, value ) {
+			jQuery( control.container.find( '.CodeMirror' ) )[0].CodeMirror.setValue( value );
+		}
+	}
 };
 
 wp.customize.controlConstructor['kirki-code'] = wp.customize.kirkiDynamicControl.extend( {
@@ -44,7 +46,7 @@ wp.customize.controlConstructor['kirki-code'] = wp.customize.kirkiDynamicControl
 		    container,
 		    height;
 
-		control.container.html( kirki.control.template.codeControl( control ) );
+		control.container.html( kirki.control.code.template( control ) );
 
 		element = control.container.find( '.kirki-codemirror-editor' );
 

@@ -1,10 +1,11 @@
 /* global wp, _ */
 var kirki = {
 	control: {
-		type: {},
-		template: {},
-		value: {
-			set: {}
+		getTypeWithPrefix: function( controlType ) {
+			return 'kirki-' + controlType.replace( 'kirki-', '' );
+		},
+		getTypeWithoutPrefix: function( controlType ) {
+			return controlType.replace( 'kirki-', '' );
 		}
 	},
 
@@ -253,7 +254,10 @@ var kirki = {
 		 * @returns {void}
 		 */
 		getHTML: function( control ) {
-			return kirki.control.template[ kirki.control.type[ control.params.type ] ]( control );
+			if ( _.isUndefined( kirki.control[ kirki.control.getTypeWithoutPrefix( control.params.type ) ] ) ) {
+				console.log( control );
+			}
+			return kirki.control[ kirki.control.getTypeWithoutPrefix( control.params.type ) ].template( control );
 		},
 
 		/**
@@ -308,7 +312,7 @@ var kirki = {
 		 */
 		kirkiSetControlValue: function( value, key ) {
 			var control = this;
-			kirki.control.value.set[ kirki.control.type[ control.params.type ] ]( this, value );
+			kirki.control[ kirki.control.getTypeWithoutPrefix( control.params.type ) ].value.set( this, value );
 		},
 
 		/**

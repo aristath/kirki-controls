@@ -1,6 +1,7 @@
 /* global wp, _, kirki */
 
-kirki.control.type.preset = kirki.control.type['kirki-preset'] = 'presetControl';
+kirki.control.preset = {
+};
 
 wp.customize.controlConstructor['kirki-preset'] = wp.customize.kirkiDynamicControl.extend( {
 

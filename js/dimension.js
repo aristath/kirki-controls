@@ -1,36 +1,37 @@
 /* global wp, _, kirki */
+kirki.control.dimension = {
+	/**
+	 * The HTML Template for 'dimension' controls.
+	 *
+	 * @param {object} [control] The control.
+	 * @returns {string}
+	 */
+	template: function( control ) {
+		var html = '';
 
-kirki.control.type.dimension = kirki.control.type['kirki-dimension'] = 'dimensionControl';
+		html += '<label class="customizer-text">';
+			html += '<span class="customize-control-title">' + control.params.label + '</span>';
+			html += '<span class="description customize-control-description">' + control.params.description + '</span>';
+			html += '<div class="input-wrapper">';
+				html += '<input type="text" ' + control.params.inputAttrs + 'value="' + control.params.value.replace( '%%', '%' ) + '"/>';
+			html += '</div>';
+		html += '</label>';
 
-/**
- * The HTML Template for 'dimension' controls.
- *
- * @param {object} [control] The control.
- * @returns {string}
- */
-kirki.control.template.dimensionControl = function( control ) {
-	var html = '';
+		return '<div class="kirki-control-wrapper-dimension">' + html + '</div>';
+	},
 
-	html += '<label class="customizer-text">';
-		html += '<span class="customize-control-title">' + control.params.label + '</span>';
-		html += '<span class="description customize-control-description">' + control.params.description + '</span>';
-		html += '<div class="input-wrapper">';
-			html += '<input type="text" ' + control.params.inputAttrs + 'value="' + control.params.value.replace( '%%', '%' ) + '"/>';
-		html += '</div>';
-	html += '</label>';
-
-	return '<div class="kirki-control-wrapper-dimension">' + html + '</div>';
-};
-
-/**
- * Changes the value visually for 'dimension' controls.
- *
- * @param {object} [control] The control.
- * @param {string} [value]   The value.
- * @returns {void}
- */
-kirki.control.value.set.dimensionControl = function( control, value ) {
-	jQuery( control.container.find( 'input' ) ).attr( 'value', value );
+	value: {
+		/**
+		 * Changes the value visually for 'dimension' controls.
+		 *
+		 * @param {object} [control] The control.
+		 * @param {string} [value]   The value.
+		 * @returns {void}
+		 */
+		set: function( control, value ) {
+			jQuery( control.container.find( 'input' ) ).attr( 'value', value );
+		}
+	}
 };
 
 wp.customize.controlConstructor['kirki-dimension'] = wp.customize.kirkiDynamicControl.extend( {
@@ -40,7 +41,7 @@ wp.customize.controlConstructor['kirki-dimension'] = wp.customize.kirkiDynamicCo
 		var control = this,
 		    value;
 
-		control.container.html( kirki.control.template.dimensionControl( control ) );
+		control.container.html( kirki.control.dimension.template( control ) );
 
 		// Notifications.
 		control.kirkiNotifications();

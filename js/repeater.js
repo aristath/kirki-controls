@@ -1,90 +1,89 @@
 /* global wp, _, kirki */
+kirki.control.repeater = {
+	/**
+	 * The HTML Template for 'repeater' controls.
+	 *
+	 * @param {object} [control] The control.
+	 * @returns {string}
+	 */
+	template: function( control ) {
+		var html = '';
 
-kirki.control.type.repeater = kirki.control.type['kirki-repeater'] = 'repeaterControl';
+		if ( ! control.params.fields ) {
+			return;
+		}
+		html += '<span class="customize-control-title">' + control.params.label + '</span>';
+		html += '<span class="description customize-control-description">' + control.params.description + '</span>';
 
-/**
- * The HTML Template for 'repeater' controls.
- *
- * @param {object} [control] The control.
- * @returns {string}
- */
-kirki.control.template.repeaterControl = function( control ) {
-	var html = '';
-
-	if ( ! control.params.fields ) {
-		return;
-	}
-	html += '<span class="customize-control-title">' + control.params.label + '</span>';
-	html += '<span class="description customize-control-description">' + control.params.description + '</span>';
-
-	html += '<ul class="repeater-rows">';
-		_.each( control.params.value, function( rowValue, key ) {
-			html += kirki.control.template.repeaterControlRow( control, rowValue, key );
-		} );
-	html += '</ul>';
-
-	html += '<button class="add-row button"><span class="dashicons dashicons-plus"></span> Add Row</button>';
-
-	return '<div class="kirki-control-wrapper-repeater">' + html + '</div>';
-};
-
-/**
- * The HTML Template for a single row inside a repeater control.
- *
- * @param {object} [control] The control.
- * @returns {string}
- */
-kirki.control.template.repeaterControlRow = function( control, value, rowKey ) {
-	var rowTemplate = '';
-
-	rowTemplate = '<li class="repeater-row">';
-		rowTemplate += '<div class="row-header">';
-			rowTemplate += 'Row Title';
-			rowTemplate += '<div class="repeater-row-actions">';
-				rowTemplate += '<span class="action move"><span class="dashicons dashicons-move"></span></span>';
-				rowTemplate += '<span class="action trash"><span class="dashicons dashicons-trash"></span></span>';
-			rowTemplate += '</div>';
-		rowTemplate += '</div>';
-
-		rowTemplate += '<div class="row-content">';
-
-			// Go through each field.
-			_.each( control.params.fields, function( field, key ) {
-
-				// Get the correct method for this control.
-				if ( _.isUndefined( field.type ) || _.isUndefined( kirki.control.type[ 'kirki-' + field.type ] ) ) {
-					field.type = 'generic';
-				}
-				field.settings = field.id;
-				field.params   = _.defaults( field, {
-					label: '',
-					description: '',
-					choices: {},
-					inputAttrs: '',
-					link: '',
-					multiple: 1
-				} );
-				field.params.id = control.id + '[]' + '[' + key + ']';
-
-				// Add the value to the field.
-				if ( ! _.isUndefined( value ) && ! _.isUndefined( value[ key ] ) ) {
-					field.params.value = value[ key ];
-				}
-
-				// Add the template.
-				rowTemplate += kirki.control.template[ kirki.control.type[ 'kirki-' + field.type ] ]( field );
+		html += '<ul class="repeater-rows">';
+			_.each( control.params.value, function( rowValue, key ) {
+				html += kirki.control.repeater.rowTemplate( control, rowValue, key );
 			} );
-		rowTemplate += '</div>';
-	rowTemplate += '</li>';
+		html += '</ul>';
 
-	return rowTemplate;
+		html += '<button class="add-row button"><span class="dashicons dashicons-plus"></span> Add Row</button>';
+
+		return '<div class="kirki-control-wrapper-repeater">' + html + '</div>';
+	},
+
+	/**
+	 * The HTML Template for a single row inside a repeater control.
+	 *
+	 * @param {object} [control] The control.
+	 * @returns {string}
+	 */
+	rowTemplate: function( control, value, rowKey ) {
+		var rowTemplate = '';
+
+		rowTemplate = '<li class="repeater-row">';
+			rowTemplate += '<div class="row-header">';
+				rowTemplate += 'Row Title';
+				rowTemplate += '<div class="repeater-row-actions">';
+					rowTemplate += '<span class="action move"><span class="dashicons dashicons-move"></span></span>';
+					rowTemplate += '<span class="action trash"><span class="dashicons dashicons-trash"></span></span>';
+				rowTemplate += '</div>';
+			rowTemplate += '</div>';
+
+			rowTemplate += '<div class="row-content">';
+
+				// Go through each field.
+				_.each( control.params.fields, function( field, key ) {
+
+					// Get the correct method for this control.
+					if ( _.isUndefined( field.type ) || _.isUndefined( kirki.control.type[ 'kirki-' + field.type ] ) ) {
+						field.type = 'generic';
+					}
+					field.settings = field.id;
+					field.params   = _.defaults( field, {
+						label: '',
+						description: '',
+						choices: {},
+						inputAttrs: '',
+						link: '',
+						multiple: 1
+					} );
+					field.params.id = control.id + '[]' + '[' + key + ']';
+
+					// Add the value to the field.
+					if ( ! _.isUndefined( value ) && ! _.isUndefined( value[ key ] ) ) {
+						field.params.value = value[ key ];
+					}
+
+					// Add the template.
+					rowTemplate += kirki.control[ kirki.control.type[ field.type ] ].template( field );
+				} );
+			rowTemplate += '</div>';
+		rowTemplate += '</li>';
+
+		return rowTemplate;
+	}
 };
 
 wp.customize.controlConstructor['kirki-repeater'] = wp.customize.kirkiDynamicControl.extend( {
 	initKirkiControl: function() {
 		var control     = this;
 
-		control.container.html( kirki.control.template.repeaterControl( control ) );
+		control.container.html( kirki.control.repeater.template( control ) );
 
 		control.repeaterRowAddButton();
 		control.repeaterRowRemoveButton();
@@ -106,7 +105,7 @@ wp.customize.controlConstructor['kirki-repeater'] = wp.customize.kirkiDynamicCon
 		control.container.find( '.add-row' ).click( function( e ) {
 			e.preventDefault();
 			jQuery( control.container.find( '.repeater-rows' ) )
-				.append( kirki.control.template.repeaterControlRow( control, rowDefaults ) );
+				.append( kirki.control.repeater.rowTemplate( control, rowDefaults ) );
 		});
 
 		control.repeaterRowSortableAccordion();

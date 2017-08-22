@@ -1,64 +1,65 @@
 /* global wp, _, kirki */
+kirki.control.dimensions = {
+	/**
+	 * The HTML Template for 'dimensions' controls.
+	 *
+	 * @param {object} [control] The control.
+	 * @returns {string}
+	 */
+	template: function( control ) {
+		var html = '';
 
-kirki.control.type.dimensions = kirki.control.type['kirki-dimensions'] = 'dimensionsControl';
+		control.params = _.defaults( control.params, {
+			label: '',
+			description: '',
+			'default': {},
+			choices: {},
+			value: {}
+		} );
+		control.params.value = _.defaults( control.params.value, control.params['default'] );
 
-/**
- * The HTML Template for 'dimensions' controls.
- *
- * @param {object} [control] The control.
- * @returns {string}
- */
-kirki.control.template.dimensionsControl = function( control ) {
-	var html = '';
-
-	control.params = _.defaults( control.params, {
-		label: '',
-		description: '',
-		'default': {},
-		choices: {},
-		value: {}
-	} );
-	control.params.value = _.defaults( control.params.value, control.params['default'] );
-
-	html += '<label>';
-		html += '<span class="customize-control-title">' + control.params.label + '</span>';
-		html += '<span class="description customize-control-description">' + control.params.description + '</span>';
-		html += '<div class="wrapper">';
-			html += '<div class="control">';
-				_.each( control.params['default'], function( choiceVal, choiceKey ) {
-					html += '<div class="' + choiceKey + '">';
-						html += '<h5>';
-							if ( ! _.isUndefined( control.params.choices.labels ) && ! _.isUndefined( control.params.choices.labels[ choiceKey ] ) ) {
-								html += control.params.choices.labels[ choiceKey ];
-							} else if ( ! _.isUndefined( control.params.l10n[ choiceKey ] ) ) {
-								html += control.params.l10n[ choiceKey ];
-							} else {
-								html += choiceKey;
-							}
-						html += '</h5>';
-						html += '<div class="' + choiceKey + ' input-wrapper">';
-							html += '<input type="text" ' + control.params.inputAttrs + ' data-choice="' + choiceKey + '" value="' + control.params.value[ choiceKey ].replace( '%%', '%' ) + '"/>';
+		html += '<label>';
+			html += '<span class="customize-control-title">' + control.params.label + '</span>';
+			html += '<span class="description customize-control-description">' + control.params.description + '</span>';
+			html += '<div class="wrapper">';
+				html += '<div class="control">';
+					_.each( control.params['default'], function( choiceVal, choiceKey ) {
+						html += '<div class="' + choiceKey + '">';
+							html += '<h5>';
+								if ( ! _.isUndefined( control.params.choices.labels ) && ! _.isUndefined( control.params.choices.labels[ choiceKey ] ) ) {
+									html += control.params.choices.labels[ choiceKey ];
+								} else if ( ! _.isUndefined( control.params.l10n[ choiceKey ] ) ) {
+									html += control.params.l10n[ choiceKey ];
+								} else {
+									html += choiceKey;
+								}
+							html += '</h5>';
+							html += '<div class="' + choiceKey + ' input-wrapper">';
+								html += '<input type="text" ' + control.params.inputAttrs + ' data-choice="' + choiceKey + '" value="' + control.params.value[ choiceKey ].replace( '%%', '%' ) + '"/>';
+							html += '</div>';
 						html += '</div>';
-					html += '</div>';
-				} );
+					} );
+				html += '</div>';
 			html += '</div>';
-		html += '</div>';
-	html += '</label>';
+		html += '</label>';
 
-	return '<div class="kirki-control-wrapper-dimensions">' + html + '</div>';
-};
+		return '<div class="kirki-control-wrapper-dimensions">' + html + '</div>';
+	},
 
-/**
- * Changes the value visually for 'dimensions' controls.
- *
- * @param {object} [control] The control.
- * @param {object} [value]   The value.
- * @returns {void}
- */
-kirki.control.value.set.dimensionsControl = function( control, value ) {
-	_.each( value, function( subValue, id ) {
-		jQuery( control.container.find( '.' + id + ' input' ) ).prop( 'value', subValue );
-	} );
+	value: {
+		/**
+		 * Changes the value visually for 'dimensions' controls.
+		 *
+		 * @param {object} [control] The control.
+		 * @param {object} [value]   The value.
+		 * @returns {void}
+		 */
+		set: function( control, value ) {
+			_.each( value, function( subValue, id ) {
+				jQuery( control.container.find( '.' + id + ' input' ) ).prop( 'value', subValue );
+			} );
+		}
+	}
 };
 
 wp.customize.controlConstructor['kirki-dimensions'] = wp.customize.kirkiDynamicControl.extend( {
@@ -71,7 +72,7 @@ wp.customize.controlConstructor['kirki-dimensions'] = wp.customize.kirkiDynamicC
 		    subsArray   = [],
 		    i;
 
-		control.container.html( kirki.control.template.dimensionsControl( control ) );
+		control.container.html( kirki.control.dimensions.template( control ) );
 
 		_.each( subControls, function( v, i ) {
 			if ( true === v ) {
