@@ -1,4 +1,41 @@
 /* global wp, _, kirki */
+
+kirki.control.type['switch'] = kirki.control.type['kirki-switch'] = 'switchControl';
+
+/**
+ * The HTML Template for 'switch' controls.
+ *
+ * @param {object} [control] The control.
+ * @returns {string}
+ */
+kirki.control.template.switchControl = function( control ) {
+	var html = '';
+
+	html += '<div class="switch' + ( ( control.params.choices.round ) ? ' round' : '' ) + '">';
+		html += '<span class="customize-control-title">' + control.params.label + '</span>';
+		html += '<span class="description customize-control-description">' + control.params.description + '</span>';
+		html += '<input ' + control.params.inputAttrs + ' class="screen-reader-text" name="switch_' + control.id + '" id="switch_' + control.id + '" type="checkbox" value="' + control.params.value + '" ' + control.params.link + ( '1' === control.params.value ? ' checked' : '' ) + '/>';
+		html += '<label class="switch-label" for="switch_' + control.id + '">';
+			html += '<span class="switch-on">' + control.params.choices.on + '</span>';
+			html += '<span class="switch-off">' + control.params.choices.off + '</span>';
+		html += '</label>';
+	html += '</div>';
+
+	return '<div class="kirki-control-wrapper-switch">' + html + '</div>';
+};
+
+/**
+ * Changes the value visually for 'switch' controls.
+ *
+ * @param {object} [control] The control.
+ * @param {bool}   [value]   The value.
+ * @returns {void}
+ */
+kirki.control.value.set.switchControl = function( control, value ) {
+	value = ( 1 === value || '1' === value || true === value ) ? true : false;
+	jQuery( control.container.find( 'input' ) ).prop( 'checked', value );
+};
+
 wp.customize.controlConstructor['kirki-switch'] = wp.customize.kirkiDynamicControl.extend( {
 
 	initKirkiControl: function() {

@@ -1,4 +1,38 @@
 /* global wp, _, kirki */
+
+kirki.control.type.number = kirki.control.type['kirki-number'] = 'numberControl';
+
+/**
+ * The HTML Template for 'number' controls.
+ *
+ * @param {object} [control] The control.
+ * @returns {string}
+ */
+kirki.control.template.numberControl = function( control ) {
+	var html = '';
+
+	html += '<label>';
+		html += '<span class="customize-control-title">' + control.params.label + '</span>';
+		html += '<span class="description customize-control-description">' + control.params.description + '</span>';
+		html += '<div class="customize-control-content">';
+			html += '<input ' + control.params.inputAttrs + ' type="text" ' + control.params.link + ' value="' + control.params.value + '" />';
+		html += '</div>';
+	html += '</label>';
+
+	return '<div class="kirki-control-wrapper-number">' + html + '</div>';
+};
+
+/**
+ * Changes the value visually for 'number' controls.
+ *
+ * @param {object} [control] The control.
+ * @param {object} [value]   The value.
+ * @returns {void}
+ */
+kirki.control.value.set.numberControl = function( control, value ) {
+	jQuery( control.container.find( 'input' ) ).attr( 'value', value );
+};
+
 wp.customize.controlConstructor['kirki-number'] = wp.customize.kirkiDynamicControl.extend( {
 
 	initKirkiControl: function() {

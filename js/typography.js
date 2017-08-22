@@ -1,4 +1,186 @@
 /* global wp, _, kirkiAllFonts, kirki */
+
+kirki.control.type.typography = kirki.control.type['kirki-typography'] = 'typographyControl';
+
+/**
+ * The HTML Template for 'typography' controls.
+ *
+ * @param {object} [control] The control.
+ * @returns {string}
+ */
+kirki.control.template.typographyControl = function( control ) {
+	var html = '';
+
+	html += '<label class="customizer-text">';
+		html += '<span class="customize-control-title">' + control.params.label + '</span>';
+		html += '<span class="description customize-control-description">' + control.params.description + '</span>';
+	html += '</label>';
+
+	html += '<div class="wrapper">';
+
+		if ( control.params['default']['font-family'] ) {
+			if ( '' === control.params.value['font-family'] ) {
+				control.params.value['font-family'] = control.params['default']['font-family'];
+			}
+			if ( control.params.choices.fonts ) {
+				control.params.fonts = control.params.choices.fonts;
+			}
+			html += '<div class="font-family">';
+				html += '<h5>' + control.params.l10n.fontFamily + '</h5>';
+				html += '<select ' + control.params.inputAttrs + ' id="kirki-typography-font-family-' + control.params.id + '" placeholder="' + control.params.l10n.selectFontFamily + '"></select>';
+			html += '</div>';
+			if ( ! _.isUndefined( control.params.choices['font-backup'] ) && true === control.params.choices['font-backup'] ) {
+				html += '<div class="font-backup hide-on-standard-fonts kirki-font-backup-wrapper">';
+					html += '<h5>' + control.params.l10n.backupFont + '</h5>';
+					html += '<select ' + control.params.inputAttrs + ' id="kirki-typography-font-backup-' + control.params.id + '" placeholder="' + control.params.l10n.selectFontFamily + '"></select>';
+				html += '</div>';
+			}
+			if ( true === control.params.show_variants || false !== control.params['default'].variant ) {
+				html += '<div class="variant kirki-variant-wrapper">';
+					html += '<h5>' + control.params.l10n.variant + '</h5>';
+					html += '<select ' + control.params.inputAttrs + ' class="variant" id="kirki-typography-variant-' + control.params.id + '"></select>';
+				html += '</div>';
+			}
+			if ( true === control.params.show_subsets ) {
+				html += '<div class="subsets hide-on-standard-fonts kirki-subsets-wrapper">';
+					html += '<h5>' + control.params.l10n.subsets + '</h5>';
+					html += '<select ' + control.params.inputAttrs + ' class="subset" id="kirki-typography-subsets-' + control.params.id + '"' + ( ( _.isUndefined( control.params.choices['disable-multiple-variants'] ) || false === control.params.choices['disable-multiple-variants'] ) ? ' multiple' : '' ) + '>';
+						_.each( control.params.value.subsets, function( subset ) {
+							html += '<option value="' + subset + '" selected="selected">' + control.params.languages[ subset ] + '</option>';
+						} );
+					html += '</select>';
+				html += '</div>';
+			}
+		}
+
+		if ( control.params['default']['font-size'] ) {
+			html += '<div class="font-size">';
+				html += '<h5>' + control.params.l10n.fontSize + '</h5>';
+				html += '<input ' + control.params.inputAttrs + ' type="text" value="' + control.params.value['font-size'] + '"/>';
+			html += '</div>';
+		}
+
+		if ( control.params['default']['line-height'] ) {
+			html += '<div class="line-height">';
+				html += '<h5>' + control.params.l10n.lineHeight + '</h5>';
+				html += '<input ' + control.params.inputAttrs + ' type="text" value="' + control.params.value['line-height'] + '"/>';
+			html += '</div>';
+		}
+
+		if ( control.params['default']['letter-spacing'] ) {
+			html += '<div class="letter-spacing">';
+				html += '<h5>' + control.params.l10n.letterSpacing + '</h5>';
+				html += '<input ' + control.params.inputAttrs + ' type="text" value="' + control.params.value['letter-spacing'] + '"/>';
+			html += '</div>';
+		}
+
+		if ( control.params['default']['word-spacing'] ) {
+			html += '<div class="word-spacing">';
+				html += '<h5>' + control.params.l10n.wordSpacing + '</h5>';
+				html += '<input ' + control.params.inputAttrs + ' type="text" value="' + control.params.value['word-spacing'] + '"/>';
+			html += '</div>';
+		}
+
+		if ( control.params['default']['text-align'] ) {
+			html += '<div class="text-align">';
+				html += '<h5>' + control.params.l10n.textAlign + '</h5>';
+				html += '<input ' + control.params.inputAttrs + ' type="radio" value="inherit" name="_customize-typography-text-align-radio-' + control.params.id + '" id="' + control.params.id + '-text-align-inherit" ' + ( 'inherit' === control.params.value['text-align'] ? ' checked="checked"' : '' ) + '>';
+					html += '<label for="' + control.params.id + '-text-align-inherit">';
+						html += '<span class="dashicons dashicons-editor-removeformatting"></span>';
+						html += '<span class="screen-reader-text">' + control.params.l10n.inherit + '</span>';
+					html += '</label>';
+				html += '</input>';
+
+				html += '<input ' + control.params.inputAttrs + ' type="radio" value="left" name="_customize-typography-text-align-radio-' + control.params.id + '" id="' + control.params.id + '-text-align-left" ' + ( 'left' === control.params.value['text-align'] ? ' checked="checked"' : '' ) + '>';
+					html += '<label for="' + control.params.id + '-text-align-left">';
+						html += '<span class="dashicons dashicons-editor-alignleft"></span>';
+						html += '<span class="screen-reader-text">' + control.params.l10n.left + '</span>';
+					html += '</label>';
+				html += '</input>';
+
+				html += '<input ' + control.params.inputAttrs + ' type="radio" value="center" name="_customize-typography-text-align-radio-' + control.params.id + '" id="' + control.params.id + '-text-align-center" ' + ( 'center' === control.params.value['text-align'] ? ' checked="checked"' : '' ) + '>';
+					html += '<label for="' + control.params.id + '-text-align-center">';
+						html += '<span class="dashicons dashicons-editor-aligncenter"></span>';
+						html += '<span class="screen-reader-text">' + control.params.l10n.center + '</span>';
+					html += '</label>';
+				html += '</input>';
+
+				html += '<input ' + control.params.inputAttrs + ' type="radio" value="right" name="_customize-typography-text-align-radio-' + control.params.id + '" id="' + control.params.id + '-text-align-right" ' + ( 'right' === control.params.value['text-align'] ? ' checked="checked"' : '' ) + '>';
+					html += '<label for="' + control.params.id + '-text-align-right">';
+						html += '<span class="dashicons dashicons-editor-alignright"></span>';
+						html += '<span class="screen-reader-text">' + control.params.l10n.right + '</span>';
+					html += '</label>';
+				html += '</input>';
+
+				html += '<input ' + control.params.inputAttrs + ' type="radio" value="justify" name="_customize-typography-text-align-radio-' + control.params.id + '" id="' + control.params.id + '-text-align-justify" ' + ( 'justify' === control.params.value['text-align'] ? ' checked="checked"' : '' ) + '>';
+					html += '<label for="' + control.params.id + '-text-align-justify">';
+						html += '<span class="dashicons dashicons-editor-justify"></span>';
+						html += '<span class="screen-reader-text">' + control.params.l10n.justify + '</span>';
+					html += '</label>';
+				html += '</input>';
+			html += '</div>';
+		}
+
+		if ( control.params['default']['text-transform'] ) {
+			html += '<div class="text-transform">';
+				html += '<h5>' + control.params.l10n.textTransform + '</h5>';
+				html += '<select ' + control.params.inputAttrs + ' id="kirki-typography-text-transform-' + control.params.id + '">';
+					_.each( ['none', 'capitalize', 'uppercase', 'lowercase', 'initial', 'inherit'], function( textTransform ) {
+						html += '<option value="none"' + ( textTransform === control.params.value['text-transform'] ? ' selected' : '' ) + '>' + control.params.l10n[ textTransform ] + '</option>';
+					} );
+				html += '</select>';
+			html += '</div>';
+		}
+
+		if ( false !== control.params['default'].color && control.params['default'].color ) {
+			html += '<div class="color">';
+				html += '<h5>' + control.params.l10n.color + '</h5>';
+				html += '<input ' + control.params.inputAttrs + ' type="text" data-palette="' + control.params.palette + '" data-default-color="' + control.params['default'].color + '" value="' + control.params.value.color + '" class="kirki-color-control" ' + control.params.link + ' />';
+			html += '</div>';
+		}
+
+		if ( control.params['default']['margin-top'] ) {
+			html += '<div class="margin-top">';
+				html += '<h5>' + control.params.l10n.marginTop + '</h5>';
+				html += '<input ' + control.params.inputAttrs + ' type="text" value="' + control.params.value['margin-top'] + '"/>';
+			html += '</div>';
+		}
+
+		if ( control.params['default']['margin-bottom'] ) {
+			html += '<div class="margin-bottom">';
+				html += '<h5>' + control.params.l10n.marginBottom + '</h5>';
+				html += '<input ' + control.params.inputAttrs + ' type="text" value="' + control.params.value['margin-bottom'] + '"/>';
+			html += '</div>';
+		}
+	html += '</div>';
+
+	return '<div class="kirki-control-wrapper-typography">' + html + '</div>';
+};
+
+/**
+ * Changes the value visually for 'typography' controls.
+ *
+ * @param {object} [control] The control.
+ * @param {object} [value]   The value.
+ * @returns {void}
+ */
+kirki.control.value.set.typographyControl = function( control, value ) {
+	_.each( ['font-family', 'variant', 'subsets'], function( subVal ) {
+		if ( ! _.isUndefined( value[ subVal ] ) ) {
+			control.setSelect2( control.container.find( '.' + subVal + ' select' ), value[ subVal ] );
+		}
+	} );
+	_.each( ['font-size', 'line-height', 'letter-spacing', 'word-spacing'], function( subVal ) {
+		if ( ! _.isUndefined( value[ subVal ] ) ) {
+			jQuery( control.container.find( '.' + subVal + ' input' ) ).prop( 'value', value[ subVal ] );
+		}
+	} );
+
+	if ( ! _.isUndefined( value.color ) ) {
+		control.setColorPicker( control.container.find( '.kirki-color-control' ), value.color );
+	}
+};
+
 wp.customize.controlConstructor['kirki-typography'] = wp.customize.kirkiDynamicControl.extend( {
 
 	initKirkiControl: function() {

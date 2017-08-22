@@ -1,4 +1,47 @@
 /* global wp, _, kirki */
+
+kirki.control.type.multicolor = kirki.control.type['kirki-multicolor'] = 'multicolorControl';
+
+/**
+ * The HTML Template for 'multicolor' controls.
+ *
+ * @param {object} [control] The control.
+ * @returns {string}
+ */
+kirki.control.template.multicolorControl = function( control ) {
+	var html = '';
+
+	html += '<span class="customize-control-title">' + control.params.label + '</span>';
+	html += '<span class="description customize-control-description">' + control.params.description + '</span>';
+	html += '<div class="multicolor-group-wrapper">';
+		_.each( control.params.choices, function( val, key ) {
+			if ( 'irisArgs' !== key ) {
+				html += '<div class="multicolor-single-color-wrapper">';
+					html += ( val ) ? '<label for="' + control.id + '-' + key + '">' + val + '</label>' : '';
+					html += '<input ' + control.params.inputAttrs + ' id="' + control.id + '-' + key + '" type="text" data-palette="' + control.params.palette + '" data-default-color="' + control.params['default'][ key ] + '" data-alpha="' + control.params.alpha + '" value="' + control.params.value[ key ] + '" class="kirki-color-control color-picker multicolor-index-' + key + '" />';
+				html += '</div>';
+			}
+		} );
+	html += '</div>';
+	html += '<div class="iris-target"></div>';
+
+	return '<div class="kirki-control-wrapper-multicolor">' + html + '</div>';
+};
+
+/**
+ * Changes the value visually for 'multicolor' controls.
+ *
+ * @param {object} [control] The control.
+ * @param {object} [value]   The value.
+ * @returns {void}
+ */
+kirki.control.value.set.multicolorControl = function( value ) {
+	var control = this;
+	_.each( value, function( subVal, index ) {
+		control.setColorPicker( control.container.find( '.multicolor-index-' + index ), subVal );
+	} );
+};
+
 wp.customize.controlConstructor['kirki-multicolor'] = wp.customize.kirkiDynamicControl.extend( {
 
 	initKirkiControl: function() {

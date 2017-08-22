@@ -1,4 +1,65 @@
 /* global wp, _, kirki */
+
+kirki.control.type.image = kirki.control.type['kirki-image'] = 'imageControl';
+
+/**
+ * The HTML Template for 'image' controls.
+ *
+ * @param {object} [control] The control.
+ * @returns {string}
+ */
+kirki.control.template.imageControl = function( control ) {
+	var html    = '',
+		saveAs  = ( _.isUndefined( control.params.choices ) || _.isUndefined( control.params.choices.save_as ) ) ? 'url' : control.params.choices.save_as,
+		value   = control.params.value,
+		url     = value;
+
+	html += '<label>';
+		html += '<span class="customize-control-title">' + control.params.label + '</span>';
+		html += '<span class="description customize-control-description">' + control.params.description + '</span>';
+	html += '</label>';
+	html += '<div class="wrapper">';
+		html += '<div class="image">';
+			html += '<div class="attachment-media-view image-upload">';
+				html += '<div class="thumbnail thumbnail-image"><img class="' + control.id + '-image" src="" alt="" /></div>';
+				html += '<div class="actions">';
+					html += '<button class="button image-upload-remove-button' + ( ! control.params.value ? ' hidden' : '' ) + '">' + control.params.l10n.remove + '</button> ';
+					html += '<button type="button" class="button image-upload-button">' + control.params.l10n.selectFile + '</button> ';
+					if ( control.params['default'] && '' !== control.params['default'] ) {
+						html += '<button type="button" class="button image-default-button"' + ( ( control.params['default'] === control.params.value || ( ! _.isUndefined( control.params.value.url ) && control.params['default'] === control.params.value.url ) ) ? ' style="display:none;' : '' ) + '">' + control.params.l10n.defaultImage + '</button>';
+					}
+				html += '</div>';
+			html += '</div>';
+		html += '</div>';
+	html += '</div>';
+
+	return '<div class="kirki-control-wrapper-image">' + html + '</div>';
+};
+
+/**
+ * Changes the value visually for 'image' controls.
+ *
+ * @param {object} [control] The control.
+ * @param {mixed}  [value]   The value.
+ * @returns {void}
+ */
+kirki.control.value.set.imageControl = function( control, value ) {
+	var saveAs  = ( _.isUndefined( control.params.choices ) || _.isUndefined( control.params.choices.save_as ) ) ? 'url' : control.params.choices.save_as,
+		url     = value;
+
+	if ( _.isObject( value ) && ! _.isUndefined( value.url ) ) {
+		jQuery( control.container.find( '.' + control.id + '-image' ) ).prop( 'src', value.url );
+	} else if ( 'id' === saveAs && ! isNaN( value ) ) {
+		wp.media.attachment( value ).fetch().then( function( mediaData ) {
+			setTimeout( function() {
+				jQuery( control.container.find( '.' + control.id + '-image' ) ).prop( 'src', wp.media.attachment( value ).get( 'url' ) );
+			}, 500 );
+		} );
+	} else {
+		jQuery( control.container.find( '.' + control.id + '-image' ) ).prop( 'src', value );
+	}
+};
+
 wp.customize.controlConstructor['kirki-image'] = wp.customize.kirkiDynamicControl.extend( {
 
 	initKirkiControl: function() {

@@ -1,4 +1,44 @@
 /* global wp, _, kirki */
+
+kirki.control.type.slider = kirki.control.type['kirki-slider'] = 'sliderControl';
+
+/**
+ * The HTML Template for 'slider' controls.
+ *
+ * @param {object} [control] The control.
+ * @returns {string}
+ */
+kirki.control.template.sliderControl = function( control ) {
+	var html = '';
+
+	html += '<label>';
+		html += '<span class="customize-control-title">' + control.params.label + '</span>';
+		html += '<span class="description customize-control-description">' + control.params.description + '</span>';
+		html += '<div class="wrapper">';
+			html += '<input ' + control.params.inputAttrs + ' type="range" min="' + control.params.choices.min + '" max="' + control.params.choices.max + '" step="' + control.params.choices.step + '" value="' + control.params.value + '" ' + control.params.link + ' data-reset_value="' + control.params['default'] + '" />';
+			html += '<div class="kirki_range_value">';
+				html += '<span class="value">' + control.params.value + '</span>';
+				html += control.params.choices.suffix ? control.params.choices.suffix : '';
+			html += '</div>';
+			html += '<div class="kirki-slider-reset"><span class="dashicons dashicons-image-rotate"></span></div>';
+		html += '</div>';
+	html += '</label>';
+
+	return '<div class="kirki-control-wrapper-slider">' + html + '</div>';
+};
+
+/**
+ * Changes the value visually for 'slider' controls.
+ *
+ * @param {object} [control] The control.
+ * @param {float}  [value]   The value.
+ * @returns {void}
+ */
+kirki.control.value.set.sliderControl = function( control, value ) {
+	jQuery( control.container.find( 'input' ) ).prop( 'value', value );
+	jQuery( control.container.find( '.kirki_range_value .value' ) ).html( value );
+};
+
 wp.customize.controlConstructor['kirki-slider'] = wp.customize.kirkiDynamicControl.extend( {
 
 	initKirkiControl: function() {
