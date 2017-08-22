@@ -27,6 +27,8 @@ wp.customize.controlConstructor['kirki-repeater'] = wp.customize.kirkiDynamicCon
 			jQuery( control.container.find( '.repeater-rows' ) )
 				.append( kirki.template.repeaterControlRow( control, rowDefaults ) );
 		});
+
+		control.repeaterRowSortableAccordion();
 	},
 
 	/**
