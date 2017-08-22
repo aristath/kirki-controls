@@ -7,6 +7,7 @@ wp.customize.controlConstructor['kirki-repeater'] = wp.customize.kirkiDynamicCon
 
 		control.repeaterRowAddButton();
 		control.repeaterRowRemoveButton();
+		control.repeaterRowSortable();
 
 	},
 
@@ -37,5 +38,14 @@ wp.customize.controlConstructor['kirki-repeater'] = wp.customize.kirkiDynamicCon
 		control.container.find( '.repeater-row-remove-button' ).click( function( e ) {
 			jQuery( this ).parents( '.repeater-row' ).remove();
 		});
+	},
+
+	/**
+	 * Sortable.
+	 */
+	repeaterRowSortable: function() {
+		var control = this;
+
+		control.container.find( '.repeater-rows' ).sortable();
 	}
 } );

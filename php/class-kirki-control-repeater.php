@@ -52,6 +52,17 @@ class Kirki_Control_Repeater extends Kirki_Control_Base {
 	public $row_label = array();
 
 	/**
+	 * Returns an array of extra field dependencies for Kirki controls.
+	 *
+	 * @access protected
+	 * @since 3.0.10
+	 * @return array
+	 */
+	protected function kirki_script_dependencies() {
+		return array( 'jquery-ui-sortable' );
+	}
+
+	/**
 	 * Refresh the parameters passed to the JavaScript via JSON.
 	 *
 	 * @access public
