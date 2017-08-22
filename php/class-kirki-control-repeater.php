@@ -59,7 +59,7 @@ class Kirki_Control_Repeater extends Kirki_Control_Base {
 	 * @return array
 	 */
 	protected function kirki_script_dependencies() {
-		return array( 'jquery-ui-sortable' );
+		return array( 'jquery-ui-sortable', 'jquery-ui-accordion' );
 	}
 
 	/**

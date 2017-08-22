@@ -7,7 +7,7 @@ wp.customize.controlConstructor['kirki-repeater'] = wp.customize.kirkiDynamicCon
 
 		control.repeaterRowAddButton();
 		control.repeaterRowRemoveButton();
-		control.repeaterRowSortable();
+		control.repeaterRowSortableAccordion();
 
 	},
 
@@ -35,7 +35,7 @@ wp.customize.controlConstructor['kirki-repeater'] = wp.customize.kirkiDynamicCon
 	repeaterRowRemoveButton: function() {
 		var control = this;
 
-		control.container.find( '.repeater-row-remove-button' ).click( function( e ) {
+		control.container.find( '.action.trash' ).click( function( e ) {
 			jQuery( this ).parents( '.repeater-row' ).remove();
 		});
 	},
@@ -43,9 +43,20 @@ wp.customize.controlConstructor['kirki-repeater'] = wp.customize.kirkiDynamicCon
 	/**
 	 * Sortable.
 	 */
-	repeaterRowSortable: function() {
+	repeaterRowSortableAccordion: function() {
 		var control = this;
 
-		control.container.find( '.repeater-rows' ).sortable();
+		jQuery( control.container.find( '.repeater-rows' ) ).accordion({
+			header: '> .repeater-row > .row-header',
+			collapsible: true,
+			animate: 150
+		}).sortable({
+			axis: 'y',
+			handle: '.action.move',
+			stop: function( event, ui ) {
+				ui.item.children( '.action.move' ).triggerHandler( 'focusout' );
+				jQuery( this ).accordion( 'refresh' );
+			}
+		});
 	}
 } );
