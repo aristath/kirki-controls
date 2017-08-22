@@ -21,8 +21,9 @@ wp.customize.controlConstructor['kirki-repeater'] = wp.customize.kirkiDynamicCon
 			rowDefaults[ key ] = ( ! _.isUndefined( field['default'] ) ) ? field['default'] : '';
 		} );
 
-		control.container.find( '.add-row' ).click( function() {
-			jQuery( control.container.find( '.repeater-fields' ) )
+		control.container.find( '.add-row' ).click( function( e ) {
+			e.preventDefault();
+			jQuery( control.container.find( '.repeater-rows' ) )
 				.append( kirki.template.repeaterControlRow( control, rowDefaults ) );
 		});
 	},
@@ -34,7 +35,7 @@ wp.customize.controlConstructor['kirki-repeater'] = wp.customize.kirkiDynamicCon
 		var control = this;
 
 		control.container.find( '.repeater-row-remove-button' ).click( function( e ) {
-			jQuery( this ).parents( '.row-template' ).remove();
+			jQuery( this ).parents( '.repeater-row' ).remove();
 		});
 	}
 } );

@@ -666,7 +666,7 @@ var kirki = {
 			html += '<span class="customize-control-title">' + control.params.label + '</span>';
 			html += '<span class="description customize-control-description">' + control.params.description + '</span>';
 
-			html += '<ul class="repeater-fields">';
+			html += '<ul class="repeater-rows">';
 				_.each( control.params.value, function( rowValue, key ) {
 					html += kirki.template.repeaterControlRow( control, rowValue, key );
 				} );
@@ -686,42 +686,44 @@ var kirki = {
 		repeaterControlRow: function( control, value, rowKey ) {
 			var rowTemplate = '';
 
-			rowTemplate = '<li class="row-template">';
-			rowTemplate += '<div class="row-header">';
-				rowTemplate += 'Row Title';
-				rowTemplate += '<div class="repeater-row-actions">';
-					rowTemplate += '<span class="repeater-row-move-button dashicons dashicons-move"></span>';
-					rowTemplate += '<span class="repeater-row-remove-button dashicons dashicons-trash"></span>';
+			rowTemplate = '<li class="repeater-row">';
+				rowTemplate += '<div class="row-header">';
+					rowTemplate += 'Row Title';
+					rowTemplate += '<div class="repeater-row-actions">';
+						rowTemplate += '<span class="repeater-row-move-button dashicons dashicons-move"></span>';
+						rowTemplate += '<span class="repeater-row-remove-button dashicons dashicons-trash"></span>';
+					rowTemplate += '</div>';
 				rowTemplate += '</div>';
-			rowTemplate += '</div>';
 
+				rowTemplate += '<div class="row-content">';
 
-				// Go through each field.
-				_.each( control.params.fields, function( field, key ) {
+					// Go through each field.
+					_.each( control.params.fields, function( field, key ) {
 
-					// Get the correct method for this control.
-					if ( _.isUndefined( field.type ) || _.isUndefined( kirki.controlMethodNames[ 'kirki-' + field.type ] ) ) {
-						field.type = 'generic';
-					}
-					field.settings = field.id;
-					field.params   = _.defaults( field, {
-						label: '',
-						description: '',
-						choices: {},
-						inputAttrs: '',
-						link: '',
-						multiple: 1
+						// Get the correct method for this control.
+						if ( _.isUndefined( field.type ) || _.isUndefined( kirki.controlMethodNames[ 'kirki-' + field.type ] ) ) {
+							field.type = 'generic';
+						}
+						field.settings = field.id;
+						field.params   = _.defaults( field, {
+							label: '',
+							description: '',
+							choices: {},
+							inputAttrs: '',
+							link: '',
+							multiple: 1
+						} );
+						field.params.id = control.id + '[]' + '[' + key + ']';
+
+						// Add the value to the field.
+						if ( ! _.isUndefined( value ) && ! _.isUndefined( value[ key ] ) ) {
+							field.params.value = value[ key ];
+						}
+
+						// Add the template.
+						rowTemplate += kirki.template[ kirki.controlMethodNames[ 'kirki-' + field.type ] ]( field );
 					} );
-					field.params.id = control.id + '[]' + '[' + key + ']';
-
-					// Add the value to the field.
-					if ( ! _.isUndefined( value ) && ! _.isUndefined( value[ key ] ) ) {
-						field.params.value = value[ key ];
-					}
-
-					// Add the template.
-					rowTemplate += kirki.template[ kirki.controlMethodNames[ 'kirki-' + field.type ] ]( field );
-				} );
+				rowTemplate += '</div>';
 			rowTemplate += '</li>';
 
 			return rowTemplate;
