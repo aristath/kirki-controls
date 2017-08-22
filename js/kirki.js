@@ -672,7 +672,7 @@ var kirki = {
 				} );
 			html += '</ul>';
 
-			html += '<button class="add-row">Add Row</button>';
+			html += '<button class="add-row button"><span class="dashicons dashicons-plus"></span> Add Row</button>';
 
 			return '<div class="kirki-control-wrapper-repeater">' + html + '</div>';
 		},

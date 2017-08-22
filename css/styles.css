@@ -868,6 +868,8 @@ div.mce-inline-toolbar-grp {
           background-color: #f2f2f2; }
   .kirki-control-wrapper-repeater .repeater-rows .repeater-row .row-content {
     padding: 10px 0; }
+.kirki-control-wrapper-repeater .add-row {
+  float: right; }
 
 .select2-dropdown {
   border-color: rgba(0, 0, 0, 0.1);

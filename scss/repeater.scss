@@ -27,6 +27,7 @@
             height: 20px;
             padding: 5px;
             border-left: 1px solid #dedede;
+
             &:hover {
               background-color: #f2f2f2;
             }
@@ -42,5 +43,9 @@
         padding: 10px 0;
       }
     }
+  }
+
+  .add-row {
+    float: right;
   }
 }
