@@ -22,7 +22,6 @@ kirki.control.template.codeControl = function( control ) {
 	return '<div class="kirki-control-wrapper-code">' + html + '</div>';
 };
 
-
 /**
  * Changes the value visually for 'code' controls.
  *
