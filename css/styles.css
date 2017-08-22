@@ -841,7 +841,7 @@ div.mce-inline-toolbar-grp {
       padding-left: 25px; }
 
 .kirki-control-wrapper-repeater .repeater-rows .repeater-row {
-  border: 1px solid rgba(0, 0, 0, 0.15);
+  border: 1px solid #dedede;
   padding: 5px;
   margin-bottom: 10px; }
   .kirki-control-wrapper-repeater .repeater-rows .repeater-row .row-header {
@@ -850,11 +850,22 @@ div.mce-inline-toolbar-grp {
     padding: 5px;
     background-color: #fff;
     line-height: 20px;
-    font-weight: 600; }
+    font-weight: 600;
+    height: 20px;
+    border-bottom: 1px solid #dedede; }
     .kirki-control-wrapper-repeater .repeater-rows .repeater-row .row-header .repeater-row-actions {
       position: absolute;
-      top: 5px;
-      right: 0; }
+      top: 0;
+      right: 0;
+      height: 100%; }
+      .kirki-control-wrapper-repeater .repeater-rows .repeater-row .row-header .repeater-row-actions .action {
+        cursor: pointer;
+        display: inline-block;
+        height: 20px;
+        padding: 5px;
+        border-left: 1px solid #dedede; }
+        .kirki-control-wrapper-repeater .repeater-rows .repeater-row .row-header .repeater-row-actions .action:hover {
+          background-color: #f2f2f2; }
   .kirki-control-wrapper-repeater .repeater-rows .repeater-row .row-content {
     padding: 10px 0; }
 
