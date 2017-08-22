@@ -1,5 +1,17 @@
 /* global wp, _, kirki */
 kirki.control.dimension = {
+	init: function( control ) {
+		control.container.html( kirki.control.dimension.template( control ) );
+
+		// Notifications.
+		kirki.control.dimension.notifications( control );
+
+		// Save the value
+		this.container.on( 'change keyup paste', 'input', function() {
+			control.setting.set( jQuery( this ).val() );
+		} );
+	},
+
 	/**
 	 * The HTML Template for 'dimension' controls.
 	 *
@@ -31,52 +43,24 @@ kirki.control.dimension = {
 		set: function( control, value ) {
 			jQuery( control.container.find( 'input' ) ).attr( 'value', value );
 		}
-	}
-};
-
-wp.customize.controlConstructor['kirki-dimension'] = wp.customize.kirkiDynamicControl.extend( {
-
-	initKirkiControl: function() {
-
-		var control = this,
-		    value;
-
-		control.container.html( kirki.control.dimension.template( control ) );
-
-		// Notifications.
-		control.kirkiNotifications();
-
-		// Save the value
-		this.container.on( 'change keyup paste', 'input', function() {
-
-			value = jQuery( this ).val();
-			control.setting.set( value );
-		} );
 	},
 
-	/**
-	 * Handles notifications.
-	 */
-	kirkiNotifications: function() {
-
-		var control = this;
-
+	notifications: function( control ) {
 		wp.customize( control.id, function( setting ) {
 			setting.bind( function( value ) {
 				var code = 'long_title';
 
 				if ( false === control.kirkiValidateCSSValue( value ) ) {
-					setting.notifications.add( code, new wp.customize.Notification(
-						code,
-						{
-							type: 'warning',
-							message: control.params.l10n.invalidValue
-						}
-					) );
+					setting.notifications.add( code, new wp.customize.Notification( code, {
+						type: 'warning',
+						message: control.params.l10n.invalidValue
+					} ) );
 				} else {
 					setting.notifications.remove( code );
 				}
 			} );
 		} );
 	}
-} );
+};
+
+wp.customize.controlConstructor['kirki-dimension'] = wp.customize.kirkiDynamicControl.extend({});

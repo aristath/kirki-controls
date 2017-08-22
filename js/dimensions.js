@@ -1,5 +1,31 @@
 /* global wp, _, kirki */
 kirki.control.dimensions = {
+	init: function( control ) {
+		var subControls = control.params.choices.controls,
+			value       = {},
+			subsArray   = [],
+			i;
+
+		control.container.html( kirki.control.dimensions.template( control ) );
+
+		_.each( subControls, function( v, i ) {
+			if ( true === v ) {
+				subsArray.push( i );
+			}
+		} );
+
+		control.container.on( 'change keyup paste', 'input', function() {
+			var choice = jQuery( this ).data( 'choice' );
+			value[ choice ] = jQuery( this ).val();
+
+			// Save the value
+			control.saveValue( value );
+		} );
+
+		// Notifications.
+		kirki.control.dimensions.notifications( control );
+	},
+
 	/**
 	 * The HTML Template for 'dimensions' controls.
 	 *
@@ -59,66 +85,17 @@ kirki.control.dimensions = {
 				jQuery( control.container.find( '.' + id + ' input' ) ).prop( 'value', subValue );
 			} );
 		}
-	}
-};
-
-wp.customize.controlConstructor['kirki-dimensions'] = wp.customize.kirkiDynamicControl.extend( {
-
-	initKirkiControl: function() {
-
-		var control     = this,
-		    subControls = control.params.choices.controls,
-		    value       = {},
-		    subsArray   = [],
-		    i;
-
-		control.container.html( kirki.control.dimensions.template( control ) );
-
-		_.each( subControls, function( v, i ) {
-			if ( true === v ) {
-				subsArray.push( i );
-			}
-		} );
-
-		control.container.on( 'change keyup paste', 'input', function() {
-			var choice = jQuery( this ).data( 'choice' );
-			value[ choice ] = jQuery( this ).val();
-
-			// Save the value
-			control.saveValue( value );
-		} );
-
-		// Notifications.
-		control.kirkiNotifications();
-	},
-
-	/**
-	 * Saves the value.
-	 */
-	saveValue: function( value ) {
-
-		var control  = this,
-		    newValue = {};
-
-		_.each( value, function( newSubValue, i ) {
-			newValue[ i ] = newSubValue;
-		} );
-
-		control.setting.set( newValue );
 	},
 
 	/**
 	 * Handles notifications.
 	 */
-	kirkiNotifications: function() {
-
-		var control = this;
-
+	notifications: function( control ) {
 		wp.customize( control.id, function( setting ) {
 			setting.bind( function( value ) {
 				var code = 'long_title',
-				    subs = {},
-				    message;
+					subs = {},
+					message;
 
 				setting.notifications.remove( code );
 
@@ -132,17 +109,29 @@ wp.customize.controlConstructor['kirki-dimensions'] = wp.customize.kirkiDynamicC
 
 				if ( ! _.isEmpty( subs ) ) {
 					message = control.params.l10n['invalid-value'] + ' (' + _.values( subs ).toString() + ') ';
-					setting.notifications.add( code, new wp.customize.Notification(
-						code,
-						{
-							type: 'warning',
-							message: message
-						}
-					) );
+					setting.notifications.add( code, new wp.customize.Notification( code, {
+						type: 'warning',
+						message: message
+					} ) );
 				} else {
 					setting.notifications.remove( code );
 				}
 			} );
 		} );
+	}
+};
+
+wp.customize.controlConstructor['kirki-dimensions'] = wp.customize.kirkiDynamicControl.extend( {
+	/**
+	 * Saves the value.
+	 */
+	saveValue: function( value ) {
+		var control  = this,
+		    newValue = {};
+
+		_.each( value, function( newSubValue, i ) {
+			newValue[ i ] = newSubValue;
+		} );
+		control.setting.set( newValue );
 	}
 } );

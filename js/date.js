@@ -1,6 +1,20 @@
 /* global wp, _, kirki */
 
 kirki.control.date = {
+	init: function( control ) {
+		var selector = control.selector + ' input.datepicker';
+
+		control.container.html( kirki.control.date.template( control ) );
+
+		// Init the datepicker
+		jQuery( selector ).datepicker();
+
+		// Save the changes
+		this.container.on( 'change keyup paste', 'input.datepicker', function() {
+			control.setting.set( jQuery( this ).val() );
+		} );
+	},
+
 	/**
 	 * The HTML Template for 'date' controls.
 	 *
@@ -36,21 +50,4 @@ kirki.control.date = {
 	}
 };
 
-wp.customize.controlConstructor['kirki-date'] = wp.customize.kirkiDynamicControl.extend( {
-
-	initKirkiControl: function() {
-
-		var control  = this,
-		    selector = control.selector + ' input.datepicker';
-
-		control.container.html( kirki.control.date.template( control ) );
-
-		// Init the datepicker
-		jQuery( selector ).datepicker();
-
-		// Save the changes
-		this.container.on( 'change keyup paste', 'input.datepicker', function() {
-			control.setting.set( jQuery( this ).val() );
-		} );
-	}
-} );
+wp.customize.controlConstructor['kirki-date'] = wp.customize.kirkiDynamicControl.extend({});

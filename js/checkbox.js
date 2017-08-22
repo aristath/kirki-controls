@@ -22,6 +22,13 @@ kirki.control.checkbox = {
 	},
 
 	value: {
+		/**
+		 * Changes the value visually for 'checkbox' controls.
+		 *
+		 * @param {object} [control] The control.
+		 * @param {bool}   [value]   The value.
+		 * @returns {void}
+		 */
 		set: function( control, value ) {
 			value = ( 1 === value || '1' === value || true === value ) ? true : false;
 			wp.customize.instance( control.id ).set( value );
@@ -29,21 +36,4 @@ kirki.control.checkbox = {
 	}
 };
 
-/**
- * Changes the value visually for 'checkbox' controls.
- *
- * @param {object} [control] The control.
- * @param {bool}   [value]   The value.
- * @returns {void}
- */
-kirki.control.checkbox.value.set = function( control, value ) {
-	value = ( 1 === value || '1' === value || true === value ) ? true : false;
-	jQuery( control.container.find( 'input' ) ).prop( 'checked', value );
-};
-
-wp.customize.controlConstructor['kirki-checkbox'] = wp.customize.kirkiDynamicControl.extend( {
-
-	kirkiSetValue: function( value ) {
-		kirki.value.set.checkboxControl( this, value );
-	}
-} );
+wp.customize.controlConstructor['kirki-checkbox'] = wp.customize.kirkiDynamicControl.extend({});
