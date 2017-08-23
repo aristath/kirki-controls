@@ -19,7 +19,7 @@ kirki.control.multicheck = {
 			// Update the value in the customizer.
 			control.setting.set( value );
 		} );
-	}
+	},
 
 	/**
 	 * The HTML Template for 'multicheck' controls.
