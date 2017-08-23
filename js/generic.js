@@ -77,7 +77,7 @@ wp.customize.controlConstructor['kirki-generic'] = wp.customize.kirkiDynamicCont
 		control.container.html( kirki.control.generic.template( control ) );
 
 		// Save the value
-		this.container.on( 'change keyup paste click', element, function() {
+		control.container.on( 'change keyup paste click', element, function() {
 			control.setting.set( jQuery( this ).val() );
 		} );
 	}

@@ -215,38 +215,38 @@ wp.customize.controlConstructor['kirki-typography'] = wp.customize.kirkiDynamicC
 		control.renderSubsetSelector();
 
 		// Font-size.
-		this.container.on( 'change keyup paste', '.font-size input', function() {
+		control.container.on( 'change keyup paste', '.font-size input', function() {
 			control.saveValue( 'font-size', jQuery( this ).val() );
 		} );
 
 		// Line-height.
-		this.container.on( 'change keyup paste', '.line-height input', function() {
+		control.container.on( 'change keyup paste', '.line-height input', function() {
 			control.saveValue( 'line-height', jQuery( this ).val() );
 		} );
 
 		// Margin-top.
-		this.container.on( 'change keyup paste', '.margin-top input', function() {
+		control.container.on( 'change keyup paste', '.margin-top input', function() {
 			control.saveValue( 'margin-top', jQuery( this ).val() );
 		} );
 
 		// Margin-bottom.
-		this.container.on( 'change keyup paste', '.margin-bottom input', function() {
+		control.container.on( 'change keyup paste', '.margin-bottom input', function() {
 			control.saveValue( 'margin-bottom', jQuery( this ).val() );
 		} );
 
 		// Letter-spacing.
 		value['letter-spacing'] = ( jQuery.isNumeric( value['letter-spacing'] ) ) ? value['letter-spacing'] + 'px' : value['letter-spacing'];
-		this.container.on( 'change keyup paste', '.letter-spacing input', function() {
+		control.container.on( 'change keyup paste', '.letter-spacing input', function() {
 			value['letter-spacing'] = ( jQuery.isNumeric( jQuery( this ).val() ) ) ? jQuery( this ).val() + 'px' : jQuery( this ).val();
 			control.saveValue( 'letter-spacing', value['letter-spacing'] );
 		} );
 
 		// Word-spacing.
-		this.container.on( 'change keyup paste', '.word-spacing input', function() {
+		control.container.on( 'change keyup paste', '.word-spacing input', function() {
 			control.saveValue( 'word-spacing', jQuery( this ).val() );
 		} );
 
-		this.container.on( 'change', '.text-align input', function() {
+		control.container.on( 'change', '.text-align input', function() {
 			control.saveValue( 'text-align', jQuery( this ).val() );
 		} );
 
@@ -255,7 +255,7 @@ wp.customize.controlConstructor['kirki-typography'] = wp.customize.kirkiDynamicC
 			control.saveValue( 'text-transform', jQuery( this ).val() );
 		} );
 
-		picker = this.container.find( '.kirki-color-control' );
+		picker = control.container.find( '.kirki-color-control' );
 
 		// Change color
 		picker.wpColorPicker( {

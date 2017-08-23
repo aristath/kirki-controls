@@ -50,7 +50,7 @@ wp.customize.controlConstructor['kirki-number'] = wp.customize.kirkiDynamicContr
 
 		control.container.html( kirki.control.number.template( control ) );
 
-		element = this.container.find( 'input' );
+		element = control.container.find( 'input' );
 
 		// Set step value.
 		if ( ! _.isUndefined( control.params.choices ) && ! _.isUndefined( control.params.choices.step ) ) {
@@ -61,7 +61,7 @@ wp.customize.controlConstructor['kirki-number'] = wp.customize.kirkiDynamicContr
 		jQuery( element ).spinner( control.params.choices );
 
 		// On change
-		this.container.on( 'change click keyup paste', 'input', function() {
+		control.container.on( 'change click keyup paste', 'input', function() {
 			control.setting.set( jQuery( this ).val() );
 		} );
 

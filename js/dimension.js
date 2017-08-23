@@ -7,7 +7,7 @@ kirki.control.dimension = {
 		kirki.control.dimension.notifications( control );
 
 		// Save the value
-		this.container.on( 'change keyup paste', 'input', function() {
+		control.container.on( 'change keyup paste', 'input', function() {
 			control.setting.set( jQuery( this ).val() );
 		} );
 	},

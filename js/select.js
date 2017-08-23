@@ -78,7 +78,7 @@ wp.customize.controlConstructor['kirki-select'] = wp.customize.kirkiDynamicContr
 
 		control.container.html( kirki.control.select.template( control ) );
 
-		element  = this.container.find( 'select' );
+		element  = control.container.find( 'select' );
 		multiple = parseInt( element.data( 'multiple' ), 10 );
 
 		if ( 1 < multiple ) {

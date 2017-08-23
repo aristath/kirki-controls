@@ -57,7 +57,7 @@ wp.customize.controlConstructor['kirki-fontawesome'] = wp.customize.kirkiDynamic
 
 		control.container.html( kirki.control.fontawesome.template( control ) );
 
-		element = this.container.find( 'select' ),
+		element = control.container.find( 'select' ),
 
 		_.each( icons.icons, function( icon ) {
 			select2Options.data.push( {

@@ -10,7 +10,7 @@ kirki.control.date = {
 		jQuery( selector ).datepicker();
 
 		// Save the changes
-		this.container.on( 'change keyup paste', 'input.datepicker', function() {
+		control.container.on( 'change keyup paste', 'input.datepicker', function() {
 			control.setting.set( jQuery( this ).val() );
 		} );
 	},

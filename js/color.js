@@ -32,7 +32,8 @@ kirki.control.color = {
 				}, 20 );
 			}
 		} );
-	}
+	},
+
 	/**
 	 * The HTML Template for 'color' controls.
 	 *

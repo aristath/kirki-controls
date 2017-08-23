@@ -243,7 +243,7 @@ var kirki = {
 			var control = this;
 
 			// Save the value
-			this.container.on( 'change keyup paste click', 'input', function() {
+			control.container.on( 'change keyup paste click', 'input', function() {
 				control.setting.set( jQuery( this ).val() );
 			} );
 
