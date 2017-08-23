@@ -1,5 +1,26 @@
 /* global wp, _, kirki */
 kirki.control.multicheck = {
+	init: function( control ) {
+		control.container.html( kirki.control.multicheck.template( control ) );
+
+		// Save the value
+		control.container.on( 'change', 'input', function() {
+			var value = [],
+				i = 0;
+
+			// Build the value as an object using the sub-values from individual checkboxes.
+			jQuery.each( control.params.choices, function( key ) {
+				if ( control.container.find( 'input[value="' + key + '"]' ).is( ':checked' ) ) {
+					value[ i ] = key;
+					i++;
+				}
+			} );
+
+			// Update the value in the customizer.
+			control.setting.set( value );
+		} );
+	}
+
 	/**
 	 * The HTML Template for 'multicheck' controls.
 	 *
@@ -40,29 +61,4 @@ kirki.control.multicheck = {
 	}
 };
 
-wp.customize.controlConstructor['kirki-multicheck'] = wp.customize.kirkiDynamicControl.extend( {
-
-	initKirkiControl: function() {
-
-		var control = this;
-
-		control.container.html( kirki.control.multicheck.template( control ) );
-
-		// Save the value
-		control.container.on( 'change', 'input', function() {
-			var value = [],
-			    i = 0;
-
-			// Build the value as an object using the sub-values from individual checkboxes.
-			jQuery.each( control.params.choices, function( key ) {
-				if ( control.container.find( 'input[value="' + key + '"]' ).is( ':checked' ) ) {
-					value[ i ] = key;
-					i++;
-				}
-			} );
-
-			// Update the value in the customizer.
-			control.setting.set( value );
-		} );
-	}
-} );
+wp.customize.controlConstructor['kirki-multicheck'] = wp.customize.kirkiDynamicControl.extend();

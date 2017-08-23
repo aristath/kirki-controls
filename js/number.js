@@ -1,5 +1,36 @@
 /* global wp, _, kirki */
 kirki.control.number = {
+	init: function( control ) {
+		var step    = 1,
+		    element;
+
+		control.params.choices = _.defaults( control.params.choices, {
+			min: -99999,
+			max: 99999,
+			step: 1
+		} );
+
+		control.container.html( kirki.control.number.template( control ) );
+
+		element = control.container.find( 'input' );
+
+		// Set step value.
+		if ( ! _.isUndefined( control.params.choices ) && ! _.isUndefined( control.params.choices.step ) ) {
+			step = ( 'any' === control.params.choices.step ) ? '0.001' : control.params.choices.step;
+		}
+
+		// Init the spinner
+		jQuery( element ).spinner( control.params.choices );
+
+		// On change
+		control.container.on( 'change click keyup paste', 'input', function() {
+			control.setting.set( jQuery( this ).val() );
+		} );
+
+		// Notifications.
+		kirki.control.number.notifications( control );
+	},
+
 	/**
 	 * The HTML Template for 'number' controls.
 	 *
@@ -31,58 +62,19 @@ kirki.control.number = {
 		set: function( control, value ) {
 			jQuery( control.container.find( 'input' ) ).attr( 'value', value );
 		}
-	}
-};
-
-wp.customize.controlConstructor['kirki-number'] = wp.customize.kirkiDynamicControl.extend( {
-
-	initKirkiControl: function() {
-
-		var control = this,
-		    step    = 1,
-		    element;
-
-		control.params.choices = _.defaults( control.params.choices, {
-			min: -99999,
-			max: 99999,
-			step: 1
-		} );
-
-		control.container.html( kirki.control.number.template( control ) );
-
-		element = control.container.find( 'input' );
-
-		// Set step value.
-		if ( ! _.isUndefined( control.params.choices ) && ! _.isUndefined( control.params.choices.step ) ) {
-			step = ( 'any' === control.params.choices.step ) ? '0.001' : control.params.choices.step;
-		}
-
-		// Init the spinner
-		jQuery( element ).spinner( control.params.choices );
-
-		// On change
-		control.container.on( 'change click keyup paste', 'input', function() {
-			control.setting.set( jQuery( this ).val() );
-		} );
-
-		// Notifications.
-		control.kirkiNotifications();
 	},
 
 	/**
 	 * Handles notifications.
 	 */
-	kirkiNotifications: function() {
-
-		var control = this;
-
+	notifications: function( control ) {
 		wp.customize( control.id, function( setting ) {
 			setting.bind( function( value ) {
 				var code    = 'long_title',
-				    min     = ( ! _.isUndefined( control.params.choices.min ) ) ? Number( control.params.choices.min ) : false,
-				    max     = ( ! _.isUndefined( control.params.choices.max ) ) ? Number( control.params.choices.max ) : false,
-				    step    = ( ! _.isUndefined( control.params.choices.step ) ) ? Number( control.params.choices.step ) : false,
-				    invalid = false;
+					min     = ( ! _.isUndefined( control.params.choices.min ) ) ? Number( control.params.choices.min ) : false,
+					max     = ( ! _.isUndefined( control.params.choices.max ) ) ? Number( control.params.choices.max ) : false,
+					step    = ( ! _.isUndefined( control.params.choices.step ) ) ? Number( control.params.choices.step ) : false,
+					invalid = false;
 
 				// Make sure value is a number.
 				value = Number( value );
@@ -106,4 +98,6 @@ wp.customize.controlConstructor['kirki-number'] = wp.customize.kirkiDynamicContr
 			} );
 		} );
 	}
-} );
+};
+
+wp.customize.controlConstructor['kirki-number'] = wp.customize.kirkiDynamicControl.extend({});

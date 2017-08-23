@@ -1,6 +1,17 @@
 /* global wp, _, kirki */
 
 kirki.control.generic = {
+	init: function( control ) {
+		var element = control.params.choices.element ? control.params.choices.element : 'input';
+
+		control.container.html( kirki.control.generic.template( control ) );
+
+		// Save the value
+		control.container.on( 'change keyup paste click', element, function() {
+			control.setting.set( jQuery( this ).val() );
+		} );
+	},
+
 	/**
 	 * The HTML Template for 'text', 'textarea', 'email' and other generic controls.
 	 *
@@ -67,18 +78,4 @@ kirki.control.generic = {
 	}
 };
 
-wp.customize.controlConstructor['kirki-generic'] = wp.customize.kirkiDynamicControl.extend( {
-
-	initKirkiControl: function() {
-
-		var control = this,
-			element = control.params.choices.element ? control.params.choices.element : 'input';
-
-		control.container.html( kirki.control.generic.template( control ) );
-
-		// Save the value
-		control.container.on( 'change keyup paste click', element, function() {
-			control.setting.set( jQuery( this ).val() );
-		} );
-	}
-} );
+wp.customize.controlConstructor['kirki-generic'] = wp.customize.kirkiDynamicControl.extend({});

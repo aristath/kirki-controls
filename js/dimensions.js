@@ -19,7 +19,7 @@ kirki.control.dimensions = {
 			value[ choice ] = jQuery( this ).val();
 
 			// Save the value
-			control.saveValue( value );
+			kirki.control.dimension.value.save( value );
 		} );
 
 		// Notifications.
@@ -84,7 +84,20 @@ kirki.control.dimensions = {
 			_.each( value, function( subValue, id ) {
 				jQuery( control.container.find( '.' + id + ' input' ) ).prop( 'value', subValue );
 			} );
+		},
+
+		/**
+		 * Saves the value.
+		 */
+		save: function( control, value ) {
+			var newValue = {};
+
+			_.each( value, function( newSubValue, i ) {
+				newValue[ i ] = newSubValue;
+			} );
+			control.setting.set( newValue );
 		}
+
 	},
 
 	/**
@@ -121,17 +134,4 @@ kirki.control.dimensions = {
 	}
 };
 
-wp.customize.controlConstructor['kirki-dimensions'] = wp.customize.kirkiDynamicControl.extend( {
-	/**
-	 * Saves the value.
-	 */
-	saveValue: function( value ) {
-		var control  = this,
-		    newValue = {};
-
-		_.each( value, function( newSubValue, i ) {
-			newValue[ i ] = newSubValue;
-		} );
-		control.setting.set( newValue );
-	}
-} );
+wp.customize.controlConstructor['kirki-dimensions'] = wp.customize.kirkiDynamicControl.extend({});
