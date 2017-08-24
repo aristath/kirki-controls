@@ -28,6 +28,13 @@ class Kirki_Controls_Scripts {
 	 */
 	private $control_types = array();
 
+	/**
+	 * An array of extra dependencies.
+	 *
+	 * @access private
+	 * @since 3.0.10
+	 * @var array
+	 */
 	private $extra_dependencies = array();
 
 	/**
@@ -41,6 +48,13 @@ class Kirki_Controls_Scripts {
 		$this->control_types = array_keys( $control_types );
 	}
 
+	/**
+	 * Gets the control-type handle.
+	 *
+	 * @param string $handle      The handle.
+	 * @param bool   $with_prefix Whether or not to prepend 'kirki-'.
+	 * @return string
+	 */
 	public function get_control_handle( $handle, $with_prefix = true ) {
 		$handle  = str_replace( 'kirki-', '', $handle );
 		if ( ! in_array( 'kirki-' . $handle, $this->control_types ) ) {
@@ -52,6 +66,14 @@ class Kirki_Controls_Scripts {
 		return $handle;
 	}
 
+	/**
+	 * Enqueues assets for a control.
+	 *
+	 * @access public
+	 * @since 3.0.10
+	 * @param string $control The control-type handle.
+	 * @return void
+	 */
 	public function enqueue_control_assets( $control ) {
 		$this->register_all_control_scripts();
 		$control = $this->get_control_handle( $control );
@@ -67,6 +89,15 @@ class Kirki_Controls_Scripts {
 		wp_enqueue_style( 'kirki-styles', kirki_controls()->get_url( 'css/styles.css' ), null );
 	}
 
+	/**
+	 * Add extra dependencies to a script.
+	 *
+	 * @access public
+	 * @since 3.0.10
+	 * @param string $handle       The script to which we're adding dependencies.
+	 * @param array  $dependencies An array of dependencies (script handles).
+	 * @return void
+	 */
 	public function add_extra_dependencies( $handle, $dependencies ) {
 		if ( ! isset( $this->extra_dependencies[ $handle ] ) ) {
 			$this->extra_dependencies[ $handle ] = array();
@@ -75,7 +106,15 @@ class Kirki_Controls_Scripts {
 		$this->extra_dependencies[ $handle ] = array_merge( $this->extra_dependencies[ $handle ], $dependencies );
 	}
 
-	public function register_control_scripts( $control_type ) {
+	/**
+	 * Register scripts for a control-type.
+	 *
+	 * @access protected
+	 * @since 3.0.10
+	 * @param string $control_type The control-type.
+	 * @return void
+	 */
+	protected function register_control_scripts( $control_type ) {
 		$control_type = $this->get_control_handle( $control_type );
 		$dependencies = $this->dependencies( $control_type );
 		foreach ( $dependencies['scripts'] as $script ) {
@@ -99,12 +138,27 @@ class Kirki_Controls_Scripts {
 		);
 	}
 
-	public function register_all_control_scripts() {
+	/**
+	 * Loop to register all scripts for control-types.
+	 *
+	 * @access protected
+	 * @since 3.0.10
+	 * @return void
+	 */
+	protected function register_all_control_scripts() {
 		foreach ( $this->control_types as $control_type ) {
 			$this->register_control_scripts( $control_type );
 		}
 	}
 
+	/**
+	 * Gets the URL of assets.
+	 *
+	 * @access protected
+	 * @since 3.0.10
+	 * @param string $handle The script handle.
+	 * @return string|false
+	 */
 	protected function get_asset_url( $handle ) {
 
 		switch ( $handle ) {
