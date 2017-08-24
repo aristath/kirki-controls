@@ -36,8 +36,7 @@ kirki.control.multicolor = {
 	template: function( control ) {
 		var html = '';
 
-		html += '<span class="customize-control-title">' + control.params.label + '</span>';
-		html += '<span class="description customize-control-description">' + control.params.description + '</span>';
+		html += kirki.control.template.header( control );
 		html += '<div class="multicolor-group-wrapper">';
 			_.each( control.params.choices, function( val, key ) {
 				if ( 'irisArgs' !== key ) {

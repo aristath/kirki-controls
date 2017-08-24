@@ -32,8 +32,7 @@ kirki.control.multicheck = {
 		if ( ! control.params.choices ) {
 			return;
 		}
-		html += '<span class="customize-control-title">' + control.params.label + '</span>';
-		html += '<span class="description customize-control-description">' + control.params.description + '</span>';
+		html += kirki.control.template.header( control );
 		html += '<ul>';
 			_.each( control.params.choices, function( val, key ) {
 				html += '<li><label><input ' + control.params.inputAttrs + ' type="checkbox" value="' + key + '"' + ( _.contains( control.params.value, key ) ? ' checked' : '' ) + '/>' + val + '</label></li>';

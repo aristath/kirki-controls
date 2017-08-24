@@ -25,8 +25,7 @@ kirki.control.date = {
 		var html = '';
 
 		html += '<label>';
-			html += '<span class="customize-control-title">' + control.params.label + '</span>';
-			html += '<span class="description customize-control-description">' + control.params.description + '</span>';
+			html += kirki.control.template.header( control );
 			html += '<div class="customize-control-content">';
 				html += '<input ' + control.params.inputAttrs + ' class="datepicker" type="text" id="' + control.params.id + '" value="' + control.params.value + '" ' + control.params.link + '/>';
 			html += '</div>';

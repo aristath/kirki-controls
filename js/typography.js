@@ -12,11 +12,7 @@ kirki.control.typography = {
 	template: function( control ) {
 		var html = '';
 
-		html += '<label class="customizer-text">';
-			html += '<span class="customize-control-title">' + control.params.label + '</span>';
-			html += '<span class="description customize-control-description">' + control.params.description + '</span>';
-		html += '</label>';
-
+		html += '<label class="customizer-text">' + kirki.control.template.header( control ) + '</label>';
 		html += '<div class="wrapper">';
 
 			if ( control.params['default']['font-family'] ) {

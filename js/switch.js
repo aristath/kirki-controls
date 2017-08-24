@@ -36,8 +36,7 @@ kirki.control['switch'] = {
 		var html = '';
 
 		html += '<div class="switch' + ( ( control.params.choices.round ) ? ' round' : '' ) + '">';
-			html += '<span class="customize-control-title">' + control.params.label + '</span>';
-			html += '<span class="description customize-control-description">' + control.params.description + '</span>';
+			html += kirki.control.template.header( control );
 			html += '<input ' + control.params.inputAttrs + ' class="screen-reader-text" name="switch_' + control.id + '" id="switch_' + control.id + '" type="checkbox" value="' + control.params.value + '" ' + control.params.link + ( '1' === control.params.value ? ' checked' : '' ) + '/>';
 			html += '<label class="switch-label" for="switch_' + control.id + '">';
 				html += '<span class="switch-on">' + control.params.choices.on + '</span>';

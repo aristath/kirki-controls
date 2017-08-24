@@ -41,8 +41,7 @@ kirki.control.number = {
 		var html = '';
 
 		html += '<label>';
-			html += '<span class="customize-control-title">' + control.params.label + '</span>';
-			html += '<span class="description customize-control-description">' + control.params.description + '</span>';
+			html += kirki.control.template.header( control );
 			html += '<div class="customize-control-content">';
 				html += '<input ' + control.params.inputAttrs + ' type="text" ' + control.params.link + ' value="' + control.params.value + '" />';
 			html += '</div>';

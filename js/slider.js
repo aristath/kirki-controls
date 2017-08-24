@@ -45,8 +45,7 @@ kirki.control.slider = {
 		var html = '';
 
 		html += '<label>';
-			html += '<span class="customize-control-title">' + control.params.label + '</span>';
-			html += '<span class="description customize-control-description">' + control.params.description + '</span>';
+			html += kirki.control.template.header( control );
 			html += '<div class="wrapper">';
 				html += '<input ' + control.params.inputAttrs + ' type="range" min="' + control.params.choices.min + '" max="' + control.params.choices.max + '" step="' + control.params.choices.step + '" value="' + control.params.value + '" ' + control.params.link + ' data-reset_value="' + control.params['default'] + '" />';
 				html += '<div class="kirki_range_value">';

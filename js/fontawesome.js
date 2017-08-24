@@ -49,8 +49,7 @@ kirki.control.fontawesome = {
 		var html = '';
 
 		html += '<label>';
-			html += '<span class="customize-control-title">' + control.params.label + '</span>';
-			html += '<span class="description customize-control-description">' + control.params.description + '</span>';
+			html += kirki.control.template.header( control );
 			html += '<select ' + control.params.inputAttrs + ' ' + control.params.link + '</select>';
 		html += '</label>';
 

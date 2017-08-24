@@ -42,8 +42,7 @@ kirki.control.select = {
 		var html = '';
 
 		html += '<label>';
-			html += '<span class="customize-control-title">' + control.params.label + '</span>';
-			html += '<span class="description customize-control-description">' + control.params.description + '</span>';
+			html += kirki.control.template.header( control );
 			html += '<select ' + control.params.inputAttrs + ' ' + control.params.link + ( 1 < control.params.multiple ? ' data-multiple="' + control.params.multiple + '" multiple="multiple"' : '' ) + '>';
 
 				_.each( control.params.choices, function( optionLabel, optionKey ) {

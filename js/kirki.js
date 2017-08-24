@@ -38,6 +38,18 @@ var kirki = {
 				control.container = kirki.control.container( control );
 			}
 			return control;
+		},
+
+		template: {
+			header: function( control ) {
+				var html = '';
+
+				html += '<span class="customize-control-title">' + control.params.label + '</span>';
+				if ( control.params.description && '' !== control.params.description ) {
+					html += '<span class="description customize-control-description">' + control.params.description + '</span>';
+				}
+				return html;
+			}
 		}
 	},
 

@@ -17,8 +17,7 @@ kirki.control.radio = {
 			return;
 		}
 
-		html += '<span class="customize-control-title">' + control.params.label + '</span>';
-		html += '<span class="description customize-control-description">' + control.params.description + '</span>';
+		html += kirki.control.template.header( control );
 		_.each( control.params.choices, function( value, key ) {
 			html += '<label>';
 				html += '<input ' + control.params.inputAttrs + ' type="radio" value="' + key + '" name="_customize-radio-' + control.id + '" ' + control.params.link + ( control.params.value === key ? ' checked' : '' ) + '/>';

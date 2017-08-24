@@ -22,10 +22,7 @@ kirki.control.image = {
 			value   = control.params.value,
 			url     = value;
 
-		html += '<label>';
-			html += '<span class="customize-control-title">' + control.params.label + '</span>';
-			html += '<span class="description customize-control-description">' + control.params.description + '</span>';
-		html += '</label>';
+		html += '<label>' + kirki.control.template.header( control ) + '</label>';
 		html += '<div class="wrapper">';
 			html += '<div class="image">';
 				html += '<div class="attachment-media-view image-upload">';

@@ -15,8 +15,7 @@ kirki.control.toggle = {
 		var html = '';
 
 		html += '<label for="toggle_' + control.id + '">';
-			html += '<span class="customize-control-title">' + control.params.label + '</span>';
-			html += '<span class="description customize-control-description">' + control.params.description + '</span>';
+			html += kirki.control.template.header( control );
 			html += '<input ' + control.params.inputAttrs + ' class="screen-reader-text" name="toggle_' + control.id + '" id="toggle_' + control.id + '" type="checkbox" value="' + control.params.value + '" ' + control.params.link + ( '1' === control.params.value ? ' checked' : '' ) + ' hidden />';
 			html += '<span class="switch"></span>';
 		html += '</label>';

@@ -21,8 +21,7 @@ kirki.control.repeater = {
 		if ( ! control.params.fields ) {
 			return;
 		}
-		html += '<span class="customize-control-title">' + control.params.label + '</span>';
-		html += '<span class="description customize-control-description">' + control.params.description + '</span>';
+		html += kirki.control.template.header( control );
 
 		html += '<ul class="repeater-rows">';
 			_.each( control.params.value, function( rowValue, key ) {

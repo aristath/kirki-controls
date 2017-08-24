@@ -38,8 +38,7 @@ kirki.control.sortable = {
 		var html = '';
 
 		html += '<label class="kirki-sortable">';
-			html += '<span class="customize-control-title">' + control.params.label + '</span>';
-			html += '<span class="description customize-control-description">' + control.params.description + '</span>';
+			html += kirki.control.template.header( control );
 
 			html += '<ul class="sortable">';
 				_.each( control.params.value, function( choiceID ) {

@@ -24,8 +24,7 @@ kirki.control.generic = {
 			extras  = '';
 
 		html += '<label>';
-			html += '<span class="customize-control-title">' + control.params.label + '</span>';
-			html += '<span class="description customize-control-description">' + control.params.description + '</span>';
+			html += kirki.control.template.header( control );
 			html += '<div class="customize-control-content">';
 				if ( 'textarea' === control.params.choices.element ) {
 					_.each( control.params.choices, function( value, key ) {

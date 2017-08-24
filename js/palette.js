@@ -15,8 +15,7 @@ kirki.control.palette = {
 		if ( ! control.params.choices ) {
 			return;
 		}
-		html += '<span class="customize-control-title">' + control.params.label + '</span>';
-		html += '<span class="description customize-control-description">' + control.params.description + '</span>';
+		html += kirki.control.template.header( control );
 		html += '<div id="input_' + control.params.id + '" class="buttonset">';
 		_.each( control.params.choices, function( colors, key ) {
 			html += '<input ' + control.params.inputAttrs + ' type="radio" value="' + key + '" name="_customize-palette-' + control.id + '" id="' + control.id + key + '" ' + control.params.link + ( control.params.value === key ? ' checked' : '' ) + '>';

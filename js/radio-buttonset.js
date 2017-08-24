@@ -13,8 +13,7 @@ kirki.control['radio-buttonset'] = {
 	template: function( control ) {
 		var html = '';
 
-		html += '<span class="customize-control-title">' + control.params.label + '</span>';
-		html += '<span class="description customize-control-description">' + control.params.description + '</span>';
+		html += kirki.control.template.header( control );
 		html += '<div id="input_' + control.id + '" class="buttonset">';
 			_.each( control.params.choices, function( value, key ) {
 				html += '<input ' + control.params.inputAttrs + ' class="switch-input screen-reader-text" type="radio" value="' + key + '" name="_customize-radio-' + control.id + '" id="' + control.id + key + '" ' + control.params.link + ( key === control.params.value ? ' checked="checked"' : '' ) + '>';

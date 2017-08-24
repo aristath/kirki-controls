@@ -19,8 +19,7 @@ kirki.control.dashicons = {
 		    data = control.params,
 		    cats = ['admin-menu', 'welcome-screen', 'post-formats', 'media', 'image-editing', 'tinymce', 'posts', 'sorting', 'social', 'wordpress_org', 'products', 'taxonomies', 'widgets', 'notifications', 'misc'];
 
-		html += '<span class="customize-control-title">' + control.params.label + '</span>';
-		html += '<span class="description customize-control-description">' + data.description + '</span>';
+		html += kirki.control.template.header( control );
 		html += '<div class="icons-wrapper">';
 			if ( ! _.isUndefined( data.choices ) && 1 < _.size( data.choices ) ) {
 				_.each( data.choices, function( val, key ) {

@@ -45,8 +45,7 @@ kirki.control.dimensions = {
 		control.params.value = _.defaults( control.params.value, control.params['default'] );
 
 		html += '<label>';
-			html += '<span class="customize-control-title">' + control.params.label + '</span>';
-			html += '<span class="description customize-control-description">' + control.params.description + '</span>';
+			html += kirki.control.template.header( control );
 			html += '<div class="wrapper">';
 				html += '<div class="control">';
 					_.each( control.params['default'], function( choiceVal, choiceKey ) {

@@ -22,8 +22,7 @@ kirki.control.dimension = {
 		var html = '';
 
 		html += '<label class="customizer-text">';
-			html += '<span class="customize-control-title">' + control.params.label + '</span>';
-			html += '<span class="description customize-control-description">' + control.params.description + '</span>';
+			html += kirki.control.template.header( control );
 			html += '<div class="input-wrapper">';
 				html += '<input type="text" ' + control.params.inputAttrs + 'value="' + control.params.value.replace( '%%', '%' ) + '"/>';
 			html += '</div>';
