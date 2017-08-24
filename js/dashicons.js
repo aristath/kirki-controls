@@ -3,7 +3,6 @@ kirki.control.dashicons = {
 	init: function( control ) {
 		control.container.html( kirki.control.dashicons.template( control ) );
 		jQuery( '.kirki-control-wrapper-dashicons' ).on( 'click', 'input', function() {
-			console.log( this );
 			kirki.setSettingValue( this, jQuery( this ).val() );
 		});
 	},
@@ -30,7 +29,7 @@ kirki.control.dashicons = {
 			} else {
 				_.each( cats, function( cat ) {
 					html += '<h4>' + data.l10n[ cat ] + '</h4>';
-					_.each( data.icons[ cat ], function( val, key ) {
+					_.each( data.icons[ cat ], function( val ) {
 						html += '<input ' + data.inputAttrs + ' class="dashicons-select" type="radio" value="' + val + '" name="_customize-dashicons-radio-' + data.id + '" id="' + data.id + val + '" ' + data.link + ( data.value === val ? ' checked="checked"' : '' ) + '>';
 							html += '<label for="' + data.id + val + '"><span class="dashicons dashicons-' + val + '"></span></label>';
 						html += '</input>';

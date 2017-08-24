@@ -3,8 +3,7 @@ kirki.control.dimensions = {
 	init: function( control ) {
 		var subControls = control.params.choices.controls,
 			value       = {},
-			subsArray   = [],
-			i;
+			subsArray   = [];
 
 		control.container.html( kirki.control.dimensions.template( control ) );
 

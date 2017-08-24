@@ -171,9 +171,6 @@ kirki.control.background = {
 					var uploadedImage = image.state().get( 'selection' ).first(),
 						previewImage   = uploadedImage.toJSON().sizes.full.url,
 						imageUrl,
-						imageID,
-						imageWidth,
-						imageHeight,
 						preview,
 						removeButton;
 
@@ -184,9 +181,6 @@ kirki.control.background = {
 					}
 
 					imageUrl    = uploadedImage.toJSON().sizes.full.url;
-					imageID     = uploadedImage.toJSON().id;
-					imageWidth  = uploadedImage.toJSON().width;
-					imageHeight = uploadedImage.toJSON().height;
 
 					// Show extra controls if the value has an image.
 					if ( '' !== imageUrl ) {
