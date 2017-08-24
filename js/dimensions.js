@@ -14,7 +14,7 @@ kirki.control.dimensions = {
 			}
 		} );
 
-		control.container.on( 'change keyup paste', 'input', function() {
+		kirki.control.container( control ).on( 'change keyup paste', 'input', function() {
 			var choice = jQuery( this ).data( 'choice' );
 			value[ choice ] = jQuery( this ).val();
 
@@ -69,7 +69,7 @@ kirki.control.dimensions = {
 			html += '</div>';
 		html += '</label>';
 
-		return '<div class="kirki-control-wrapper-dimensions">' + html + '</div>';
+		return '<div class="kirki-control-wrapper-dimensions kirki-control-wrapper" id="kirki-control-wrapper-' + control.id + '" data-setting="' + control.id + '">' + html + '</div>';
 	},
 
 	value: {
@@ -82,7 +82,7 @@ kirki.control.dimensions = {
 		 */
 		set: function( control, value ) {
 			_.each( value, function( subValue, id ) {
-				jQuery( control.container.find( '.' + id + ' input' ) ).prop( 'value', subValue );
+				jQuery( kirki.control.container( control ).find( '.' + id + ' input' ) ).prop( 'value', subValue );
 			} );
 		},
 

@@ -7,7 +7,7 @@ kirki.control.color = {
 
 		control.container.html( kirki.control.color.template( control ) );
 
-		picker = control.container.find( '.kirki-color-control' );
+		picker = kirki.control.container( control ).find( '.kirki-color-control' );
 
 		// If we have defined any extra choices, make sure they are passed-on to Iris.
 		if ( ! _.isUndefined( control.params.choices ) ) {
@@ -16,7 +16,7 @@ kirki.control.color = {
 
 		// Tweaks to make the "clear" buttons work.
 		setTimeout( function() {
-			clear = control.container.find( '.wp-picker-clear' );
+			clear = kirki.control.container( control ).find( '.wp-picker-clear' );
 			clear.click( function() {
 				control.setting.set( '' );
 			} );
@@ -49,7 +49,7 @@ kirki.control.color = {
 			html += '<input type="text" ' + control.params.inputAttrs + ' data-palette="' + control.params.palette + '" data-default-color="' + control.params['default'] + '" data-alpha="' + control.params.alpha + '" value="' + control.params.value + '" class="kirki-color-control" ' + control.params.link + ' />';
 		html += '</label>';
 
-		return '<div class="kirki-control-wrapper-color">' + html + '</div>';
+		return '<div class="kirki-control-wrapper-color kirki-control-wrapper" id="kirki-control-wrapper-' + control.id + '" data-setting="' + control.id + '">' + html + '</div>';
 
 	},
 
@@ -62,7 +62,7 @@ kirki.control.color = {
 		 * @returns {void}
 		 */
 		set: function( control, value ) {
-			control.setColorPicker( control.container.find( '.kirki-color-control' ), value );
+			control.setColorPicker( kirki.control.container( control ).find( '.kirki-color-control' ), value );
 		}
 	}
 };

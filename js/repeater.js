@@ -32,7 +32,7 @@ kirki.control.repeater = {
 
 		html += '<button class="add-row button"><span class="dashicons dashicons-plus"></span> Add Row</button>';
 
-		return '<div class="kirki-control-wrapper-repeater">' + html + '</div>';
+		return '<div class="kirki-control-wrapper-repeater kirki-control-wrapper" id="kirki-control-wrapper-' + control.id + '" data-setting="' + control.id + '">' + html + '</div>';
 	},
 
 	/**
@@ -44,7 +44,7 @@ kirki.control.repeater = {
 	rowTemplate: function( control, value, rowKey ) {
 		var rowTemplate = '';
 
-		rowTemplate = '<li class="repeater-row">';
+		rowTemplate = '<li class="repeater-row" data-row="' + rowKey + '">';
 			rowTemplate += '<div class="row-header">';
 				rowTemplate += 'Row Title';
 				rowTemplate += '<div class="repeater-row-actions">';
@@ -59,7 +59,7 @@ kirki.control.repeater = {
 				_.each( control.params.fields, function( field, key ) {
 
 					// Get the correct method for this control.
-					if ( _.isUndefined( field.type ) || _.isUndefined( kirki.control.type[ 'kirki-' + field.type ] ) ) {
+					if ( _.isUndefined( field.type ) || _.isUndefined( kirki.control[ field.type ] ) ) {
 						field.type = 'generic';
 					}
 					field.settings = field.id;
@@ -71,15 +71,18 @@ kirki.control.repeater = {
 						link: '',
 						multiple: 1
 					} );
-					field.params.id = control.id + '[]' + '[' + key + ']';
+					field.params.id = control.id + '[' + rowKey + ']' + '[' + key + ']';
 
 					// Add the value to the field.
 					if ( ! _.isUndefined( value ) && ! _.isUndefined( value[ key ] ) ) {
 						field.params.value = value[ key ];
 					}
 
+					field = kirki.control.getArgs( field );
+
 					// Add the template.
-					rowTemplate += kirki.control[ kirki.control.type[ field.type ] ].template( field );
+					rowTemplate += kirki.control[ field.type.replace( 'kirki-', '' ) ].template( field );
+					kirki.control[ field.type.replace( 'kirki-', '' ) ].init( field );
 				} );
 			rowTemplate += '</div>';
 		rowTemplate += '</li>';
@@ -97,9 +100,9 @@ kirki.control.repeater = {
 			_.each( control.params.fields, function( field, key ) {
 				rowDefaults[ key ] = ( ! _.isUndefined( field['default'] ) ) ? field['default'] : '';
 			} );
-			control.container.find( '.add-row' ).click( function( e ) {
+			kirki.control.container( control ).find( '.add-row' ).click( function( e ) {
 				e.preventDefault();
-				jQuery( control.container.find( '.repeater-rows' ) )
+				jQuery( kirki.control.container( control ).find( '.repeater-rows' ) )
 					.append( kirki.control.repeater.rowTemplate( control, rowDefaults ) );
 			});
 			kirki.control.repeater.util.sortableAccordion( control );
@@ -109,7 +112,7 @@ kirki.control.repeater = {
 		 * Actions to run when clicking on the "remove row" button.
 		 */
 		removeRowButton: function( control ) {
-			control.container.find( '.action.trash' ).click( function( e ) {
+			kirki.control.container( control ).find( '.action.trash' ).click( function( e ) {
 				jQuery( this ).parents( '.repeater-row' ).remove();
 			});
 		},
@@ -118,7 +121,7 @@ kirki.control.repeater = {
 		 * Sortable.
 		 */
 		sortableAccordion: function( control ) {
-			jQuery( control.container.find( '.repeater-rows' ) ).accordion({
+			jQuery( kirki.control.container( control ).find( '.repeater-rows' ) ).accordion({
 				header: '> .repeater-row > .row-header',
 				collapsible: true,
 				animate: 150
@@ -128,8 +131,27 @@ kirki.control.repeater = {
 				stop: function( event, ui ) {
 					ui.item.children( '.action.move' ).triggerHandler( 'focusout' );
 					jQuery( this ).accordion( 'refresh' );
+					kirki.control.repeater.util.reorderIDs( control );
 				}
 			});
+		},
+
+		reorderIDs: function( control ) {
+			var rows = jQuery( kirki.control.container( control ) ).find( '.repeater-row' ),
+			    i    = 0;
+
+			setTimeout( function() {
+				_.each( rows, function( row ) {
+					var oldRowID     = jQuery( row ).attr( 'data-row' ),
+					    newRowID     = i,
+					    oldSettingID = jQuery( row ).find( '.kirki-control-wrapper' ).attr( 'data-setting' ),
+						newSettingID = oldSettingID.replace( '[' + oldRowID + ']', '[' + newRowID + ']' );
+
+					jQuery( row ).attr( 'data-row', i );
+					jQuery( row ).find( '.kirki-control-wrapper' ).attr( 'data-setting', newSettingID );
+					i++;
+				} );
+			}, 50 );
 		}
 	}
 };

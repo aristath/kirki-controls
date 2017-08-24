@@ -9,7 +9,7 @@ kirki.control.code = {
 
 		control.container.html( kirki.control.code.template( control ) );
 
-		element = control.container.find( '.kirki-codemirror-editor' );
+		element = kirki.control.container( control ).find( '.kirki-codemirror-editor' );
 
 		editor = CodeMirror.fromTextArea( element[0], {
 			value:        control.setting._value,
@@ -22,7 +22,7 @@ kirki.control.code = {
 		if ( ! _.isUndefined( control.params.choices.height ) ) {
 			height = Number( control.params.choices.height );
 			if ( ! isNaN( height ) ) {
-				container = control.container.find( '.codemirror-kirki-wrapper' );
+				container = kirki.control.container( control ).find( '.codemirror-kirki-wrapper' );
 				jQuery( container ).css( 'max-height', function() {
 					return control.params.choices.height;
 				} );
@@ -58,7 +58,7 @@ kirki.control.code = {
 			html += '</div>';
 		html += '</label>';
 
-		return '<div class="kirki-control-wrapper-code">' + html + '</div>';
+		return '<div class="kirki-control-wrapper-code kirki-control-wrapper" id="kirki-control-wrapper-' + control.id + '" data-setting="' + control.id + '">' + html + '</div>';
 	},
 
 	/**
@@ -70,7 +70,7 @@ kirki.control.code = {
 	 */
 	value: {
 		set: function( control, value ) {
-			jQuery( control.container.find( '.CodeMirror' ) )[0].CodeMirror.setValue( value );
+			jQuery( kirki.control.container( control ).find( '.CodeMirror' ) )[0].CodeMirror.setValue( value );
 		}
 	}
 };

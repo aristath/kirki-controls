@@ -1,6 +1,9 @@
 /* global kirki */
 
 kirki.control.radio = {
+	init: function( control ) {
+	},
+
 	/**
 	 * The HTML Template for 'radio' controls.
 	 *
@@ -27,7 +30,7 @@ kirki.control.radio = {
 			html += '</label>';
 		} );
 
-		return '<div class="kirki-control-wrapper-radio">' + html + '</div>';
+		return '<div class="kirki-control-wrapper-radio kirki-control-wrapper" id="kirki-control-wrapper-' + control.id + '" data-setting="' + control.id + '">' + html + '</div>';
 	},
 
 	value: {
@@ -39,7 +42,7 @@ kirki.control.radio = {
 		 * @returns {void}
 		 */
 		set: function( control, value ) {
-			jQuery( control.container.find( 'input[value="' + value + '"]' ) ).prop( 'checked', true );
+			jQuery( kirki.control.container( control ).find( 'input[value="' + value + '"]' ) ).prop( 'checked', true );
 		}
 	}
 };

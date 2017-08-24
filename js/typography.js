@@ -1,5 +1,8 @@
 /* global wp, _, kirkiAllFonts, kirki */
 kirki.control.typography = {
+	init: function( control ) {
+	},
+
 	/**
 	 * The HTML Template for 'typography' controls.
 	 *
@@ -152,7 +155,7 @@ kirki.control.typography = {
 			}
 		html += '</div>';
 
-		return '<div class="kirki-control-wrapper-typography">' + html + '</div>';
+		return '<div class="kirki-control-wrapper-typography kirki-control-wrapper" id="kirki-control-wrapper-' + control.id + '" data-setting="' + control.id + '">' + html + '</div>';
 	},
 
 	value: {
@@ -166,17 +169,17 @@ kirki.control.typography = {
 		set: function( control, value ) {
 			_.each( ['font-family', 'variant', 'subsets'], function( subVal ) {
 				if ( ! _.isUndefined( value[ subVal ] ) ) {
-					control.setSelect2( control.container.find( '.' + subVal + ' select' ), value[ subVal ] );
+					control.setSelect2( kirki.control.container( control ).find( '.' + subVal + ' select' ), value[ subVal ] );
 				}
 			} );
 			_.each( ['font-size', 'line-height', 'letter-spacing', 'word-spacing'], function( subVal ) {
 				if ( ! _.isUndefined( value[ subVal ] ) ) {
-					jQuery( control.container.find( '.' + subVal + ' input' ) ).prop( 'value', value[ subVal ] );
+					jQuery( kirki.control.container( control ).find( '.' + subVal + ' input' ) ).prop( 'value', value[ subVal ] );
 				}
 			} );
 
 			if ( ! _.isUndefined( value.color ) ) {
-				control.setColorPicker( control.container.find( '.kirki-color-control' ), value.color );
+				control.setColorPicker( kirki.control.container( control ).find( '.kirki-color-control' ), value.color );
 			}
 		}
 	}
@@ -215,38 +218,38 @@ wp.customize.controlConstructor['kirki-typography'] = wp.customize.kirkiDynamicC
 		control.renderSubsetSelector();
 
 		// Font-size.
-		control.container.on( 'change keyup paste', '.font-size input', function() {
+		kirki.control.container( control ).on( 'change keyup paste', '.font-size input', function() {
 			control.saveValue( 'font-size', jQuery( this ).val() );
 		} );
 
 		// Line-height.
-		control.container.on( 'change keyup paste', '.line-height input', function() {
+		kirki.control.container( control ).on( 'change keyup paste', '.line-height input', function() {
 			control.saveValue( 'line-height', jQuery( this ).val() );
 		} );
 
 		// Margin-top.
-		control.container.on( 'change keyup paste', '.margin-top input', function() {
+		kirki.control.container( control ).on( 'change keyup paste', '.margin-top input', function() {
 			control.saveValue( 'margin-top', jQuery( this ).val() );
 		} );
 
 		// Margin-bottom.
-		control.container.on( 'change keyup paste', '.margin-bottom input', function() {
+		kirki.control.container( control ).on( 'change keyup paste', '.margin-bottom input', function() {
 			control.saveValue( 'margin-bottom', jQuery( this ).val() );
 		} );
 
 		// Letter-spacing.
 		value['letter-spacing'] = ( jQuery.isNumeric( value['letter-spacing'] ) ) ? value['letter-spacing'] + 'px' : value['letter-spacing'];
-		control.container.on( 'change keyup paste', '.letter-spacing input', function() {
+		kirki.control.container( control ).on( 'change keyup paste', '.letter-spacing input', function() {
 			value['letter-spacing'] = ( jQuery.isNumeric( jQuery( this ).val() ) ) ? jQuery( this ).val() + 'px' : jQuery( this ).val();
 			control.saveValue( 'letter-spacing', value['letter-spacing'] );
 		} );
 
 		// Word-spacing.
-		control.container.on( 'change keyup paste', '.word-spacing input', function() {
+		kirki.control.container( control ).on( 'change keyup paste', '.word-spacing input', function() {
 			control.saveValue( 'word-spacing', jQuery( this ).val() );
 		} );
 
-		control.container.on( 'change', '.text-align input', function() {
+		kirki.control.container( control ).on( 'change', '.text-align input', function() {
 			control.saveValue( 'text-align', jQuery( this ).val() );
 		} );
 
@@ -255,7 +258,7 @@ wp.customize.controlConstructor['kirki-typography'] = wp.customize.kirkiDynamicC
 			control.saveValue( 'text-transform', jQuery( this ).val() );
 		} );
 
-		picker = control.container.find( '.kirki-color-control' );
+		picker = kirki.control.container( control ).find( '.kirki-color-control' );
 
 		// Change color
 		picker.wpColorPicker( {

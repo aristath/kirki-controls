@@ -10,7 +10,7 @@ kirki.control.date = {
 		jQuery( selector ).datepicker();
 
 		// Save the changes
-		control.container.on( 'change keyup paste', 'input.datepicker', function() {
+		kirki.control.container( control ).on( 'change keyup paste', 'input.datepicker', function() {
 			control.setting.set( jQuery( this ).val() );
 		} );
 	},
@@ -32,7 +32,7 @@ kirki.control.date = {
 			html += '</div>';
 		html += '</label>';
 
-		return '<div class="kirki-control-wrapper-date">' + html + '</div>';
+		return '<div class="kirki-control-wrapper-date kirki-control-wrapper" id="kirki-control-wrapper-' + control.id + '" data-setting="' + control.id + '">' + html + '</div>';
 
 	},
 

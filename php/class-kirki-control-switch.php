@@ -28,27 +28,6 @@ class Kirki_Control_Switch extends Kirki_Control_Base {
 	public $type = 'kirki-switch';
 
 	/**
-	 * Returns an array of extra field dependencies for Kirki controls.
-	 *
-	 * @access protected
-	 * @since 3.0.10
-	 * @return array
-	 */
-	protected function kirki_script_dependencies() {
-		return array( 'kirki-checkbox' );
-	}
-
-	/**
-	 * Enqueue control related scripts/styles.
-	 *
-	 * @access public
-	 */
-	public function enqueue() {
-		wp_enqueue_script( 'kirki-checkbox' , kirki_controls()->get_url( 'js/checkbox.js' ), 'kirki', false, true );
-		parent::enqueue();
-	}
-
-	/**
 	 * Refresh the parameters passed to the JavaScript via JSON.
 	 *
 	 * @see WP_Customize_Control::to_json()

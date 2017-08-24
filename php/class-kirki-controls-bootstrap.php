@@ -62,6 +62,15 @@ class Kirki_Controls_Bootstrap {
 	);
 
 	/**
+	 * The Kirki_Controls_Scripts object.
+	 *
+	 * @access protected
+	 * @since 3.0.10
+	 * @var object
+	 */
+	protected $scripts;
+
+	/**
 	 * Get a single instance of this object.
 	 *
 	 * @static
@@ -91,6 +100,13 @@ class Kirki_Controls_Bootstrap {
 
 		add_action( 'wp_ajax_kirki_get_googlefonts_ajax', array( $this, 'get_googlefonts_ajax' ) );
 		add_action( 'wp_ajax_nopriv_kirki_get_googlefonts_ajax', array( $this, 'get_googlefonts_ajax' ) );
+	}
+
+	public function scripts() {
+		if ( ! $this->scripts ) {
+			$this->scripts = new Kirki_Controls_Scripts();
+		}
+		return $this->scripts;
 	}
 
 	/**
@@ -167,7 +183,7 @@ class Kirki_Controls_Bootstrap {
 	 */
 	protected function autoload( $class_name ) {
 
-		if ( 0 === stripos( $class_name, 'Kirki_Control_' ) || 0 === stripos( $class_name, 'Kirki_Settings_' ) ) {
+		if ( 0 === stripos( $class_name, 'Kirki_' ) ) {
 
 			// Build the file-path.
 			$path = wp_normalize_path( dirname( __FILE__ ) . '/class-' . strtolower( str_replace( '_', '-', $class_name ) ) . '.php' );

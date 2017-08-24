@@ -41,7 +41,7 @@ kirki.control.image = {
 			html += '</div>';
 		html += '</div>';
 
-		return '<div class="kirki-control-wrapper-image">' + html + '</div>';
+		return '<div class="kirki-control-wrapper-image kirki-control-wrapper" id="kirki-control-wrapper-' + control.id + '" data-setting="' + control.id + '">' + html + '</div>';
 	},
 
 	value: {
@@ -57,15 +57,15 @@ kirki.control.image = {
 				url     = value;
 
 			if ( _.isObject( value ) && ! _.isUndefined( value.url ) ) {
-				jQuery( control.container.find( '.' + control.id + '-image' ) ).prop( 'src', value.url );
+				jQuery( kirki.control.container( control ).find( '.' + control.id + '-image' ) ).prop( 'src', value.url );
 			} else if ( 'id' === saveAs && ! isNaN( value ) ) {
 				wp.media.attachment( value ).fetch().then( function( mediaData ) {
 					setTimeout( function() {
-						jQuery( control.container.find( '.' + control.id + '-image' ) ).prop( 'src', wp.media.attachment( value ).get( 'url' ) );
+						jQuery( kirki.control.container( control ).find( '.' + control.id + '-image' ) ).prop( 'src', wp.media.attachment( value ).get( 'url' ) );
 					}, 500 );
 				} );
 			} else {
-				jQuery( control.container.find( '.' + control.id + '-image' ) ).prop( 'src', value );
+				jQuery( kirki.control.container( control ).find( '.' + control.id + '-image' ) ).prop( 'src', value );
 			}
 		},
 
@@ -81,7 +81,7 @@ kirki.control.image = {
 				image,
 				uploadedImage;
 
-			control.container.on( 'click', '.image-upload-button', function( e ) {
+			kirki.control.container( control ).on( 'click', '.image-upload-button', function( e ) {
 				image = wp.media( { multiple: false } ).open().on( 'select', function() {
 					uploadedImage = image.state().get( 'selection' ).first();
 
@@ -100,13 +100,13 @@ kirki.control.image = {
 					}
 
 					// Add the image to the placeholder.
-					if ( control.container.find( '.placeholder, .thumbnail' ).length ) {
-						control.container.find( '.placeholder, .thumbnail' ).removeClass().addClass( 'thumbnail thumbnail-image' ).html( '<img src="' + uploadedImage.toJSON().sizes.full.url + '" alt="" />' );
+					if ( kirki.control.container( control ).find( '.placeholder, .thumbnail' ).length ) {
+						kirki.control.container( control ).find( '.placeholder, .thumbnail' ).removeClass().addClass( 'thumbnail thumbnail-image' ).html( '<img src="' + uploadedImage.toJSON().sizes.full.url + '" alt="" />' );
 					}
 
 					// Add the remove button.
-					if ( control.container.find( '.image-upload-remove-button' ).length ) {
-						control.container.find( '.image-upload-remove-button' ).show();
+					if ( kirki.control.container( control ).find( '.image-upload-remove-button' ).length ) {
+						kirki.control.container( control ).find( '.image-upload-remove-button' ).show();
 					}
 				} );
 				e.preventDefault();
@@ -116,7 +116,7 @@ kirki.control.image = {
 		removeImage: function( control ) {
 			var saveAs  = ( _.isUndefined( control.params.choices ) || _.isUndefined( control.params.choices.save_as ) ) ? 'url' : control.params.choices.save_as;
 
-			control.container.on( 'click', '.image-upload-remove-button', function( e ) {
+			kirki.control.container( control ).on( 'click', '.image-upload-remove-button', function( e ) {
 				e.preventDefault();
 
 				// Update the value.
@@ -132,13 +132,13 @@ kirki.control.image = {
 				}
 
 				// Remove image and add placeholder text.
-				if ( control.container.find( '.placeholder, .thumbnail' ).length ) {
-					control.container.find( '.placeholder, .thumbnail' ).removeClass().addClass( 'placeholder' ).html( 'No file selected' );
+				if ( kirki.control.container( control ).find( '.placeholder, .thumbnail' ).length ) {
+					kirki.control.container( control ).find( '.placeholder, .thumbnail' ).removeClass().addClass( 'placeholder' ).html( 'No file selected' );
 				}
 
 				// Hide the "Remove" button.
-				if ( control.container.find( '.image-upload-remove-button' ).length ) {
-					control.container.find( '.image-upload-remove-button' ).hide();
+				if ( kirki.control.container( control ).find( '.image-upload-remove-button' ).length ) {
+					kirki.control.container( control ).find( '.image-upload-remove-button' ).hide();
 				}
 			} );
 		},
@@ -146,16 +146,16 @@ kirki.control.image = {
 		defaultImage: function( control ) {
 			var saveAs  = ( _.isUndefined( control.params.choices ) || _.isUndefined( control.params.choices.save_as ) ) ? 'url' : control.params.choices.save_as;
 
-			control.container.on( 'click', '.image-default-button', function( e ) {
+			kirki.control.container( control ).on( 'click', '.image-default-button', function( e ) {
 				e.preventDefault();
 
 				// Update the value both in the settings and visually.
 				kirki.control.image.value.save( control, control.params['default'], 'url' );
 				control.kirkiSetControlValue( control.params['default'] );
 
-				if ( control.container.find( '.image-upload-remove-button' ).length ) {
-					control.container.find( '.image-upload-remove-button' ).show();
-					control.container.find( '.image-default-button' ).hide();
+				if ( kirki.control.container( control ).find( '.image-upload-remove-button' ).length ) {
+					kirki.control.container( control ).find( '.image-upload-remove-button' ).show();
+					kirki.control.container( control ).find( '.image-default-button' ).hide();
 				}
 			} );
 		}

@@ -1,5 +1,16 @@
 /* global wp, _, kirki */
 kirki.control.checkbox = {
+	init: function( control ) {
+		var checkboxValue = control.setting._value;
+
+		control.container.html( kirki.control.checkbox.template( control ) );
+
+		// Save the value
+		kirki.control.container( control ).on( 'change', 'input', function() {
+			checkboxValue = ( jQuery( this ).is( ':checked' ) ) ? true : false;
+			kirki.setSettingValue( this, checkboxValue );
+		});
+	},
 
 	/**
 	 * The HTML Template for 'checkbox' controls.
@@ -11,14 +22,13 @@ kirki.control.checkbox = {
 		var html    = '';
 
 		html += '<label>';
-			html += '<span class="customize-control-title">' + control.params.label + '</span>';
-			html += '<span class="description customize-control-description">' + control.params.description + '</span>';
-			html += '<div class="codemirror-kirki-wrapper">';
-				html += '<textarea ' + control.params.inputAttrs + ' class="kirki-codemirror-editor">' + control.params.value + '</textarea>';
-			html += '</div>';
+			html += '<input type="checkbox" ' + control.params.inputAttrs + 'value="' + control.params.value + '" ' + control.params.link + ( true === control.params.value ? ' checked' : '' ) + '/>';
+			html += control.params.label;
+			if ( control.params.description ) {
+				html += '<span class="description customize-control-description">' + control.params.description + '</span>';
+			}
 		html += '</label>';
-
-		return '<div class="kirki-control-wrapper-checkbox">' + html + '</div>';
+		return '<div class="kirki-control-wrapper-checkbox kirki-control-wrapper" id="kirki-control-wrapper-' + control.id + '" data-setting="' + control.id + '">' + html + '</div>';
 	},
 
 	value: {

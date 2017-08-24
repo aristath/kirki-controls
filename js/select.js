@@ -20,7 +20,7 @@ kirki.control.select = {
 
 		control.container.html( kirki.control.select.template( control ) );
 
-		element  = control.container.find( 'select' );
+		element  = kirki.control.container( control ).find( 'select' );
 		multiple = parseInt( element.data( 'multiple' ), 10 );
 
 		if ( 1 < multiple ) {
@@ -68,7 +68,7 @@ kirki.control.select = {
 			html += '</select>';
 		html += '</label>';
 
-		return '<div class="kirki-control-wrapper-select">' + html + '</div>';
+		return '<div class="kirki-control-wrapper-select kirki-control-wrapper" id="kirki-control-wrapper-' + control.id + '" data-setting="' + control.id + '">' + html + '</div>';
 	},
 
 	value: {
@@ -80,7 +80,7 @@ kirki.control.select = {
 		 * @returns {void}
 		 */
 		set: function( control, value ) {
-			control.setSelect2( control.container.find( 'select' ), value );
+			control.setSelect2( kirki.control.container( control ).find( 'select' ), value );
 		}
 	}
 };

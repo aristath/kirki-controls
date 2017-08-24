@@ -26,15 +26,4 @@ class Kirki_Control_Sortable extends Kirki_Control_Base {
 	 * @var string
 	 */
 	public $type = 'kirki-sortable';
-
-	/**
-	 * Returns an array of extra field dependencies for Kirki controls.
-	 *
-	 * @access protected
-	 * @since 3.0.10
-	 * @return array
-	 */
-	protected function kirki_script_dependencies() {
-		return array( 'jquery-ui-core', 'jquery-ui-sortable' );
-	}
 }

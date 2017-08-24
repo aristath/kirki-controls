@@ -7,7 +7,7 @@ kirki.control.dimension = {
 		kirki.control.dimension.notifications( control );
 
 		// Save the value
-		control.container.on( 'change keyup paste', 'input', function() {
+		kirki.control.container( control ).on( 'change keyup paste', 'input', function() {
 			control.setting.set( jQuery( this ).val() );
 		} );
 	},
@@ -29,7 +29,7 @@ kirki.control.dimension = {
 			html += '</div>';
 		html += '</label>';
 
-		return '<div class="kirki-control-wrapper-dimension">' + html + '</div>';
+		return '<div class="kirki-control-wrapper-dimension kirki-control-wrapper" id="kirki-control-wrapper-' + control.id + '" data-setting="' + control.id + '">' + html + '</div>';
 	},
 
 	value: {
@@ -41,7 +41,7 @@ kirki.control.dimension = {
 		 * @returns {void}
 		 */
 		set: function( control, value ) {
-			jQuery( control.container.find( 'input' ) ).attr( 'value', value );
+			jQuery( kirki.control.container( control ).find( 'input' ) ).attr( 'value', value );
 		}
 	},
 

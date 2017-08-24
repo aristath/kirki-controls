@@ -1,12 +1,92 @@
 /* global wp, _ */
 var kirki = {
 	control: {
+		container: function( control ) {
+			return jQuery( '#kirki-control-wrapper-' + control.id );
+		},
 		getTypeWithPrefix: function( controlType ) {
 			return 'kirki-' + controlType.replace( 'kirki-', '' );
 		},
 		getTypeWithoutPrefix: function( controlType ) {
 			return controlType.replace( 'kirki-', '' );
+		},
+		getArgs: function( control ) {
+			var controlType;
+
+			// The ID.
+			control.params = ( _.isUndefined( control.params ) ) ? {} : control.params;
+			if ( _.isUndefined( control.id ) ) {
+				if ( ! _.isUndefined( control.params.id ) ) {
+					control.id = control.params.id;
+				} else if ( _.isString( control.params.settings ) ) {
+					control.id = control.params.settings;
+				}
+			}
+			control.params.id = ( _.isUndefined( control.params.id ) && ! _.isUndefined( control.id ) ) ? control.id : control.params.id;
+
+			// The control-type.
+			controlType = ( _.isUndefined( control.type ) ) ? 'generic' : kirki.control.getTypeWithoutPrefix( control.type );
+			controlType = ( ! _.isUndefined( control.params ) && ! _.isUndefined( control.params.type ) ) ? kirki.control.getTypeWithoutPrefix( control.params.type ) : controlType;
+			control.type = control.params.type = kirki.control.getTypeWithPrefix( controlType );
+
+			// Call extra function if defined for this control-type.
+			if ( ! _.isUndefined( kirki.control[ kirki.control.getTypeWithoutPrefix( control.type ) ] ) && ! _.isUndefined( kirki.control[ kirki.control.getTypeWithoutPrefix( control.type ) ].getArgs ) ) {
+				return kirki.control[ kirki.control.getTypeWithoutPrefix( control.type ) ].getArgs( control );
+			}
+
+			if ( _.isUndefined( control.container ) ) {
+				control.container = kirki.control.container( control );
+			}
+			return control;
 		}
+	},
+
+	getSettingValue: function( setting ) {
+		var parts = setting.split( '[' ),
+			foundSetting = '',
+			currentVal;
+		_.each( parts, function( part, i ) {
+			part = part.replace( ']', '' );
+
+			if ( 0 === i ) {
+				foundSetting = part;
+			} else {
+				foundSetting += '[' + part + ']';
+			}
+
+			if ( ! _.isUndefined( wp.customize.instance( foundSetting ) ) ) {
+				wp.customize.instance( foundSetting ).get();
+			}
+		});
+	},
+
+	setSettingValue: function( element, value, key ) {
+		var setting      = jQuery( element ).parents( '.kirki-control-wrapper' ).attr( 'data-setting' ),
+		    parts        = setting.split( '[' ),
+		    foundSetting = '',
+			currentVal;
+		_.each( parts, function( part, i ) {
+			part = part.replace( ']', '' );
+
+			if ( 0 === i ) {
+				foundSetting = part;
+			} else {
+				foundSetting += '[' + part + ']';
+			}
+
+			if ( ! _.isUndefined( wp.customize.instance( foundSetting ) ) ) {
+				if ( key ) {
+					currentVal = wp.customize.instance( foundSetting ).get();
+					currentVal = ( ! _.isObject( currentVal ) ) ? {} : currentVal;
+					currentVal[ key ] = value;
+					value = currentVal;
+					wp.customize.control( foundSetting ).setting.set({});
+				} else {
+					wp.customize.control( foundSetting ).setting.set( '' );
+				}
+				wp.customize.control( foundSetting ).setting.set( value );
+			}
+		});
 	},
 
 	value: {
@@ -96,7 +176,7 @@ var kirki = {
 		 */
 		_setUpSettingRootLinks: function() {
 			var control = this,
-			    nodes   = control.container.find( '[data-customize-setting-link]' );
+			    nodes   = kirki.control.container( control ).find( '[data-customize-setting-link]' );
 
 			nodes.each( function() {
 				var node = jQuery( this );
@@ -124,7 +204,7 @@ var kirki = {
 				return;
 			}
 
-			nodes = control.container.find( '[data-customize-setting-property-link]' );
+			nodes = kirki.control.container( control ).find( '[data-customize-setting-property-link]' );
 
 			nodes.each( function() {
 				var node = jQuery( this ),
@@ -243,7 +323,7 @@ var kirki = {
 			var control = this;
 
 			// Save the value
-			control.container.on( 'change keyup paste click', 'input', function() {
+			kirki.control.container( control ).on( 'change keyup paste click', 'input', function() {
 				control.setting.set( jQuery( this ).val() );
 			} );
 

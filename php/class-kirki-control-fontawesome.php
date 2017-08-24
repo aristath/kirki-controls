@@ -28,17 +28,6 @@ class Kirki_Control_FontAwesome extends Kirki_Control_Base {
 	public $type = 'kirki-fontawesome';
 
 	/**
-	 * Returns an array of extra field dependencies for Kirki controls.
-	 *
-	 * @access protected
-	 * @since 3.0.10
-	 * @return array
-	 */
-	protected function kirki_script_dependencies() {
-		return array( 'select2' );
-	}
-
-	/**
 	 * Enqueue control related scripts/styles.
 	 *
 	 * @access public

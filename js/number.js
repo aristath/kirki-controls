@@ -12,7 +12,7 @@ kirki.control.number = {
 
 		control.container.html( kirki.control.number.template( control ) );
 
-		element = control.container.find( 'input' );
+		element = kirki.control.container( control ).find( 'input' );
 
 		// Set step value.
 		if ( ! _.isUndefined( control.params.choices ) && ! _.isUndefined( control.params.choices.step ) ) {
@@ -23,7 +23,7 @@ kirki.control.number = {
 		jQuery( element ).spinner( control.params.choices );
 
 		// On change
-		control.container.on( 'change click keyup paste', 'input', function() {
+		kirki.control.container( control ).on( 'change click keyup paste', 'input', function() {
 			control.setting.set( jQuery( this ).val() );
 		} );
 
@@ -48,7 +48,7 @@ kirki.control.number = {
 			html += '</div>';
 		html += '</label>';
 
-		return '<div class="kirki-control-wrapper-number">' + html + '</div>';
+		return '<div class="kirki-control-wrapper-number kirki-control-wrapper" id="kirki-control-wrapper-' + control.id + '" data-setting="' + control.id + '">' + html + '</div>';
 	},
 
 	value: {
@@ -60,7 +60,7 @@ kirki.control.number = {
 		 * @returns {void}
 		 */
 		set: function( control, value ) {
-			jQuery( control.container.find( 'input' ) ).attr( 'value', value );
+			jQuery( kirki.control.container( control ).find( 'input' ) ).attr( 'value', value );
 		}
 	},
 

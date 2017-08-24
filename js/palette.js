@@ -1,5 +1,8 @@
 /* global kirki */
 kirki.control.palette = {
+	init: function( control ) {
+	},
+
 	/**
 	 * The HTML Template for 'palette' controls.
 	 *
@@ -26,7 +29,7 @@ kirki.control.palette = {
 		} );
 		html += '</div>';
 
-		return '<div class="kirki-control-wrapper-palette">' + html + '</div>';
+		return '<div class="kirki-control-wrapper-palette kirki-control-wrapper" id="kirki-control-wrapper-' + control.id + '" data-setting="' + control.id + '">' + html + '</div>';
 
 	},
 
@@ -39,7 +42,7 @@ kirki.control.palette = {
 		 * @returns {void}
 		 */
 		set: function( control, value ) {
-			jQuery( control.container.find( 'input[value="' + value + '"]' ) ).prop( 'checked', true );
+			jQuery( kirki.control.container( control ).find( 'input[value="' + value + '"]' ) ).prop( 'checked', true );
 		}
 	}
 };

@@ -1,5 +1,11 @@
 /* global wp, _, kirki */
 kirki.control['color-palette'] = {
+	init: function( control ) {
+		control.container.html( kirki.control['color-palette'].template( control ) );
+		jQuery( '.kirki-control-wrapper-color-palette' ).on( 'click', 'input', function() {
+			kirki.setSettingValue( this, jQuery( this ).val() );
+		});
+	},
 
 	/**
 	 * The HTML Template for 'color-palette' controls.
@@ -34,7 +40,7 @@ kirki.control['color-palette'] = {
 		} );
 		html += '</div>';
 
-		return '<div class="kirki-control-wrapper-color-palette">' + html + '</div>';
+		return '<div class="kirki-control-wrapper-color-palette kirki-control-wrapper" id="kirki-control-wrapper-' + control.id + '" data-setting="' + control.id + '">' + html + '</div>';
 	},
 
 	value: {
@@ -46,7 +52,7 @@ kirki.control['color-palette'] = {
 		 * @returns {void}
 		 */
 		set: function( control, value ) {
-			jQuery( control.container.find( 'input[value="' + value + '"]' ) ).prop( 'checked', true );
+			jQuery( kirki.control.container( control ).find( 'input[value="' + value + '"]' ) ).prop( 'checked', true );
 		}
 	}
 };

@@ -1,6 +1,9 @@
 /* global wp, _, kirki */
 
 kirki.control.toggle = {
+	init: function( control ) {
+	},
+
 	/**
 	 * The HTML Template for 'toggle' controls.
 	 *
@@ -18,7 +21,7 @@ kirki.control.toggle = {
 			html += '<span class="switch"></span>';
 		html += '</label>';
 
-		return '<div class="kirki-control-wrapper-toggle">' + html + '</div>';
+		return '<div class="kirki-control-wrapper-toggle kirki-control-wrapper" id="kirki-control-wrapper-' + control.id + '" data-setting="' + control.id + '">' + html + '</div>';
 	},
 
 	value: {
@@ -31,7 +34,7 @@ kirki.control.toggle = {
 		 */
 		set: function( control, value ) {
 			value = ( 1 === value || '1' === value || true === value ) ? true : false;
-			jQuery( control.container.find( 'input' ) ).prop( 'checked', value );
+			jQuery( kirki.control.container( control ).find( 'input' ) ).prop( 'checked', value );
 		}
 	}
 };

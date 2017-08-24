@@ -1,5 +1,12 @@
 /* global kirki */
 kirki.control.dashicons = {
+	init: function( control ) {
+		control.container.html( kirki.control.dashicons.template( control ) );
+		jQuery( 'kirki-control-wrapper-dashicons' ).on( 'click', 'input', function() {
+			kirki.setSettingValue( this, jQuery( this ).val() );
+		});
+	},
+
 	/**
 	 * The HTML Template for 'dashicons' controls.
 	 *
@@ -7,9 +14,9 @@ kirki.control.dashicons = {
 	 * @returns {string}
 	 */
 	template: function( control ) {
-		var html    = '',
-			data    = control.params,
-			cats    = ['admin-menu', 'welcome-screen', 'post-formats', 'media', 'image-editing', 'tinymce', 'posts', 'sorting', 'social', 'wordpress_org', 'products', 'taxonomies', 'widgets', 'notifications', 'misc'];
+		var html = '',
+		    data = control.params,
+		    cats = ['admin-menu', 'welcome-screen', 'post-formats', 'media', 'image-editing', 'tinymce', 'posts', 'sorting', 'social', 'wordpress_org', 'products', 'taxonomies', 'widgets', 'notifications', 'misc'];
 
 		html += '<span class="customize-control-title">' + control.params.label + '</span>';
 		html += '<span class="description customize-control-description">' + data.description + '</span>';
@@ -32,7 +39,7 @@ kirki.control.dashicons = {
 			}
 		html += '</div>';
 
-		return '<div class="kirki-control-wrapper-dashicons">' + html + '</div>';
+		return '<div class="kirki-control-wrapper-dashicons kirki-control-wrapper" id="kirki-control-wrapper-' + control.id + '" data-setting="' + control.id + '">' + html + '</div>';
 	},
 
 	value: {
@@ -44,7 +51,7 @@ kirki.control.dashicons = {
 		 * @returns {void}
 		 */
 		set: function( control, value ) {
-			jQuery( control.container.find( 'input[value="' + value + '"]' ) ).prop( 'checked', true );
+			jQuery( kirki.control.container( control ).find( 'input[value="' + value + '"]' ) ).prop( 'checked', true );
 		}
 	}
 };

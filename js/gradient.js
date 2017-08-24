@@ -5,8 +5,8 @@ wp.customize.controlConstructor['kirki-gradient'] = wp.customize.kirkiDynamicCon
 
 		var control      = this,
 		    value        = control.getValue(),
-		    pickerStart  = control.container.find( '.kirki-gradient-control-start' ),
-		    pickerEnd    = control.container.find( '.kirki-gradient-control-end' ),
+		    pickerStart  = kirki.control.container( control ).find( '.kirki-gradient-control-start' ),
+		    pickerEnd    = kirki.control.container( control ).find( '.kirki-gradient-control-end' ),
 		    angleElement = jQuery( '.angle.gradient-' + control.id ),
 		    throttledAngleChange,
 		    throttledPositionStartChange,
@@ -43,19 +43,19 @@ wp.customize.controlConstructor['kirki-gradient'] = wp.customize.kirkiDynamicCon
 			} );
 		} );
 
-		jQuery( control.container.find( '.global .angle' ) ).show();
+		jQuery( kirki.control.container( control ).find( '.global .angle' ) ).show();
 		if ( ! _.isUndefined( value.mode && 'radial' === value.mode ) ) {
-			jQuery( control.container.find( '.global .angle' ) ).hide();
+			jQuery( kirki.control.container( control ).find( '.global .angle' ) ).hide();
 		}
 
 		// Mode (linear/radial).
-		jQuery( control.container.find( '.mode .switch-input' ) ).on( 'click input', function() {
+		jQuery( kirki.control.container( control ).find( '.mode .switch-input' ) ).on( 'click input', function() {
 			value.mode = jQuery( this ).val();
 			control.updatePreview( value );
 			control.setValue( value );
-			jQuery( control.container.find( '.global .angle' ) ).show();
+			jQuery( kirki.control.container( control ).find( '.global .angle' ) ).show();
 			if ( 'radial' === value.mode ) {
-				jQuery( control.container.find( '.global .angle' ) ).hide();
+				jQuery( kirki.control.container( control ).find( '.global .angle' ) ).hide();
 			}
 		} );
 
@@ -132,7 +132,7 @@ wp.customize.controlConstructor['kirki-gradient'] = wp.customize.kirkiDynamicCon
 	 */
 	updatePreview: function( value ) {
 		var control     = this,
-		    previewArea = control.container.find( '.gradient-preview' );
+		    previewArea = kirki.control.container( control ).find( '.gradient-preview' );
 
 		if ( ! _.isUndefined( value.mode ) && 'radial' === value.mode ) {
 			jQuery( previewArea ).css(

@@ -12,8 +12,8 @@ kirki.control.editor = {
 
 		control.container.html( kirki.control.editor.template( control ) );
 
-		element      = control.container.find( 'textarea' );
-		toggler      = control.container.find( '.toggle-editor' );
+		element      = kirki.control.container( control ).find( 'textarea' );
+		toggler      = kirki.control.container( control ).find( '.toggle-editor' );
 		wpEditorArea = jQuery( '#kirki_editor_pane textarea.wp-editor-area' );
 		editor       = tinyMCE.get( 'kirki-editor' );
 
@@ -75,7 +75,7 @@ kirki.control.editor = {
 			html += '</div>';
 		html += '</label>';
 
-		return '<div class="kirki-control-wrapper-editor">' + html + '</div>';
+		return '<div class="kirki-control-wrapper-editor kirki-control-wrapper" id="kirki-control-wrapper-' + control.id + '" data-setting="' + control.id + '">' + html + '</div>';
 	},
 
 	value: {

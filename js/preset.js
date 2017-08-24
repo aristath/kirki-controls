@@ -11,7 +11,7 @@ wp.customize.controlConstructor['kirki-preset'] = wp.customize.kirkiDynamicContr
 		    selectValue;
 
 		// Trigger a change
-		control.container.on( 'change', 'select', function() {
+		kirki.control.container( control ).on( 'change', 'select', function() {
 
 			// Get the control's value
 			selectValue = jQuery( this ).val();

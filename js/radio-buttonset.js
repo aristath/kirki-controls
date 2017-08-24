@@ -1,6 +1,9 @@
 /* global kirki */
 
 kirki.control['radio-buttonset'] = {
+	init: function( control ) {
+	},
+
 	/**
 	 * The HTML Template for 'radio-buttonset' controls.
 	 *
@@ -20,7 +23,7 @@ kirki.control['radio-buttonset'] = {
 			} );
 		html += '</div>';
 
-		return '<div class="kirki-control-wrapper-radio-buttonset">' + html + '</div>';
+		return '<div class="kirki-control-wrapper-radio-buttonset kirki-control-wrapper" id="kirki-control-wrapper-' + control.id + '" data-setting="' + control.id + '">' + html + '</div>';
 	},
 
 	value: {
@@ -32,7 +35,7 @@ kirki.control['radio-buttonset'] = {
 		 * @returns {void}
 		 */
 		set: function( control, value ) {
-			jQuery( control.container.find( 'input[value="' + value + '"]' ) ).prop( 'checked', true );
+			jQuery( kirki.control.container( control ).find( 'input[value="' + value + '"]' ) ).prop( 'checked', true );
 		}
 	}
 };

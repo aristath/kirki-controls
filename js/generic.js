@@ -7,7 +7,7 @@ kirki.control.generic = {
 		control.container.html( kirki.control.generic.template( control ) );
 
 		// Save the value
-		control.container.on( 'change keyup paste click', element, function() {
+		kirki.control.container( control ).on( 'change keyup paste click', element, function() {
 			control.setting.set( jQuery( this ).val() );
 		} );
 	},
@@ -46,7 +46,7 @@ kirki.control.generic = {
 			html += '</div>';
 		html += '</label>';
 
-		return '<div class="kirki-control-wrapper-generic">' + html + '</div>';
+		return '<div class="kirki-control-wrapper-generic kirki-control-wrapper" id="kirki-control-wrapper-' + control.id + '" data-setting="' + control.id + '">' + html + '</div>';
 	},
 
 	value: {
@@ -70,10 +70,10 @@ kirki.control.generic = {
 			}
 
 			if ( 'textarea' === control.params.choices.element ) {
-				control.container.find( 'textarea' ).html( value );
+				kirki.control.container( control ).find( 'textarea' ).html( value );
 			}
-			jQuery( control.container.find( control.params.choices.element ) ).prop( 'value', value );
-			jQuery( control.container.find( control.params.choices.element ) ).val( value );
+			jQuery( kirki.control.container( control ).find( control.params.choices.element ) ).prop( 'value', value );
+			jQuery( kirki.control.container( control ).find( control.params.choices.element ) ).val( value );
 		}
 	}
 };
