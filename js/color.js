@@ -5,7 +5,7 @@ kirki.control.color = {
 		var clear,
 		    picker;
 
-		control.container.html( kirki.control.color.template( control ) );
+		kirki.control.container( control ).html( kirki.control.color.template( control ) );
 
 		picker = kirki.control.container( control ).find( '.kirki-color-control' );
 

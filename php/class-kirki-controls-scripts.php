@@ -196,6 +196,7 @@ class Kirki_Controls_Scripts {
 			case 'kirki-radio':
 			case 'kirki-checkbox':
 			case 'kirki-color-palette':
+			case 'kirki-dashicons':
 				$scripts[] = 'kirki';
 				break;
 			case 'wp-color-picker-alpha':
