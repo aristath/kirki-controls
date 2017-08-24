@@ -167,6 +167,7 @@ class Kirki_Controls_Scripts {
 				$scripts[] = 'kirki';
 				$scripts[] = 'jquery-ui-sortable';
 				$scripts[] = 'jquery-ui-accordion';
+				$scripts[] = 'kirki-generic';
 				break;
 			case 'kirki-select':
 				$scripts[] = 'kirki';
