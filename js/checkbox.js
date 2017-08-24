@@ -1,13 +1,11 @@
 /* global wp, _, kirki */
 kirki.control.checkbox = {
 	init: function( control ) {
-		var checkboxValue = control.setting._value;
-
 		control.container.html( kirki.control.checkbox.template( control ) );
 
 		// Save the value
 		kirki.control.container( control ).on( 'change', 'input', function() {
-			checkboxValue = ( jQuery( this ).is( ':checked' ) ) ? true : false;
+			var checkboxValue = ( jQuery( this ).is( ':checked' ) ) ? true : false;
 			kirki.setSettingValue( this, checkboxValue );
 		});
 	},
