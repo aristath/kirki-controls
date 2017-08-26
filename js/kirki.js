@@ -1,15 +1,47 @@
 /* global wp, _ */
 var kirki = {
 	control: {
+
+		/**
+		 * Returns the wrapper element of the control.
+		 *
+		 * @since 3.1.0
+		 * @param {object} [control] The control arguments.
+		 * @returns {array}
+		 */
 		container: function( control ) {
 			return jQuery( '#kirki-control-wrapper-' + control.id );
 		},
+
+		/**
+		 * Gets the control-type, making sure it has the 'kirki-' prefix.
+		 *
+		 * @since 3.1.0
+		 * @param {string} [controlType] The control-type.
+		 * @returns {string}
+		 */
 		getTypeWithPrefix: function( controlType ) {
 			return 'kirki-' + controlType.replace( 'kirki-', '' );
 		},
+
+		/**
+		 * Gets the control-type, making sure it does not have the 'kirki-' prefix.
+		 *
+		 * @since 3.1.0
+		 * @param {string} [controlType] The control-type.
+		 * @returns {string}
+		 */
 		getTypeWithoutPrefix: function( controlType ) {
 			return controlType.replace( 'kirki-', '' );
 		},
+
+		/**
+		 * Gets the field, making sure it has any arguments required.
+		 *
+		 * @since 3.1.0
+		 * @param {object} [control] The control object.
+		 * @returns {object}
+		 */
 		getArgs: function( control ) {
 			var controlType;
 
@@ -40,7 +72,20 @@ var kirki = {
 			return control;
 		},
 
+		/**
+		 * An object containing template-specific functions.
+		 *
+		 * @since 3.1.0
+		 */
 		template: {
+
+			/**
+			 * Gets the HTML for control headers.
+			 *
+			 * @since 3.1.0
+			 * @param {object} [control] The control object.
+			 * @return {string}
+			 */
 			header: function( control ) {
 				var html = '';
 
@@ -53,10 +98,19 @@ var kirki = {
 		}
 	},
 
+	/**
+	 * Gets the value of a setting.
+	 *
+	 * @since 3.1.0
+	 * @param {string} [setting] The setting for which we're getting the value.
+	 * @returns {(string|array|object|bool)} Depends on the value.
+	 */
 	getSettingValue: function( setting ) {
 		var parts = setting.split( '[' ),
 			foundSetting = '',
-			currentVal;
+			foundInStep  = 0,
+			currentVal   = '';
+
 		_.each( parts, function( part, i ) {
 			part = part.replace( ']', '' );
 
@@ -67,11 +121,31 @@ var kirki = {
 			}
 
 			if ( ! _.isUndefined( wp.customize.instance( foundSetting ) ) ) {
-				wp.customize.instance( foundSetting ).get();
+				currentVal  = wp.customize.instance( foundSetting ).get();
+				foundInStep = i;
+			}
+
+			if ( foundInStep < i ) {
+				if ( _.isObject( currentVal ) && ! _.isUndefined( currentVal[ part ] ) ) {
+					currentVal = currentVal[ part ];
+				}
 			}
 		});
+
+		return currentVal;
 	},
 
+	/**
+	 * Sets the value of a setting.
+	 *
+	 * @since 3.1.0
+	 * @param {string}                     [element] The DOM element whose value has changed.
+	 *                                               We'll use this to find the setting from its wrapper parent.
+	 * @param {(string|array|bool|object)} [value]   Depends on the control-type.
+	 * @param {string}                     [key]     If we only want to save an item in an object
+	 *                                               we can define the key here.
+	 * @returns {void}
+	 */
 	setSettingValue: function( element, value, key ) {
 		var setting      = jQuery( element ).parents( '.kirki-control-wrapper' ).attr( 'data-setting' ),
 		    parts        = setting.split( '[' ),
@@ -334,14 +408,14 @@ var kirki = {
 
 			var control = this;
 
+			if ( _.isFunction( control.getHTML ) && '' !== control.getHTML( control ) ) {
+				control.container.html( control.getHTML( control ) );
+			}
+
 			// Save the value
 			kirki.control.container( control ).on( 'change keyup paste click', 'input', function() {
 				control.setting.set( jQuery( this ).val() );
 			} );
-
-			if ( _.isFunction( control.getHTML ) && '' !== control.getHTML( control ) ) {
-				control.container.html( control.getHTML( control ) );
-			}
 		},
 
 		/**

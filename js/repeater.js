@@ -21,14 +21,18 @@ kirki.control.repeater = {
 		if ( ! control.params.fields ) {
 			return;
 		}
+
+		// The control header.
 		html += kirki.control.template.header( control );
 
+		// Add the rows.
 		html += '<ul class="repeater-rows">';
 			_.each( control.params.value, function( rowValue, key ) {
 				html += kirki.control.repeater.rowTemplate( control, rowValue, key );
 			} );
 		html += '</ul>';
 
+		// Add row button.
 		html += '<button class="add-row button"><span class="dashicons dashicons-plus"></span> Add Row</button>';
 
 		return '<div class="kirki-control-wrapper-repeater kirki-control-wrapper" id="kirki-control-wrapper-' + control.id + '" data-setting="' + control.id + '">' + html + '</div>';
