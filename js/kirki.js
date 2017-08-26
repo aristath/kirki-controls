@@ -130,34 +130,63 @@ var kirki = {
 	 * @returns {void}
 	 */
 	setSettingValue: function( element, value, key ) {
-		var setting      = jQuery( element ).parents( '.kirki-control-wrapper' ).attr( 'data-setting' ),
-		    parts        = setting.split( '[' ),
-		    foundSetting = '',
+		var setting       = jQuery( element ).parents( '.kirki-control-wrapper' ).attr( 'data-setting' ),
+		    parts         = setting.split( '[' ),
+			currentNode   = '',
+		    foundNode     = '',
+			foundNodeStep = null,
 			currentVal;
 
+		/**
+		 * If we want to save the value for my_setting[something][3][something-else]
+		 * then we need to find the part that is used as a customizer setting
+		 * and then figure out how to save the sub-parts of the setting.
+		 */
 		_.each( parts, function( part, i ) {
 			part = part.replace( ']', '' );
 
+			// The current part of the setting.
 			if ( 0 === i ) {
-				foundSetting = part;
+				currentNode = part;
 			} else {
-				foundSetting += '[' + part + ']';
+				currentNode += '[' + part + ']';
 			}
 
-			if ( ! _.isUndefined( wp.customize.instance( foundSetting ) ) ) {
-				if ( key ) {
-					currentVal = wp.customize.instance( foundSetting ).get();
-					currentVal = ( ! _.isObject( currentVal ) ) ? {} : currentVal;
-					currentVal[ key ] = value;
-					value = currentVal;
-					wp.customize.control( foundSetting ).setting.set({});
-				} else {
-					wp.customize.control( foundSetting ).setting.set( '' );
-				}
-				wp.customize.control( foundSetting ).setting.set( value );
+			if ( ! _.isUndefined( wp.customize.instance( currentNode ) ) ) {
+
+				// Node was found.
+				foundNode     = currentNode;
+				foundNodeStep = i;
+
+				// Get the currentValue.
+				currentVal = wp.customize.instance( foundNode ).get();
 			}
-			console.log( foundSetting );
-		});
+		} );
+
+		if ( '' !== foundNode && setting !== foundNode ) {
+			_.each( parts, function( part, i ) {
+				part = part.replace( ']', '' );
+				if ( i < foundNodeStep ) {
+					return;
+				}
+				if ( i < parts.length - 1 ) {
+					if ( _.isUndefined( currentVal ) ) {
+						currentVal = {};
+					}
+					if ( _.isUndefined( currentVal[ part ] ) ) {
+						currentVal[ part ] = {};
+					}
+					currentVal = currentVal[ part ];
+				}
+			} );
+		}
+
+		if ( key ) {
+			currentVal = ( ! _.isObject( currentVal ) ) ? {} : currentVal;
+			currentVal[ key ] = value;
+			value = currentVal;
+		}
+		wp.customize.control( foundNode ).setting.set( value );
 	},
 
 	value: {

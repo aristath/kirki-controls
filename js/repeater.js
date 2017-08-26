@@ -91,12 +91,18 @@ kirki.control.repeater = {
 			_.each( control.params.fields, function( field, key ) {
 				rowDefaults[ key ] = ( ! _.isUndefined( field['default'] ) ) ? field['default'] : '';
 			} );
+
 			kirki.util.controlContainer( control ).find( '.add-row' ).click( function( e ) {
+				var rowID = kirki.control.repeater.util.getLastRowID( control ) + 1;
+
 				e.preventDefault();
-				jQuery( kirki.util.controlContainer( control ).find( '.repeater-rows' ) )
-					.append( kirki.control.repeater.rowTemplate( control, rowDefaults ) );
-			});
-			kirki.control.repeater.util.sortableAccordion( control );
+
+				// Add a delay to give us time to get the last row ID.
+				setTimeout( function() {
+					jQuery( kirki.util.controlContainer( control ).find( '.repeater-rows' ) ).append( kirki.control.repeater.rowTemplate( control, rowDefaults, rowID ) );
+					kirki.control.repeater.util.sortableAccordion( control );
+				}, 40 );
+			} );
 		},
 
 		/**
@@ -143,6 +149,27 @@ kirki.control.repeater = {
 					i++;
 				} );
 			}, 50 );
+		},
+
+		getLastRowID: function( control ) {
+			var rows = jQuery( kirki.util.controlContainer( control ) ).find( '.repeater-row' ),
+			    lastRow = 0;
+
+			// If there are no rows, return 0.
+			if ( 0 === rows.length ) {
+				return -1;
+			}
+
+			// Get the biggest row-ID.
+			_.setTimeout( function() {
+				_.each( rows, function( row ) {
+					if ( jQuery( row ).attr( 'data-row' ) > lastRow ) {
+						lastRow = jQuery( row ).attr( 'data-row' );
+					}
+				} );
+
+			}, 30 );
+			return lastRow;
 		}
 	}
 };
