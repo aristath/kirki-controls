@@ -38,10 +38,19 @@ var kirki = {
 			}
 
 			// Label.
-			control.params.label = ( _.isUndefined( control.params.label ) && ! _.isUndefined( control.label ) ) ? control.label : control.params.label;
+			if ( _.isUndefined( control.params.label ) ) {
+				control.params.label = ( ! _.isUndefined( control.label ) ) ? control.label : '';
+			}
 
 			// Description.
-			control.params.description = ( _.isUndefined( control.params.description ) && ! _.isUndefined( control.description ) ) ? control.description : control.params.description;
+			if ( _.isUndefined( control.params.description ) ) {
+				control.params.description = ( ! _.isUndefined( control.description ) ) ? control.description : '';
+			}
+
+			// Attributes.
+			if ( _.isUndefined( control.params.inputAttrs ) ) {
+				control.params.inputAttrs = ( ! _.isUndefined( control.inputAttrs ) ) ? control.inputAttrs : '';
+			}
 
 			return control;
 		},
@@ -125,6 +134,7 @@ var kirki = {
 		    parts        = setting.split( '[' ),
 		    foundSetting = '',
 			currentVal;
+
 		_.each( parts, function( part, i ) {
 			part = part.replace( ']', '' );
 
@@ -146,6 +156,7 @@ var kirki = {
 				}
 				wp.customize.control( foundSetting ).setting.set( value );
 			}
+			console.log( foundSetting );
 		});
 	},
 

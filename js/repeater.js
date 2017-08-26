@@ -60,6 +60,9 @@ kirki.control.repeater = {
 
 				// Go through each field.
 				_.each( control.params.fields, function( field, key ) {
+					if ( _.isUndefined( field.id ) ) {
+						field.id = control.id + '[' + rowKey + '][' + key + ']';
+					}
 
 					field = kirki.control.getArgs( field );
 

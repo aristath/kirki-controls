@@ -3,11 +3,14 @@ kirki.control.checkbox = {
 	init: function( control ) {
 		control.container.html( kirki.control.checkbox.template( control ) );
 
-		// Save the value
-		kirki.util.controlContainer( control ).on( 'change', 'input', function() {
-			var checkboxValue = ( jQuery( this ).is( ':checked' ) ) ? true : false;
-			kirki.setSettingValue( this, checkboxValue );
-		});
+		_.defer( function() {
+
+			// Save the value
+			jQuery( '.kirki-control-wrapper-checkbox input' ).on( 'change', function() {
+				var checkboxValue = ( jQuery( this ).is( ':checked' ) ) ? true : false;
+				kirki.setSettingValue( jQuery( this ).parents( '.kirki-control-wrapper' ).find( 'input' ), checkboxValue );
+			});
+		} );
 	},
 
 	/**
@@ -26,7 +29,7 @@ kirki.control.checkbox = {
 				html += '<span class="description customize-control-description">' + control.params.description + '</span>';
 			}
 		html += '</label>';
-		return '<div class="kirki-control-wrapper-checkbox kirki-control-wrapper" id="kirki-control-wrapper-' + control.id + '" data-setting="' + control.id + '">' + html + '</div>';
+		return '<div class="kirki-control-wrapper-checkbox kirki-control-wrapper" id="kirki-control-wrapper-' + control.params.id + '" data-setting="' + control.params.id + '">' + html + '</div>';
 	},
 
 	value: {
@@ -39,7 +42,7 @@ kirki.control.checkbox = {
 		 */
 		set: function( control, value ) {
 			value = ( 1 === value || '1' === value || true === value ) ? true : false;
-			wp.customize.instance( control.id ).set( value );
+			wp.customize.instance( control.params.id ).set( value );
 		}
 	}
 };
