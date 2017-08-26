@@ -4,7 +4,7 @@ kirki.control.checkbox = {
 		control.container.html( kirki.control.checkbox.template( control ) );
 
 		// Save the value
-		kirki.control.container( control ).on( 'change', 'input', function() {
+		kirki.util.controlContainer( control ).on( 'change', 'input', function() {
 			var checkboxValue = ( jQuery( this ).is( ':checked' ) ) ? true : false;
 			kirki.setSettingValue( this, checkboxValue );
 		});

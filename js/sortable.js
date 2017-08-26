@@ -3,10 +3,10 @@ kirki.control.sortable = {
 	init: function( control ) {
 		control.container.html( kirki.control.sortable.template( control ) );
 
-		kirki.control.container( control ).find( '.kirki-controls-loading-spinner' ).hide();
+		kirki.util.controlContainer( control ).find( '.kirki-controls-loading-spinner' ).hide();
 
 		// Set the sortable container.
-		control.sortableContainer = kirki.control.container( control ).find( 'ul.sortable' ).first();
+		control.sortableContainer = kirki.util.controlContainer( control ).find( 'ul.sortable' ).first();
 
 		// Init sortable.
 		control.sortableContainer.sortable( {

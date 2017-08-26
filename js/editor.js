@@ -12,8 +12,8 @@ kirki.control.editor = {
 
 		control.container.html( kirki.control.editor.template( control ) );
 
-		element      = kirki.control.container( control ).find( 'textarea' );
-		toggler      = kirki.control.container( control ).find( '.toggle-editor' );
+		element      = kirki.util.controlContainer( control ).find( 'textarea' );
+		toggler      = kirki.util.controlContainer( control ).find( '.toggle-editor' );
 		wpEditorArea = jQuery( '#kirki_editor_pane textarea.wp-editor-area' );
 		editor       = tinyMCE.get( 'kirki-editor' );
 

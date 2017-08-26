@@ -4,13 +4,13 @@ kirki.control.multicheck = {
 		control.container.html( kirki.control.multicheck.template( control ) );
 
 		// Save the value
-		kirki.control.container( control ).on( 'change', 'input', function() {
+		kirki.util.controlContainer( control ).on( 'change', 'input', function() {
 			var value = [],
 				i = 0;
 
 			// Build the value as an object using the sub-values from individual checkboxes.
 			jQuery.each( control.params.choices, function( key ) {
-				if ( kirki.control.container( control ).find( 'input[value="' + key + '"]' ).is( ':checked' ) ) {
+				if ( kirki.util.controlContainer( control ).find( 'input[value="' + key + '"]' ).is( ':checked' ) ) {
 					value[ i ] = key;
 					i++;
 				}
@@ -50,11 +50,11 @@ kirki.control.multicheck = {
 		 * @returns {void}
 		 */
 		set: function( control, value ) {
-			kirki.control.container( control ).find( 'input' ).each( function() {
+			kirki.util.controlContainer( control ).find( 'input' ).each( function() {
 				jQuery( this ).prop( 'checked', false );
 			} );
 			_.each( value, function( subValue, i ) {
-				jQuery( kirki.control.container( control ).find( 'input[value="' + value[ i ] + '"]' ) ).prop( 'checked', true );
+				jQuery( kirki.util.controlContainer( control ).find( 'input[value="' + value[ i ] + '"]' ) ).prop( 'checked', true );
 			} );
 		}
 	}

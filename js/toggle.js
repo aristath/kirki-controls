@@ -33,7 +33,7 @@ kirki.control.toggle = {
 		 */
 		set: function( control, value ) {
 			value = ( 1 === value || '1' === value || true === value ) ? true : false;
-			jQuery( kirki.control.container( control ).find( 'input' ) ).prop( 'checked', value );
+			jQuery( kirki.util.controlContainer( control ).find( 'input' ) ).prop( 'checked', value );
 		}
 	}
 };

@@ -61,27 +61,12 @@ kirki.control.repeater = {
 				// Go through each field.
 				_.each( control.params.fields, function( field, key ) {
 
-					// Get the correct method for this control.
-					if ( _.isUndefined( field.type ) || _.isUndefined( kirki.control[ field.type ] ) ) {
-						field.type = 'generic';
-					}
-					field.settings = field.id;
-					field.params   = _.defaults( field, {
-						label: '',
-						description: '',
-						choices: {},
-						inputAttrs: '',
-						link: '',
-						multiple: 1
-					} );
-					field.params.id = control.id + '[' + rowKey + ']' + '[' + key + ']';
+					field = kirki.control.getArgs( field );
 
 					// Add the value to the field.
 					if ( ! _.isUndefined( value ) && ! _.isUndefined( value[ key ] ) ) {
 						field.params.value = value[ key ];
 					}
-
-					field = kirki.control.getArgs( field );
 
 					// Add the template.
 					rowTemplate += kirki.control[ field.type.replace( 'kirki-', '' ) ].template( field );
@@ -103,9 +88,9 @@ kirki.control.repeater = {
 			_.each( control.params.fields, function( field, key ) {
 				rowDefaults[ key ] = ( ! _.isUndefined( field['default'] ) ) ? field['default'] : '';
 			} );
-			kirki.control.container( control ).find( '.add-row' ).click( function( e ) {
+			kirki.util.controlContainer( control ).find( '.add-row' ).click( function( e ) {
 				e.preventDefault();
-				jQuery( kirki.control.container( control ).find( '.repeater-rows' ) )
+				jQuery( kirki.util.controlContainer( control ).find( '.repeater-rows' ) )
 					.append( kirki.control.repeater.rowTemplate( control, rowDefaults ) );
 			});
 			kirki.control.repeater.util.sortableAccordion( control );
@@ -115,7 +100,7 @@ kirki.control.repeater = {
 		 * Actions to run when clicking on the "remove row" button.
 		 */
 		removeRowButton: function( control ) {
-			kirki.control.container( control ).find( '.action.trash' ).click( function( e ) {
+			kirki.util.controlContainer( control ).find( '.action.trash' ).click( function( e ) {
 				jQuery( this ).parents( '.repeater-row' ).remove();
 			});
 		},
@@ -124,7 +109,7 @@ kirki.control.repeater = {
 		 * Sortable.
 		 */
 		sortableAccordion: function( control ) {
-			jQuery( kirki.control.container( control ).find( '.repeater-rows' ) ).accordion({
+			jQuery( kirki.util.controlContainer( control ).find( '.repeater-rows' ) ).accordion({
 				header: '> .repeater-row > .row-header',
 				collapsible: true,
 				animate: 150
@@ -140,7 +125,7 @@ kirki.control.repeater = {
 		},
 
 		reorderIDs: function( control ) {
-			var rows = jQuery( kirki.control.container( control ) ).find( '.repeater-row' ),
+			var rows = jQuery( kirki.util.controlContainer( control ) ).find( '.repeater-row' ),
 			    i    = 0;
 
 			setTimeout( function() {

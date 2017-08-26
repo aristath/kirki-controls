@@ -13,7 +13,7 @@ kirki.control.dimensions = {
 			}
 		} );
 
-		kirki.control.container( control ).on( 'change keyup paste', 'input', function() {
+		kirki.util.controlContainer( control ).on( 'change keyup paste', 'input', function() {
 			var choice = jQuery( this ).data( 'choice' );
 			value[ choice ] = jQuery( this ).val();
 
@@ -80,7 +80,7 @@ kirki.control.dimensions = {
 		 */
 		set: function( control, value ) {
 			_.each( value, function( subValue, id ) {
-				jQuery( kirki.control.container( control ).find( '.' + id + ' input' ) ).prop( 'value', subValue );
+				jQuery( kirki.util.controlContainer( control ).find( '.' + id + ' input' ) ).prop( 'value', subValue );
 			} );
 		},
 
@@ -111,7 +111,7 @@ kirki.control.dimensions = {
 				setting.notifications.remove( code );
 
 				_.each( value, function( subVal, key ) {
-					if ( false === control.kirkiValidateCSSValue( subVal ) ) {
+					if ( false === kirki.util.kirkiValidateCSSValue( subVal ) ) {
 						subs[ key ] = control.params.l10n[ key ];
 					} else {
 						delete subs[ key ];

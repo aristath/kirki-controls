@@ -7,7 +7,7 @@ kirki.control.generic = {
 		control.container.html( kirki.control.generic.template( control ) );
 
 		// Save the value
-		kirki.control.container( control ).on( 'change keyup paste click', element, function() {
+		kirki.util.controlContainer( control ).on( 'change keyup paste click', element, function() {
 			control.setting.set( jQuery( this ).val() );
 		} );
 	},
@@ -69,10 +69,10 @@ kirki.control.generic = {
 			}
 
 			if ( 'textarea' === control.params.choices.element ) {
-				kirki.control.container( control ).find( 'textarea' ).html( value );
+				kirki.util.controlContainer( control ).find( 'textarea' ).html( value );
 			}
-			jQuery( kirki.control.container( control ).find( control.params.choices.element ) ).prop( 'value', value );
-			jQuery( kirki.control.container( control ).find( control.params.choices.element ) ).val( value );
+			jQuery( kirki.util.controlContainer( control ).find( control.params.choices.element ) ).prop( 'value', value );
+			jQuery( kirki.util.controlContainer( control ).find( control.params.choices.element ) ).val( value );
 		}
 	}
 };

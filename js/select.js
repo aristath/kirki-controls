@@ -20,7 +20,7 @@ kirki.control.select = {
 
 		control.container.html( kirki.control.select.template( control ) );
 
-		element  = kirki.control.container( control ).find( 'select' );
+		element  = kirki.util.controlContainer( control ).find( 'select' );
 		multiple = parseInt( element.data( 'multiple' ), 10 );
 
 		if ( 1 < multiple ) {
@@ -79,7 +79,7 @@ kirki.control.select = {
 		 * @returns {void}
 		 */
 		set: function( control, value ) {
-			control.setSelect2( kirki.control.container( control ).find( 'select' ), value );
+			control.setSelect2( kirki.util.controlContainer( control ).find( 'select' ), value );
 		}
 	}
 };

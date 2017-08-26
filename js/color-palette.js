@@ -51,7 +51,7 @@ kirki.control['color-palette'] = {
 		 * @returns {void}
 		 */
 		set: function( control, value ) {
-			jQuery( kirki.control.container( control ).find( 'input[value="' + value + '"]' ) ).prop( 'checked', true );
+			jQuery( kirki.util.controlContainer( control ).find( 'input[value="' + value + '"]' ) ).prop( 'checked', true );
 		}
 	}
 };

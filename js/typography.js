@@ -165,17 +165,17 @@ kirki.control.typography = {
 		set: function( control, value ) {
 			_.each( ['font-family', 'variant', 'subsets'], function( subVal ) {
 				if ( ! _.isUndefined( value[ subVal ] ) ) {
-					control.setSelect2( kirki.control.container( control ).find( '.' + subVal + ' select' ), value[ subVal ] );
+					control.setSelect2( kirki.util.controlContainer( control ).find( '.' + subVal + ' select' ), value[ subVal ] );
 				}
 			} );
 			_.each( ['font-size', 'line-height', 'letter-spacing', 'word-spacing'], function( subVal ) {
 				if ( ! _.isUndefined( value[ subVal ] ) ) {
-					jQuery( kirki.control.container( control ).find( '.' + subVal + ' input' ) ).prop( 'value', value[ subVal ] );
+					jQuery( kirki.util.controlContainer( control ).find( '.' + subVal + ' input' ) ).prop( 'value', value[ subVal ] );
 				}
 			} );
 
 			if ( ! _.isUndefined( value.color ) ) {
-				control.setColorPicker( kirki.control.container( control ).find( '.kirki-color-control' ), value.color );
+				control.setColorPicker( kirki.util.controlContainer( control ).find( '.kirki-color-control' ), value.color );
 			}
 		}
 	}
@@ -214,38 +214,38 @@ wp.customize.controlConstructor['kirki-typography'] = wp.customize.kirkiDynamicC
 		control.renderSubsetSelector();
 
 		// Font-size.
-		kirki.control.container( control ).on( 'change keyup paste', '.font-size input', function() {
+		kirki.util.controlContainer( control ).on( 'change keyup paste', '.font-size input', function() {
 			control.saveValue( 'font-size', jQuery( this ).val() );
 		} );
 
 		// Line-height.
-		kirki.control.container( control ).on( 'change keyup paste', '.line-height input', function() {
+		kirki.util.controlContainer( control ).on( 'change keyup paste', '.line-height input', function() {
 			control.saveValue( 'line-height', jQuery( this ).val() );
 		} );
 
 		// Margin-top.
-		kirki.control.container( control ).on( 'change keyup paste', '.margin-top input', function() {
+		kirki.util.controlContainer( control ).on( 'change keyup paste', '.margin-top input', function() {
 			control.saveValue( 'margin-top', jQuery( this ).val() );
 		} );
 
 		// Margin-bottom.
-		kirki.control.container( control ).on( 'change keyup paste', '.margin-bottom input', function() {
+		kirki.util.controlContainer( control ).on( 'change keyup paste', '.margin-bottom input', function() {
 			control.saveValue( 'margin-bottom', jQuery( this ).val() );
 		} );
 
 		// Letter-spacing.
 		value['letter-spacing'] = ( jQuery.isNumeric( value['letter-spacing'] ) ) ? value['letter-spacing'] + 'px' : value['letter-spacing'];
-		kirki.control.container( control ).on( 'change keyup paste', '.letter-spacing input', function() {
+		kirki.util.controlContainer( control ).on( 'change keyup paste', '.letter-spacing input', function() {
 			value['letter-spacing'] = ( jQuery.isNumeric( jQuery( this ).val() ) ) ? jQuery( this ).val() + 'px' : jQuery( this ).val();
 			control.saveValue( 'letter-spacing', value['letter-spacing'] );
 		} );
 
 		// Word-spacing.
-		kirki.control.container( control ).on( 'change keyup paste', '.word-spacing input', function() {
+		kirki.util.controlContainer( control ).on( 'change keyup paste', '.word-spacing input', function() {
 			control.saveValue( 'word-spacing', jQuery( this ).val() );
 		} );
 
-		kirki.control.container( control ).on( 'change', '.text-align input', function() {
+		kirki.util.controlContainer( control ).on( 'change', '.text-align input', function() {
 			control.saveValue( 'text-align', jQuery( this ).val() );
 		} );
 
@@ -254,7 +254,7 @@ wp.customize.controlConstructor['kirki-typography'] = wp.customize.kirkiDynamicC
 			control.saveValue( 'text-transform', jQuery( this ).val() );
 		} );
 
-		picker = kirki.control.container( control ).find( '.kirki-color-control' );
+		picker = kirki.util.controlContainer( control ).find( '.kirki-color-control' );
 
 		// Change color
 		picker.wpColorPicker( {

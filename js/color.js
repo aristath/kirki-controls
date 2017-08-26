@@ -5,9 +5,9 @@ kirki.control.color = {
 		var clear,
 		    picker;
 
-		kirki.control.container( control ).html( kirki.control.color.template( control ) );
+		kirki.util.controlContainer( control ).html( kirki.control.color.template( control ) );
 
-		picker = kirki.control.container( control ).find( '.kirki-color-control' );
+		picker = kirki.util.controlContainer( control ).find( '.kirki-color-control' );
 
 		// If we have defined any extra choices, make sure they are passed-on to Iris.
 		if ( ! _.isUndefined( control.params.choices ) ) {
@@ -16,7 +16,7 @@ kirki.control.color = {
 
 		// Tweaks to make the "clear" buttons work.
 		setTimeout( function() {
-			clear = kirki.control.container( control ).find( '.wp-picker-clear' );
+			clear = kirki.util.controlContainer( control ).find( '.wp-picker-clear' );
 			clear.click( function() {
 				control.setting.set( '' );
 			} );
@@ -61,7 +61,7 @@ kirki.control.color = {
 		 * @returns {void}
 		 */
 		set: function( control, value ) {
-			control.setColorPicker( kirki.control.container( control ).find( '.kirki-color-control' ), value );
+			control.setColorPicker( kirki.util.controlContainer( control ).find( '.kirki-color-control' ), value );
 		}
 	}
 };

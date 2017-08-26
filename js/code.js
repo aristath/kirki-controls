@@ -9,7 +9,7 @@ kirki.control.code = {
 
 		control.container.html( kirki.control.code.template( control ) );
 
-		element = kirki.control.container( control ).find( '.kirki-codemirror-editor' );
+		element = kirki.util.controlContainer( control ).find( '.kirki-codemirror-editor' );
 
 		editor = CodeMirror.fromTextArea( element[0], {
 			value:        control.setting._value,
@@ -22,7 +22,7 @@ kirki.control.code = {
 		if ( ! _.isUndefined( control.params.choices.height ) ) {
 			height = Number( control.params.choices.height );
 			if ( ! isNaN( height ) ) {
-				container = kirki.control.container( control ).find( '.codemirror-kirki-wrapper' );
+				container = kirki.util.controlContainer( control ).find( '.codemirror-kirki-wrapper' );
 				jQuery( container ).css( 'max-height', function() {
 					return control.params.choices.height;
 				} );
@@ -69,7 +69,7 @@ kirki.control.code = {
 	 */
 	value: {
 		set: function( control, value ) {
-			jQuery( kirki.control.container( control ).find( '.CodeMirror' ) )[0].CodeMirror.setValue( value );
+			jQuery( kirki.util.controlContainer( control ).find( '.CodeMirror' ) )[0].CodeMirror.setValue( value );
 		}
 	}
 };

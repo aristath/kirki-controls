@@ -30,7 +30,7 @@ kirki.control.slider = {
 		changeAction = ( 'postMessage' === control.setting.transport ) ? 'mousemove change' : 'change';
 
 		// Save changes.
-		kirki.control.container( control ).on( changeAction, 'input', function() {
+		kirki.util.controlContainer( control ).on( changeAction, 'input', function() {
 			control.setting.set( jQuery( this ).val() );
 		} );
 	},
@@ -68,8 +68,8 @@ kirki.control.slider = {
 		 * @returns {void}
 		 */
 		set: function( control, value ) {
-			jQuery( kirki.control.container( control ).find( 'input' ) ).prop( 'value', value );
-			jQuery( kirki.control.container( control ).find( '.kirki_range_value .value' ) ).html( value );
+			jQuery( kirki.util.controlContainer( control ).find( 'input' ) ).prop( 'value', value );
+			jQuery( kirki.util.controlContainer( control ).find( '.kirki_range_value .value' ) ).html( value );
 		}
 	}
 };

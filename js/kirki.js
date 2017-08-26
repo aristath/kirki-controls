@@ -3,39 +3,6 @@ var kirki = {
 	control: {
 
 		/**
-		 * Returns the wrapper element of the control.
-		 *
-		 * @since 3.1.0
-		 * @param {object} [control] The control arguments.
-		 * @returns {array}
-		 */
-		container: function( control ) {
-			return jQuery( '#kirki-control-wrapper-' + control.id );
-		},
-
-		/**
-		 * Gets the control-type, making sure it has the 'kirki-' prefix.
-		 *
-		 * @since 3.1.0
-		 * @param {string} [controlType] The control-type.
-		 * @returns {string}
-		 */
-		getTypeWithPrefix: function( controlType ) {
-			return 'kirki-' + controlType.replace( 'kirki-', '' );
-		},
-
-		/**
-		 * Gets the control-type, making sure it does not have the 'kirki-' prefix.
-		 *
-		 * @since 3.1.0
-		 * @param {string} [controlType] The control-type.
-		 * @returns {string}
-		 */
-		getTypeWithoutPrefix: function( controlType ) {
-			return controlType.replace( 'kirki-', '' );
-		},
-
-		/**
 		 * Gets the field, making sure it has any arguments required.
 		 *
 		 * @since 3.1.0
@@ -44,6 +11,11 @@ var kirki = {
 		 */
 		getArgs: function( control ) {
 			var controlType;
+
+			// Call replacement function if defined for this control-type.
+			if ( ! _.isUndefined( kirki.control[ kirki.util.getControlType( control.type ) ] ) && ! _.isUndefined( kirki.control[ kirki.util.getControlType( control.type ) ].getArgs ) ) {
+				return kirki.control[ kirki.util.getControlType( control.type ) ].getArgs( control );
+			}
 
 			// The ID.
 			control.params = ( _.isUndefined( control.params ) ) ? {} : control.params;
@@ -57,18 +29,20 @@ var kirki = {
 			control.params.id = ( _.isUndefined( control.params.id ) && ! _.isUndefined( control.id ) ) ? control.id : control.params.id;
 
 			// The control-type.
-			controlType = ( _.isUndefined( control.type ) ) ? 'generic' : kirki.control.getTypeWithoutPrefix( control.type );
-			controlType = ( ! _.isUndefined( control.params ) && ! _.isUndefined( control.params.type ) ) ? kirki.control.getTypeWithoutPrefix( control.params.type ) : controlType;
-			control.type = control.params.type = kirki.control.getTypeWithPrefix( controlType );
-
-			// Call extra function if defined for this control-type.
-			if ( ! _.isUndefined( kirki.control[ kirki.control.getTypeWithoutPrefix( control.type ) ] ) && ! _.isUndefined( kirki.control[ kirki.control.getTypeWithoutPrefix( control.type ) ].getArgs ) ) {
-				return kirki.control[ kirki.control.getTypeWithoutPrefix( control.type ) ].getArgs( control );
-			}
+			controlType = ( _.isUndefined( control.type ) ) ? 'kirki-generic' : kirki.util.getControlType( control.type, true );
+			controlType = ( ! _.isUndefined( control.params ) && ! _.isUndefined( control.params.type ) ) ? kirki.util.getControlType( control.params.type, true ) : controlType;
+			control.type = control.params.type = kirki.util.getControlType( controlType, true );
 
 			if ( _.isUndefined( control.container ) ) {
-				control.container = kirki.control.container( control );
+				control.container = kirki.util.controlContainer( control );
 			}
+
+			// Label.
+			control.params.label = ( _.isUndefined( control.params.label ) && ! _.isUndefined( control.label ) ) ? control.label : control.params.label;
+
+			// Description.
+			control.params.description = ( _.isUndefined( control.params.description ) && ! _.isUndefined( control.description ) ) ? control.description : control.params.description;
+
 			return control;
 		},
 
@@ -213,6 +187,77 @@ var kirki = {
 				control.setting.set( value );
 			}
 		}
+	},
+
+	/**
+	 * A collection of utility functions.
+	 *
+	 * @since 3.1.0
+	 */
+	util: {
+
+		/**
+		 * Returns the wrapper element of the control.
+		 *
+		 * @since 3.1.0
+		 * @param {object} [control] The control arguments.
+		 * @returns {array}
+		 */
+		controlContainer: function( control ) {
+			return jQuery( '#kirki-control-wrapper-' + control.id );
+		},
+
+		/**
+		 * Gets the control-type, with or without the 'kirki-' prefix.
+		 *
+		 * @since 3.1.0
+		 * @param {string}      [controlType] The control-type.
+		 * @param {bool|string} [prefix]      If false, return without prefix.
+		 *                                    If true, return with 'kirki-' as prefix.
+		 *                                    If string, add custom prefix.
+		 * @returns {string}
+		 */
+		getControlType: function( controlType, prefix ) {
+
+			controlType = controlType.replace( 'kirki-', '' );
+			if ( _.isUndefined( prefix ) || false === prefix ) {
+				return controlType;
+			}
+			if ( true === prefix ) {
+				return 'kirki-' + controlType;
+			}
+			return prefix + controlType;
+		},
+
+		/**
+		 * Validates dimension css values.
+		 *
+		 * @param {string} [value] The value we want to validate.
+		 * @returns {bool}
+		 */
+		kirkiValidateCSSValue: function( value ) {
+
+			var validUnits = ['rem', 'em', 'ex', '%', 'px', 'cm', 'mm', 'in', 'pt', 'pc', 'ch', 'vh', 'vw', 'vmin', 'vmax'],
+				numericValue,
+				unit;
+
+			// 0 is always a valid value, and we can't check calc() values effectively.
+			if ( '0' === value || ( 0 <= value.indexOf( 'calc(' ) && 0 <= value.indexOf( ')' ) ) ) {
+				return true;
+			}
+
+			// Get the numeric value.
+			numericValue = parseFloat( value );
+
+			// Get the unit
+			unit = value.replace( numericValue, '' );
+
+			// Check the validity of the numeric value and units.
+			if ( isNaN( numericValue ) || 0 > _.indexOf( validUnits, unit ) ) {
+				return false;
+			}
+			return true;
+		}
 	}
 };
 
@@ -262,7 +307,7 @@ var kirki = {
 		 */
 		_setUpSettingRootLinks: function() {
 			var control = this,
-			    nodes   = kirki.control.container( control ).find( '[data-customize-setting-link]' );
+			    nodes   = kirki.util.controlContainer( control ).find( '[data-customize-setting-link]' );
 
 			nodes.each( function() {
 				var node = jQuery( this );
@@ -290,7 +335,7 @@ var kirki = {
 				return;
 			}
 
-			nodes = kirki.control.container( control ).find( '[data-customize-setting-property-link]' );
+			nodes = kirki.util.controlContainer( control ).find( '[data-customize-setting-property-link]' );
 
 			nodes.each( function() {
 				var node = jQuery( this ),
@@ -330,8 +375,8 @@ var kirki = {
 			wp.customize.Control.prototype.ready.call( control );
 
 			control.deferred.embedded.done( function() {
-				if ( ! _.isUndefined( kirki.control[ kirki.control.getTypeWithoutPrefix( control.params.type ) ].init ) ) {
-					kirki.control[ kirki.control.getTypeWithoutPrefix( control.params.type ) ].init( control );
+				if ( ! _.isUndefined( kirki.control[ kirki.util.getControlType( control.params.type ) ].init ) ) {
+					kirki.control[ kirki.util.getControlType( control.params.type ) ].init( control );
 				} else {
 					control.initKirkiControl();
 				}
@@ -413,7 +458,7 @@ var kirki = {
 			}
 
 			// Save the value
-			kirki.control.container( control ).on( 'change keyup paste click', 'input', function() {
+			kirki.util.controlContainer( control ).on( 'change keyup paste click', 'input', function() {
 				control.setting.set( jQuery( this ).val() );
 			} );
 		},
@@ -424,37 +469,7 @@ var kirki = {
 		 * @returns {void}
 		 */
 		getHTML: function( control ) {
-			return kirki.control[ kirki.control.getTypeWithoutPrefix( control.params.type ) ].template( control );
-		},
-
-		/**
-		 * Validates dimension css values.
-		 *
-		 * @param {string} [value] The value we want to validate.
-		 * @returns {bool}
-		 */
-		kirkiValidateCSSValue: function( value ) {
-
-			var validUnits = ['rem', 'em', 'ex', '%', 'px', 'cm', 'mm', 'in', 'pt', 'pc', 'ch', 'vh', 'vw', 'vmin', 'vmax'],
-				numericValue,
-				unit;
-
-			// 0 is always a valid value, and we can't check calc() values effectively.
-			if ( '0' === value || ( 0 <= value.indexOf( 'calc(' ) && 0 <= value.indexOf( ')' ) ) ) {
-				return true;
-			}
-
-			// Get the numeric value.
-			numericValue = parseFloat( value );
-
-			// Get the unit
-			unit = value.replace( numericValue, '' );
-
-			// Check the validity of the numeric value and units.
-			if ( isNaN( numericValue ) || 0 > _.indexOf( validUnits, unit ) ) {
-				return false;
-			}
-			return true;
+			return kirki.control[ kirki.util.getControlType( control.params.type ) ].template( control );
 		},
 
 		/**
@@ -479,7 +494,7 @@ var kirki = {
 		 */
 		kirkiSetControlValue: function( value, key ) {
 			var control = this;
-			kirki.control[ kirki.control.getTypeWithoutPrefix( control.params.type ) ].value.set( this, value );
+			kirki.control[ kirki.util.getControlType( control.params.type ) ].value.set( this, value );
 		},
 
 		/**

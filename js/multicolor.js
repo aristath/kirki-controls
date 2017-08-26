@@ -10,7 +10,7 @@ kirki.control.multicolor = {
 		    irisPicker;
 
 		control.container.html( kirki.control.multicolor.template( control ) );
-		target = kirki.control.container( control ).find( '.iris-target' );
+		target = kirki.util.controlContainer( control ).find( '.iris-target' );
 
 		// Colors loop.
 		while ( i < Object.keys( colors ).length ) {
@@ -18,8 +18,8 @@ kirki.control.multicolor = {
 			kirki.control.multicolor.util.changeHandler( control, value, keys[ i ] );
 
 			// Move colorpicker to the 'iris-target' container div
-			irisInput  = kirki.control.container( control ).find( '.wp-picker-container .wp-picker-input-wrap' );
-			irisPicker = kirki.control.container( control ).find( '.wp-picker-container .wp-picker-holder' );
+			irisInput  = kirki.util.controlContainer( control ).find( '.wp-picker-container .wp-picker-input-wrap' );
+			irisPicker = kirki.util.controlContainer( control ).find( '.wp-picker-container .wp-picker-holder' );
 			jQuery( irisInput[0] ).detach().appendTo( target[0] );
 			jQuery( irisPicker[0] ).detach().appendTo( target[0] );
 
@@ -63,7 +63,7 @@ kirki.control.multicolor = {
 		set: function( value ) {
 			var control = this;
 			_.each( value, function( subVal, index ) {
-				control.setColorPicker( kirki.control.container( control ).find( '.multicolor-index-' + index ), subVal );
+				control.setColorPicker( kirki.util.controlContainer( control ).find( '.multicolor-index-' + index ), subVal );
 			} );
 		}
 	},
@@ -71,8 +71,8 @@ kirki.control.multicolor = {
 	util: {
 		changeHandler: function( control, value, subSetting ) {
 			var colors  = control.params.choices,
-				target = kirki.control.container( control ).find( '.iris-target' ),
-				picker = kirki.control.container( control ).find( '.multicolor-index-' + subSetting ),
+				target = kirki.util.controlContainer( control ).find( '.iris-target' ),
+				picker = kirki.util.controlContainer( control ).find( '.multicolor-index-' + subSetting ),
 				args   = {
 					target: target[0],
 					change: function() {
@@ -82,7 +82,7 @@ kirki.control.multicolor = {
 							control.kirkiSetValue( picker.val(), subSetting );
 
 							// Trigger the change.
-							kirki.control.container( control ).find( '.multicolor-index-' + subSetting ).trigger( 'change' );
+							kirki.util.controlContainer( control ).find( '.multicolor-index-' + subSetting ).trigger( 'change' );
 						}, 100 );
 					}
 				};

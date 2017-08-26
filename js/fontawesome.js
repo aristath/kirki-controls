@@ -21,7 +21,7 @@ kirki.control.fontawesome = {
 
 		control.container.html( kirki.control.fontawesome.template( control ) );
 
-		element = kirki.control.container( control ).find( 'select' ),
+		element = kirki.util.controlContainer( control ).find( 'select' ),
 
 		_.each( icons.icons, function( icon ) {
 			select2Options.data.push( {
@@ -65,7 +65,7 @@ kirki.control.fontawesome = {
 		 * @returns {void}
 		 */
 		set: function( control, value ) {
-			control.setSelect2( kirki.control.container( control ).find( 'select' ), value );
+			control.setSelect2( kirki.util.controlContainer( control ).find( 'select' ), value );
 		}
 	}
 };

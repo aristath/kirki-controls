@@ -7,11 +7,11 @@ kirki.control.background = {
 
 			control.container.html( kirki.control.background.template( control ) );
 
-		picker = kirki.control.container( control ).find( '.kirki-color-control' );
+		picker = kirki.util.controlContainer( control ).find( '.kirki-color-control' );
 
 		// Hide unnecessary controls if the value doesn't have an image.
 		if ( _.isUndefined( value['background-image'] ) || '' === value['background-image'] ) {
-			kirki.control.container( control ).find( '.background-wrapper > .background-repeat', '.background-wrapper > .background-position', '.background-wrapper > .background-size', '.background-wrapper > .background-attachment' ).hide();
+			kirki.util.controlContainer( control ).find( '.background-wrapper > .background-repeat', '.background-wrapper > .background-position', '.background-wrapper > .background-size', '.background-wrapper > .background-attachment' ).hide();
 		}
 
 		// Color.
@@ -29,7 +29,7 @@ kirki.control.background = {
 			'position': ['change', 'select'],
 			'attachment': ['change click', 'input']
 		}, function( args, key ) {
-			kirki.control.container( control ).on( args[0], '.background-' + key + ' ' + args[1], function() {
+			kirki.util.controlContainer( control ).on( args[0], '.background-' + key + ' ' + args[1], function() {
 				kirki.setSettingValue( this, jQuery( this ).val(), 'background-' + key );
 			} );
 		} );
@@ -147,23 +147,23 @@ kirki.control.background = {
 		 */
 		set: function( control, value ) {
 			if ( ! _.isUndefined( value['background-color'] ) ) {
-				control.setColorPicker( kirki.control.container( control ).find( '.kirki-color-control' ), value['background-color'] );
+				control.setColorPicker( kirki.util.controlContainer( control ).find( '.kirki-color-control' ), value['background-color'] );
 			}
-			kirki.control.container( control ).find( '.placeholder, .thumbnail' ).removeClass().addClass( 'placeholder' ).html( 'No file selected' );
+			kirki.util.controlContainer( control ).find( '.placeholder, .thumbnail' ).removeClass().addClass( 'placeholder' ).html( 'No file selected' );
 			_.each( ['background-repeat', 'background-position'], function( subVal ) {
 				if ( ! _.isUndefined( value[ subVal ] ) ) {
-					control.setSelect2( kirki.control.container( control ).find( '.' + subVal + ' select' ), value[ subVal ] );
+					control.setSelect2( kirki.util.controlContainer( control ).find( '.' + subVal + ' select' ), value[ subVal ] );
 				}
 			} );
 			_.each( ['background-size', 'background-attachment'], function( subVal ) {
-				jQuery( kirki.control.container( control ).find( '.' + subVal + ' input[value="' + value + '"]' ) ).prop( 'checked', true );
+				jQuery( kirki.util.controlContainer( control ).find( '.' + subVal + ' input[value="' + value + '"]' ) ).prop( 'checked', true );
 			} );
 		}
 	},
 
 	util: {
 		addImage: function( control ) {
-			kirki.control.container( control ).on( 'click', '.background-image-upload-button', function( e ) {
+			kirki.util.controlContainer( control ).on( 'click', '.background-image-upload-button', function( e ) {
 				var element = this;
 				var image = wp.media( { multiple: false } ).open().on( 'select', function() {
 
@@ -184,13 +184,13 @@ kirki.control.background = {
 
 					// Show extra controls if the value has an image.
 					if ( '' !== imageUrl ) {
-						kirki.control.container( control ).find( '.background-wrapper > .background-repeat, .background-wrapper > .background-position, .background-wrapper > .background-size, .background-wrapper > .background-attachment' ).show();
+						kirki.util.controlContainer( control ).find( '.background-wrapper > .background-repeat, .background-wrapper > .background-position, .background-wrapper > .background-size, .background-wrapper > .background-attachment' ).show();
 					}
 
 					kirki.setSettingValue( element, imageUrl, 'background-image' );
 
-					preview      = kirki.control.container( control ).find( '.placeholder, .thumbnail' );
-					removeButton = kirki.control.container( control ).find( '.background-image-upload-remove-button' );
+					preview      = kirki.util.controlContainer( control ).find( '.placeholder, .thumbnail' );
+					removeButton = kirki.util.controlContainer( control ).find( '.background-image-upload-remove-button' );
 
 					if ( preview.length ) {
 						preview.removeClass().addClass( 'thumbnail thumbnail-image' ).html( '<img src="' + previewImage + '" alt="" />' );
@@ -205,7 +205,7 @@ kirki.control.background = {
 		},
 
 		removeImage: function( control ) {
-			kirki.control.container( control ).on( 'click', '.background-image-upload-remove-button', function( e ) {
+			kirki.util.controlContainer( control ).on( 'click', '.background-image-upload-remove-button', function( e ) {
 				var preview,
 					removeButton;
 
@@ -213,11 +213,11 @@ kirki.control.background = {
 
 				kirki.setSettingValue( this, '', 'background-image' );
 
-				preview      = kirki.control.container( control ).find( '.placeholder, .thumbnail' );
-				removeButton = kirki.control.container( control ).find( '.background-image-upload-remove-button' );
+				preview      = kirki.util.controlContainer( control ).find( '.placeholder, .thumbnail' );
+				removeButton = kirki.util.controlContainer( control ).find( '.background-image-upload-remove-button' );
 
 				// Hide unnecessary controls.
-				kirki.control.container( control ).find( '.background-wrapper > .background-repeat', '.background-wrapper > .background-position', '.background-wrapper > .background-size', '.background-wrapper > .background-attachment' ).hide();
+				kirki.util.controlContainer( control ).find( '.background-wrapper > .background-repeat', '.background-wrapper > .background-position', '.background-wrapper > .background-size', '.background-wrapper > .background-attachment' ).hide();
 
 				if ( preview.length ) {
 					preview.removeClass().addClass( 'placeholder' ).html( 'No file selected' );

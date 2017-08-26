@@ -7,7 +7,7 @@ kirki.control.dimension = {
 		kirki.control.dimension.notifications( control );
 
 		// Save the value
-		kirki.control.container( control ).on( 'change keyup paste', 'input', function() {
+		kirki.util.controlContainer( control ).on( 'change keyup paste', 'input', function() {
 			control.setting.set( jQuery( this ).val() );
 		} );
 	},
@@ -40,7 +40,7 @@ kirki.control.dimension = {
 		 * @returns {void}
 		 */
 		set: function( control, value ) {
-			jQuery( kirki.control.container( control ).find( 'input' ) ).attr( 'value', value );
+			jQuery( kirki.util.controlContainer( control ).find( 'input' ) ).attr( 'value', value );
 		}
 	},
 
@@ -49,7 +49,7 @@ kirki.control.dimension = {
 			setting.bind( function( value ) {
 				var code = 'long_title';
 
-				if ( false === control.kirkiValidateCSSValue( value ) ) {
+				if ( false === kirki.util.kirkiValidateCSSValue( value ) ) {
 					setting.notifications.add( code, new wp.customize.Notification( code, {
 						type: 'warning',
 						message: control.params.l10n.invalidValue
