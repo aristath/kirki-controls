@@ -1,5 +1,13 @@
 /* global wp, _, kirki */
 kirki.control.repeater = {
+
+	/**
+	 * Initialize this control.
+	 *
+	 * @since 2.0.0
+	 * @param {object} [control] The control object.
+	 * @returns {void}
+	 */
 	init: function( control ) {
 		control.container.html( kirki.control.repeater.template( control ) );
 
@@ -18,6 +26,7 @@ kirki.control.repeater = {
 	template: function( control ) {
 		var html = '';
 
+		// Do not proceed if no fields are defined.
 		if ( ! control.params.fields ) {
 			return;
 		}
@@ -48,6 +57,8 @@ kirki.control.repeater = {
 		var rowTemplate = '';
 
 		rowTemplate = '<li class="repeater-row" data-row="' + rowKey + '">';
+
+			// The template for the row header.
 			rowTemplate += '<div class="row-header">';
 				rowTemplate += 'Row Title';
 				rowTemplate += '<div class="repeater-row-actions">';
@@ -56,6 +67,7 @@ kirki.control.repeater = {
 				rowTemplate += '</div>';
 			rowTemplate += '</div>';
 
+			// The template for the row content.
 			rowTemplate += '<div class="row-content">';
 
 				// Go through each field.
@@ -64,6 +76,7 @@ kirki.control.repeater = {
 						field.id = control.id + '[' + rowKey + '][' + key + ']';
 					}
 
+					// Get missing arguments for the field.
 					field = kirki.control.getArgs( field );
 
 					// Add the value to the field.
@@ -73,6 +86,8 @@ kirki.control.repeater = {
 
 					// Add the template.
 					rowTemplate += kirki.control[ field.type.replace( 'kirki-', '' ) ].template( field );
+
+					// Init the field.
 					kirki.control[ field.type.replace( 'kirki-', '' ) ].init( field );
 				} );
 			rowTemplate += '</div>';
@@ -83,7 +98,11 @@ kirki.control.repeater = {
 
 	util: {
 		/**
-		 * Actions to run when clicking on the "add row" button.
+		 * Add a new row.
+		 *
+		 * @since 2.0.0
+		 * @param {object} [control] The control/field.
+		 * @returns {void}
 		 */
 		addRowButton: function( control ) {
 			var rowDefaults = {};
@@ -101,7 +120,7 @@ kirki.control.repeater = {
 				setTimeout( function() {
 					jQuery( kirki.util.controlContainer( control ).find( '.repeater-rows' ) ).append( kirki.control.repeater.rowTemplate( control, rowDefaults, rowID ) );
 					kirki.control.repeater.util.sortableAccordion( control );
-				}, 40 );
+				}, 50 );
 			} );
 		},
 
@@ -161,13 +180,12 @@ kirki.control.repeater = {
 			}
 
 			// Get the biggest row-ID.
-			_.setTimeout( function() {
+			setTimeout( function() {
 				_.each( rows, function( row ) {
 					if ( jQuery( row ).attr( 'data-row' ) > lastRow ) {
 						lastRow = jQuery( row ).attr( 'data-row' );
 					}
 				} );
-
 			}, 30 );
 			return lastRow;
 		}

@@ -139,52 +139,59 @@ var kirki = {
 	setSettingValue: function( element, value, key ) {
 		var setting       = jQuery( element ).parents( '.kirki-control-wrapper' ).attr( 'data-setting' ),
 		    parts         = setting.split( '[' ),
-			currentNode   = '',
+		    currentNode   = '',
 		    foundNode     = '',
-			foundNodeStep = null,
-			subSettingObj = {},
-			currentVal,
+		    subSettingObj = {},
+		    currentVal,
 		    subSetting,
-			subSettingParts,
-			partsNr;
+		    subSettingParts;
 
+		// Find the setting we're using in the control using the customizer API.
 		_.each( parts, function( part, i ) {
 			part = part.replace( ']', '' );
 
 			// The current part of the setting.
-			if ( 0 === i ) {
-				currentNode = part;
-			} else {
-				currentNode += '[' + part + ']';
-			}
+			currentNode = ( 0 === i ) ? part : '[' + part + ']';
 
+			// When we find the node, get the value from it.
+			// In case of an object we'll need to merge with current values.
 			if ( ! _.isUndefined( wp.customize.instance( currentNode ) ) ) {
-
-				// Node was found.
-				foundNode     = currentNode;
-				foundNodeStep = i;
-
-				// Get the currentValue.
+				foundNode  = currentNode;
 				currentVal = wp.customize.instance( foundNode ).get();
 			}
 		} );
 
+		// Get the remaining part of the setting that was unused.
 		subSetting = setting.replace( foundNode, '' );
 
+		// If subSetting is not empty, then we're dealing with an object
+		// and we need to dig deeper and recursively merge the values.
 		if ( '' !== subSetting ) {
+			if ( ! _.isObject( currentVal ) ) {
+				currentVal = {};
+			}
+			if ( '[' === subSetting.charAt( 0 ) ) {
+				subSetting = subSetting.replace( '[', '' );
+			}
 			subSettingParts = subSetting.split( '[' );
 			_.each( subSettingParts, function( subSettingPart, i ) {
 				subSettingParts[ i ] = subSettingPart.replace( ']', '' );
 			} );
 
+			// If using a key, we need to go 1 level deeper.
 			if ( key ) {
 				subSettingParts.push( key );
 			}
+
+			// Converting to a JSON string and then parsing that to an object
+			// may seem a bit hacky and crude but it's efficient and works.
 			subSettingObj = '{"' + subSettingParts.join( '":{"' ) + '":"' + value + '"' + '}'.repeat( subSettingParts.length );
 			subSettingObj = JSON.parse( subSettingObj );
 
+			// Recursively merge with current value.
 			jQuery.extend( true, currentVal, subSettingObj );
 			value = currentVal;
+
 		} else {
 			if ( key ) {
 				currentVal = ( ! _.isObject( currentVal ) ) ? {} : currentVal;
