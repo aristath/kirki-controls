@@ -121,6 +121,13 @@ var kirki = {
 	/**
 	 * Sets the value of a setting.
 	 *
+	 * This function is a bit complicated because there any many scenarios to consider.
+	 * Example: We want to save the value for my_setting[something][3][something-else].
+	 * The control's setting is my_setting[something].
+	 * So we need to find that first, then figure out the remaining parts,
+	 * merge the values recursively to avoid destroying my_setting[something][2]
+	 * and also take into account any defined "key" arguments which take this even deeper.
+	 *
 	 * @since 3.1.0
 	 * @param {string}                     [element] The DOM element whose value has changed.
 	 *                                               We'll use this to find the setting from its wrapper parent.
@@ -135,13 +142,12 @@ var kirki = {
 			currentNode   = '',
 		    foundNode     = '',
 			foundNodeStep = null,
-			currentVal;
+			subSettingObj = {},
+			currentVal,
+		    subSetting,
+			subSettingParts,
+			partsNr;
 
-		/**
-		 * If we want to save the value for my_setting[something][3][something-else]
-		 * then we need to find the part that is used as a customizer setting
-		 * and then figure out how to save the sub-parts of the setting.
-		 */
 		_.each( parts, function( part, i ) {
 			part = part.replace( ']', '' );
 
@@ -163,29 +169,30 @@ var kirki = {
 			}
 		} );
 
-		if ( '' !== foundNode && setting !== foundNode ) {
-			_.each( parts, function( part, i ) {
-				part = part.replace( ']', '' );
-				if ( i < foundNodeStep ) {
-					return;
-				}
-				if ( i < parts.length - 1 ) {
-					if ( _.isUndefined( currentVal ) ) {
-						currentVal = {};
-					}
-					if ( _.isUndefined( currentVal[ part ] ) ) {
-						currentVal[ part ] = {};
-					}
-					currentVal = currentVal[ part ];
-				}
+		subSetting = setting.replace( foundNode, '' );
+
+		if ( '' !== subSetting ) {
+			subSettingParts = subSetting.split( '[' );
+			_.each( subSettingParts, function( subSettingPart, i ) {
+				subSettingParts[ i ] = subSettingPart.replace( ']', '' );
 			} );
+
+			if ( key ) {
+				subSettingParts.push( key );
+			}
+			subSettingObj = '{"' + subSettingParts.join( '":{"' ) + '":"' + value + '"' + '}'.repeat( subSettingParts.length );
+			subSettingObj = JSON.parse( subSettingObj );
+
+			jQuery.extend( true, currentVal, subSettingObj );
+			value = currentVal;
+		} else {
+			if ( key ) {
+				currentVal = ( ! _.isObject( currentVal ) ) ? {} : currentVal;
+				currentVal[ key ] = value;
+				value = currentVal;
+			}
 		}
 
-		if ( key ) {
-			currentVal = ( ! _.isObject( currentVal ) ) ? {} : currentVal;
-			currentVal[ key ] = value;
-			value = currentVal;
-		}
 		wp.customize.control( foundNode ).setting.set( value );
 	},
 
