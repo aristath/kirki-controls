@@ -12,26 +12,25 @@ var kirki = {
 		getArgs: function( control ) {
 			var controlType;
 
+			// The control-type.
+			controlType = ( _.isUndefined( control.type ) ) ? 'kirki-generic' : kirki.util.getControlType( control.type, true );
+			controlType = ( ! _.isUndefined( control.params ) && ! _.isUndefined( control.params.type ) ) ? kirki.util.getControlType( control.params.type, true ) : controlType;
+			control.type = control.params.type = kirki.util.getControlType( controlType, true );
+
 			// Call replacement function if defined for this control-type.
 			if ( ! _.isUndefined( kirki.control[ kirki.util.getControlType( control.type ) ] ) && ! _.isUndefined( kirki.control[ kirki.util.getControlType( control.type ) ].getArgs ) ) {
 				return kirki.control[ kirki.util.getControlType( control.type ) ].getArgs( control );
 			}
 
-			// The ID.
+			// Make sure params is defined.
 			control.params = ( _.isUndefined( control.params ) ) ? {} : control.params;
-			if ( _.isUndefined( control.id ) ) {
-				if ( ! _.isUndefined( control.params.id ) ) {
-					control.id = control.params.id;
-				} else if ( _.isString( control.params.settings ) ) {
-					control.id = control.params.settings;
-				}
-			}
-			control.params.id = ( _.isUndefined( control.params.id ) && ! _.isUndefined( control.id ) ) ? control.id : control.params.id;
 
-			// The control-type.
-			controlType = ( _.isUndefined( control.type ) ) ? 'kirki-generic' : kirki.util.getControlType( control.type, true );
-			controlType = ( ! _.isUndefined( control.params ) && ! _.isUndefined( control.params.type ) ) ? kirki.util.getControlType( control.params.type, true ) : controlType;
-			control.type = control.params.type = kirki.util.getControlType( controlType, true );
+			// The ID.
+			if ( _.isUndefined( control.params.id ) && ! _.isUndefined( control.id ) ) {
+				control.params.id = control.id;
+			} else if ( _.isUndefined( control.id ) && ! _.isUndefined( control.params.id ) ) {
+				control.id = control.params.id;
+			}
 
 			if ( _.isUndefined( control.container ) ) {
 				control.container = kirki.util.controlContainer( control );

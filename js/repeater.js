@@ -72,9 +72,10 @@ kirki.control.repeater = {
 
 				// Go through each field.
 				_.each( control.params.fields, function( field, key ) {
-					if ( _.isUndefined( field.id ) ) {
-						field.id = control.id + '[' + rowKey + '][' + key + ']';
-					}
+
+					// Add the ID.
+					field.params    = ( _.isUndefined( field.params ) ) ? {} : field.params;
+					field.params.id = control.id + '[' + rowKey + '][' + key + ']';
 
 					// Get missing arguments for the field.
 					field = kirki.control.getArgs( field );
@@ -112,15 +113,13 @@ kirki.control.repeater = {
 			} );
 
 			kirki.util.controlContainer( control ).find( '.add-row' ).click( function( e ) {
-				var rowID = kirki.control.repeater.util.getLastRowID( control ) + 1;
-
 				e.preventDefault();
 
-				// Add a delay to give us time to get the last row ID.
-				setTimeout( function() {
-					jQuery( kirki.util.controlContainer( control ).find( '.repeater-rows' ) ).append( kirki.control.repeater.rowTemplate( control, rowDefaults, rowID ) );
-					kirki.control.repeater.util.sortableAccordion( control );
-				}, 50 );
+				jQuery( kirki.util.controlContainer( control )
+					.find( '.repeater-rows' ) )
+					.append( kirki.control.repeater.rowTemplate( control, rowDefaults, kirki.util.controlContainer( control ).find( '.repeater-row' ).length ) );
+
+				kirki.control.repeater.util.sortableAccordion( control );
 			} );
 		},
 
