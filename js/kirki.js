@@ -311,6 +311,53 @@ var kirki = {
 			}
 			return true;
 		}
+	},
+
+	/**
+	 * Hooks system.
+	 * Similar to WordPress's add_action() & do_action() PHP functions.
+	 * We can add new actions using the kirki.action.add() function (add_action())
+	 * and to execute these actions, we need to run kirki.action.run() (do_action()).
+	 *
+	 * @since 3.1.0
+	 */
+	action: {
+		actions: {},
+
+		/**
+		 * Adds an action.
+		 *
+		 * @param {string} [name]     The action we want to hook into.
+		 * @param {string} [callback] The callback we'll be executing.
+		 * @param {mixed}  [args]     Arguments that will be passed-on to the callback.
+		 * @returns {void}
+		 */
+		add: function( name, callback, args ) {
+			if ( _.isUndefined( kirki.action.actions[ name ] ) ) {
+				kirki.action.actions[ name ] = [];
+			}
+			kirki.action.actions[ name ].push( [ callback, args ] );
+		},
+
+		/**
+		 * Executes callbacks registered in an action.
+		 *
+		 * @param {string} [name] The action we want to run.
+		 * @returns {void}
+		 */
+		run: function( name ) {
+			if ( ! _.isUndefined( kirki.action.actions[ name ] ) ) {
+				_.each( kirki.action.actions[ name ], function( params ) {
+					if ( _.isUndefined( params[0] ) ) {
+						return;
+					}
+					params[1] = ( _.isUndefined( params[1] ) ) ? '' : params[1];
+					if ( _.isFunction( window[ params[0] ] ) ) {
+						window[ params[0] ]( params[1] );
+					}
+				} );
+			}
+		}
 	}
 };
 
