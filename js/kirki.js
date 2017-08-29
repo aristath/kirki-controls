@@ -369,6 +369,8 @@ kirki.action = {
 				params[1] = ( _.isUndefined( params[1] ) ) ? '' : params[1];
 				if ( _.isFunction( window[ params[0] ] ) ) {
 					window[ params[0] ]( params[1] );
+				} else if ( _.isFunction( params[0] ) ) {
+					params[0]( params );
 				}
 			} );
 		}
