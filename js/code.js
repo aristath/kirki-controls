@@ -7,7 +7,9 @@ kirki.control.code = {
 		    container,
 		    height;
 
+		kirki.action.run( 'kirki.control.template.before' );
 		control.container.html( kirki.control.code.template( control ) );
+		kirki.action.run( 'kirki.control.template.after' );
 
 		element = kirki.util.controlContainer( control ).find( '.kirki-codemirror-editor' );
 

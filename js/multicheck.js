@@ -1,7 +1,9 @@
 /* global wp, _, kirki */
 kirki.control.multicheck = {
 	init: function( control ) {
+		kirki.action.run( 'kirki.control.template.before' );
 		control.container.html( kirki.control.multicheck.template( control ) );
+		kirki.action.run( 'kirki.control.template.after' );
 
 		// Save the value
 		kirki.util.controlContainer( control ).on( 'change', 'input', function() {

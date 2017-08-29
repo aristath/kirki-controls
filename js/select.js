@@ -18,7 +18,9 @@ kirki.control.select = {
 			control.params.value = [ control.params.value ];
 		}
 
+		kirki.action.run( 'kirki.control.template.before' );
 		control.container.html( kirki.control.select.template( control ) );
+		kirki.action.run( 'kirki.control.template.after' );
 
 		element  = kirki.util.controlContainer( control ).find( 'select' );
 		multiple = parseInt( element.data( 'multiple' ), 10 );

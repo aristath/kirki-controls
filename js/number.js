@@ -10,7 +10,9 @@ kirki.control.number = {
 			step: 1
 		} );
 
+		kirki.action.run( 'kirki.control.template.before' );
 		control.container.html( kirki.control.number.template( control ) );
+		kirki.action.run( 'kirki.control.template.after' );
 
 		element = kirki.util.controlContainer( control ).find( 'input' );
 

@@ -10,7 +10,9 @@ kirki.control.editor = {
 		    setChange,
 		    content;
 
+		kirki.action.run( 'kirki.control.template.before' );
 		control.container.html( kirki.control.editor.template( control ) );
+		kirki.action.run( 'kirki.control.template.after' );
 
 		element      = kirki.util.controlContainer( control ).find( 'textarea' );
 		toggler      = kirki.util.controlContainer( control ).find( '.toggle-editor' );

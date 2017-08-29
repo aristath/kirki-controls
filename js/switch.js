@@ -8,7 +8,9 @@ kirki.control['switch'] = {
 		    on,
 		    off;
 
+		kirki.action.run( 'kirki.control.template.before' );
 		control.container.html( kirki.control['switch'].template( control ) );
+		kirki.action.run( 'kirki.control.template.after' );
 
 		on  = jQuery( kirki.util.controlContainer( control ).find( '.switch-on' ) );
 		off = jQuery( kirki.util.controlContainer( control ).find( '.switch-off' ) );

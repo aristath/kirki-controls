@@ -1,7 +1,9 @@
 /* global wp, _, kirki */
 kirki.control.checkbox = {
 	init: function( control ) {
+		kirki.action.run( 'kirki.control.template.before' );
 		control.container.html( kirki.control.checkbox.template( control ) );
+		kirki.action.run( 'kirki.control.template.after' );
 
 		_.defer( function() {
 

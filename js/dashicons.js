@@ -1,7 +1,9 @@
 /* global kirki */
 kirki.control.dashicons = {
 	init: function( control ) {
+		kirki.action.run( 'kirki.control.template.before' );
 		control.container.html( kirki.control.dashicons.template( control ) );
+		kirki.action.run( 'kirki.control.template.after' );
 		jQuery( '.kirki-control-wrapper-dashicons' ).on( 'click', 'input', function() {
 			kirki.setSettingValue( this, jQuery( this ).val() );
 		});

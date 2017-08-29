@@ -19,7 +19,9 @@ kirki.control.fontawesome = {
 		    },
 		    select;
 
+		kirki.action.run( 'kirki.control.template.before' );
 		control.container.html( kirki.control.fontawesome.template( control ) );
+		kirki.action.run( 'kirki.control.template.after' );
 
 		element = kirki.util.controlContainer( control ).find( 'select' ),
 

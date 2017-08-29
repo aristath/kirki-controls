@@ -9,7 +9,9 @@ kirki.control.multicolor = {
 		    irisInput,
 		    irisPicker;
 
+		kirki.action.run( 'kirki.control.template.before' );
 		control.container.html( kirki.control.multicolor.template( control ) );
+		kirki.action.run( 'kirki.control.template.after' );
 		target = kirki.util.controlContainer( control ).find( '.iris-target' );
 
 		// Colors loop.

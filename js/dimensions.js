@@ -5,7 +5,9 @@ kirki.control.dimensions = {
 			value       = {},
 			subsArray   = [];
 
+		kirki.action.run( 'kirki.control.template.before' );
 		control.container.html( kirki.control.dimensions.template( control ) );
+		kirki.action.run( 'kirki.control.template.after' );
 
 		_.each( subControls, function( v, i ) {
 			if ( true === v ) {

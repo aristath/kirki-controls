@@ -5,7 +5,9 @@ kirki.control.background = {
 		var value   = _.defaults( control.setting._value, control.params['default'] ),
 			picker;
 
+			kirki.action.run( 'kirki.control.template.before' );
 			control.container.html( kirki.control.background.template( control ) );
+			kirki.action.run( 'kirki.control.template.after' );
 
 		picker = kirki.util.controlContainer( control ).find( '.kirki-color-control' );
 

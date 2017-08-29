@@ -3,7 +3,9 @@ kirki.control.image = {
 	init: function( control ) {
 		var value   = _.defaults( control.setting._value, control.params['default'] );
 
+		kirki.action.run( 'kirki.control.template.before' );
 		control.container.html( kirki.control.image.template( control ) );
+		kirki.action.run( 'kirki.control.template.after' );
 		control.kirkiSetControlValue( value );
 
 		kirki.control.image.util.addImage( control );

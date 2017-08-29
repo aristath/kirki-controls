@@ -1,7 +1,9 @@
 /* global wp, _, kirki */
 kirki.control.sortable = {
 	init: function( control ) {
+		kirki.action.run( 'kirki.control.template.before' );
 		control.container.html( kirki.control.sortable.template( control ) );
+		kirki.action.run( 'kirki.control.template.after' );
 
 		kirki.util.controlContainer( control ).find( '.kirki-controls-loading-spinner' ).hide();
 

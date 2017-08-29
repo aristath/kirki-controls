@@ -1,7 +1,9 @@
 /* global wp, _, kirki */
 kirki.control['color-palette'] = {
 	init: function( control ) {
+		kirki.action.run( 'kirki.control.template.before' );
 		control.container.html( kirki.control['color-palette'].template( control ) );
+		kirki.action.run( 'kirki.control.template.after' );
 		jQuery( '.kirki-control-wrapper-color-palette' ).on( 'click', 'input', function() {
 			kirki.setSettingValue( this, jQuery( this ).val() );
 		});

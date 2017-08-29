@@ -9,7 +9,9 @@ kirki.control.repeater = {
 	 * @returns {void}
 	 */
 	init: function( control ) {
+		kirki.action.run( 'kirki.control.template.before' );
 		control.container.html( kirki.control.repeater.template( control ) );
+		kirki.action.run( 'kirki.control.template.after' );
 
 		kirki.control.repeater.util.addRowButton( control );
 		kirki.control.repeater.util.removeRowButton( control );

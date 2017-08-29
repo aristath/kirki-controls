@@ -7,7 +7,9 @@ kirki.control.slider = {
 		    inputDefault,
 		    changeAction;
 
+		kirki.action.run( 'kirki.control.template.before' );
 		control.container.html( kirki.control.slider.template( control ) );
+		kirki.action.run( 'kirki.control.template.after' );
 
 		// Update the text value
 		jQuery( 'input[type=range]' ).on( 'mousedown', function() {
