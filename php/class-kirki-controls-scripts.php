@@ -254,6 +254,7 @@ class Kirki_Controls_Scripts {
 			case 'kirki-dashicons':
 			case 'kirki-dimension':
 			case 'kirki-dimensions':
+			case 'kirki-image':
 				$scripts[] = 'kirki';
 				break;
 			case 'wp-color-picker-alpha':
