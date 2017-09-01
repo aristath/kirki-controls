@@ -168,6 +168,8 @@ class Kirki_Controls_Scripts {
 				return kirki_controls()->get_url( 'vendor/wp-color-picker-alpha/wp-color-picker-alpha.js' );
 			case 'select2':
 				return kirki_controls()->get_url( 'vendor/select2/js/select2.full.js' );
+			case 'select2-styles':
+				return kirki_controls()->get_url( 'vendor/select2/css/select2.min.css' );
 			default:
 				if ( false === strpos( $handle, 'kirki-' ) ) {
 					return false;
@@ -195,6 +197,11 @@ class Kirki_Controls_Scripts {
 				$scripts[] = 'customize-base';
 				break;
 			case 'kirki-background':
+				$scripts[] = 'kirki';
+				$scripts[] = 'wp-color-picker-alpha';
+				$scripts[] = 'kirki-image';
+				$styles[]  = 'wp-color-picker';
+				break;
 			case 'kirki-color':
 			case 'kirki-gradient':
 			case 'kirki-multicolor':
@@ -209,7 +216,7 @@ class Kirki_Controls_Scripts {
 			case 'kirki-fontawesome':
 				$scripts[] = 'kirki';
 				$scripts[] = 'select2';
-				$styles[]  = 'select2';
+				$styles[]  = 'select2-styles';
 				$styles[]  = 'kirki-fontawesome-font-css';
 				break;
 			case 'kirki-number':
@@ -226,7 +233,7 @@ class Kirki_Controls_Scripts {
 			case 'kirki-select':
 				$scripts[] = 'kirki';
 				$scripts[] = 'select2';
-				$styles[]  = 'select2';
+				$styles[]  = 'select2-styles';
 				break;
 			case 'kirki-sortable':
 				$scripts[] = 'kirki';
@@ -242,7 +249,7 @@ class Kirki_Controls_Scripts {
 				$scripts[] = 'wp-color-picker-alpha';
 				$scripts[] = 'select2';
 				$styles[]  = 'wp-color-picker';
-				$styles[]  = 'select2';
+				$styles[]  = 'select2-styles';
 			case 'kirki-text':
 			case 'kirki-textarea':
 				$scripts[] = 'kirki-generic';
