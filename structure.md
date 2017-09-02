@@ -13,25 +13,36 @@ kirki = {
 			 * This involves adding the HTML
 			 * and triggering any additional scripts/actions required.
 			 * Note that one of the params here will have to be
-			 * the wrapper element for the control.
+			 * the container element for the control.
 			 */
-			init: function( params ) {},
+			init: function( args ) {
+				var self = this;
+
+				self.template( params );
+			},
 
 			/**
-			 * Get the HTML.
+			 * Get the HTML for this control.
 			 * It should accept the same params as the init function
 			 * to make things easier.
 			 */
-			html : function( params ) {},
+			template : function( args ) {
+				var html = '';
 
-			/**
-			 * Set a value.
-			 * This is ONLY for the visual part of setting the value.
-			 * For example image controls must get the URL of the image,
-			 * select2 elements may need re-triggering etc.
-			 * The params argument should contain the setting-id & the value.
-			 */
-			setValue: function( params ) {}
+				// Add the HTML to the container.
+				jQuery( args.container ).html( html );
+			},
+
+			utils: {
+				/**
+				 * Set a value.
+				 * This is ONLY for the visual part of setting the value.
+				 * For example image controls must get the URL of the image,
+				 * select2 elements may need re-triggering etc.
+				 * The params argument should contain the setting-id & the value.
+				 */
+				setValue: function( id, value ) {}
+			}
 		},
 
 		/**
@@ -41,7 +52,7 @@ kirki = {
 		 * since some simple controls won't need anything complicated
 		 * and can share this method.
 		 */
-		setValue: function( params ) {}
+		setValue: function( args ) {}
 	},
 
 	/**
@@ -63,6 +74,6 @@ kirki = {
 		 * The reasons for creating this method are similar to the ones for the get method.
 		 */
 		set: function( id, value ) {}
-	}
+	},
 }
 ```
