@@ -164,6 +164,8 @@ class Kirki_Controls_Scripts {
 		switch ( $handle ) {
 			case 'kirki':
 				return kirki_controls()->get_url( 'js/kirki.js' );
+			case 'kirki-dynamic-control':
+				return kirki_controls()->get_url( 'js/kirki-dynamic-control.js' );
 			case 'wp-color-picker-alpha':
 				return kirki_controls()->get_url( 'vendor/wp-color-picker-alpha/wp-color-picker-alpha.js' );
 			case 'select2':
@@ -198,6 +200,7 @@ class Kirki_Controls_Scripts {
 				break;
 			case 'kirki-background':
 				$scripts[] = 'kirki';
+				$scripts[] = 'kirki-dynamic-control';
 				$scripts[] = 'wp-color-picker-alpha';
 				$scripts[] = 'kirki-image';
 				$styles[]  = 'wp-color-picker';
@@ -206,52 +209,63 @@ class Kirki_Controls_Scripts {
 			case 'kirki-gradient':
 			case 'kirki-multicolor':
 				$scripts[] = 'kirki';
+				$scripts[] = 'kirki-dynamic-control';
 				$scripts[] = 'wp-color-picker-alpha';
 				$styles[]  = 'wp-color-picker';
 				break;
 			case 'kirki-date':
 				$scripts[] = 'kirki';
+				$scripts[] = 'kirki-dynamic-control';
 				$scripts[] = 'jquery-ui-datepicker';
 				break;
 			case 'kirki-fontawesome':
 				$scripts[] = 'kirki';
+				$scripts[] = 'kirki-dynamic-control';
 				$scripts[] = 'select2';
 				$styles[]  = 'select2-styles';
 				$styles[]  = 'kirki-fontawesome-font-css';
 				break;
 			case 'kirki-number':
 				$scripts[] = 'kirki';
+				$scripts[] = 'kirki-dynamic-control';
 				$scripts[] = 'jquery-ui-button';
 				$scripts[] = 'jquery-ui-spinner';
 				break;
 			case 'kirki-repeater':
 				$scripts[] = 'kirki';
+				$scripts[] = 'kirki-dynamic-control';
 				$scripts[] = 'jquery-ui-sortable';
 				$scripts[] = 'jquery-ui-accordion';
 				$scripts[] = 'kirki-generic';
 				break;
 			case 'kirki-select':
 				$scripts[] = 'kirki';
+				$scripts[] = 'kirki-dynamic-control';
 				$scripts[] = 'select2';
 				$styles[]  = 'select2-styles';
 				break;
 			case 'kirki-sortable':
 				$scripts[] = 'kirki';
+				$scripts[] = 'kirki-dynamic-control';
 				$scripts[] = 'jquery-ui-core';
 				$scripts[] = 'jquery-ui-sortable';
 			case 'kirki-switch':
 			case 'kirki-toggle':
 				$scripts[] = 'kirki';
+				$scripts[] = 'kirki-dynamic-control';
 				$scripts[] = 'kirki-checkbox';
 				break;
 			case 'kirki-typography':
 				$scripts[] = 'kirki';
+				$scripts[] = 'kirki-dynamic-control';
 				$scripts[] = 'wp-color-picker-alpha';
 				$scripts[] = 'select2';
 				$styles[]  = 'wp-color-picker';
 				$styles[]  = 'select2-styles';
 			case 'kirki-text':
 			case 'kirki-textarea':
+				$scripts[] = 'kirki';
+				$scripts[] = 'kirki-dynamic-control';
 				$scripts[] = 'kirki-generic';
 				break;
 			case 'kirki-generic':
@@ -263,12 +277,16 @@ class Kirki_Controls_Scripts {
 			case 'kirki-dimensions':
 			case 'kirki-image':
 				$scripts[] = 'kirki';
+				$scripts[] = 'kirki-dynamic-control';
 				break;
 			case 'wp-color-picker-alpha':
 				$scripts[] = 'wp-color-picker';
 				break;
 			case 'select2':
 				$scripts[] = 'jquery';
+				break;
+			case 'kirki-dynamic-control':
+				$scripts[] = 'kirki';
 				break;
 		}
 		if ( isset( $this->extra_dependencies[ $handle ] ) ) {
