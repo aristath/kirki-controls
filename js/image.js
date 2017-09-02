@@ -3,6 +3,14 @@ kirki.util.image = {
 
 	initFunctions: [],
 
+	init: function() {
+		var self = this;
+
+		self.addImage();
+		self.removeImage();
+		self.defaultImage();
+	},
+
 	/**
 	 * Gets the HTML for an image-uploader.
 	 *
@@ -11,10 +19,13 @@ kirki.util.image = {
 	 * @returns string
 	 */
 	getHTML: function( params ) {
-		var html = '';
+		var self = this,
+		    html = '';
 
 		params = _.defaults( params, {
 			id: '',
+			label: '',
+			description: '',
 			'default': '',
 			l10n: {
 				remove: 'Remove',
@@ -24,34 +35,49 @@ kirki.util.image = {
 			url: '',
 			saveAs: 'url'
 		});
-		html += '<div class="kirki attachment-media-view image-upload" data-save-as="' + params.saveAs + '" data-image-upload-id="' + params.id + '" data-default="' + params['default'] + '">';
 
-			// The thumbnail.
-			html += '<div class="thumbnail thumbnail-image">';
-				html += '<img class="' + params.id + '-image" src="" alt="" />';
-			html += '</div>';
-			html += '<div class="actions">';
+		// Header markup.
+		html += '<label>';
+			html += '<span class="customize-control-title">' + params.label + '</span>';
+			if ( params.description && '' !== params.description ) {
+				html += '<span class="description customize-control-description">' + params.description + '</span>';
+			}
+		html += '</label>';
 
-				// Remove button.
-				html += '<button class="button image-upload-remove-button' + ( ! params.url ? ' hidden' : '' ) + '">';
-				 	html += params.l10n.remove;
-				html += '</button> ';
+		// Wrapper.
+		html += '<div class="wrapper">';
+			html += '<div class="image">';
+				html += '<div class="kirki attachment-media-view image-upload" data-save-as="' + params.saveAs + '" data-image-upload-id="' + params.id + '" data-default="' + params['default'] + '">';
 
-				// Upload button.
-				html += '<button type="button" class="button image-upload-button">';
-				 	html += params.l10n.selectFile;
-				html += '</button> ';
+					// The thumbnail.
+					html += '<div class="thumbnail thumbnail-image">';
+						html += '<img class="' + params.id + '-image" src="' + params.url + '" alt="" />';
+					html += '</div>';
+					html += '<div class="actions">';
 
-				// Default button.
-				if ( '' !== params['default'] ) {
-					html += '<button type="button" class="button image-default-button' + ( params.url === params['default'] ? ' hidden' : '' ) + '">';
-					 	html += params.l10n.defaultImage;
-					html += '</button>';
-				}
+						// Remove button.
+						html += '<button class="button image-upload-remove-button' + ( ! params.url ? ' hidden' : '' ) + '">';
+						 	html += params.l10n.remove;
+						html += '</button> ';
+
+						// Upload button.
+						html += '<button type="button" class="button image-upload-button">';
+						 	html += params.l10n.selectFile;
+						html += '</button> ';
+
+						// Default button.
+						if ( '' !== params['default'] ) {
+							html += '<button type="button" class="button image-default-button' + ( params.url === params['default'] ? ' hidden' : '' ) + '">';
+							 	html += params.l10n.defaultImage;
+							html += '</button>';
+						}
+					html += '</div>';
+				html += '</div>';
 			html += '</div>';
 		html += '</div>';
 
-		return html;
+		return '<div class="kirki-control-wrapper-image kirki-control-wrapper" id="kirki-control-wrapper-' + params.id + '" data-setting="' + params.id + '">' + html + '</div>';
+
 	},
 
 	/**
@@ -62,7 +88,8 @@ kirki.util.image = {
 	 * @returns {void}
 	 */
 	addImage: function() {
-		var image,
+		var self = this,
+		    image,
 			uploadedImage,
 		    value;
 
@@ -115,7 +142,7 @@ kirki.util.image = {
 				}
 
 				// Save the value.
-				kirki.util.image.saveValue( event.currentTarget, value );
+				self.saveValue( event.currentTarget, value );
 			} );
 		} );
 	},
@@ -128,7 +155,8 @@ kirki.util.image = {
 	 * @returns {void}
 	 */
 	removeImage: function( params ) {
-		var value;
+		var self = this,
+		    value;
 
 		// No need to run this every time, once it's init we're good for all controls.
 		if ( -1 !== _.indexOf( this.initFunctions, 'removeImage' ) ) {
@@ -172,7 +200,7 @@ kirki.util.image = {
 				jQuery( removeButton ).hide();
 			}
 
-			kirki.util.image.saveValue( event.currentTarget, value );
+			self.saveValue( event.currentTarget, value );
 		} );
 	},
 
@@ -183,7 +211,8 @@ kirki.util.image = {
 	 * @returns {void}
 	 */
 	defaultImage: function() {
-		var value;
+		var self = this,
+		    value;
 
 		// No need to run this every time, once it's init we're good for all controls.
 		if ( -1 !== _.indexOf( this.initFunctions, 'removeImage' ) ) {
@@ -204,14 +233,14 @@ kirki.util.image = {
 
 			// Update the value.
 			if ( 'array' === saveAs ) {
-				kirki.util.image.saveValue( event.currentTarget, {
+				self.saveValue( event.currentTarget, {
 					id: '',
 					url: defaultImage,
 					width: '',
 					height: ''
 				} );
 			} else {
-				kirki.util.image.saveValue( event.currentTarget, defaultImage );
+				self.saveValue( event.currentTarget, defaultImage );
 			}
 
 			// Update visually.
@@ -278,45 +307,41 @@ kirki.util.image = {
 	}
 };
 
-kirki.control.image = {
-	init: function( control ) {
-		var value   = _.defaults( control.setting._value, control.params['default'] );
+wp.customize.controlConstructor['kirki-image'] = wp.customize.kirkiDynamicControl.extend({
+	ready: function() {
+		var control = this,
+		    value   = _.defaults( control.setting._value, control.params['default'] ),
+		    saveAs  = ( _.isUndefined( control.params.choices ) || _.isUndefined( control.params.choices.save_as ) ) ? 'url' : control.params.choices.save_as;
 
-		kirki.action.run( 'kirki.control.template.before' );
-		control.container.html( kirki.control.image.template( control ) );
-		kirki.action.run( 'kirki.control.template.after' );
-		control.kirkiSetControlValue( value );
+		control._setUpSettingRootLinks();
+		control._setUpSettingPropertyLinks();
 
-		kirki.util.image.addImage();
-		kirki.util.image.removeImage();
-		kirki.util.image.defaultImage();
-	},
+		wp.customize.Control.prototype.ready.call( control );
 
-	/**
-	 * The HTML Template for 'image' controls.
-	 *
-	 * @param {object} [control] The control.
-	 * @returns {string}
-	 */
-	template: function( control ) {
-		var html    = '',
-			saveAs  = ( _.isUndefined( control.params.choices ) || _.isUndefined( control.params.choices.save_as ) ) ? 'url' : control.params.choices.save_as;
+		control.deferred.embedded.done( function() {
 
-		html += '<label>' + kirki.control.template.header( control ) + '</label>';
-		html += '<div class="wrapper">';
-			html += '<div class="image">';
-			 	html += kirki.util.image.getHTML({
-					id: control.id,
-					'default': control.params['default'],
-					l10n: control.params.l10n,
-					url: kirki.util.image.getURL( control.params.value ),
-					saveAs: saveAs
-				});
-			html += '</div>';
-		html += '</div>';
+			// Actions to run before we add the HTML.
+			kirki.action.run( 'kirki.control.template.before' );
 
-		return '<div class="kirki-control-wrapper-image kirki-control-wrapper" id="kirki-control-wrapper-' + control.id + '" data-setting="' + control.id + '">' + html + '</div>';
+			// Add the HTML.
+			control.container.html( kirki.util.image.getHTML( {
+				id: control.id,
+				label: control.params.label,
+				description: control.params.description,
+				'default': control.params['default'],
+				l10n: control.params.l10n,
+				url: kirki.util.image.getURL( control.params.value ),
+				saveAs: saveAs
+			} ) );
+
+			// Actions to run after we add the HTML.
+			kirki.action.run( 'kirki.control.template.after' );
+
+			// Init the control.
+			kirki.util.image.init();
+		} );
+
+		// Control is ready, any additional actions?
+		kirki.action.run( 'kirki.control.ready' );
 	}
-};
-
-wp.customize.controlConstructor['kirki-image'] = wp.customize.kirkiDynamicControl.extend({});
+} );

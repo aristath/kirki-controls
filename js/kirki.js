@@ -635,7 +635,9 @@ kirki.action = {
 		 */
 		kirkiSetControlValue: function( value, key ) {
 			var control = this;
-			kirki.control[ kirki.util.getControlType( control.params.type ) ].value.set( this, value );
+			if ( ! _.isUndefined( kirki.control[ kirki.util.getControlType( control.params.type ) ] ) && ! _.isUndefined( kirki.control[ kirki.util.getControlType( control.params.type ) ].value ) ) {
+				kirki.control[ kirki.util.getControlType( control.params.type ) ].value.set( this, value );
+			}
 		},
 
 		/**
