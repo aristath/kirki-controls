@@ -1,4 +1,8 @@
 /* global wp, _, kirki */
+
+/**
+ * Define the checkbox control functions.
+ */
 kirki.control.checkbox = {
 	/**
 	 * Initialization for checkbox controls.
@@ -18,8 +22,8 @@ kirki.control.checkbox = {
 				var $this = jQuery( this ),
 				    checkboxValue = ( $this.is( ':checked' ) ) ? true : false;
 
-				kirki.setSettingValue( $this.parents( '.kirki-control-wrapper' ).find( 'input' ), checkboxValue );
-			});
+				kirki.setting.set( args.id, checkboxValue );
+			} );
 		} );
 	},
 
@@ -32,7 +36,7 @@ kirki.control.checkbox = {
 	template: function( args ) {
 		var html = '';
 
-		html += '<div class="kirki-control-wrapper-checkbox kirki-control-wrapper" id="kirki-control-wrapper-' + args.id + '" data-setting="' + args.id + '">';
+		html += '<div class="kirki-control-wrapper-checkbox kirki-control-wrapper" data-setting="' + args.id + '">';
 			html += '<label>';
 				html += '<input data-setting="' + args.id + '" type="checkbox" ' + args.inputAttrs + 'value="' + args.value + '" ' + ( true === args.value ? ' checked' : '' ) + '/>';
 				html += args.label;
@@ -51,6 +55,9 @@ kirki.control.checkbox = {
 	}
 };
 
+/**
+ * Add the checkbox control to the customizer API.
+ */
 wp.customize.controlConstructor['kirki-checkbox'] = wp.customize.kirkiDynamicControl.extend({
 	ready: function() {
 		var control = this;
@@ -62,7 +69,7 @@ wp.customize.controlConstructor['kirki-checkbox'] = wp.customize.kirkiDynamicCon
 
 		control.deferred.embedded.done( function() {
 
-			// Add the HTML.
+			// Add the control.
 			kirki.control.checkbox.init({
 				id: control.id,
 				label: control.params.label,

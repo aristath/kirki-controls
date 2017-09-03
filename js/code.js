@@ -1,40 +1,33 @@
 /* global wp, _, CodeMirror, kirki */
 kirki.control.code = {
-	init: function( control ) {
-		var language = ( 'html' === control.params.choices.language ) ? { name: 'htmlmixed' } : control.params.choices.language,
+	/**
+	 * Initialization for code controls.
+	 *
+	 * @param {object} [args] The arguments.
+	 */
+	init: function( args ) {
+		var self     = this,
+		    language = ( 'html' === args.language ) ? { name: 'htmlmixed' } : args.language,
 		    element,
 		    editor,
 		    container,
 		    height;
 
-		kirki.action.run( 'kirki.control.template.before' );
-		control.container.html( kirki.control.code.template( control ) );
-		kirki.action.run( 'kirki.control.template.after' );
+		self.template( args );
 
-		element = kirki.util.controlContainer( control ).find( '.kirki-codemirror-editor' );
+		element = jQuery( args.container ).find( '.kirki-codemirror-editor' );
 
 		editor = CodeMirror.fromTextArea( element[0], {
-			value:        control.setting._value,
-			mode:         language,
-			lineNumbers:  true,
-			lineWrapping: true,
-			theme:        control.params.choices.theme
+			value: args.value,
+			mode: args.language,
+			lineNumbers: args.lineNumbers,
+			lineWrapping: args.lineWrapping,
+			theme: args.theme
 		} );
-
-		if ( ! _.isUndefined( control.params.choices.height ) ) {
-			height = Number( control.params.choices.height );
-			if ( ! isNaN( height ) ) {
-				container = kirki.util.controlContainer( control ).find( '.codemirror-kirki-wrapper' );
-				jQuery( container ).css( 'max-height', function() {
-					return control.params.choices.height;
-				} );
-				editor.setSize( null, control.params.choices.height );
-			}
-		}
 
 		// On change make sure we infor the Customizer API
 		editor.on( 'change', function() {
-			control.setting.set( editor.getValue() );
+			kirki.setting.set( args.id, editor.getValue() );
 		} );
 
 		// Hack to refresh the editor when we open a section
@@ -49,31 +42,65 @@ kirki.control.code = {
 	 * @param {object} [control] The control.
 	 * @returns {string}
 	 */
-	template: function( control ) {
+	template: function( args ) {
 		var html    = '';
 
-		html += '<label>';
-			html += kirki.control.template.header( control );
-			html += '<div class="codemirror-kirki-wrapper">';
-				html += '<textarea ' + control.params.inputAttrs + ' class="kirki-codemirror-editor">' + control.params.value + '</textarea>';
-			html += '</div>';
-		html += '</label>';
+		args.label       = args.label || '';
+		args.description = args.description || false;
+		args.inputAttrs  = args.inputAttrs || '';
 
-		return '<div class="kirki-control-wrapper-code kirki-control-wrapper" id="kirki-control-wrapper-' + control.id + '" data-setting="' + control.id + '">' + html + '</div>';
+		html += '<div class="kirki-control-wrapper-code kirki-control-wrapper" data-setting="' + args.id + '">';
+			html += '<label>';
+				html += '<span class="customize-control-title">' + args.label + '</span>';
+				html += ( args.description ) ? '<span class="description customize-control-description">' + args.description + '</span>' : '';
+				html += '<div class="codemirror-kirki-wrapper">';
+					html += '<textarea ' + args.inputAttrs + ' class="kirki-codemirror-editor">' + args.value + '</textarea>';
+				html += '</div>';
+			html += '</label>';
+		html += '</div>';
+
+		jQuery( args.container ).html( html );
 	},
 
-	/**
-	 * Changes the value visually for 'code' controls.
-	 *
-	 * @param {object} [control] The control.
-	 * @param {string} [value]   The value.
-	 * @returns {void}
-	 */
-	value: {
-		set: function( control, value ) {
-			jQuery( kirki.util.controlContainer( control ).find( '.CodeMirror' ) )[0].CodeMirror.setValue( value );
+	utils: {
+		/**
+		 * Changes the value visually for 'code' controls.
+		 *
+		 * @param {object} [control] The control.
+		 * @param {string} [value]   The value.
+		 * @returns {void}
+		 */
+		setValue: {
+			set: function( id, value ) {
+				var container = jQuery( '.kirki-control-wrapper[data-setting="' + id + '"]' );
+				jQuery( container.find( '.CodeMirror' ) )[0].CodeMirror.setValue( value );
+			}
 		}
 	}
 };
 
-wp.customize.controlConstructor['kirki-code'] = wp.customize.kirkiDynamicControl.extend({});
+wp.customize.controlConstructor['kirki-code'] = wp.customize.kirkiDynamicControl.extend({
+	ready: function() {
+		var control = this,
+		    args    = {
+				id: control.id,
+				label: control.params.label,
+				description: control.params.description,
+				'default': control.params['default'],
+				container: control.container,
+				value: control.setting._value
+		    };
+
+		control._setUpSettingRootLinks();
+		control._setUpSettingPropertyLinks();
+
+		wp.customize.Control.prototype.ready.call( control );
+
+		control.deferred.embedded.done( function() {
+
+			// Add the control.
+
+			kirki.control.code.init( _.defaults( args, control.params.choices ) );
+		});
+	}
+});

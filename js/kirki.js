@@ -1,94 +1,23 @@
 /* global wp, _ */
-var kirki = {};
+var kirki = kirki || {};
 
-kirki.control = {
+kirki.control = kirki.control || {};
+kirki.setting = kirki.setting || {};
 
-	/**
-	 * Gets the field, making sure it has any arguments required.
-	 *
-	 * @since 3.1.0
-	 * @param {object} [control] The control object.
-	 * @returns {object}
-	 */
-	getArgs: function( control ) {
-		var controlType;
-
-		// The control-type.
-		controlType = ( _.isUndefined( control.type ) ) ? 'kirki-generic' : kirki.util.getControlType( control.type, true );
-		controlType = ( ! _.isUndefined( control.params ) && ! _.isUndefined( control.params.type ) ) ? kirki.util.getControlType( control.params.type, true ) : controlType;
-		control.type = control.params.type = kirki.util.getControlType( controlType, true );
-
-		// Call replacement function if defined for this control-type.
-		if ( ! _.isUndefined( kirki.control[ kirki.util.getControlType( control.type ) ] ) && ! _.isUndefined( kirki.control[ kirki.util.getControlType( control.type ) ].getArgs ) ) {
-			return kirki.control[ kirki.util.getControlType( control.type ) ].getArgs( control );
-		}
-
-		// Make sure params is defined.
-		control.params = ( _.isUndefined( control.params ) ) ? {} : control.params;
-
-		// The ID.
-		if ( _.isUndefined( control.params.id ) && ! _.isUndefined( control.id ) ) {
-			control.params.id = control.id;
-		} else if ( _.isUndefined( control.id ) && ! _.isUndefined( control.params.id ) ) {
-			control.id = control.params.id;
-		}
-
-		if ( _.isUndefined( control.container ) ) {
-			control.container = kirki.util.controlContainer( control );
-		}
-
-		// Label.
-		if ( _.isUndefined( control.params.label ) ) {
-			control.params.label = ( ! _.isUndefined( control.label ) ) ? control.label : '';
-		}
-
-		// Description.
-		if ( _.isUndefined( control.params.description ) ) {
-			control.params.description = ( ! _.isUndefined( control.description ) ) ? control.description : '';
-		}
-
-		// Attributes.
-		if ( _.isUndefined( control.params.inputAttrs ) ) {
-			control.params.inputAttrs = ( ! _.isUndefined( control.inputAttrs ) ) ? control.inputAttrs : '';
-		}
-
-		return control;
-	},
-
-	/**
-	 * An object containing template-specific functions.
-	 *
-	 * @since 3.1.0
-	 */
-	template: {
-
-		/**
-		 * Gets the HTML for control headers.
-		 *
-		 * @since 3.1.0
-		 * @param {object} [control] The control object.
-		 * @return {string}
-		 */
-		header: function( control ) {
-			var html = '';
-
-			html += '<span class="customize-control-title">' + control.params.label + '</span>';
-			if ( control.params.description && '' !== control.params.description ) {
-				html += '<span class="description customize-control-description">' + control.params.description + '</span>';
-			}
-			return html;
-		}
-	}
-};
+kirki.control.setValue = function() {};
 
 /**
  * Gets the value of a setting.
+ *
+ * This is a helper function that allows us to get the value of
+ * control[key1][key2] for example, when the setting used in the
+ * customizer API is "control".
  *
  * @since 3.1.0
  * @param {string} [setting] The setting for which we're getting the value.
  * @returns {(string|array|object|bool)} Depends on the value.
  */
-kirki.getSettingValue = function( setting ) {
+kirki.setting.get = function( setting ) {
 	var parts = setting.split( '[' ),
 		foundSetting = '',
 		foundInStep  = 0,
@@ -116,7 +45,7 @@ kirki.getSettingValue = function( setting ) {
 	});
 
 	return currentVal;
-},
+};
 
 /**
  * Sets the value of a setting.
@@ -129,22 +58,31 @@ kirki.getSettingValue = function( setting ) {
  * and also take into account any defined "key" arguments which take this even deeper.
  *
  * @since 3.1.0
- * @param {string}                     [element] The DOM element whose value has changed.
- *                                               We'll use this to find the setting from its wrapper parent.
+ * @param {object}                     [element] The DOM element whose value has changed.
+ *                                               Format: {element:value, context:id|element}.
+ *                                               We'll use this to find the setting.
  * @param {(string|array|bool|object)} [value]   Depends on the control-type.
  * @param {string}                     [key]     If we only want to save an item in an object
  *                                               we can define the key here.
  * @returns {void}
  */
-kirki.setSettingValue = function( element, value, key ) {
-	var setting       = jQuery( element ).parents( '.kirki-control-wrapper' ).attr( 'data-setting' ),
-	    parts         = setting.split( '[' ),
+kirki.setting.set = function( element, value, key ) {
+	var setting,
+	    parts,
 	    currentNode   = '',
 	    foundNode     = '',
 	    subSettingObj = {},
 	    currentVal,
 	    subSetting,
 	    subSettingParts;
+
+	// Get the setting from the element.
+	if ( jQuery( element ).attr( 'data-setting' ) ) {
+		setting = jQuery( element ).attr( 'data-setting' );
+	} else {
+		setting = jQuery( element ).parents( '.kirki-control-wrapper' ).attr( 'data-setting' );
+	}
+	parts = setting.split( '[' ),
 
 	// Find the setting we're using in the control using the customizer API.
 	_.each( parts, function( part, i ) {
@@ -203,7 +141,35 @@ kirki.setSettingValue = function( element, value, key ) {
 	wp.customize.control( foundNode ).setting.set( value );
 };
 
-kirki.value = {
+kirki.control = {
+
+	/**
+	 * An object containing template-specific functions.
+	 *
+	 * @since 3.1.0
+	 */
+	template: {
+
+		/**
+		 * Gets the HTML for control headers.
+		 *
+		 * @since 3.1.0
+		 * @param {object} [control] The control object.
+		 * @return {string}
+		 */
+		header: function( control ) {
+			var html = '';
+
+			html += '<span class="customize-control-title">' + control.params.label + '</span>';
+			if ( control.params.description && '' !== control.params.description ) {
+				html += '<span class="description customize-control-description">' + control.params.description + '</span>';
+			}
+			return html;
+		}
+	}
+};
+
+Kirki.value = {
 	set: {
 
 		/**
