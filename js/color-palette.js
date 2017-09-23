@@ -61,7 +61,7 @@ kirki.control['color-palette'] = {
 		 * @param {object} [value]   The value.
 		 * @returns {void}
 		 */
-		set: function( id, value ) {
+		setValue: function( id, value ) {
 			jQuery( '[data-setting="' + id + '"]' ).find( 'input[value="' + value + '"]' ).prop( 'checked', true );
 		}
 	}

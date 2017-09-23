@@ -1,11 +1,11 @@
 /* global kirki */
 kirki.control.dashicons = {
-	init: function( control ) {
-		kirki.action.run( 'kirki.control.template.before' );
-		control.container.html( kirki.control.dashicons.template( control ) );
-		kirki.action.run( 'kirki.control.template.after' );
-		jQuery( '.kirki-control-wrapper-dashicons' ).on( 'click', 'input', function() {
-			kirki.setSettingValue( this, jQuery( this ).val() );
+	init: function( args ) {
+		var self = this;
+
+		args.container.html( self.template( args ) );
+		jQuery( args.container + '.kirki-control-wrapper-dashicons' ).on( 'click', 'input', function() {
+			kirki.setting.set( args.id, jQuery( this ).val() );
 		});
 	},
 
@@ -15,32 +15,32 @@ kirki.control.dashicons = {
 	 * @param {object} [control] The control.
 	 * @returns {string}
 	 */
-	template: function( control ) {
+	template: function( args ) {
 		var html = '',
-		    data = control.params,
 		    cats = ['admin-menu', 'welcome-screen', 'post-formats', 'media', 'image-editing', 'tinymce', 'posts', 'sorting', 'social', 'wordpress_org', 'products', 'taxonomies', 'widgets', 'notifications', 'misc'];
 
-		html += kirki.control.template.header( control );
+		html += '<span class="customize-control-title">' + args.label + '</span>';
+		html += ( args.description ) ? '<span class="description customize-control-description">' + args.description + '</span>' : '';
 		html += '<div class="icons-wrapper">';
-			if ( ! _.isUndefined( data.choices ) && 1 < _.size( data.choices ) ) {
-				_.each( data.choices, function( val, key ) {
-					html += '<input ' + data.inputAttrs + ' class="dashicons-select" type="radio" value="' + key + '" name="_customize-dashicons-radio-' + data.id + '" id="' + data.id + key + '" ' + data.link + ( data.value === key ? ' checked="checked"' : '' ) + '>';
-						html += '<label for="' + data.id + key + '"><span class="dashicons dashicons-' + data.choices[ key ] + '"></span></label>';
+			if ( ! _.isUndefined( args.choices ) && 1 < _.size( args.choices ) ) {
+				_.each( args.choices, function( val, key ) {
+					html += '<input ' + args.inputAttrs + ' class="dashicons-select" type="radio" value="' + key + '" name="_customize-dashicons-radio-' + args.id + '" id="' + args.id + key + '" ' + args.link + ( args.value === key ? ' checked="checked"' : '' ) + '>';
+						html += '<label for="' + args.id + key + '"><span class="dashicons dashicons-' + args.choices[ key ] + '"></span></label>';
 					html += '</input>';
 				} );
 			} else {
 				_.each( cats, function( cat ) {
-					html += '<h4>' + data.l10n[ cat ] + '</h4>';
-					_.each( data.icons[ cat ], function( val ) {
-						html += '<input ' + data.inputAttrs + ' class="dashicons-select" type="radio" value="' + val + '" name="_customize-dashicons-radio-' + data.id + '" id="' + data.id + val + '" ' + data.link + ( data.value === val ? ' checked="checked"' : '' ) + '>';
-							html += '<label for="' + data.id + val + '"><span class="dashicons dashicons-' + val + '"></span></label>';
+					html += '<h4>' + args.l10n[ cat ] + '</h4>';
+					_.each( args.icons[ cat ], function( val ) {
+						html += '<input ' + args.inputAttrs + ' class="dashicons-select" type="radio" value="' + val + '" name="_customize-dashicons-radio-' + args.id + '" id="' + args.id + val + '" ' + args.link + ( args.value === val ? ' checked="checked"' : '' ) + '>';
+							html += '<label for="' + args.id + val + '"><span class="dashicons dashicons-' + val + '"></span></label>';
 						html += '</input>';
 					} );
 				} );
 			}
 		html += '</div>';
 
-		return '<div class="kirki-control-wrapper-dashicons kirki-control-wrapper" id="kirki-control-wrapper-' + control.id + '" data-setting="' + control.id + '">' + html + '</div>';
+		return '<div class="kirki-control-wrapper-dashicons kirki-control-wrapper" id="kirki-control-wrapper-' + args.id + '" data-setting="' + args.id + '">' + html + '</div>';
 	},
 
 	value: {
@@ -57,4 +57,29 @@ kirki.control.dashicons = {
 	}
 };
 
-wp.customize.controlConstructor['kirki-dashicons'] = wp.customize.kirkiDynamicControl.extend({});
+wp.customize.controlConstructor['kirki-dashicons'] = wp.customize.kirkiDynamicControl.extend({
+	ready: function() {
+		var control = this;
+
+		control._setUpSettingRootLinks();
+		control._setUpSettingPropertyLinks();
+
+		wp.customize.Control.prototype.ready.call( control );
+
+		control.deferred.embedded.done( function() {
+
+			// Add the control.
+			kirki.control.color.init({
+				id: control.id,
+				label: control.params.label,
+				description: control.params.description,
+				'default': control.params['default'],
+				container: control.container,
+				inputAttrs: control.params.inputAttrs || '',
+				choices: control.params.choices || {},
+				value: control.setting._value,
+				link: control.link
+			});
+		});
+	}
+});
