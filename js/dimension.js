@@ -1,9 +1,7 @@
 /* global wp, _, kirki */
 kirki.control.dimension = {
 	init: function( control ) {
-		kirki.action.run( 'kirki.control.template.before' );
 		control.container.html( kirki.control.dimension.template( control ) );
-		kirki.action.run( 'kirki.control.template.after' );
 
 		// Notifications.
 		kirki.control.dimension.notifications( control );

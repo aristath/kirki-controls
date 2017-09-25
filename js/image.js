@@ -320,9 +320,6 @@ wp.customize.controlConstructor['kirki-image'] = wp.customize.kirkiDynamicContro
 
 		control.deferred.embedded.done( function() {
 
-			// Actions to run before we add the HTML.
-			kirki.action.run( 'kirki.control.template.before' );
-
 			// Add the HTML.
 			control.container.html( kirki.util.image.getHTML( {
 				id: control.id,
@@ -334,14 +331,8 @@ wp.customize.controlConstructor['kirki-image'] = wp.customize.kirkiDynamicContro
 				saveAs: saveAs
 			} ) );
 
-			// Actions to run after we add the HTML.
-			kirki.action.run( 'kirki.control.template.after' );
-
 			// Init the control.
 			kirki.util.image.init();
 		} );
-
-		// Control is ready, any additional actions?
-		kirki.action.run( 'kirki.control.ready' );
 	}
 } );

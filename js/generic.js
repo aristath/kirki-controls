@@ -4,9 +4,7 @@ kirki.control.generic = {
 	init: function( control ) {
 		var element = control.params.choices.element ? control.params.choices.element : 'input';
 
-		kirki.action.run( 'kirki.control.template.before' );
 		control.container.html( kirki.control.generic.template( control ) );
-		kirki.action.run( 'kirki.control.template.after' );
 
 		// Save the value
 		kirki.util.controlContainer( control ).on( 'change keyup paste click', element, function() {

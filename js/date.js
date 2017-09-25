@@ -4,9 +4,7 @@ kirki.control.date = {
 	init: function( control ) {
 		var selector = control.selector + ' input.datepicker';
 
-		kirki.action.run( 'kirki.control.template.before' );
 		control.container.html( kirki.control.date.template( control ) );
-		kirki.action.run( 'kirki.control.template.after' );
 
 		// Init the datepicker
 		jQuery( selector ).datepicker();

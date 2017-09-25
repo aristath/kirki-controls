@@ -32,7 +32,6 @@
 
 			control.propertyElements = [];
 			wp.customize.Control.prototype.initialize.call( control, id, args );
-			kirki.action.run( 'kirki.control.initialize' );
 		},
 
 		/**
@@ -120,7 +119,6 @@
 					control.initKirkiControl();
 				}
 			} );
-			kirki.action.run( 'kirki.control.ready' );
 		},
 
 		/**
@@ -151,7 +149,6 @@
 					} );
 				}
 			} );
-			kirki.action.run( 'kirki.control.embed' );
 		},
 
 		/**
@@ -168,7 +165,7 @@
 				return;
 			}
 			control.renderContent();
-			kirki.action.run( 'kirki.control.actuallyEmbed' );
+
 			control.deferred.embedded.resolve(); // This triggers control.ready().
 		},
 
@@ -211,7 +208,6 @@
 		 * @returns {void}
 		 */
 		getHTML: function( control ) {
-			kirki.action.run( 'kirki.control.getHTML' );
 			return kirki.control[ kirki.util.getControlType( control.params.type ) ].template( control );
 		},
 
