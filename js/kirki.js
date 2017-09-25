@@ -27,7 +27,7 @@ var kirki = kirki || {
 					return '<textarea ' + args.inputAttrs + '>' + args.value + '</textarea>';
 
 				case 'select':
-					html += '<select ' + args.inputAttrs + ( 1 < args.multiple ? ' data-multiple="' + args.multiple + '" multiple="multiple"' : '' ) + '>';
+					html += '<select data-id="' + args.id + '" ' + args.inputAttrs + ( 1 < args.multiple ? ' data-multiple="' + args.multiple + '" multiple="multiple"' : '' ) + '>';
 						_.each( args.choices, function( optionLabel, optionKey ) {
 
 							// Is this option selected?
@@ -87,7 +87,36 @@ var kirki = kirki || {
 		},
 
 		init: function( args ) {
+			var element;
 
+			switch ( args.type ) {
+				case 'textarea':
+					break;
+				case 'select':
+					element = 'select[data-id=' + args.id + ']';
+
+					// Init select2 for this element.
+					jQuery( element ).select2( {
+						escapeMarkup: function( markup ) {
+							return markup;
+						},
+						maximumSelectionLength: args.multiple
+					} ).on( 'change', function() {
+						kirki.setting.set( this, jQuery( this ).val() );
+					} );
+					break;
+
+				case 'radio':
+					break;
+
+				case 'color':
+					break;
+
+				case 'checkbox':
+					break;
+
+				default:
+			}
 		}
 	},
 
