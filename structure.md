@@ -55,6 +55,32 @@ kirki = {
 		setValue: function( args ) {}
 	},
 
+	input: {
+		/**
+		 * Get the template for an input field.
+		 */
+		getTemplate: function( args ) {
+			args.type = args.type || 'text';
+			switch ( args.type ) {
+				case 'textarea':
+					break;
+				case 'select':
+					break;
+				case 'radio':
+					break;
+				case 'color':
+					break;
+				case 'checkbox':
+					break;
+				default:
+			}
+		}
+
+		init: function( args ) {
+
+		}
+	},
+
 	/**
 	 * This will be global in the kirki object.
 	 * Will contain functions for getting & setting values.
